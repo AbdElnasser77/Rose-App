@@ -1,0 +1,19 @@
+<label [for]="id">{{ label }}</label>
+
+<input 
+[id]="id"
+[value]="value()"
+[type]="type === 'password' && showPassword() ? 'text' : type"
+[placeholder]="placeholder"
+[disabled]="isDisabled()"
+[readonly]="readonly"
+[maxlength]="maxlength"
+(input)="updateValue($event)"
+(blur)="markAsTouched()"
+
+/>
+@if(error){
+<div  class="error">
+  {{ error }}
+</div>
+}
