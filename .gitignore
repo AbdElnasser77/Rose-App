@@ -8,6 +8,11 @@ out-tsc
 # dependencies
 node_modules
 
+# environment variables
+.env
+.env.*
+!.env.example
+
 # IDEs and editors
 /.idea
 .project
@@ -38,17 +43,24 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Nx
 .nx/cache
 .nx/workspace-data
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
-
-.angular
-.claude
-.playwright-mcp
-
-vite.config.*.timestamp*
-vitest.config.*.timestamp*
-
 .nx/polygraph
 .nx/self-healing
+
+# AI tool configs (local/personal, not shared)
+.claude
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+.playwright-mcp
+
+# Angular
+.angular
+
+# Verdaccio local registry
+.verdaccio
+
+# Vite
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
