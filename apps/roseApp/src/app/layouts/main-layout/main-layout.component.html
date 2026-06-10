@@ -1,0 +1,12 @@
+@if (!isLoggedIn) {
+  <app-navbar />
+}
+
+@if (isLoggedIn) {
+  <app-secondary-navbar />
+}
+<main class="min-h-screen">
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>
