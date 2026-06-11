@@ -1,4 +1,0 @@
-{
-  "dashboard": "http://localhost:4201/mf-manifest.json",
-  "roseApp": "http://localhost:4203/mf-manifest.json"
-}
