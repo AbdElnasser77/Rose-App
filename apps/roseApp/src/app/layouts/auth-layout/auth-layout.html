@@ -1,0 +1,24 @@
+<div class="w-screen h-screen flex">
+  <div class="max-w-2xl w-full mx-auto sm:w-1/2 flex flex-col my-15">
+    <div class="settings w-full flex justify-between pb-5 px-5">
+      <button class="cursor-pointer">
+        <img src="/assets/images/dark-mode.svg" class="w-6 h-6" alt="" />
+      </button>
+      <button class="font-zain cursor-pointer">العربية</button>
+    </div>
+    <div class="my-auto">
+      <img src="/assets/images/separator.svg" class="w-100 m-auto" alt="" />
+      <div class="page-wrapper px-5 my-5">
+        <router-outlet></router-outlet>
+      </div>
+      <img
+        src="/assets/images/separator.svg"
+        class="w-100 m-auto rotate-180"
+        alt=""
+      />
+    </div>
+  </div>
+  <div
+    class="w-1/2 h-screen bg-[url('/assets/images/AuthBackground.webp')] bg-cover bg-center bg-no-repeat"
+  ></div>
+</div>
