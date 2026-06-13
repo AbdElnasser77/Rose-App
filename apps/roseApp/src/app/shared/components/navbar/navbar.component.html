@@ -1,0 +1,79 @@
+<nav class="bg-white border border-gray-200">
+
+  <div class="h-[58px] px-6 flex items-center">
+
+    <!-- Logo -->
+    <div class="shrink-0">
+      <img
+        src="http://localhost:4203/assets/logo.png"
+        alt="Rose Logo"
+        class="w-16 h-16 object-contain"
+      />
+    </div>
+
+    <!-- Search -->
+    <div class="flex-1 mx-4">
+      <input
+        type="text"
+        placeholder="What awesome gift are you looking for ?"
+        class="w-full h-[38px] px-4 border border-gray-300 rounded-md text-sm outline-none"
+      />
+    </div>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <button
+        (click)="goToLogin()"
+        class="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8B1E24]"
+      >
+        <i class="fa-regular fa-user text-sm"></i>
+        <span>Login</span>
+      </button>
+
+      <button class="hover:text-[#8B1E24]">
+        <i class="fa-regular fa-heart text-lg"></i>
+      </button>
+
+      <button class="hover:text-[#8B1E24]">
+        <i class="fa-solid fa-cart-shopping text-lg"></i>
+      </button>
+
+      <button class="hover:text-[#8B1E24]">
+        <i class="fa-regular fa-bell text-lg"></i>
+      </button>
+
+      <div class="w-px h-6 bg-gray-300"></div>
+
+      <button class="text-sm text-gray-700">
+        العربية
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Red Menu -->
+  <div class="bg-[#8B1E24] h-[34px] flex items-center justify-center">
+
+    <div class="flex items-center gap-10 text-white text-xs">
+
+      <a class="border-b border-white pb-1 cursor-pointer">
+        Home
+      </a>
+
+      <a class="cursor-pointer">Products</a>
+
+      <a class="cursor-pointer">Categories</a>
+
+      <a class="cursor-pointer">Occasions</a>
+
+      <a class="cursor-pointer">Contact</a>
+
+      <a class="cursor-pointer">About</a>
+
+    </div>
+
+  </div>
+
+</nav>

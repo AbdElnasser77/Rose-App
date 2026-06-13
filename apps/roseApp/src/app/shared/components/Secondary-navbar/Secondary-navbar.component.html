@@ -1,0 +1,149 @@
+<div class="relative">
+
+  <!-- Top Navbar -->
+  <div class="bg-white h-16 px-6 flex items-center justify-between border-b">
+
+    <!-- Left -->
+    <div class="flex items-center gap-4">
+
+<img
+ src="http://localhost:4203/assets/logo.png"
+  alt="logo"
+  class="w-14 h-14 object-contain"
+/>
+      <div class="text-sm">
+        <p class="text-gray-400">Deliver to:</p>
+
+        <div class="flex items-center gap-1 text-[#8B1E24]">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Cairo</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Search -->
+    <div class="flex-1 mx-8">
+      <input
+        type="text"
+        placeholder="What awesome gift are you looking for?"
+        class="w-full border rounded-md px-4 py-2 outline-none"
+      />
+    </div>
+
+    <!-- Right -->
+    <div class="flex items-center gap-5">
+
+      <!-- User -->
+      <div class="relative">
+
+        <button
+          (click)="toggleDropdown()"
+          class="flex items-center gap-2 cursor-pointer"
+        >
+          <div class="text-left">
+            <p class="text-xs text-gray-400">Hello</p>
+            <p class="text-sm text-[#8B1E24] font-medium">
+              Jonathan
+            </p>
+          </div>
+
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+        </button>
+
+        @if (isDropdownOpen) {
+
+        <div
+          class="absolute right-0 top-12 bg-white rounded-lg shadow-lg w-56 z-50 overflow-hidden"
+        >
+
+          <div class="p-4 font-semibold text-[#8B1E24] border-b">
+            Jonathan Adrian
+          </div>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+            Account
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+            Addresses
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+            Orders
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+            Dashboard
+          </button>
+
+          <button
+            (click)="logout()"
+            class="w-full text-left px-4 py-3 hover:bg-gray-100 text-red-600"
+          >
+            Log out
+          </button>
+
+        </div>
+
+        }
+
+      </div>
+
+      <!-- Wishlist -->
+      <button>
+        <i class="fa-regular fa-heart text-lg"></i>
+      </button>
+
+      <!-- Cart -->
+      <div class="relative">
+        <i class="fa-solid fa-cart-shopping text-lg"></i>
+
+        <span
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center"
+        >
+          2
+        </span>
+      </div>
+
+      <!-- Notification -->
+      <div class="relative">
+        <i class="fa-regular fa-bell text-lg"></i>
+
+        <span
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center"
+        >
+          2
+        </span>
+      </div>
+
+      <span>العربية</span>
+
+    </div>
+
+  </div>
+
+  <!-- Red Menu -->
+  <div
+    class="bg-[#8B1E24] text-white h-10 flex items-center justify-center"
+  >
+
+    <div class="flex items-center gap-8 text-sm">
+
+      <a href="#">Home</a>
+
+      <a href="#">Products</a>
+
+      <a href="#">Categories</a>
+
+      <a href="#">Occasions</a>
+
+      <a href="#">Contact</a>
+
+      <a href="#">About</a>
+
+    </div>
+
+  </div>
+
+</div>
