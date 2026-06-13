@@ -1,13 +1,14 @@
-import { Component,  forwardRef,  Input, signal} from '@angular/core';
-import {   NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
-import { InputType } from '../../../../../types/input.type';
-import { CommonModule } from '@angular/common'; 
-import { ControlValueAccessorDirective } from '../../directives/control-value-accessor.directive/control-value-accessor-directive';
-import { ValidationErrorsComponent } from "../validation-errors/validation-errors.component";
+import { Component, forwardRef, Input, signal } from '@angular/core';
+import { ControlValueAccessorDirective } from '../../directives/control-value-accessor-directive';
+import { InputType } from '../../types/input.type';
 import { Eye, EyeOff ,LucideAngularModule} from 'lucide-angular';
+import { ValidationErrorsComponent } from "../validation-errors/validation-errors.component";
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'lib-reusable-input',
-  imports: [CommonModule, ValidationErrorsComponent,LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, ValidationErrorsComponent],
   templateUrl: './reusable-input.component.html',
   styleUrl: './reusable-input.component.scss',
   providers: [
@@ -17,7 +18,6 @@ import { Eye, EyeOff ,LucideAngularModule} from 'lucide-angular';
       multi: true,
     },
   ],
-  
 })
 export class ReusableInputComponent <T> extends ControlValueAccessorDirective<T> {
  readonly Eye = Eye;

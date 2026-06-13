@@ -1,11 +1,9 @@
 import { Directive, forwardRef, inject, Injector, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors } from '@angular/forms';
-
 @Directive({
   selector: '[libControlValueAccessorDirective]',
-  
 })
-export class ControlValueAccessorDirective<T> implements ControlValueAccessor {
+export class ControlValueAccessorDirective <T> implements ControlValueAccessor {
    private injector = inject(Injector);
 
    value = signal<T | null>(null);
@@ -47,3 +45,4 @@ get errors(): ValidationErrors | null {
   return this.control?.errors ?? null;
 }
 }
+

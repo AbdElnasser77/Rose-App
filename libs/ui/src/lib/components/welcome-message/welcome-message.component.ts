@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './welcome-message.component.scss',
 })
 export class WelcomeMessageComponent {
-    @Input() title = 'Welcome back!';
+      @Input() title = 'Welcome back!';
 
 }
