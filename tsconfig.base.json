@@ -20,7 +20,8 @@
       ],
       "roseApp/Routes": ["./apps/roseApp/src/app/remote-entry/entry.routes.ts"],
       "@rose/models": ["./libs/shared/models/src/index.ts"],
-      "@org/ui": ["./libs/ui/src/index.ts"]
+      "@org/ui": ["./libs/ui/src/index.ts"],
+      "@org/auth": ["./libs/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
