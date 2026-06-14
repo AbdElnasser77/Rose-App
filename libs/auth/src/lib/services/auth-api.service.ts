@@ -25,7 +25,7 @@ export class AuthApiService implements AuthAbstract {
 
   sendEmailVerification(data: EmailRequestModel): Observable<MessagePayloadModel> {
     return this._httpClient.post<MessageResponseModel>(
-      `${this._baseUrlConfig}/send-email-verification`,
+      `${this._baseUrlConfig.apiUrl}/send-email-verification`,
       data
     ).pipe(
         map((res) => this._messageAdaptor.adapt(res))
@@ -34,7 +34,7 @@ export class AuthApiService implements AuthAbstract {
   }
   confirmEmailVerification(data: ConfirmEmailVerificationRequestModel): Observable<MessagePayloadModel> {
      return this._httpClient.post<MessageResponseModel>(
-      `${this._baseUrlConfig}/confirm-email-verification`,
+      `${this._baseUrlConfig.apiUrl}/confirm-email-verification`,
       data
     ).pipe(
         map((res) => this._messageAdaptor.adapt(res))
@@ -43,7 +43,7 @@ export class AuthApiService implements AuthAbstract {
   }
   register(data: RegisterRequestModel): Observable<AuthPayloadModel> {
      return this._httpClient.post<AuthResponseModel>(
-      `${this._baseUrlConfig}/register`,
+      `${this._baseUrlConfig.apiUrl}/register`,
       data
     ).pipe(
         map((res) => this._authAdaptor.adapt(res))
@@ -52,7 +52,7 @@ export class AuthApiService implements AuthAbstract {
   }
   login(data: LoginRequestModel): Observable<AuthPayloadModel> {
     return this._httpClient.post<AuthResponseModel>(
-      `${this._baseUrlConfig}/login`,
+      `${this._baseUrlConfig.apiUrl}/login`,
       data
     ).pipe(
         map((res) => this._authAdaptor.adapt(res))
@@ -61,7 +61,7 @@ export class AuthApiService implements AuthAbstract {
   }
   forgotPassword(data: EmailRequestModel): Observable<MessagePayloadModel> {
     return this._httpClient.post<MessageResponseModel>(
-      `${this._baseUrlConfig}/forgot-password`,
+      `${this._baseUrlConfig.apiUrl}/forgot-password`,
       data
     ).pipe(
         map((res) => this._messageAdaptor.adapt(res))
@@ -70,7 +70,7 @@ export class AuthApiService implements AuthAbstract {
   }
   resetPassword(data: ResetPasswordRequestModel): Observable<MessagePayloadModel> {
     return this._httpClient.post<MessageResponseModel>(
-      `${this._baseUrlConfig}/reset-password`,
+      `${this._baseUrlConfig.apiUrl}/reset-password`,
       data
     ).pipe(
         map((res) => this._messageAdaptor.adapt(res))
