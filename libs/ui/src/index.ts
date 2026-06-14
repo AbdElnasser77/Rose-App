@@ -1,5 +1,3 @@
-
-
 export * from './lib/components/button/button.component';
 
 export * from './lib/components/divider/divider.component';
@@ -15,3 +13,4 @@ export * from './lib/components/validation-errors/validation-errors.component';
 export * from './lib/components/welcome-message/welcome-message.component';
 
 export * from './lib/components/divider/divider.component';
+
