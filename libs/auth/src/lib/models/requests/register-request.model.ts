@@ -1,4 +1,4 @@
-import { Gender } from "../types/gender.type";
+import { Gender } from "../../types/gender.type";
 
 export interface RegisterRequestModel {
   username: string;

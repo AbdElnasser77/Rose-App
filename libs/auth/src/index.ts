@@ -1,0 +1,1 @@
+export * from './lib/config/auth-config.token';
