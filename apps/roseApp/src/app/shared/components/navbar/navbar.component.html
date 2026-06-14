@@ -1,37 +1,38 @@
 <nav class="bg-white border border-gray-200">
 
-  <div class="h-[58px] px-6 flex items-center">
+  <!-- Top Navbar -->
+  <div class="h-[58px] px-2 sm:px-3 md:px-6 flex items-center gap-2 md:gap-3">
 
     <!-- Logo -->
     <div class="shrink-0">
       <img
         src="http://localhost:4203/assets/logo.png"
         alt="Rose Logo"
-        class="w-16 h-16 object-contain"
+        class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain"
       />
     </div>
 
     <!-- Search -->
-    <div class="flex-1 mx-4">
+    <div class="flex-1 min-w-0">
       <input
         type="text"
-        placeholder="What awesome gift are you looking for ?"
-        class="w-full h-[38px] px-4 border border-gray-300 rounded-md text-sm outline-none"
+        placeholder="Search..."
+        class="w-full h-[34px] md:h-[38px] px-2 md:px-4 border border-gray-300 rounded-md text-xs md:text-sm outline-none"
       />
     </div>
 
     <!-- Right Side -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2 md:gap-4 shrink-0">
 
       <button
         (click)="goToLogin()"
-        class="flex items-center gap-2 text-sm text-gray-700 hover:text-[#8B1E24]"
+        class="flex items-center gap-1 text-xs md:text-sm text-gray-700 hover:text-[#8B1E24]"
       >
-        <i class="fa-regular fa-user text-sm"></i>
-        <span>Login</span>
+        <i class="fa-regular fa-user"></i>
+       <span class="inline">Login</span>
       </button>
 
-      <button class="hover:text-[#8B1E24]">
+      <button class="hidden md:block hover:text-[#8B1E24]">
         <i class="fa-regular fa-heart text-lg"></i>
       </button>
 
@@ -39,13 +40,13 @@
         <i class="fa-solid fa-cart-shopping text-lg"></i>
       </button>
 
-      <button class="hover:text-[#8B1E24]">
+      <button class="hidden md:block hover:text-[#8B1E24]">
         <i class="fa-regular fa-bell text-lg"></i>
       </button>
 
-      <div class="w-px h-6 bg-gray-300"></div>
+      <div class="hidden md:block w-px h-6 bg-gray-300"></div>
 
-      <button class="text-sm text-gray-700">
+      <button class="hidden sm:block text-xs md:text-sm text-gray-700">
         العربية
       </button>
 
@@ -53,27 +54,73 @@
 
   </div>
 
-  <!-- Red Menu -->
-  <div class="bg-[#8B1E24] h-[34px] flex items-center justify-center">
+  <!-- Desktop Menu -->
+  <div
+    class="hidden md:flex bg-[#8B1E24] h-[34px] items-center justify-center"
+  >
+    <div class="flex items-center gap-6 lg:gap-10 text-white text-xs">
 
-    <div class="flex items-center gap-10 text-white text-xs">
-
-      <a class="border-b border-white pb-1 cursor-pointer">
-        Home
-      </a>
-
+      <a class="border-b border-white pb-1 cursor-pointer">Home</a>
       <a class="cursor-pointer">Products</a>
-
       <a class="cursor-pointer">Categories</a>
-
       <a class="cursor-pointer">Occasions</a>
-
       <a class="cursor-pointer">Contact</a>
-
       <a class="cursor-pointer">About</a>
 
     </div>
+  </div>
 
+  <!-- Mobile Menu Bar -->
+  <div
+    class="md:hidden bg-[#8B1E24] h-[40px] px-4 flex items-center justify-between"
+  >
+    <span class="text-white text-sm font-medium">
+      Menu
+    </span>
+
+    <button
+      (click)="toggleMobileMenu()"
+      class="text-white flex items-center"
+    >
+      <lucide-icon
+        [img]="isMobileMenuOpen ? X : Menu"
+        class="w-5 h-5"
+      />
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div
+    *ngIf="isMobileMenuOpen"
+    class="md:hidden bg-white border-t border-gray-200 shadow-sm"
+  >
+    <div class="flex flex-col text-sm">
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Home
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Products
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Categories
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Occasions
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Contact
+      </a>
+
+      <a class="px-4 py-3 cursor-pointer">
+        About
+      </a>
+
+    </div>
   </div>
 
 </nav>

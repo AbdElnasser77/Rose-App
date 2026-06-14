@@ -2,20 +2,25 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-secondary-navbar',
+  standalone: true,
   imports: [],
   templateUrl: './secondary-navbar.component.html',
   styleUrl: './secondary-navbar.component.scss',
 })
 export class SecondaryNavbarComponent {
   isDropdownOpen = false;
-  
+  isMobileMenuOpen = false;
 
-  toggleDropdown() {
+  toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  logout() {
-    console.log('Logout');
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  logout(): void {
     this.isDropdownOpen = false;
+    console.log('Logout');
   }
 }

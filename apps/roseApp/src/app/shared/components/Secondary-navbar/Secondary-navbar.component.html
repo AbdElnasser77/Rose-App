@@ -1,17 +1,20 @@
 <div class="relative">
 
   <!-- Top Navbar -->
-  <div class="bg-white h-16 px-6 flex items-center justify-between border-b">
+  <div
+    class="bg-white px-3 md:px-6 py-3 flex items-center justify-between gap-3 border-b"
+  >
 
     <!-- Left -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2 md:gap-4 shrink-0">
 
-<img
- src="http://localhost:4203/assets/logo.png"
-  alt="logo"
-  class="w-14 h-14 object-contain"
-/>
-      <div class="text-sm">
+      <img
+        src="http://localhost:4203/assets/logo.png"
+        alt="logo"
+        class="w-10 h-10 md:w-14 md:h-14 object-contain"
+      />
+
+      <div class="text-xs md:text-sm">
         <p class="text-gray-400">Deliver to:</p>
 
         <div class="flex items-center gap-1 text-[#8B1E24]">
@@ -23,16 +26,18 @@
     </div>
 
     <!-- Search -->
-    <div class="flex-1 mx-8">
+    <div class="flex-1 min-w-0 mx-2 md:mx-8">
+
       <input
         type="text"
-        placeholder="What awesome gift are you looking for?"
-        class="w-full border rounded-md px-4 py-2 outline-none"
+        placeholder="Search gifts..."
+        class="w-full border rounded-md px-2 md:px-4 py-2 outline-none text-xs md:text-base"
       />
+
     </div>
 
     <!-- Right -->
-    <div class="flex items-center gap-5">
+    <div class="flex items-center gap-2 md:gap-5 shrink-0">
 
       <!-- User -->
       <div class="relative">
@@ -41,14 +46,21 @@
           (click)="toggleDropdown()"
           class="flex items-center gap-2 cursor-pointer"
         >
+
           <div class="text-left">
-            <p class="text-xs text-gray-400">Hello</p>
+
+            <p class="hidden md:block text-xs text-gray-400">
+              Hello
+            </p>
+
             <p class="text-sm text-[#8B1E24] font-medium">
               Jonathan
             </p>
+
           </div>
 
           <i class="fa-solid fa-chevron-down text-xs"></i>
+
         </button>
 
         @if (isDropdownOpen) {
@@ -91,12 +103,13 @@
       </div>
 
       <!-- Wishlist -->
-      <button>
+      <button class="hidden md:block">
         <i class="fa-regular fa-heart text-lg"></i>
       </button>
 
       <!-- Cart -->
       <div class="relative">
+
         <i class="fa-solid fa-cart-shopping text-lg"></i>
 
         <span
@@ -104,10 +117,12 @@
         >
           2
         </span>
+
       </div>
 
       <!-- Notification -->
-      <div class="relative">
+      <div class="relative hidden md:block">
+
         <i class="fa-regular fa-bell text-lg"></i>
 
         <span
@@ -115,32 +130,98 @@
         >
           2
         </span>
+
       </div>
 
-      <span>العربية</span>
+      <span class="hidden sm:block">
+        العربية
+      </span>
 
     </div>
 
   </div>
 
-  <!-- Red Menu -->
+  <!-- Desktop Menu -->
   <div
-    class="bg-[#8B1E24] text-white h-10 flex items-center justify-center"
+    class="hidden md:flex bg-[#8B1E24] text-white h-10 items-center justify-center"
   >
-
     <div class="flex items-center gap-8 text-sm">
 
       <a href="#">Home</a>
-
       <a href="#">Products</a>
-
       <a href="#">Categories</a>
-
       <a href="#">Occasions</a>
-
       <a href="#">Contact</a>
-
       <a href="#">About</a>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    class="md:hidden bg-[#8B1E24] h-[40px] px-4 flex items-center justify-between"
+  >
+
+    <span class="text-white text-sm font-medium">
+      Menu
+    </span>
+
+    <button
+      (click)="toggleMobileMenu()"
+      class="text-white flex items-center"
+    >
+      <i
+        class="fa-solid"
+        [class.fa-bars]="!isMobileMenuOpen"
+        [class.fa-xmark]="isMobileMenuOpen"
+      ></i>
+    </button>
+
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div
+    *ngIf="isMobileMenuOpen"
+    class="md:hidden bg-white border-t border-gray-200 shadow-sm"
+  >
+
+    <div class="flex flex-col text-sm">
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Home
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Products
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Categories
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Occasions
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Contact
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        About
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Account
+      </a>
+
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+        Orders
+      </a>
+
+      <a class="px-4 py-3 text-red-600 cursor-pointer">
+        Logout
+      </a>
 
     </div>
 
