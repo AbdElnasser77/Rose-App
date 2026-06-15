@@ -1,15 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
 // import { ToastService } from '@org/shared-util-notification';
 
 
 @Component({
   selector: 'lib-toast',
-  imports: [ ],
+  imports: [ CommonModule],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
 
 })
  export class ToastComponent {
+
+    @Input() variant: 'Default' | 'Success' | 'Error' = 'Default';
+    @Input() message = '';
 //       private toastService = inject(ToastService);
 
 //   showSuccess() {

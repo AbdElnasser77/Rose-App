@@ -1,10 +1,16 @@
 <button [type]="type" [disabled]="disabled" (click)="onButtonClick($event)" class="
-    w-full h-[41px] px-4 py-[14px] rounded-[10px] font-sarabun font-medium text-[16px] leading-none 
+     h-[41px] px-4 py-[14px] rounded-[10px] font-sarabun font-medium text-[16px] leading-none 
     flex items-center justify-center gap-[10px]
     disabled:cursor-not-allowed
     transition
   "
   [ngClass]="{
+    'w-full': size === 'full',
+    'w-1/2': size === 'half',
+    'w-1/4': size === 'quarter',
+    'w-3/4': size === 'three-quarters',
+    'w-auto min-w-[120px]': size === 'auto',
+    
     'bg-maroon-600 text-white hover:bg-maroon-700':variant === 'Primary' && !disabled && !loading,
 
     'bg-maroon-50 text-maroon-600 hover:bg-maroon-100' : variant === 'Secondary' && !disabled && !loading,
