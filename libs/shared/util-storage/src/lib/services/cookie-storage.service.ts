@@ -18,7 +18,12 @@ export class CookieStorageService {
 
     try{
       const stringValue=typeof(value)==='string'?value:JSON.stringify(value);
-      this._cookieService.set(key, stringValue, expiresDays, '/');
+      this._cookieService.set(key, stringValue, {
+        expires: expiresDays,
+        path: '/',
+        secure: true,
+       sameSite: 'Lax'
+      });
     } catch (error) {
       console.error(`Error saving to Cookies [${key}]:`, error);
     }
