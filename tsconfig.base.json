@@ -24,7 +24,8 @@
       "@org/auth": ["./libs/auth/src/index.ts"],
       "@org/shared-util-notification": [
         "./libs/shared/util-notification/src/index.ts"
-      ]
+      ],
+      "@org/util-storage": ["./libs/shared/util-storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

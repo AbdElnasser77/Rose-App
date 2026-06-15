@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { AuthApiService, TokenService } from './services';
+import { AuthApiService, AuthStorageService} from './services';
 import { AuthStore } from './store/auth.store';
-import { AuthPayloadModel, LoginRequestModel, RegisterRequestModel } from './models';
-import { finalize, Observable, tap } from 'rxjs';
-import { registerDispatcher } from 'node_modules/@angular/core/types/_event_dispatcher-chunk';
+import { AuthPayloadModel, ConfirmEmailVerificationRequestModel, EmailRequestModel, LoginRequestModel, MessagePayloadModel, RegisterRequestModel, ResetPasswordRequestModel } from './models';
+import {  finalize, Observable, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +10,30 @@ import { registerDispatcher } from 'node_modules/@angular/core/types/_event_disp
 export class AuthFacade {
   private readonly _authApiService = inject(AuthApiService);
   private readonly _authStore = inject(AuthStore);
-  private readonly _tokenService=inject(TokenService);
+  private readonly _authStorageService=inject(AuthStorageService);
+
+
+  private startLoading() {
+  this._authStore.setLoading(true);
+}
+
+private stopLoading() {
+  this._authStore.setLoading(false);
+}
 
   // 1-login
   login(data:LoginRequestModel):Observable<AuthPayloadModel>{
-    this._authStore.setLoading(true);
-    this._authStore.setError(null);
+      this.startLoading();
+
 
     return this._authApiService.login(data).pipe(
-      tap({
-        next:(payload)=>{
-          this._tokenService.setToken(payload.token);
+      tap((payload)=>{
+          this._authStorageService.setToken(payload.token);
+          this._authStorageService.setUser(payload.user);
           this._authStore.setUser(payload.user);
-        },
-        error:(translatedError: string)=>{
-          this._authStore.setError(translatedError);
-        }
+        
       }),
-      finalize(() => this._authStore.setLoading(false))
+      finalize(() => this.stopLoading())
     )
 
   }
@@ -36,20 +41,17 @@ export class AuthFacade {
 
   // 2-register
   register(data:RegisterRequestModel):Observable<AuthPayloadModel>{
-    this._authStore.setLoading(true);
-    this._authStore.setError(null);
+      this.startLoading();
 
-     return this._authApiService.login(data).pipe(
-      tap({
-        next:(payload)=>{
-           this._tokenService.setToken(payload.token);
+
+     return this._authApiService.register(data).pipe(
+      tap((payload)=>{
+           this._authStorageService.setToken(payload.token);
+           this._authStorageService.setUser(payload.user);
           this._authStore.setUser(payload.user);
-        },
-        error:(translatedError: string)=>{
-          this._authStore.setError(translatedError);
-        }
+        
       }),
-      finalize(() => this._authStore.setLoading(false))
+      finalize(() => this.stopLoading())
 
      )
       
@@ -57,8 +59,49 @@ export class AuthFacade {
 
   // 3-logout
   logout():void{
-    this._tokenService.clearToken();
+    this._authStorageService.clear();
     this._authStore.clear();
 
   }
+
+  // 4-sendEmailVerification
+  sendEmailVerification(data: EmailRequestModel): Observable<MessagePayloadModel> {
+    this.startLoading();
+
+
+  return this._authApiService.sendEmailVerification(data).pipe(
+    
+    finalize(() => this.stopLoading())
+  );
+}
+  //  5- confirmEmailVerification
+  confirmEmailVerification(data: ConfirmEmailVerificationRequestModel): Observable<MessagePayloadModel> {
+    this.startLoading();
+
+
+  return this._authApiService.confirmEmailVerification(data).pipe(
+    
+    finalize(() => this.stopLoading())
+  );
+}
+  //  6- forgotPassword
+  forgotPassword(data: EmailRequestModel): Observable<MessagePayloadModel> {
+    this.startLoading();
+
+
+  return this._authApiService.forgotPassword(data).pipe(
+    
+    finalize(() => this.stopLoading())
+  );
+}
+  // 7-Reset password
+  resetPassword(data: ResetPasswordRequestModel): Observable<MessagePayloadModel> {
+    this.startLoading();
+
+
+  return this._authApiService.resetPassword(data).pipe(
+    
+    finalize(() => this.stopLoading())
+  );
+}
 }

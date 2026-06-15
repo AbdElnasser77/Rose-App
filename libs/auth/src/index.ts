@@ -5,3 +5,5 @@ export * from './lib/interceptors/index';
 export * from './lib/models/index';
 export * from './lib/services/index';
 export * from './lib/types/index';
+export * from './lib/auth-facade';
+export * from './lib/guards/index'

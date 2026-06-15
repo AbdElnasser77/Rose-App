@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -10,6 +12,9 @@ import Aura from '@primeuix/themes/aura';
 import { BASE_URL_CONFIG, httpErrorInterceptor }from '@org/auth';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {authInterceptor} from '@org/auth';
+import { SessionService } from '@org/auth';
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,12 +39,16 @@ export const appConfig: ApplicationConfig = {
       apiUrl: 'https://rose-app.elevate-bootcamp.cloud/api',
       production: false,
     },
-  },
-  provideHttpClient(
-  withInterceptors([
-    authInterceptor,
-    httpErrorInterceptor,
-  ])
-)
+    },
+     provideHttpClient(
+     withInterceptors([
+     authInterceptor,
+     httpErrorInterceptor,
+    ])
+     ),
+     provideAppInitializer(() => {
+      const sessionService = inject(SessionService);
+      return sessionService.initSession();
+    }),
   ],
 };
