@@ -14,7 +14,7 @@ export class ButtonComponent {
   @Input() type: 'button' | 'submit' = 'button';
   @Input() disabled = false;
   @Input() loading = false;
-  @Input() size: 'full' | 'half' | 'quarter' | 'three-quarters' | 'auto' = 'full';
+  @Input() size: 'full' | 'half' | 'auto' = 'full';
   @Input() variant: 'Primary' | 'Secondary' | 'Outline' | 'Subtle' | 'Ghost' | 'Destructive' = 'Primary';
 
   @Output() clicked = new EventEmitter<MouseEvent>();
