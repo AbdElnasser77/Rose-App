@@ -1,15 +1,15 @@
-// import { Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 // import { ToastService } from '@org/shared-util-notification';
 
 
-// @Component({
-//   selector: 'lib-toast',
-//   imports: [ ],
-//   templateUrl: './toast.component.html',
-//   styleUrl: './toast.component.scss',
+@Component({
+  selector: 'lib-toast',
+  imports: [ ],
+  templateUrl: './toast.component.html',
+  styleUrl: './toast.component.scss',
 
-// })
-// export class ToastComponent {
+})
+ export class ToastComponent {
 //       private toastService = inject(ToastService);
 
 //   showSuccess() {
@@ -23,4 +23,4 @@
 //   showInfo() {
 //     this.toastService.show('Message Content', 'info');
 //   }
-// }
+ }

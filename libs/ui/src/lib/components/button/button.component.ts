@@ -1,13 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { LucideAngularModule, LoaderCircle } from 'lucide-angular';
 
 @Component({
   selector: 'lib-button',
-  imports: [],
+  imports: [CommonModule,LucideAngularModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
+  readonly LoaderCircle=LoaderCircle;
+
   @Input() type: 'button' | 'submit' = 'button';
   @Input() disabled = false;
+  @Input() loading = false;
+  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() variant: 'Primary' | 'Secondary' | 'Outline' | 'Subtle' | 'Ghost' | 'Destructive' = 'Primary';
+
+  @Output() clicked = new EventEmitter<MouseEvent>();
+
+  onButtonClick(event: MouseEvent): void {
+    if (!this.disabled && !this.loading) {
+      this.clicked.emit(event);
+    }
+  }
 
 }
