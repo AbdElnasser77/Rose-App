@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { LocalStorageService } from '@org/util-storage';
+import { CookieStorageService } from '@org/util-storage';
 import { UserModel } from '../models';
 
 const TOKEN_KEY = 'auth_token';
@@ -8,7 +8,7 @@ const USER_KEY = 'user';
   providedIn: 'root',
 })
 export class AuthStorageService {
-   private readonly _storage = inject(LocalStorageService);
+   private readonly _storage = inject(CookieStorageService);
 
   setToken(token: string): void {
     this._storage.setItem(TOKEN_KEY, token);

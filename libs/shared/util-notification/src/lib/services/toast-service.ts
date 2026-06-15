@@ -9,7 +9,7 @@ export class ToastService {
   private toastsSignal = signal<ToastModel[]>([]);
   public toasts = this.toastsSignal.asReadonly();
 
-  show(message: string, type: ToastType = 'info', duration = 3000): void {
+  show(message: string, type: ToastType = 'default', duration = 3000): void {
     const id = Date.now() + Math.random(); 
     const newToast: ToastModel = { id, message, type, duration };
 
