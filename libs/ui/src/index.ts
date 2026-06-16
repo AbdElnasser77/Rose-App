@@ -14,4 +14,7 @@ export * from './lib/components/welcome-message/welcome-message.component';
 
 export * from './lib/components/divider/divider.component';
 
-export * from './lib/components/toast/toast.component';
+export * from './lib/components/toast-components/toast/toast.component';
+export * from './lib/components/toast-components/toast-container/toast-container.component.component';
+
+
