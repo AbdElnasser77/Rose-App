@@ -1,11 +1,11 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthStorageService } from '../services';
+import {  TokenService } from '../services';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-   const _authStorageService= inject(AuthStorageService);
+   const _tokenService= inject(TokenService);
 
-  const token = _authStorageService.getToken();
+  const token = _tokenService.getToken();
 
   if (!token) {
     return next(req);

@@ -1,29 +1,37 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { SsrCookieService} from 'ngx-cookie-service-ssr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CookieStorageService {
   private readonly _platformId=inject(PLATFORM_ID);
-  private readonly _cookieService = inject(CookieService);
+  private readonly _cookieService = inject(SsrCookieService);
 
   private get isBrowser():boolean{
     return isPlatformBrowser(this._platformId);
   }
 
-  setItem(key:string,value:unknown , expiresDays: number = 90):void{
+  setItem(key:string,value:unknown , expiresDays?: number ):void{
     if(!this.isBrowser) return ;
 
     try{
       const stringValue=typeof(value)==='string'?value:JSON.stringify(value);
-      this._cookieService.set(key, stringValue, {
-        expires: expiresDays,
-        path: '/',
-        secure: true,
-       sameSite: 'Lax'
-      });
+      const cookieOptions: any = {
+      path: '/',
+      secure: true,
+      sameSite: 'Lax'
+     };
+      
+      if (expiresDays !== undefined && expiresDays !== null) {
+        const expiresDate = new Date();
+        expiresDate.setDate(expiresDate.getDate() + expiresDays);
+        cookieOptions.expires = expiresDate;
+      }
+
+      this._cookieService.set(key, stringValue, cookieOptions);
+
     } catch (error) {
       console.error(`Error saving to Cookies [${key}]:`, error);
     }

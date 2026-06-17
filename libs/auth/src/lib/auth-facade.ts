@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { AuthApiService, AuthStorageService} from './services';
+import { AuthApiService, TokenService} from './services';
 import { AuthStore } from './store/auth.store';
 import { AuthPayloadModel, ConfirmEmailVerificationRequestModel, EmailRequestModel, LoginRequestModel, MessagePayloadModel, RegisterRequestModel, ResetPasswordRequestModel } from './models';
 import {  finalize, Observable, tap} from 'rxjs';
@@ -10,7 +10,7 @@ import {  finalize, Observable, tap} from 'rxjs';
 export class AuthFacade {
   private readonly _authApiService = inject(AuthApiService);
   private readonly _authStore = inject(AuthStore);
-  private readonly _authStorageService=inject(AuthStorageService);
+  private readonly _tokenService=inject(TokenService);
 
 
   private startLoading() {
@@ -22,14 +22,13 @@ private stopLoading() {
 }
 
   // 1-login
-  login(data:LoginRequestModel):Observable<AuthPayloadModel>{
+  login(data:LoginRequestModel , rememberMe?: boolean ):Observable<AuthPayloadModel>{
       this.startLoading();
 
 
     return this._authApiService.login(data).pipe(
       tap((payload)=>{
-          this._authStorageService.setToken(payload.token);
-          this._authStorageService.setUser(payload.user);
+          this._tokenService.setToken(payload.token,rememberMe);
           this._authStore.setUser(payload.user);
         
       }),
@@ -46,8 +45,7 @@ private stopLoading() {
 
      return this._authApiService.register(data).pipe(
       tap((payload)=>{
-           this._authStorageService.setToken(payload.token);
-           this._authStorageService.setUser(payload.user);
+           this._tokenService.setToken(payload.token);
           this._authStore.setUser(payload.user);
         
       }),
@@ -59,7 +57,7 @@ private stopLoading() {
 
   // 3-logout
   logout():void{
-    this._authStorageService.clear();
+    this._tokenService.clearToken();
     this._authStore.clear();
 
   }
