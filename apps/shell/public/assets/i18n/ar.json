@@ -16,5 +16,18 @@
     "OCCASIONS": "المناسبات",
     "CONTACT": "تواصل معنا",
     "ABOUT": "من نحن"
+  },
+  "FOOTER": {
+    "APP_NAME": "Rose E-Commerce App",
+    "RIGHTS": "جميع الحقوق محفوظة | 2025",
+    "DISCOVER": "اكتشف موقعنا",
+    "COUPON_TITLE": "احصل على خصم 20%",
+    "NEWSLETTER_TEXT": "بالاشتراك في النشرة البريدية",
+    "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+    "SUBSCRIBE": "اشترك",
+    "TERMS": "الشروط والأحكام",
+    "PRIVACY": "سياسة الخصوصية",
+    "FAQS": "الأسئلة الشائعة",
+    "COPYRIGHT": "© 2025 Rose E-Commerce App. جميع الحقوق محفوظة."
   }
 }
