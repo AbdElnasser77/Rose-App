@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LanguageService } from '@rose/i18n';
+
 @Component({
   imports: [RouterModule],
   selector: 'app-root',
