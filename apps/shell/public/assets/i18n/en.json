@@ -1,0 +1,20 @@
+{
+  "AUTH": {
+    "WELCOME": "Welcome",
+    "LOGIN": "Login",
+    "EMAIL": "Email",
+    "PASSWORD": "Password"
+  },
+  "NAV": {
+    "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
+    "LOGIN": "Login",
+    "HELLO": "Hello",
+    "DELIVER_TO": "Deliver to:",
+    "HOME": "Home",
+    "PRODUCTS": "Products",
+    "CATEGORIES": "Categories",
+    "OCCASIONS": "Occasions",
+    "CONTACT": "Contact",
+    "ABOUT": "About"
+  }
+}

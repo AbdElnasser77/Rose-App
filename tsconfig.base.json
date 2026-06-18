@@ -20,7 +20,11 @@
       ],
       "roseApp/Routes": ["./apps/roseApp/src/app/remote-entry/entry.routes.ts"],
       "@rose/models": ["./libs/shared/models/src/index.ts"],
-      "@org/ui": ["./libs/ui/src/index.ts"]
+      "@org/ui": ["./libs/ui/src/index.ts"],
+      "@rose/ui": ["./libs/shared/ui/src/index.ts"],
+      "@rose/i18n": ["./libs/shared/i18n/src/index.ts"],
+      "@rose/theme": ["./libs/shared/theme/src/index.ts"]
+
     }
   },
   "exclude": ["node_modules", "tmp"]
