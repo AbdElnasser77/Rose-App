@@ -134,6 +134,10 @@
       "style": "scss",
       "skipTests": true,
       "type": "component"
+    },
+    "@nx/angular:service": {
+      "type": "service",
+      "skipTests": true
     }
   },
   "analytics": false

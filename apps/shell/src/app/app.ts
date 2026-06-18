@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { LanguageService } from '@rose/i18n';
 
 @Component({
   imports: [RouterModule],
@@ -7,6 +8,10 @@ import { RouterModule } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected title = 'shell';
+export class App implements OnInit {
+  private languageService = inject(LanguageService);
+
+  ngOnInit(): void {
+    this.languageService.initialize();
+  }
 }
