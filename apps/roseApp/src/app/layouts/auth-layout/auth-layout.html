@@ -1,32 +1,24 @@
 <div class="w-full h-screen flex overflow-hidden">
   <div class="w-full lg:w-1/2 flex flex-col h-full min-h-0 shrink-0">
     <div class="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
-      <div
-        class="max-w-2xl mx-auto min-h-full flex flex-col justify-center px-5 py-5"
-      >
-        <div
-          class="settings w-full flex justify-between items-center gap-5 p-10 shrink-0"
-        >
-          <button class="cursor-pointer">
-            <img src="/assets/images/dark-mode.svg" class="w-6 h-6" alt="" />
-          </button>
+      <div class="max-w-2xl mx-auto min-h-full flex flex-col justify-center px-5 py-5">
+        <div class="settings w-full flex justify-between items-center gap-5 p-10 shrink-0">
+          <lib-theme-toggle />
           <button class="font-zain cursor-pointer">العربية</button>
         </div>
-        <div
-          class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain"
-          style="background-image: url('/assets/images/separator.svg')"
-        ></div>
+        <div class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain"
+          [style.background-image]="isDark() ? 'url(/assets/images/separator-dark.svg)' : 'url(/assets/images/separator.svg)'">
+        </div>
         <div class="page-wrapper px-5 my-10">
           <router-outlet></router-outlet>
         </div>
-        <div
-          class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain rotate-180"
-          style="background-image: url('/assets/images/separator.svg')"
-        ></div>
+        <div class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain rotate-180"
+          [style.background-image]="isDark() ? 'url(/assets/images/separator-dark.svg)' : 'url(/assets/images/separator.svg)'">
+        </div>
       </div>
     </div>
   </div>
   <div
-    class="hidden lg:block lg:w-1/2 h-full shrink-0 bg-[url('/assets/images/AuthBackground.webp')] bg-cover bg-center bg-no-repeat"
-  ></div>
+    class="hidden lg:block lg:w-1/2 h-full shrink-0 bg-[url('/assets/images/AuthBackground.webp')] bg-cover bg-center bg-no-repeat">
+  </div>
 </div>
