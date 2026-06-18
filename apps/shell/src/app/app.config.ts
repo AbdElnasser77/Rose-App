@@ -13,14 +13,15 @@ import { BASE_URL_CONFIG, httpErrorInterceptor }from '@org/auth';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {authInterceptor} from '@org/auth';
 import { SessionService } from '@org/auth';
-
-
+import { provideI18n } from '@rose/i18n';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     provideAnimationsAsync(),
+    provideHttpClient(),
+    provideI18n(),
     providePrimeNG({
       theme: {
         preset: Aura,
