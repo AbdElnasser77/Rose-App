@@ -1,0 +1,33 @@
+<div class="flex flex-col gap-[6px] w-full ">
+     @if(label){
+  <label  class="font-inter text-[14px] font-medium leading-none text-zinc-800">
+    {{ label }}
+  </label>
+  }
+     <div class="relative w-full">
+
+    <select [value]="value()" (blur)="emitTouched()" (change)="onSelectChange($event)"
+        class="w-full h-[49px] rounded-[10px] font-inter border border-zinc-300 focus:border-zinc-500 px-4 
+        text-[14px] font-normal text-zinc-400 appearance-none
+         placeholder:text-zinc-500 placeholder:font-inter leading-none outline-none">
+        <option value="" disabled selected>
+            {{ placeholder }}
+        </option>
+
+        @for (opt of options; track opt.value) {
+        <option [value]="opt.value" class=" border border-zinc-300">
+            {{ opt.label }}
+        </option>
+        }
+    </select>
+
+      <div class="absolute right-4 w-[20px] h-[20px] top-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none text-zinc-500">
+              <lucide-icon  [img]="ChevronDown" />
+
+  </div>
+  </div>
+    <div class="min-h-[20px]">
+        <lib-validation-errors [control]="control"></lib-validation-errors>
+    </div>
+
+</div>
