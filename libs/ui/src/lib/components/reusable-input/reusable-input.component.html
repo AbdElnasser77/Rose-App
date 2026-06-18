@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-[6px] w-full ">
+
+  @if(label){
+  <label [for]="id" class="font-inter text-[14px] font-medium leading-none text-zinc-800">
+    {{ label }}
+  </label>
+  }
+
+  <div class="relative w-full">
+
+    <input [id]="id" [type]="type === 'password' && !showPassword() ? 'password' : 'text'" [value]="value()"
+      [disabled]="isDisabled()" [placeholder]="placeholder" [readonly]="readonly" [attr.maxlength]="maxlength"
+      (input)="updateValue($event)" (blur)="emitTouched()" [ngClass]="[
+        'w-full h-[49px] rounded-[10px] border px-4 pr-10 text-[14px] font-inter font-normal text-zinc-800 placeholder:text-zinc-400 leading-none outline-none',
+        hasError ? 'border-red-600 focus:border-red-600' : 'border-zinc-300 focus:border-zinc-500'
+      ]" />
+
+    @if (type === 'password') {
+    <button type="button" (click)="showPassword.set(!showPassword())"
+      class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 "
+      [ngClass]="showPassword() ? 'text-zinc-800' : 'text-zinc-400'">
+      <lucide-icon [img]="showPassword() ? Eye : EyeOff" />
+    </button>
+    }
+
+  </div>
+
+  <div class="min-h-[20px]">
+    <lib-validation-errors [control]="control"></lib-validation-errors>
+  </div>
+
+</div>

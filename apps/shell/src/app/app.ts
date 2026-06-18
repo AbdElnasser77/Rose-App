@@ -7,6 +7,7 @@ import { LanguageService } from '@rose/i18n';
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
+
 })
 export class App implements OnInit {
   private languageService = inject(LanguageService);
