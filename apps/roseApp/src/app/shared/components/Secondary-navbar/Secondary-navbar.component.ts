@@ -1,9 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { LanguageSwitcherComponent } from '@rose/i18n';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-secondary-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, LanguageSwitcherComponent, TranslatePipe],
   templateUrl: './secondary-navbar.component.html',
   styleUrl: './secondary-navbar.component.scss',
 })

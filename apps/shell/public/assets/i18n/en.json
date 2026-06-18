@@ -16,5 +16,18 @@
     "OCCASIONS": "Occasions",
     "CONTACT": "Contact",
     "ABOUT": "About"
+  },
+  "FOOTER": {
+    "APP_NAME": "Rose E-Commerce App",
+    "RIGHTS": "All rights reserved | 2025",
+    "DISCOVER": "Discover our website",
+    "COUPON_TITLE": "Get 20% Off Discount Coupon",
+    "NEWSLETTER_TEXT": "By subscribing to our newsletter",
+    "EMAIL_PLACEHOLDER": "Enter Your Email",
+    "SUBSCRIBE": "Subscribe",
+    "TERMS": "Terms & Conditions",
+    "PRIVACY": "Privacy Policy",
+    "FAQS": "FAQs",
+    "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   }
 }

@@ -1,12 +1,7 @@
-<footer class="bg-[#22222b] text-white py-10 px-4 md:px-8">
-
+<footer dir="ltr" class="bg-[#22222b] text-white py-10 px-4 md:px-8">
   <div class="container mx-auto">
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <!-- Logo -->
       <div class="text-center md:text-left">
-
         <img
           src="http://localhost:4203/assets/logo.png"
           alt="Rose Logo"
@@ -14,102 +9,91 @@
         />
 
         <h3 class="font-semibold">
-          Rose E-Commerce App
+          {{ 'FOOTER.APP_NAME' | translate }}
         </h3>
 
-        <p class="text-sm text-gray-300">
-          All rights reserved | 2025
-        </p>
+        <div dir="ltr" class="mt-3 flex justify-center md:justify-start">
+          <lib-language-switcher />
+        </div>
 
+        <p class="text-sm text-gray-300 mt-3">
+          {{ 'FOOTER.RIGHTS' | translate }}
+        </p>
       </div>
 
-      <!-- Links -->
       <div class="text-center md:text-left">
-
         <h3 class="text-pink-300 mb-3 font-medium">
-          Discover our website
+          {{ 'FOOTER.DISCOVER' | translate }}
         </h3>
 
         <ul class="space-y-2 text-sm">
-
           <li class="cursor-pointer hover:text-pink-300">
-            Home
+            {{ 'NAV.HOME' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Products
+            {{ 'NAV.PRODUCTS' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Categories
+            {{ 'NAV.CATEGORIES' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Occasions
+            {{ 'NAV.OCCASIONS' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Contact
+            {{ 'NAV.CONTACT' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            About
+            {{ 'NAV.ABOUT' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Terms & Conditions
+            {{ 'FOOTER.TERMS' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            Privacy Policy
+            {{ 'FOOTER.PRIVACY' | translate }}
           </li>
 
           <li class="cursor-pointer hover:text-pink-300">
-            FAQs
+            {{ 'FOOTER.FAQS' | translate }}
           </li>
-
         </ul>
-
       </div>
 
-      <!-- Newsletter -->
       <div>
-
         <h3 class="text-pink-300 mb-2 text-center md:text-left font-medium">
-          Get 20% Off Discount Coupon
+          {{ 'FOOTER.COUPON_TITLE' | translate }}
         </h3>
 
         <p class="text-sm text-gray-300 mb-4 text-center md:text-left">
-          By subscribing to our newsletter
+          {{ 'FOOTER.NEWSLETTER_TEXT' | translate }}
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3">
-
           <input
             type="email"
-            placeholder="Enter Your Email"
+            [placeholder]="'FOOTER.EMAIL_PLACEHOLDER' | translate"
             class="flex-1 px-4 py-2 rounded-full text-black outline-none"
           />
 
           <button
             class="bg-white text-black px-5 py-2 rounded-full hover:bg-gray-200 transition"
           >
-            Subscribe
+            {{ 'FOOTER.SUBSCRIBE' | translate }}
           </button>
-
         </div>
-
       </div>
-
     </div>
 
-    <!-- Bottom Line -->
     <div
       class="border-t border-gray-700 mt-8 pt-4 text-center text-xs text-gray-400"
     >
-      © 2025 Rose E-Commerce App. All Rights Reserved.
+      {{ 'FOOTER.COPYRIGHT' | translate }}
     </div>
-
   </div>
-
 </footer>
