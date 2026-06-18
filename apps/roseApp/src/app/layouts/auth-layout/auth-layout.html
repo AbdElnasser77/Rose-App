@@ -1,18 +1,24 @@
-<div class="w-screen h-screen flex">
-  <div class="max-w-2xl w-full mx-auto sm:w-1/2 flex flex-col my-15">
-    <div class="my-auto">
-      <div class="settings w-full flex justify-between pb-5 px-5">
-        <button class="cursor-pointer">
-          <img src="/assets/images/dark-mode.svg" class="w-6 h-6" alt="" />
-        </button>
-        <lib-language-switcher />
+<div class="w-full h-screen flex overflow-hidden">
+  <div class="w-full lg:w-1/2 flex flex-col h-full min-h-0 shrink-0">
+    <div class="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
+      <div class="max-w-2xl mx-auto min-h-full flex flex-col justify-center px-5 py-5">
+        <div class="settings w-full flex justify-between items-center gap-5 p-10 shrink-0">
+          <lib-theme-toggle />
+          <lib-language-switcher />
+        </div>
+        <div class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain"
+          [style.background-image]="isDark() ? 'url(/assets/images/separator-dark.svg)' : 'url(/assets/images/separator.svg)'">
+        </div>
+        <div class="page-wrapper px-5 my-10">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="w-full lg:h-15 h-10 mx-auto bg-no-repeat bg-center bg-contain rotate-180"
+          [style.background-image]="isDark() ? 'url(/assets/images/separator-dark.svg)' : 'url(/assets/images/separator.svg)'">
+        </div>
       </div>
-      <img src="/assets/images/separator.svg" class="w-100 m-auto" alt="" />
-      <div class="page-wrapper px-5 my-5">
-        <router-outlet></router-outlet>
-      </div>
-      <img src="/assets/images/separator.svg" class="w-100 m-auto rotate-180" alt="" />
     </div>
   </div>
-  <div class="w-1/2 h-screen bg-[url('/assets/images/AuthBackground.webp')] bg-cover bg-center bg-no-repeat"></div>
+  <div
+    class="hidden lg:block lg:w-1/2 h-full shrink-0 bg-[url('/assets/images/AuthBackground.webp')] bg-cover bg-center bg-no-repeat">
+  </div>
 </div>
