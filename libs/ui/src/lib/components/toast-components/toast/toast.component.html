@@ -1,5 +1,5 @@
 <div
-  class="w-[90vw] sm:w-[447px] min-h-[53px] h-[53px] px-8 sm:px-8 py-4 sm:py-4 pl-4 border relative  rounded-[10px] flex items-center gap-[10px] shadow-[0px_15px_30px_-3px_rgba(0,0,0,0.1)] transition-all"
+  class="w-full min-h-[53px] p-3 sm:p-4  border relative  rounded-[10px] flex items-center gap-[10px] shadow-[0px_15px_30px_-3px_rgba(0,0,0,0.1)] transition-all"
   [ngClass]="{
     'bg-zinc-100  border-[#A1A1AA] text-zinc-800': variant === 'Default',
 
@@ -16,13 +16,11 @@
     {{ message }}
   </span>
 
-  <div (click)="onClose()"
-    class="w-[35px] h-[35px] flex items-center justify-center absolute top-[9px] right-[10px] z-10 cursor-pointer hover:bg-black/5 rounded-full transition-all">
 
-  </div>
 
   <div (click)="onClose()" class="w-[35px] h-[35px] p-[10px] text-[#A1A1AA] cursor-pointer
-   flex items-center justify-center absolute top-0 right-0 z-5 hover:bg-black/5 rounded-full transition-all">
+   flex items-start sm:items-center justify-center absolute top-0 right-0 z-5 hover:bg-black/5 rounded-full transition-all">
+    
     <lucide-icon class="w-[15px] h-[15px] opacity-70 hover:opacity-100 transition-opacity duration-200"
       [img]="X"></lucide-icon>
 

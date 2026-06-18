@@ -1,4 +1,5 @@
-<div class="fixed bottom-[20px] right-[20px] z-50 flex flex-col gap-3">
+<div class="fixed bottom-4 right-4 sm:bottom-[20px] sm:right-[20px]  w-[90vw] sm:w-[447px]
+  max-w-[447px] z-50 flex flex-col gap-3  items-end">
     @for (toast of toasts(); track toast.id) {
 
     <lib-toast [message]="toast.message" [variant]="toast.type === 'success'
