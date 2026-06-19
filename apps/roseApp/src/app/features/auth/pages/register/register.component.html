@@ -1,1 +1,23 @@
-<p>register works!</p>
+<form class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+    <lib-welcome-message title="Become part of our family!" class="font-edwardian">
+    </lib-welcome-message>
+
+    <lib-divider></lib-divider>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
+        <lib-reusable-input label="First name" type="text" placeholder="Jonathan"
+            [required]="true"></lib-reusable-input>
+        <lib-reusable-input label="Last name" type="text" placeholder="Adrian" [required]="true"></lib-reusable-input>
+    </div>
+
+    <lib-reusable-input label="Phone" type="text" placeholder="1012345678"></lib-reusable-input>
+    <lib-select-input label="Gender" [options]="gender" placeholder="Select Gender"></lib-select-input>
+    <lib-reusable-input label="Password" type="password" placeholder="Jonathan_123Adrian"></lib-reusable-input>
+    <lib-reusable-input label="Confirm Password" type="password" placeholder="Jonathan_123Adrian"></lib-reusable-input>
+
+    <lib-button type="submit" [disabled]="false" [loading]="isLoading" size="full" variant="Primary">Next</lib-button>
+
+    <lib-divider></lib-divider>
+
+
+    <lib-callout-text text="Already have an account?" linkText="Login" linkUrl="/auth/login"></lib-callout-text>
+</form>
