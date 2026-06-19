@@ -1,0 +1,25 @@
+<form class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+    <lib-welcome-message 
+    title="Become part of our family!" 
+    class="font-edwardian">
+    </lib-welcome-message>
+
+    <lib-divider></lib-divider>
+    
+    <lib-reusable-input label="Verify OTP" type="text"></lib-reusable-input>
+   
+   <lib-button type="submit" 
+    [disabled]="false"
+    [loading]="isLoading"
+    size="full"
+    variant="Primary"
+
+    >Verify OTP</lib-button>
+ 
+     <lib-divider></lib-divider>
+
+    
+    <lib-callout-text text="Already have an account?" 
+    linkText="Login" 
+    linkUrl="/auth/login" ></lib-callout-text>
+</form>
