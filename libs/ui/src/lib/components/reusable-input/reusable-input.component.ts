@@ -23,7 +23,7 @@ export class ReusableInputComponent <T> extends ControlValueAccessorDirective<T>
  readonly Eye = Eye;
  readonly EyeOff = EyeOff;
   
-  @Input({ required: true }) label!: string;
+  @Input() label!: string;
   @Input() placeholder = '';
   @Input({ required: true }) type!: InputType;
 
