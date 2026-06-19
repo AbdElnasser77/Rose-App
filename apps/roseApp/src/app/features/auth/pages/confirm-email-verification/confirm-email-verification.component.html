@@ -1,4 +1,5 @@
-<form class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+<form [formGroup]="confirmEmailVerificationForm" (ngSubmit)="onConfirmEmailVerificationSubmit()"
+class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
     <lib-welcome-message title="Become part of our family!" class="font-edwardian">
     </lib-welcome-message>
 
@@ -7,19 +8,19 @@
         Verify OTP
     </p>
     <div class="flex gap-2 max-w-md mx-auto">
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
-        <lib-reusable-input type="text" [maxlength]="1"></lib-reusable-input>
+        <lib-reusable-input formControlName="d1" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+        <lib-reusable-input  formControlName="d2" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+        <lib-reusable-input  formControlName="d3" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+        <lib-reusable-input  formControlName="d4"  type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+        <lib-reusable-input  formControlName="d5" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+        <lib-reusable-input  formControlName="d6" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
     </div>
 
 
 
 
 
-    <lib-button type="submit" [disabled]="false" [loading]="isLoading" size="full" variant="Primary">Verify
+    <lib-button type="submit" [disabled]="false" [loading]="loading()" size="full" variant="Primary">Verify
         OTP</lib-button>
 
     <lib-divider></lib-divider>

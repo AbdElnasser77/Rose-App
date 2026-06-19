@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthLayout } from '../../layouts/auth-layout/auth-layout';
+import { optFlowGuard } from '../../core/guards/opt-flow-guard';
+import { registerGuard } from '../../core/guards/register-guard';
 
 export const AuthRoutes: Routes = [
   {
@@ -21,6 +23,7 @@ export const AuthRoutes: Routes = [
        },
        {
         path:'confirm-email-verification',
+         canActivate: [optFlowGuard],
         loadComponent:() =>
           import ('./pages/confirm-email-verification/confirm-email-verification.component').then(
             (c)=>c.ConfirmEmailVerificationComponent
@@ -28,6 +31,7 @@ export const AuthRoutes: Routes = [
        },
        {
         path:'register',
+        canActivate: [registerGuard],
         loadComponent: () =>
           import ('./pages/register/register.component').then(
             (c)=>c.RegisterComponent

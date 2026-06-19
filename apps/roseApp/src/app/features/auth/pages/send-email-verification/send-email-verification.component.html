@@ -10,8 +10,8 @@ class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
     <lib-reusable-input label="Email" type="email" formControlName="email" placeholder="user@example.com"></lib-reusable-input>
    
    <lib-button type="submit" 
-    [disabled]="false"
-    [loading]="isLoading"
+    [disabled]="sendEmailVerificationForm.invalid || loading() "
+    [loading]="loading()"
     size="full"
     variant="Primary"
 
