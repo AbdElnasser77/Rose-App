@@ -4,10 +4,11 @@ import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent, ReusableInputComponent, DividerComponent } from '@org/ui';
 import { AuthFacade, AuthStore } from '@org/auth';
 import { Check, LucideAngularModule } from "lucide-angular";
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, LucideAngularModule],
+  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, LucideAngularModule, TranslatePipe],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',
 })

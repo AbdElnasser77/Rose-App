@@ -3,7 +3,41 @@
     "WELCOME": "مرحباً",
     "LOGIN": "تسجيل الدخول",
     "EMAIL": "البريد الإلكتروني",
-    "PASSWORD": "كلمة المرور"
+    "PASSWORD": "كلمة المرور",
+
+    "WELCOME_BACK": "أهلاً بعودتك!",
+    "USERNAME": "اسم المستخدم",
+    "USERNAME_PLACEHOLDER": "أدخل اسم المستخدم",
+    "PASSWORD_PLACEHOLDER": "أدخل كلمة المرور",
+    "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
+    "REMEMBER_ME": "تذكّرني",
+    "NO_ACCOUNT": "ليس لديك حساب بعد؟",
+    "CREATE_ONE_NOW": "أنشئ حساباً الآن.",
+
+    "FORGOT_PASSWORD_TITLE": "نسيت كلمة المرور؟",
+    "FORGOT_PASSWORD_SUBTITLE": "لا تقلق، سنرسل لك تعليمات لإعادة تعيينها.",
+    "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+    "CONTINUE": "متابعة",
+
+    "PASSWORD_RESET_SENT": "تم إرسال رابط إعادة التعيين",
+    "RESET_LINK_SENT_TO": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى:",
+    "EDIT": "تعديل",
+    "CHECK_INBOX": "يرجى التحقق من بريدك الإلكتروني واتباع التعليمات لإعادة تعيين كلمة المرور.",
+    "CHECK_SPAM": "إذا لم تجد البريد خلال دقائق، تحقق من مجلد الرسائل غير المرغوب فيها.",
+
+    "CREATE_NEW_PASSWORD": "إنشاء كلمة مرور جديدة",
+    "SET_STRONG_PASSWORD": "عيّن كلمة مرور قوية لتأمين حسابك.",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
+    "NEW_PASSWORD_PLACEHOLDER": "أدخل كلمة مرورك الجديدة",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "أكّد كلمة مرورك الجديدة",
+    "PASSWORDS_DONT_MATCH": "كلمتا المرور غير متطابقتين.",
+    "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
+    "PASSWORD_RESET_SUCCESS": "تم إعادة تعيين كلمة مرورك بنجاح.",
+
+    "NO_ACCOUNT_SHORT": "ليس لديك حساب؟",
+    "CREATE_YOURS": "أنشئ حسابك",
+    "CREATE_ACCOUNT": "أنشئ حساباً الآن!"
   },
   "NAV": {
     "SEARCH_PLACEHOLDER": "عن أي هدية رائعة تبحث؟",
