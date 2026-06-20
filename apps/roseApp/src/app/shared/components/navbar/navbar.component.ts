@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LanguageSwitcherComponent } from '@rose/i18n';
-import { ThemeService, ThemeToggleComponent } from '@rose/theme';
-import { LucideAngularModule, Menu, X } from 'lucide-angular';
+import { ThemeToggleComponent } from '@rose/theme';
+import { Gift, Home, House, LucideAngularModule, Menu, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
-
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -16,6 +15,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class NavbarComponent {
   readonly Menu = Menu;
   readonly X = X;
+  readonly House = House;
+  readonly Gift = Gift;
+
 
   isLoggedIn = false;
   isDropdownOpen = false;
@@ -25,6 +27,10 @@ export class NavbarComponent {
 
   goToLogin(): void {
     this.router.navigate(['/auth']);
+  }
+
+  goToRegister(): void {
+    this.router.navigate(['/auth/register']);
   }
 
   toggleDropdown(): void {
