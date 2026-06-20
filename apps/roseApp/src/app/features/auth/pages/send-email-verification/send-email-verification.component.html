@@ -1,0 +1,26 @@
+<form [formGroup]="sendEmailVerificationForm" (ngSubmit)="onSendEmailVerificationSubmit()"
+class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+    <lib-welcome-message 
+    title="Become part of our family!" 
+    class="font-edwardian">
+    </lib-welcome-message>
+
+    <lib-divider></lib-divider>
+
+    <lib-reusable-input label="Email" type="email" formControlName="email" placeholder="user@example.com"></lib-reusable-input>
+   
+   <lib-button type="submit" 
+    [disabled]="sendEmailVerificationForm.invalid || loading() "
+    [loading]="loading()"
+    size="full"
+    variant="Primary"
+
+    >Next</lib-button>
+ 
+     <lib-divider></lib-divider>
+
+    
+    <lib-callout-text text="Already have an account?" 
+    linkText="Login" 
+    linkUrl="/auth/login" ></lib-callout-text>
+</form>
