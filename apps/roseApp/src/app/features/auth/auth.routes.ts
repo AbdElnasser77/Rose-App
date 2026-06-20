@@ -10,8 +10,11 @@ export const AuthRoutes: Routes = [
     children: [
       {path:'', redirectTo: 'login', pathMatch: 'full'},
       {
-        path: 'login', loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage), title: 'Login'
+        path: 'login', loadComponent: () => import('./pages/login/login.page').then((m) => m.LoginPage), title: 'Login'
       },
+      {
+        path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage), title: 'Forgot Password'
+      }
     ],
   },
 ];
