@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LanguageSwitcherComponent } from '@rose/i18n';
+import { ThemeService, ThemeToggleComponent } from '@rose/theme';
 import { LucideAngularModule, Menu, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule,LanguageSwitcherComponent,TranslatePipe ],
+  imports: [CommonModule, LucideAngularModule, LanguageSwitcherComponent, ThemeToggleComponent, TranslatePipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
