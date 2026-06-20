@@ -1,7 +1,17 @@
 import { Route } from '@angular/router';
 import { RemoteEntry } from './entry';
+import { MainLayoutComponent } from '../layouts/main-layout/main-layout.component';
 
 export const remoteRoutes: Route[] = [
+  
+   {
+    path: '',
+    component: MainLayoutComponent,
+  },
+  
+  
+  
+  
   {
     path: '',
     redirectTo: 'auth',

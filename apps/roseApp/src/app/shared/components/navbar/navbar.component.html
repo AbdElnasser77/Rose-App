@@ -1,0 +1,190 @@
+<nav dir="ltr" class="sticky top-0 z-50 bg-white border border-gray-200">
+  <div class="h-[58px] px-2 sm:px-3 md:px-6 flex items-center gap-2 md:gap-3">
+    <div class="shrink-0">
+      <img
+        src="http://localhost:4203/assets/logo.png"
+        alt="Rose Logo"
+        class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain"
+      />
+    </div>
+
+    @if (isLoggedIn) {
+      <div class="hidden md:block text-xs md:text-sm shrink-0">
+        <p class="text-gray-400">{{ 'NAV.DELIVER_TO' | translate }}</p>
+
+        <div class="flex items-center gap-1 text-[#8B1E24]">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Cairo</span>
+        </div>
+      </div>
+    }
+
+    <div class="flex-1 min-w-0">
+      <input
+        type="text"
+        [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
+        class="w-full h-[34px] md:h-[38px] px-2 md:px-4 border border-gray-300 rounded-md text-xs md:text-sm outline-none"
+      />
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-4 shrink-0">
+      @if (!isLoggedIn) {
+        <button
+          (click)="goToLogin()"
+          class="flex items-center gap-1 text-xs md:text-sm text-gray-700 hover:text-[#8B1E24]"
+        >
+          <i class="fa-regular fa-user"></i>
+          <span class="inline">{{ 'NAV.LOGIN' | translate }}</span>
+        </button>
+      } @else {
+        <div class="relative">
+          <button
+            (click)="toggleDropdown()"
+            class="flex items-center gap-2 cursor-pointer"
+          >
+            <div class="text-left">
+              <p class="hidden md:block text-xs text-gray-400">
+                {{ 'NAV.HELLO' | translate }}
+              </p>
+              <p class="text-sm text-[#8B1E24] font-medium">Jonathan</p>
+            </div>
+
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+
+          @if (isDropdownOpen) {
+            <div
+              class="absolute right-0 top-12 bg-white rounded-lg shadow-lg w-56 z-50 overflow-hidden"
+            >
+              <div class="p-4 font-semibold text-[#8B1E24] border-b">
+                Jonathan Adrian
+              </div>
+
+              <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+                Account
+              </button>
+
+              <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+                Addresses
+              </button>
+
+              <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+                Orders
+              </button>
+
+              <button class="w-full text-left px-4 py-3 hover:bg-gray-100">
+                Dashboard
+              </button>
+
+              <button
+                (click)="logout()"
+                class="w-full text-left px-4 py-3 hover:bg-gray-100 text-red-600"
+              >
+                Log out
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+      <button class="hidden md:block hover:text-[#8B1E24]">
+        <i class="fa-regular fa-heart text-lg"></i>
+      </button>
+
+      <button class="hover:text-[#8B1E24] relative">
+        <i class="fa-solid fa-cart-shopping text-lg"></i>
+
+        @if (isLoggedIn) {
+          <span
+            class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center"
+          >
+            2
+          </span>
+        }
+      </button>
+
+      <button class="hidden md:block hover:text-[#8B1E24] relative">
+        <i class="fa-regular fa-bell text-lg"></i>
+
+        @if (isLoggedIn) {
+          <span
+            class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center"
+          >
+            2
+          </span>
+        }
+      </button>
+
+      <div class="hidden md:block w-px h-6 bg-gray-300"></div>
+
+      <div dir="ltr" class="hidden sm:block text-xs md:text-sm text-gray-700">
+        <lib-language-switcher />
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden md:flex bg-[#8B1E24] h-[34px] items-center justify-center">
+    <div class="flex items-center gap-6 lg:gap-10 text-white text-xs">
+      <a class="border-b border-white pb-1 cursor-pointer">{{ 'NAV.HOME' | translate }}</a>
+      <a class="cursor-pointer">{{ 'NAV.PRODUCTS' | translate }}</a>
+      <a class="cursor-pointer">{{ 'NAV.CATEGORIES' | translate }}</a>
+      <a class="cursor-pointer">{{ 'NAV.OCCASIONS' | translate }}</a>
+      <a class="cursor-pointer">{{ 'NAV.CONTACT' | translate }}</a>
+      <a class="cursor-pointer">{{ 'NAV.ABOUT' | translate }}</a>
+    </div>
+  </div>
+
+  <div
+    class="md:hidden bg-[#8B1E24] h-[40px] px-4 flex items-center justify-between"
+  >
+    <span class="text-white text-sm font-medium">Menu</span>
+
+    <button
+      (click)="toggleMobileMenu()"
+      class="text-white flex items-center"
+    >
+      <lucide-icon
+        [img]="isMobileMenuOpen ? X : Menu"
+        class="w-5 h-5"
+      />
+    </button>
+  </div>
+
+  <div
+    *ngIf="isMobileMenuOpen"
+    class="md:hidden bg-white border-t border-gray-200 shadow-sm"
+  >
+    <div class="flex flex-col text-sm">
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.HOME' | translate }}</a>
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.PRODUCTS' | translate }}</a>
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.CATEGORIES' | translate }}</a>
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.OCCASIONS' | translate }}</a>
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.CONTACT' | translate }}</a>
+      <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">{{ 'NAV.ABOUT' | translate }}</a>
+
+      @if (isLoggedIn) {
+        <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+          Account
+        </a>
+
+        <a class="px-4 py-3 border-b border-gray-100 cursor-pointer">
+          Orders
+        </a>
+
+        <button
+          (click)="logout()"
+          class="px-4 py-3 text-left text-red-600 cursor-pointer"
+        >
+          Logout
+        </button>
+      } @else {
+        <button
+          (click)="goToLogin()"
+          class="px-4 py-3 text-left text-[#8B1E24] cursor-pointer"
+        >
+          {{ 'NAV.LOGIN' | translate }}
+        </button>
+      }
+    </div>
+  </div>
+</nav>

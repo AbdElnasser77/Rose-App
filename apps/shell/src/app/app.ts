@@ -12,7 +12,7 @@ import { ToastContainerComponent} from '@org/ui';
 export class App implements OnInit {
   private languageService = inject(LanguageService);
 
-
+  
   ngOnInit(): void {
     this.languageService.initialize();
   }
