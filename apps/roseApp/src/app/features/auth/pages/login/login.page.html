@@ -39,13 +39,11 @@
 
             <lib-button [type]="'submit'" [size]="'full'" [loading]="authStore.loading()" [disabled]="authStore.loading()" class="text-white cursor-pointer" (clicked)="onSubmit()">{{ 'AUTH.LOGIN' | translate }}</lib-button>
 
-            <p class="text-sm text-center text-zinc-600 dark:text-zinc-400">
-                {{ 'AUTH.NO_ACCOUNT' | translate }}
-                <a routerLink="/auth/register"
-                    class="font-bold text-maroon-600 hover:text-maroon-800 transition dark:text-soft-pink-300 dark:hover:text-soft-pink-400 cursor-pointer">
-                    {{ 'AUTH.CREATE_ONE_NOW' | translate }}
-                </a>
-            </p>
+            <lib-callout-text
+                [text]="'AUTH.NO_ACCOUNT' | translate"
+                [linkText]="'AUTH.CREATE_ONE_NOW' | translate"
+                linkUrl="/auth/register">
+            </lib-callout-text>
 
         </form>
 

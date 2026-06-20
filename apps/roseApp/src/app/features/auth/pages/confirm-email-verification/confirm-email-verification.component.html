@@ -18,18 +18,20 @@
         </lib-otp-input>
     </div>
 
-    <div class="flex justify-end w-full">
-        <lib-button type="button" variant="Ghost" size="auto" (click)="onResendCode()" [loading]="resendLoading"
+    @if (canResend) {
+    <div class="flex justify-center w-full">
+        <lib-button type="button" [variant]="'Primary'" size="auto" (click)="onResendCode()" [loading]="resendLoading"
             [disabled]="resendLoading">
             {{ 'AUTH.SEND_NEW_CODE' | translate }}
         </lib-button>
     </div>
-
+    } @else {
     <div class="text-sm text-zinc-500 text-center dark:text-zinc-400">
         {{ 'AUTH.RESEND_AVAILABLE' | translate }}
-        <countdown class="text-[#A6252A] font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
+        <countdown class="text-[#A6252A] dark:text-soft-pink-300 font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
         </countdown>
     </div>
+    }
 
     <lib-button type="submit" [disabled]="confirmEmailVerificationForm.invalid || confirmLoading"
         [loading]="confirmLoading" size="full" variant="Primary">

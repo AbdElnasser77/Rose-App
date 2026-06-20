@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ButtonComponent, ReusableInputComponent, DividerComponent } from '@org/ui';
+import { ButtonComponent, ReusableInputComponent, DividerComponent, CalloutTextComponent } from '@org/ui';
 import { AuthFacade, AuthStore } from '@org/auth';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, TranslatePipe],
+  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, TranslatePipe, CalloutTextComponent],
   templateUrl: './forgot-password.page.html',
   styleUrl: './forgot-password.page.scss',
 })

@@ -6,6 +6,7 @@ import { ToastService } from '@org/shared-util-notification';
 import {OtpInputComponent, WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CountdownComponent,CountdownEvent } from 'ngx-countdown';
+import { ThemeService } from '@rose/theme';
 
 @Component({
   selector: 'app-confirm-email-verification',
@@ -24,6 +25,7 @@ export class ConfirmEmailVerificationComponent {
     readonly loading = this._authStore.loading;
     private readonly _registerStore = inject(RegisterStore);
     private readonly _translate = inject(TranslateService);
+    readonly isDark = inject(ThemeService).isDark;
     email: string | null = null;
     confirmLoading = false;
     resendLoading = false;

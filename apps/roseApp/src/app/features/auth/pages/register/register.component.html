@@ -24,13 +24,11 @@
 
       <lib-divider class="my-2"></lib-divider>
 
-      <p class="text-sm text-center text-zinc-600 dark:text-zinc-400">
-        {{ 'AUTH.HAVE_ACCOUNT' | translate }}
-        <a routerLink="/auth/login"
-          class="font-bold text-maroon-700 dark:text-soft-pink-300 hover:underline cursor-pointer">
-          {{ 'AUTH.SIGN_IN' | translate }}
-        </a>
-      </p>
+      <lib-callout-text
+        [text]="'AUTH.HAVE_ACCOUNT' | translate"
+        [linkText]="'AUTH.SIGN_IN' | translate"
+        linkUrl="/auth/login">
+      </lib-callout-text>
     </div>
   }
 
