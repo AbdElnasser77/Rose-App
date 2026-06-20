@@ -6,7 +6,7 @@
         <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
 
         <form [formGroup]="loginForm" class="flex flex-col gap-4">
-            <lib-reusable-input formControlName="username" type="text"
+            <lib-reusable-input formControlName="username" type="text" class="mb-3"
                 [label]="'AUTH.USERNAME' | translate"
                 [placeholder]="'AUTH.USERNAME_PLACEHOLDER' | translate" />
 
@@ -16,7 +16,7 @@
 
             <div class="w-auto ms-auto">
                 <a routerLink="/auth/forgot-password"
-                    class="text-sm text-maroon-600 hover:underline text-end cursor-pointer font-bold dark:text-soft-pink-300">
+                    class="text-sm text-maroon-600 hover:text-maroon-800 transition text-end cursor-pointer font-bold dark:text-soft-pink-300 dark:hover:text-soft-pink-400">
                     {{ 'AUTH.FORGOT_PASSWORD' | translate }}
                 </a>
             </div>
@@ -42,7 +42,7 @@
             <p class="text-sm text-center text-zinc-600 dark:text-zinc-400">
                 {{ 'AUTH.NO_ACCOUNT' | translate }}
                 <a routerLink="/auth/register"
-                    class="font-bold text-maroon-600 dark:text-soft-pink-300 hover:underline cursor-pointer">
+                    class="font-bold text-maroon-600 hover:text-maroon-800 transition dark:text-soft-pink-300 dark:hover:text-soft-pink-400 cursor-pointer">
                     {{ 'AUTH.CREATE_ONE_NOW' | translate }}
                 </a>
             </p>
