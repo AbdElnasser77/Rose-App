@@ -70,6 +70,14 @@
     "OTP_VERIFIED": "Email verified successfully.",
     "CODE_RESENT": "A new verification code has been sent."
   },
+  "VALIDATION": {
+    "REQUIRED": "This field is required.",
+    "EMAIL": "Invalid email address.",
+    "MIN_LENGTH": "Minimum {{length}} characters required.",
+    "MAX_LENGTH": "Maximum {{length}} characters allowed.",
+    "PATTERN": "Invalid format.",
+    "INVALID": "Invalid value."
+  },
   "NAV": {
     "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
     "LOGIN": "Login",
