@@ -8,23 +8,29 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ErrorAdaptor 
 implements AdaptorModel<HttpErrorResponse,string>{
   adapt(error: HttpErrorResponse): string {
-     if (error.status === 0) {
-    return 'No internet connection';
-  }
-   
-  if (error.status === 401) {
-    return 'Unauthorized, please login again';
-  }
-  if (error.error?.errors && Array.isArray(error.error.errors)) {
+    if (error.status === 0) {
+      return 'No internet connection';
+    }
+
+    if (error.status === 401) {
+      return 'Unauthorized, please login again';
+    }
+
+    if (error.error?.errors && Array.isArray(error.error.errors)) {
       const detailedMessages = error.error.errors.map((err: any) => {
-        return err.messages ? err.messages.join('. ') : '';
+        if (err.messages && Array.isArray(err.messages)) {
+          return err.messages.join('. ');
+        }
+        if (err.message) {
+          return err.message;
+        }
+        return '';
       });
 
       return detailedMessages.filter(Boolean).join('\n');
     }
 
-  return error?.error?.message || 'Something went wrong';
+    return error?.error?.message || 'Something went wrong';
   }
 
-  
 }

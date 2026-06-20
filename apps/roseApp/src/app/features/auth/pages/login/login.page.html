@@ -1,0 +1,54 @@
+<div class="flex flex-col mx-5">
+
+    <div class="special-header">
+        <h1 class="text-5xl text-center font-pinyon text-maroon-700 dark:text-soft-pink-300">{{ 'AUTH.WELCOME_BACK' | translate }}</h1>
+
+        <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
+
+        <form [formGroup]="loginForm" class="flex flex-col gap-4">
+            <lib-reusable-input formControlName="username" type="text"
+                [label]="'AUTH.USERNAME' | translate"
+                [placeholder]="'AUTH.USERNAME_PLACEHOLDER' | translate" />
+
+            <lib-reusable-input formControlName="password" type="password"
+                [label]="'AUTH.PASSWORD' | translate"
+                [placeholder]="'AUTH.PASSWORD_PLACEHOLDER' | translate" />
+
+            <div class="w-auto ms-auto">
+                <a routerLink="/auth/forgot-password"
+                    class="text-sm text-maroon-600 hover:underline text-end cursor-pointer font-bold dark:text-soft-pink-300">
+                    {{ 'AUTH.FORGOT_PASSWORD' | translate }}
+                </a>
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer w-fit">
+                <div class="relative">
+                    <input type="checkbox" formControlName="rememberMe" class="peer sr-only" />
+                    <div
+                        class="w-5 h-5 rounded-md border-2 border-maroon-700 dark:border-soft-pink-300 peer-checked:bg-maroon-700 dark:peer-checked:bg-pink-300 transition-colors">
+                    </div>
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                        <lucide-icon [img]="Check" class="w-4 h-4 text-white" />
+                    </div>
+                </div>
+                <span class="text-sm text-zinc-800 dark:text-zinc-50">{{ 'AUTH.REMEMBER_ME' | translate }}</span>
+            </label>
+
+            <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
+
+            <lib-button [type]="'submit'" [size]="'full'" [loading]="authStore.loading()" [disabled]="authStore.loading()" class="text-white cursor-pointer" (clicked)="onSubmit()">{{ 'AUTH.LOGIN' | translate }}</lib-button>
+
+            <p class="text-sm text-center text-zinc-600 dark:text-zinc-400">
+                {{ 'AUTH.NO_ACCOUNT' | translate }}
+                <a routerLink="/auth/register"
+                    class="font-bold text-maroon-600 dark:text-soft-pink-300 hover:underline cursor-pointer">
+                    {{ 'AUTH.CREATE_ONE_NOW' | translate }}
+                </a>
+            </p>
+
+        </form>
+
+
+    </div>
+</div>

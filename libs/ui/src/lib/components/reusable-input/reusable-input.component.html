@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-[6px] w-full ">
+<div class="flex flex-col gap-[6px] w-full relative">
 
   @if(label){
   <label [for]="id" class="font-inter text-[14px] font-medium leading-none text-zinc-800">
@@ -28,5 +28,6 @@
   <div class="absolute top-full left-0 mt-1 z-20">
     <lib-validation-errors [control]="control"></lib-validation-errors>
   </div>
+  
 
 </div>
