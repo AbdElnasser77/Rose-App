@@ -12,6 +12,9 @@
       (blur)="onBlur()"
       [disabled]="isDisabled()"
       [ngClass]="getClass(i)"
+      (input)="onFocus(i)"
+      (focus)="onFocus(i)"
+      
     />
   }
 </div>

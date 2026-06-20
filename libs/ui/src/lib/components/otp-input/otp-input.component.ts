@@ -79,20 +79,25 @@ onBlur() {
   this.emitTouched();
 }
 getClass(index: number): string {
+  const control = this.control;
+
+  const showError =
+    control?.invalid && (control.touched || control.dirty);
+
+  const isFocused = this.focusedIndex === index;
 
   if (this.isDisabled()) {
     return 'bg-[#F4F4F5] border-[#A1A1AA] text-[#A1A1AA] cursor-not-allowed';
   }
 
-  if (this.errors) {
+  if (showError) {
     return 'border-[#DC2626] bg-white';
   }
 
+  if (isFocused) {
+    return 'border-[#A6252A] bg-white';
+  }
 
-  return `
-    border-[#D9D9D9]
-    hover:border-[#A1A1AA]
-    bg-white
-  `;
+  return 'border-[#D9D9D9] hover:border-[#A1A1AA] bg-white';
 }
 }
