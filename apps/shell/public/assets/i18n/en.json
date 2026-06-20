@@ -3,7 +3,41 @@
     "WELCOME": "Welcome",
     "LOGIN": "Login",
     "EMAIL": "Email",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+
+    "WELCOME_BACK": "Welcome back!",
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Enter your username",
+    "PASSWORD_PLACEHOLDER": "Enter your password",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "REMEMBER_ME": "Remember me",
+    "NO_ACCOUNT": "Don't have an account yet?",
+    "CREATE_ONE_NOW": "Create one now.",
+
+    "FORGOT_PASSWORD_TITLE": "Forgot Password?",
+    "FORGOT_PASSWORD_SUBTITLE": "Worry not, we'll send you instructions to help you reset it.",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "CONTINUE": "Continue",
+
+    "PASSWORD_RESET_SENT": "Password Reset Sent",
+    "RESET_LINK_SENT_TO": "We have sent a password reset link to:",
+    "EDIT": "Edit",
+    "CHECK_INBOX": "Please check your inbox and follow the instructions to reset your password.",
+    "CHECK_SPAM": "If you don't see the email within a few minutes, check your spam or junk folder.",
+
+    "CREATE_NEW_PASSWORD": "Create a new password",
+    "SET_STRONG_PASSWORD": "Set a strong password to secure your account.",
+    "NEW_PASSWORD": "New Password",
+    "NEW_PASSWORD_PLACEHOLDER": "Enter your new password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm your new password",
+    "PASSWORDS_DONT_MATCH": "Passwords do not match.",
+    "RESET_PASSWORD": "Reset Password",
+    "PASSWORD_RESET_SUCCESS": "Your password has been successfully reset.",
+
+    "NO_ACCOUNT_SHORT": "Don't have an account?",
+    "CREATE_YOURS": "Create yours",
+    "CREATE_ACCOUNT": "Create one now!"
   },
   "NAV": {
     "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
@@ -16,5 +50,18 @@
     "OCCASIONS": "Occasions",
     "CONTACT": "Contact",
     "ABOUT": "About"
+  },
+  "FOOTER": {
+    "APP_NAME": "Rose E-Commerce App",
+    "RIGHTS": "All rights reserved | 2025",
+    "DISCOVER": "Discover our website",
+    "COUPON_TITLE": "Get 20% Off Discount Coupon",
+    "NEWSLETTER_TEXT": "By subscribing to our newsletter",
+    "EMAIL_PLACEHOLDER": "Enter Your Email",
+    "SUBSCRIBE": "Subscribe",
+    "TERMS": "Terms & Conditions",
+    "PRIVACY": "Privacy Policy",
+    "FAQS": "FAQs",
+    "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   }
 }

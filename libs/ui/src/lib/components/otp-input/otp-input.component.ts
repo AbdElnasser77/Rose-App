@@ -16,12 +16,14 @@ import { CommonModule } from '@angular/common';
   },
 ],
 })
-export class OtpInputComponent  extends ControlValueAccessorDirective<string>{
+export class OtpInputComponent  extends ControlValueAccessorDirective<string> {
   @Input() length = 6;
-  otpBoxes: string[] = Array(this.length).fill('');
+ otpBoxes: string[] = [];
   focusedIndex: number | null = null;
 
-
+ngOnInit() {
+  this.otpBoxes = Array(this.length).fill('');
+}
 onInput(event: Event, index: number) {
   const input = event.target as HTMLInputElement;
 
@@ -93,6 +95,7 @@ getClass(index: number): string {
   if (showError) {
     return 'border-[#DC2626] bg-white';
   }
+
 
   if (isFocused) {
     return 'border-[#A6252A] bg-white';

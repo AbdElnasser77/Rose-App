@@ -1,16 +1,19 @@
 import { Route } from '@angular/router';
-import { RemoteEntry } from './entry';
 
 export const remoteRoutes: Route[] = [
   {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full',
-    // component: RemoteEntry,
   },
   {
     path: 'auth',
     loadChildren: () =>
       import('../features/auth/auth.routes').then((m) => m.AuthRoutes),
+  },
+  {
+    path: 'home', // temporary routing. 
+    loadComponent: () =>
+      import('../layouts/main-layout/main-layout.component').then((m) => m.MainLayoutComponent),
   },
 ];

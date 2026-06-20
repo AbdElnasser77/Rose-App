@@ -16,11 +16,16 @@
         "tsConfig": "apps/roseApp/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/roseApp/public"
-          }
-        ],
+  {
+    "glob": "**/*",
+    "input": "apps/roseApp/public"
+  },
+  {
+    "glob": "**/*",
+    "input": "libs/shared/assets",
+    "output": "assets"
+  }
+],
         "styles": ["apps/roseApp/src/styles.scss"],
         "customWebpackConfig": {
           "path": "apps/roseApp/webpack.config.ts"
