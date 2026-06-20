@@ -4,8 +4,8 @@
     <input
       type="text"
       maxlength="1"
-      class="w-[45px] h-[45px] border  rounded-md text-center hover:border-[#A1A1AA]
-       focus:border-[#A6252A] focus:outline-none transition-all duration-150 block "
+      class="w-[45px] h-[45px] border  rounded-md text-center hover:border-[#A1A1AA] dark:hover:border-soft-pink-300
+       focus:border-[#A6252A] dark:focus:border-soft-pink-300 focus:outline-none transition-all duration-150 block dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-50"
       [value]="otpBoxes[i]"
       (input)="onInput($event, i)"
       (keydown)="onKeyDown($event, i)"
