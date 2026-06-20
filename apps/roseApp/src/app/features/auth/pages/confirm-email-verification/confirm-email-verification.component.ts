@@ -1,14 +1,15 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
 import {OtpInputComponent, WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CountdownComponent,CountdownEvent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-confirm-email-verification',
-  imports: [ReactiveFormsModule,CountdownComponent, OtpInputComponent,WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent],
+  imports: [ReactiveFormsModule, TranslatePipe,RouterModule, CountdownComponent, OtpInputComponent,WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent],
   templateUrl: './confirm-email-verification.component.html',
   styleUrl: './confirm-email-verification.component.scss',
 })
@@ -22,6 +23,7 @@ export class ConfirmEmailVerificationComponent {
     private readonly _authStore=inject(AuthStore);
     readonly loading = this._authStore.loading;
     private readonly _registerStore = inject(RegisterStore);
+    private readonly _translate = inject(TranslateService);
     email: string | null = null;
     confirmLoading = false;
     resendLoading = false;
@@ -60,8 +62,8 @@ export class ConfirmEmailVerificationComponent {
       email:this.email,
       code:form.otp
        }).subscribe({
-      next :(res)=>{
-        this._toastService.show(res.message, 'success');
+      next :()=>{
+        this._toastService.show(this._translate.instant('AUTH.OTP_VERIFIED'), 'success');
         this._registerStore.setStep(3);
         this._router.navigate(['auth/register']);
           this.confirmLoading = false;
@@ -79,8 +81,8 @@ export class ConfirmEmailVerificationComponent {
   this._authFacade.sendEmailVerification({
     email: this.email,
   }).subscribe({
-    next: (res) => {
-      this._toastService.show(res.message, 'success');
+    next: () => {
+      this._toastService.show(this._translate.instant('AUTH.CODE_RESENT'), 'success');
       this.confirmEmailVerificationForm.reset();
        this.resendLoading = false;
         this.canResend = false;
