@@ -30,6 +30,7 @@ export class LoginPage {
     this.authFacade.login({ username, password }, rememberMe).subscribe({
       next: () => {
         this.router.navigate(['/home']);
+        localStorage.setItem('username', username); // temporary for navbar **will be removed**.
       },
     });
   }
