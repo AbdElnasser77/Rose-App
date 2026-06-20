@@ -1,82 +1,82 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
+import { ButtonComponent, DividerComponent, ReusableInputComponent, SelectInputComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
-import { WelcomeMessageComponent, DividerComponent, ReusableInputComponent, ButtonComponent, CalloutTextComponent, SelectInputComponent } from '@org/ui';
-
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, WelcomeMessageComponent, DividerComponent, ReusableInputComponent, ButtonComponent, CalloutTextComponent, SelectInputComponent],
+  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, SelectInputComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-        private _fb=inject(FormBuilder);
-        private readonly  _router = inject(Router);
-        private readonly _authFacade=inject(AuthFacade);
-        private readonly _toastService=inject(ToastService);
-        private readonly _authStore=inject(AuthStore);
-        readonly loading = this._authStore.loading;
-        private readonly _registerStore = inject(RegisterStore);
-    
-     gender=[
-      {label:'MALE',value :'male'},
-      {label :'FEMALE',value:'female'}
-    ];
-    email: string | null = null;
+export class RegisterComponent implements OnInit {
+  private readonly authFacade = inject(AuthFacade);
+  private readonly registerStore = inject(RegisterStore);
+  private readonly toastService = inject(ToastService);
+  private readonly router = inject(Router);
+  readonly authStore = inject(AuthStore);
 
-    
-      
-     registerForm: FormGroup = this._fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
-      gender: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    });
+  currentStep = signal<1 | 2>(1);
 
-    onRegisterSubmit(){
-       if (this.registerForm.invalid) {
-    this.registerForm.markAllAsTouched();
-    return;
-    }
-    if (!this.email) {
-      this._router.navigate(['/auth/send-email-verification']);
-      return;
-    }
+  genderOptions = [
+    { label: 'Male', value: 'MALE' },
+    { label: 'Female', value: 'FEMALE' },
+  ];
 
-    const form = this.registerForm.value;
+  private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const pwd = control.get('password')?.value;
+    const confirm = control.get('confirmPassword')?.value;
+    return pwd === confirm ? null : { passwordMismatch: true };
+  }
 
-    this._authFacade.register({
-      username: form.username,
-      email:this.email ,
-      password: form.password,
-      confirmPassword: form.confirmPassword,
-      firstName:form.firstName,
-     lastName:form.lastName,
-      gender:form.gender
-       }).subscribe({
-      next :()=>{
-        this._toastService.show('Account created successfully', 'success');
-        this._registerStore.clear();
-        this._router.navigate(['auth/login']);
-      }
-    })
+  registerForm = inject(FormBuilder).nonNullable.group(
+    {
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: this.passwordMatchValidator }
+  );
 
-    }
-
-    ngOnInit() {
-    this.email = this._registerStore.email() ?? null;
-
-    const step = this._registerStore.step();
-
-    if (!this.email || step <3) {
-      this._router.navigate(['/auth/send-email-verification']);
+  ngOnInit(): void {
+    if (this.registerStore.step() >= 4) {
+      this.currentStep.set(2);
     }
   }
 
+  nextStep(): void {
+    const formControls = ['firstName', 'lastName', 'username', 'gender'];
+    formControls.forEach(key => this.registerForm.get(key)?.markAsTouched());
+    const isValid = formControls.every(key => this.registerForm.get(key)?.valid);
+    if (isValid) {
+      this.registerStore.setStep(4);
+      this.currentStep.set(2);
+    }
+  }
+
+  backStep(): void {
+    this.registerStore.setStep(3);
+    this.currentStep.set(1);
+  }
+
+  onSubmit(): void {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
+    const { firstName, lastName, username, gender, password, confirmPassword } = this.registerForm.getRawValue();
+    const email = this.registerStore.email();
+    this.authFacade.register({ firstName, lastName, username, email, gender: gender as any, password, confirmPassword }).subscribe({
+      next: () => {
+        this.registerStore.clear();
+        this.toastService.show('Welcome to Rose! Your account has been created.', 'success');
+        this.router.navigate(['/home']);
+      },
+    });
+  }
 }
