@@ -1,26 +1,32 @@
 <form [formGroup]="sendEmailVerificationForm" (ngSubmit)="onSendEmailVerificationSubmit()"
 class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
-    <lib-welcome-message 
-    title="Become part of our family!" 
+    <lib-welcome-message
+    [title]="'AUTH.BECOME_FAMILY' | translate"
     class="font-edwardian">
     </lib-welcome-message>
 
     <lib-divider></lib-divider>
 
-    <lib-reusable-input label="Email" type="email" formControlName="email" placeholder="user@example.com"></lib-reusable-input>
-   
-   <lib-button type="submit" 
-    [disabled]="sendEmailVerificationForm.invalid || loading() "
-    [loading]="loading()"
-    size="full"
-    variant="Primary"
+    <lib-reusable-input
+      [label]="'AUTH.EMAIL' | translate"
+      type="email"
+      formControlName="email"
+      [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate">
+    </lib-reusable-input>
 
-    >Next</lib-button>
- 
-     <lib-divider></lib-divider>
+    <lib-button type="submit"
+      [disabled]="sendEmailVerificationForm.invalid || loading()"
+      [loading]="loading()"
+      size="full"
+      variant="Primary">
+      {{ 'AUTH.NEXT' | translate }}
+    </lib-button>
 
-    
-    <lib-callout-text text="Already have an account?" 
-    linkText="Login" 
-    linkUrl="/auth/login" ></lib-callout-text>
+    <lib-divider></lib-divider>
+
+    <lib-callout-text
+      [text]="'AUTH.HAVE_ACCOUNT' | translate"
+      [linkText]="'AUTH.LOGIN' | translate"
+      linkUrl="/auth/login">
+    </lib-callout-text>
 </form>

@@ -37,7 +37,38 @@
 
     "NO_ACCOUNT_SHORT": "Don't have an account?",
     "CREATE_YOURS": "Create yours",
-    "CREATE_ACCOUNT": "Create one now!"
+    "CREATE_ACCOUNT": "Create one now!",
+
+    "BECOME_FAMILY": "Become part of our family!",
+    "HAVE_ACCOUNT": "Already have an account?",
+    "NEXT": "Next",
+
+    "SENT_CODE_TO": "We have sent a 6-digit code to {{email}}",
+    "SEND_NEW_CODE": "Send a new code",
+    "RESEND_AVAILABLE": "Resend available in",
+    "VERIFY_OTP": "Verify OTP",
+
+    "REGISTER_TITLE": "Create your account",
+    "REGISTER_SUBTITLE": "Tell us a little about yourself.",
+    "FIRST_NAME": "First Name",
+    "FIRST_NAME_PLACEHOLDER": "John",
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_PLACEHOLDER": "Doe",
+    "GENDER": "Gender",
+    "GENDER_PLACEHOLDER": "Select gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "SIGN_IN": "Sign in",
+    "SET_PASSWORD_TITLE": "Set your password",
+    "SET_PASSWORD_SUBTITLE": "Choose a strong password for your account.",
+    "REGISTER_PASSWORD_PLACEHOLDER": "Min. 8 characters",
+    "REPEAT_PASSWORD_PLACEHOLDER": "Repeat your password",
+    "CREATE_ACCOUNT_BTN": "Create Account",
+    "BACK": "Back",
+    "REGISTER_SUCCESS": "Welcome to Rose! Your account has been created.",
+    "EMAIL_SENT": "Verification code sent to your email.",
+    "OTP_VERIFIED": "Email verified successfully.",
+    "CODE_RESENT": "A new verification code has been sent."
   },
   "NAV": {
     "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
