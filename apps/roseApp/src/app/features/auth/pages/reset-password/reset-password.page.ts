@@ -4,16 +4,18 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent, ReusableInputComponent, DividerComponent } from '@org/ui';
 import { AuthFacade, AuthStore } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent],
+  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, TranslatePipe],
   templateUrl: './reset-password.page.html',
   styleUrl: './reset-password.page.scss',
 })
 export class ResetPasswordPage implements OnInit {
   private readonly authFacade = inject(AuthFacade);
   private readonly toastService = inject(ToastService);
+  private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   readonly authStore = inject(AuthStore);
@@ -41,7 +43,7 @@ export class ResetPasswordPage implements OnInit {
     const { newPassword, confirmPassword } = this.resetForm.getRawValue();
     this.authFacade.resetPassword({ token: this.token, newPassword, confirmPassword }).subscribe({
       next: () => {
-        this.toastService.show('Your password has been successfully reset.', 'success');
+        this.toastService.show(this.translate.instant('AUTH.PASSWORD_RESET_SUCCESS'), 'success');
         this.router.navigate(['/auth/login']);
       },
     });
