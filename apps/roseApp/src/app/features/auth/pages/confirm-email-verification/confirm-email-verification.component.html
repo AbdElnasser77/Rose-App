@@ -1,27 +1,38 @@
 <form [formGroup]="confirmEmailVerificationForm" (ngSubmit)="onConfirmEmailVerificationSubmit()"
-class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+    class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
     <lib-welcome-message title="Become part of our family!" class="font-edwardian">
     </lib-welcome-message>
 
     <lib-divider></lib-divider>
-    <p class="font-inter text-[14px] font-medium leading-none text-zinc-800">
-        Verify OTP
+    <p class="font-sarabun font-normal text-[16px] leading-none align-middle text-[#27272A]">
+        We have sent a 6-digit code to {{email}}
+        <span
+            class="font-sarabun font-medium text-[16px] text-[#1447E6] leading-none align-middle underline cursor-pointer">
+            Edit
+        </span>
     </p>
-    <div class="flex gap-2 max-w-md mx-auto">
-        <lib-reusable-input formControlName="d1" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
-        <lib-reusable-input  formControlName="d2" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
-        <lib-reusable-input  formControlName="d3" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
-        <lib-reusable-input  formControlName="d4"  type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
-        <lib-reusable-input  formControlName="d5" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
-        <lib-reusable-input  formControlName="d6" type="text" [maxlength]="1" class="w-[45px] h-[45px]" ></lib-reusable-input>
+    <div class="flex justify-center">
+        <lib-otp-input [disabled]="confirmEmailVerificationForm.invalid || loading()" [length]="6" formControlName="otp"
+            class="mx-auto">
+        </lib-otp-input>
     </div>
 
 
+    <div class="flex justify-end w-full ">
+        <lib-button type="button" variant="Ghost" size="auto" (click)="onResendCode()" [loading]="resendLoading"
+            [disabled]="resendLoading">Send a new
+            code</lib-button>
+    </div>
 
 
+    <div class="text-sm text-zinc-500 text-center">
+        Resend available in
+        <countdown class="text-[#A6252A] font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
+        </countdown>
+    </div>
 
-    <lib-button type="submit" [disabled]="false" [loading]="loading()" size="full" variant="Primary">Verify
-        OTP</lib-button>
+    <lib-button type="submit" [disabled]="confirmEmailVerificationForm.invalid || confirmLoading "
+        [loading]="confirmLoading" size="full" variant="Primary">Verify OTP</lib-button>
 
     <lib-divider></lib-divider>
 

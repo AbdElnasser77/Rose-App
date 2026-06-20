@@ -30,7 +30,6 @@ export class SendEmailVerificationComponent implements OnInit {
   onSendEmailVerificationSubmit(){
    
     if(this.sendEmailVerificationForm.invalid){
-      console.log('red');
       this.sendEmailVerificationForm.markAllAsTouched();
       return;
     }
