@@ -4,6 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
 import { ButtonComponent, DividerComponent, ReusableInputComponent, SelectInputComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
+import { passwordMatchValidator } from '@org/util-validation';
+
 
 @Component({
   selector: 'app-register',
@@ -25,11 +27,7 @@ export class RegisterComponent implements OnInit {
     { label: 'Female', value: 'FEMALE' },
   ];
 
-  private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const pwd = control.get('password')?.value;
-    const confirm = control.get('confirmPassword')?.value;
-    return pwd === confirm ? null : { passwordMismatch: true };
-  }
+ 
 
   registerForm = inject(FormBuilder).nonNullable.group(
     {
@@ -40,7 +38,7 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     },
-    { validators: this.passwordMatchValidator }
+    { validators: passwordMatchValidator('password','confirmPassword') }
   );
 
   ngOnInit(): void {

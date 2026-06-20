@@ -5,6 +5,7 @@ import { ButtonComponent, ReusableInputComponent, DividerComponent } from '@org/
 import { AuthFacade, AuthStore } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { passwordMatchValidator } from '@org/util-validation';
 
 @Component({
   selector: 'app-reset-password',
@@ -28,7 +29,8 @@ export class ResetPasswordPage implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     },
-    { validators: this.passwordMatchValidator }
+        { validators: passwordMatchValidator('password','confirmPassword') }
+    
   );
 
   ngOnInit(): void {
@@ -49,9 +51,5 @@ export class ResetPasswordPage implements OnInit {
     });
   }
 
-  private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const pwd = control.get('newPassword')?.value;
-    const confirm = control.get('confirmPassword')?.value;
-    return pwd === confirm ? null : { passwordMismatch: true };
-  }
+  
 }
