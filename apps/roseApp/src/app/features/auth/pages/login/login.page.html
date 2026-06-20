@@ -2,7 +2,8 @@
 
     <div class="special-header">
         <h1 class="text-5xl text-center font-pinyon text-maroon-700 dark:text-soft-pink-300">Welcome back!</h1>
-        <lib-divider></lib-divider>
+         
+        <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
 
         <form [formGroup]="loginForm" class="flex flex-col gap-4">
             <lib-reusable-input formControlName="username" type="text" label="Username"
@@ -32,7 +33,7 @@
                 <span class="text-sm text-zinc-800 dark:text-zinc-50 ">Remember me</span>
             </label>
 
-            <lib-divider></lib-divider>
+        <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
 
 
             <lib-button [type]="'submit'" [size]="'full'" [loading]="authStore.loading()" [disabled]="authStore.loading()" class="text-white cursor-pointer" (clicked)="onSubmit()">Login</lib-button>
