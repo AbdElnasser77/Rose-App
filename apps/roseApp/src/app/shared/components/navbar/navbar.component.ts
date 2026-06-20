@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
-import { Gift, Home, House, LucideAngularModule, Menu, X } from 'lucide-angular';
+import { Clipboard, ClipboardList, Gift, Headset, Home, House, Info, InfoIcon, LucideAngularModule, Menu, PartyPopper, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-navbar',
@@ -17,6 +17,10 @@ export class NavbarComponent {
   readonly X = X;
   readonly House = House;
   readonly Gift = Gift;
+  readonly ClipboardList = ClipboardList;
+  readonly PartyPopper = PartyPopper;
+  readonly Info = Info;
+  readonly Headset = Headset;
 
 
   isLoggedIn = false;
