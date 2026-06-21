@@ -37,7 +37,46 @@
 
     "NO_ACCOUNT_SHORT": "ليس لديك حساب؟",
     "CREATE_YOURS": "أنشئ حسابك",
-    "CREATE_ACCOUNT": "أنشئ حساباً الآن!"
+    "CREATE_ACCOUNT": "أنشئ حساباً الآن!",
+
+    "BECOME_FAMILY": "كن جزءاً من عائلتنا!",
+    "HAVE_ACCOUNT": "لديك حساب بالفعل؟",
+    "NEXT": "التالي",
+
+    "SENT_CODE_TO": "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى {{email}}",
+    "SEND_NEW_CODE": "إرسال رمز جديد",
+    "RESEND_AVAILABLE": "إعادة الإرسال متاحة خلال",
+    "VERIFY_OTP": "تحقق من الرمز",
+
+    "REGISTER_TITLE": "أنشئ حسابك",
+    "REGISTER_SUBTITLE": "أخبرنا قليلاً عن نفسك.",
+    "FIRST_NAME": "الاسم الأول",
+    "FIRST_NAME_PLACEHOLDER": "أحمد",
+    "LAST_NAME": "اسم العائلة",
+    "LAST_NAME_PLACEHOLDER": "محمد",
+    "GENDER": "الجنس",
+    "GENDER_PLACEHOLDER": "اختر الجنس",
+    "MALE": "ذكر",
+    "FEMALE": "أنثى",
+    "SIGN_IN": "تسجيل الدخول",
+    "SET_PASSWORD_TITLE": "عيّن كلمة مرورك",
+    "SET_PASSWORD_SUBTITLE": "اختر كلمة مرور قوية لتأمين حسابك.",
+    "REGISTER_PASSWORD_PLACEHOLDER": "٨ أحرف على الأقل",
+    "REPEAT_PASSWORD_PLACEHOLDER": "أعد كلمة المرور",
+    "CREATE_ACCOUNT_BTN": "إنشاء الحساب",
+    "BACK": "رجوع",
+    "REGISTER_SUCCESS": "مرحباً بك في Rose! تم إنشاء حسابك بنجاح.",
+    "EMAIL_SENT": "تم إرسال رمز التحقق إلى بريدك الإلكتروني.",
+    "OTP_VERIFIED": "تم التحقق من البريد الإلكتروني بنجاح.",
+    "CODE_RESENT": "تم إرسال رمز تحقق جديد."
+  },
+  "VALIDATION": {
+    "REQUIRED": "هذا الحقل مطلوب.",
+    "EMAIL": "البريد الإلكتروني غير صحيح.",
+    "MIN_LENGTH": "الحد الأدنى {{length}} أحرف.",
+    "MAX_LENGTH": "الحد الأقصى {{length}} أحرف.",
+    "PATTERN": "الصيغة غير صحيحة.",
+    "INVALID": "قيمة غير صحيحة."
   },
   "NAV": {
     "SEARCH_PLACEHOLDER": "عن أي هدية رائعة تبحث؟",

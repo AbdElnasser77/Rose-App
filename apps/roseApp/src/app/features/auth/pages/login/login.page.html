@@ -1,7 +1,7 @@
 <div class="flex flex-col mx-5">
 
     <div class="special-header">
-        <h1 class="text-5xl text-center font-pinyon text-maroon-700 dark:text-soft-pink-300">{{ 'AUTH.WELCOME_BACK' | translate }}</h1>
+        <lib-welcome-message [title]="'AUTH.WELCOME_BACK' | translate" class="font-edwardian"></lib-welcome-message>
 
         <div class="mt-4 mb-6"><lib-divider></lib-divider></div>
 
@@ -39,13 +39,11 @@
 
             <lib-button [type]="'submit'" [size]="'full'" [loading]="authStore.loading()" [disabled]="authStore.loading()" class="text-white cursor-pointer" (clicked)="onSubmit()">{{ 'AUTH.LOGIN' | translate }}</lib-button>
 
-            <p class="text-sm text-center text-zinc-600 dark:text-zinc-400">
-                {{ 'AUTH.NO_ACCOUNT' | translate }}
-                <a routerLink="/auth/register"
-                    class="font-bold text-maroon-600 hover:text-maroon-800 transition dark:text-soft-pink-300 dark:hover:text-soft-pink-400 cursor-pointer">
-                    {{ 'AUTH.CREATE_ONE_NOW' | translate }}
-                </a>
-            </p>
+            <lib-callout-text
+                [text]="'AUTH.NO_ACCOUNT' | translate"
+                [linkText]="'AUTH.CREATE_ONE_NOW' | translate"
+                linkUrl="/auth/register">
+            </lib-callout-text>
 
         </form>
 

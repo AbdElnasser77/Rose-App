@@ -1,15 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
-import { ButtonComponent, DividerComponent, ReusableInputComponent, SelectInputComponent } from '@org/ui';
+import { ButtonComponent, CalloutTextComponent, DividerComponent, ReusableInputComponent, SelectInputComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
 import { passwordMatchValidator } from '@org/util-validation';
 
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterModule, ReusableInputComponent, ButtonComponent, DividerComponent, SelectInputComponent],
+  imports: [ReactiveFormsModule, RouterModule, TranslatePipe, ReusableInputComponent, ButtonComponent, CalloutTextComponent, DividerComponent, SelectInputComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -17,15 +18,19 @@ export class RegisterComponent implements OnInit {
   private readonly authFacade = inject(AuthFacade);
   private readonly registerStore = inject(RegisterStore);
   private readonly toastService = inject(ToastService);
+  private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   readonly authStore = inject(AuthStore);
 
   currentStep = signal<1 | 2>(1);
+  genderOptions = signal<{ label: string; value: string }[]>([]);
 
-  genderOptions = [
-    { label: 'Male', value: 'MALE' },
-    { label: 'Female', value: 'FEMALE' },
-  ];
+  private buildGenderOptions(): void {
+    this.genderOptions.set([
+      { label: this.translate.instant('AUTH.MALE'), value: 'MALE' },
+      { label: this.translate.instant('AUTH.FEMALE'), value: 'FEMALE' },
+    ]);
+  }
 
  
 
@@ -45,6 +50,8 @@ export class RegisterComponent implements OnInit {
     if (this.registerStore.step() >= 4) {
       this.currentStep.set(2);
     }
+    this.buildGenderOptions();
+    this.translate.onLangChange.subscribe(() => this.buildGenderOptions());
   }
 
   nextStep(): void {
@@ -72,7 +79,7 @@ export class RegisterComponent implements OnInit {
     this.authFacade.register({ firstName, lastName, username, email, gender: gender as any, password, confirmPassword }).subscribe({
       next: () => {
         this.registerStore.clear();
-        this.toastService.show('Welcome to Rose! Your account has been created.', 'success');
+        this.toastService.show(this.translate.instant('AUTH.REGISTER_SUCCESS'), 'success');
         this.router.navigate(['/home']);
       },
     });
