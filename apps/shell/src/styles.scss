@@ -62,3 +62,43 @@ html[dir="rtl"] {
   font-family: "Edwardian Script ITC", cursive;
 
 }
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-maroon-700);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-maroon-600);
+}
+
+/* Dark mode */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-soft-pink-300);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-soft-pink-400);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-maroon-700) transparent;
+}
+
+.dark * {
+  scrollbar-color: var(--color-soft-pink-300) transparent;
+}
