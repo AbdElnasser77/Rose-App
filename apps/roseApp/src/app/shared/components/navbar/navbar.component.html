@@ -61,7 +61,7 @@
         <lucide-icon [img]="Heart" class="w-5 h-5" />
       </button>
 
-      <button class="cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+      <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
         <lucide-icon [img]="ShoppingCart" class="w-5 h-5" />
         <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">2</span>
       </button>
@@ -127,9 +127,19 @@
         <lucide-icon [img]="Info" class="w-4 h-4 shrink-0" />{{ 'NAV.ABOUT' | translate }}</a>
 
       @if (isLoggedIn()) {
-      <a class="px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">Account</a>
-      <a class="px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">Orders</a>
-      <button (click)="logout()" class="px-4 py-3 text-left text-red-600 cursor-pointer">Logout</button>
+      <a class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <span class="flex items-center gap-3"><lucide-icon [img]="Bell" class="w-4 h-4 shrink-0" />Notifications</span>
+        <span class="bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">2</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="ShoppingCart" class="w-4 h-4 shrink-0" />Cart
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="Heart" class="w-4 h-4 shrink-0" />Wishlist
+      </a>
+      <button (click)="logout()" class="flex items-center gap-3 px-4 py-3 text-left text-red-600 cursor-pointer">
+        <lucide-icon [img]="LogOut" class="w-4 h-4 shrink-0" />Logout
+      </button>
       } @else {
       <div class="flex gap-3 px-4 py-4">
         <button (click)="goToLogin()"
