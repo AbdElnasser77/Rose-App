@@ -84,11 +84,9 @@ export class ConfirmEmailVerificationComponent {
       this.confirmEmailVerificationForm.reset();
        this.resendLoading = false;
         this.canResend = false;
-        this.countdownConfig = {
-        leftTime: 60,
-        format: 'mm:ss',
-        
-      };
+        if (this.countdown) {
+          this.countdown.restart();
+        }
     },
     error: () => {
       this.resendLoading = false;
