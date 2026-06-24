@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
-import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, LucideAngularModule, MapPin, Menu, PartyPopper, ShoppingCart, User, X } from 'lucide-angular';
+import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, LogOut, LucideAngularModule, MapPin, Menu, PartyPopper, ShoppingCart, User, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -34,6 +34,7 @@ export class NavbarComponent {
   readonly MapPin = MapPin;
   readonly User = User;
   readonly ChevronDown = ChevronDown;
+  readonly LogOut = LogOut;
 
   readonly isLoggedIn = computed(
     () => this.authStore.isAuthenticated() || this.sessionService.isAuthenticated()

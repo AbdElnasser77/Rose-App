@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
 import {ToastService}  from '@org/shared-util-notification';
 import {WelcomeMessageComponent,DividerComponent,ReusableInputComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-send-email-verification',
-  imports: [ReactiveFormsModule,WelcomeMessageComponent,DividerComponent,ReusableInputComponent,ButtonComponent,CalloutTextComponent],
+  imports: [ReactiveFormsModule, TranslatePipe, WelcomeMessageComponent,DividerComponent,ReusableInputComponent,ButtonComponent,CalloutTextComponent],
   templateUrl: './send-email-verification.component.html',
   styleUrl: './send-email-verification.component.scss',
 })
@@ -18,6 +19,7 @@ export class SendEmailVerificationComponent implements OnInit {
     private readonly _authStore=inject(AuthStore);
     readonly loading = this._authStore.loading;
     private readonly _registerStore = inject(RegisterStore);
+    private readonly _translate = inject(TranslateService);
 
 
 
@@ -41,7 +43,7 @@ export class SendEmailVerificationComponent implements OnInit {
     this._authFacade.sendEmailVerification({
        email:emailValue}).subscribe({
       next :(res)=>{
-        this._toastService.show(res.message, 'success');
+        this._toastService.show(this._translate.instant('AUTH.EMAIL_SENT'), 'success');
         this._registerStore.setStep(2);
         this._router.navigate(['auth/confirm-email-verification']);
       }
