@@ -3,10 +3,13 @@
     [ngModel]="value()" 
     (ngModelChange)="onValueChange($event)"
     (blur)="onBlur()"
-    [length]="length"
-    [disabled]="isDisabled()"
-    [styleClass]="getStyleClass()"
+    [length]="length()"
     [integerOnly]="true"
     type="tel" 
+    [ngClass]="{
+    'otp-error': otpServerError() ||
+    (control?.invalid && control?.touched)
+  }"
+  
   />
 </div>
