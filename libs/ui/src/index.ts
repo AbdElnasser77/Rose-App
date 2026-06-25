@@ -18,3 +18,5 @@ export * from './lib/components/divider/divider.component';
 export * from './lib/components/toast-components/toast/toast.component';
 export * from './lib/components/toast-components/toast-container/toast-container.component';
 
+export * from './lib/components/card/card.component';
+
