@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
@@ -15,7 +15,7 @@ import { ThemeService } from '@rose/theme';
   styleUrl: './confirm-email-verification.component.scss',
 })
 export class ConfirmEmailVerificationComponent {
-  @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
+   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
 
     private _fb=inject(FormBuilder);
     private readonly  _router = inject(Router);
@@ -27,17 +27,16 @@ export class ConfirmEmailVerificationComponent {
     private readonly _translate = inject(TranslateService);
     readonly isDark = inject(ThemeService).isDark;
     email: string | null = null;
-    confirmLoading = false;
-    resendLoading = false;
-    canResend = false;
-
+    resendLoading = signal(false);
+    canResend = signal(false);
+    otpServerError = signal(false);
     countdownConfig = {
      leftTime: 60,
      format: 'mm:ss'
      };
     handleCountdownEvent(event: CountdownEvent) {
     if (event.action === 'done') {
-      this.canResend = true;
+      this.canResend.set(true);
     }
     }
 
@@ -57,7 +56,6 @@ export class ConfirmEmailVerificationComponent {
       this._router.navigate(['/auth/send-email-verification']);
       return;
     }
-      this.confirmLoading = true;
     const form = this.confirmEmailVerificationForm.value;
 
     this._authFacade.confirmEmailVerification({
@@ -68,34 +66,34 @@ export class ConfirmEmailVerificationComponent {
         this._toastService.show(this._translate.instant('AUTH.OTP_VERIFIED'), 'success');
         this._registerStore.setStep(3);
         this._router.navigate(['auth/register']);
-          this.confirmLoading = false;
 
       },
     error: () => {
-      this.confirmLoading = false;
+      this.otpServerError.set(true);
     }
     })
 
   }
   onResendCode() {
-  if (!this.email || !this.canResend) return;
-    this.resendLoading = true;
-  this._authFacade.sendEmailVerification({
+  if (!this.email || !this.canResend()) return;
+    this.confirmEmailVerificationForm.reset();
+    this.resendLoading.set(true);
+  this._authFacade.resendEmailVerification({
     email: this.email,
   }).subscribe({
     next: () => {
+      this.resendLoading.set(false);
+        this.canResend.set(false);
+      
       this._toastService.show(this._translate.instant('AUTH.CODE_RESENT'), 'success');
       this.confirmEmailVerificationForm.reset();
-       this.resendLoading = false;
-        this.canResend = false;
-        this.countdownConfig = {
-        leftTime: 60,
-        format: 'mm:ss',
-        
+        if (this.countdown) {
+        this.countdown.restart();
       };
+       
     },
     error: () => {
-      this.resendLoading = false;
+      this.resendLoading.set(false);
     }
   });
  }
@@ -103,11 +101,14 @@ export class ConfirmEmailVerificationComponent {
       this.confirmEmailVerificationForm.reset();
     this.email = this._registerStore.email() ?? null;
 
+    this.confirmEmailVerificationForm.get('otp')?.valueChanges.subscribe(() => {
+       this.otpServerError.set(false);
+    });
+
      const step = this._registerStore.step();
 
     if (!this.email || step < 2) {
       this._router.navigate(['/auth/send-email-verification']);
     }
   }
-
 }

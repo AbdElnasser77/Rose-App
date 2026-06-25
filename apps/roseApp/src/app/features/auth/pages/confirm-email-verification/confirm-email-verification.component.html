@@ -5,7 +5,7 @@
 
     <lib-divider></lib-divider>
 
-    <p class="font-sarabun font-normal text-[16px] leading-none align-middle text-[#27272A] dark:text-zinc-50">
+    <p class="font-sarabun font-normal text-[16px] leading-none align-middle text-[#27272A] dark:text-zinc-50 ">
         {{ 'AUTH.SENT_CODE_TO' | translate:{ email: email } }}
         <a routerLink="/auth/send-email-verification" class="font-sarabun font-medium text-[16px] text-[#1447E6] leading-none align-middle underline cursor-pointer">
             {{ 'AUTH.EDIT' | translate }}
@@ -13,28 +13,31 @@
     </p>
 
     <div class="flex justify-center">
-        <lib-otp-input [disabled]="confirmEmailVerificationForm.invalid || loading()" [length]="6" formControlName="otp"
+        <lib-otp-input [length]="6" [otpServerError]="otpServerError()" formControlName="otp" [disabled]="loading()"
             class="mx-auto">
         </lib-otp-input>
     </div>
 
-    @if (canResend) {
-    <div class="flex justify-center w-full">
-        <lib-button type="button" [variant]="'Primary'" size="auto" (click)="onResendCode()" [loading]="resendLoading"
-            [disabled]="resendLoading">
+   
+    <div class="flex justify-end w-full">
+        <lib-button type="button" [disabled]="!canResend()" [loading]="resendLoading()" [variant]="'Ghost'" size="auto" (click)="onResendCode()" 
+            >
             {{ 'AUTH.SEND_NEW_CODE' | translate }}
         </lib-button>
     </div>
-    } @else {
-    <div class="text-sm text-zinc-500 text-center dark:text-zinc-400">
+    
+    
+    <div class="text-sm text-zinc-500 text-center dark:text-zinc-400 h-[20px] transition-all duration-300" 
+    [class.opacity-100]="!canResend()" [class.opacity-0]="canResend()">
         {{ 'AUTH.RESEND_AVAILABLE' | translate }}
-        <countdown class="text-[#A6252A] dark:text-soft-pink-300 font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
+        <countdown #cd class="text-[#A6252A] dark:text-soft-pink-300 font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
         </countdown>
     </div>
-    }
-
-    <lib-button type="submit" [disabled]="confirmEmailVerificationForm.invalid || confirmLoading"
-        [loading]="confirmLoading" size="full" variant="Primary">
+   
+    
+  
+    <lib-button type="submit" [disabled]="confirmEmailVerificationForm.invalid || loading() "
+        [loading]="loading()" size="full" variant="Primary">
         {{ 'AUTH.VERIFY_OTP' | translate }}
     </lib-button>
 

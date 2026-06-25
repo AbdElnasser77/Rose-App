@@ -102,4 +102,8 @@ private stopLoading() {
     finalize(() => this.stopLoading())
   );
 }
+//  8-Resend code
+resendEmailVerification(data: EmailRequestModel): Observable<MessagePayloadModel> {
+  return this._authApiService.sendEmailVerification(data);
+}
 }

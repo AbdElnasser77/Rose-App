@@ -1,11 +1,12 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, input, Input } from '@angular/core';
 import { ControlValueAccessorDirective } from '../../directives/control-value-accessor-directive';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
+import { InputOtpModule } from 'primeng/inputotp'; 
 
 @Component({
   selector: 'lib-otp-input',
-  imports: [CommonModule],
+  imports: [CommonModule, InputOtpModule, FormsModule],
   templateUrl: './otp-input.component.html',
   styleUrl: './otp-input.component.scss',
   providers: [
@@ -17,87 +18,17 @@ import { CommonModule } from '@angular/common';
 ],
 })
 export class OtpInputComponent  extends ControlValueAccessorDirective<string> {
-  @Input() length = 6;
- otpBoxes: string[] = [];
-  focusedIndex: number | null = null;
+  length = input<number>(6);
+  otpServerError = input<boolean>(false);
 
-ngOnInit() {
-  this.otpBoxes = Array(this.length).fill('');
-}
-onInput(event: Event, index: number) {
-  const input = event.target as HTMLInputElement;
+ onValueChange(newValue: string) {
 
-  let val = input.value.replace(/\D/g, '');
-  if (!val) return;
-
-  const digit = val[0] ?? '';
-
-  this.otpBoxes[index] = digit;
-  input.value = digit;
-
-  const otp = this.otpBoxes.join('');
-  this.emitChange(otp);
-
-  const next = input.nextElementSibling as HTMLInputElement;
-  next?.focus();
-}
-
-onKeyDown(event: KeyboardEvent, index: number) {
-  const input = event.target as HTMLInputElement;
-
-  if (event.key === 'Backspace' && !input.value) {
-    this.otpBoxes[index] = '';
-    input.value = '';
-
-    this.emitChange(this.otpBoxes.join(''));
-
-    const prev = input.previousElementSibling as HTMLInputElement;
-    prev?.focus();
+    this.value.set(newValue || '');
+    this.emitChange(newValue || ''); 
   }
-}
-
-get otpValue(): string {
-  return this.otpBoxes.join('');
-}
-
-override writeValue(value: string | null): void {
-  this.otpBoxes = Array(this.length).fill('');
-
-  if (!value) return;
-
-  value.split('').slice(0, this.length).forEach((c, i) => {
-    this.otpBoxes[i] = c;
-  });
-}
-
-
-
-onFocus(index: number) {
-  this.focusedIndex = index;
-}
-
-onBlur() {
-  this.focusedIndex = null;
-  this.emitTouched();
-}
-getClass(index: number): string {
-
-  if (this.isDisabled()) {
-    return 'bg-[#F4F4F5] border-[#A1A1AA] text-[#A1A1AA] cursor-not-allowed';
+  onBlur() {
+    this.emitTouched(); 
   }
 
-  const control = this.control;
-
-  const showError = control?.invalid && (control.dirty || control.touched);
-
-  if (showError) {
-    return 'border-[#DC2626] bg-white';
-  }
-
-  if (this.focusedIndex === index) {
-    return 'border-[#A6252A] bg-white';
-  }
-
-  return 'border-[#D9D9D9] hover:border-[#A1A1AA] bg-white';
-}
+ 
 }
