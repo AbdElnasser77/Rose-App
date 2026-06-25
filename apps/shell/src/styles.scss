@@ -1,14 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Tajawal:wght@200;300;400;500;700;800;900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pinyon+Script&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Tajawal:wght@200;300;400;500;700;800;900&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: 'Edwardian Script ITC';
+  src: url('/assets/fonts/edwardian-script-itc.ttf') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 @theme {
   --font-inter: 'Inter', sans-serif;
   --font-sarabun: 'Sarabun', sans-serif;
   --font-tajawal: 'Tajawal', sans-serif;
   --font-zain: 'Zain', sans-serif;
   --font-pinyon: 'Pinyon Script', sans-serif;
+  --font-edwardian: 'Edwardian Script ITC', cursive;
 
   --color-maroon-50: #fbeaea;
   --color-maroon-100: #f3c5c7;
@@ -35,7 +43,62 @@
   --color-soft-pink-950: #590414;
 
 }
+
+body {
+  font-family: var(--font-sarabun);
+}
+
+html[dir="rtl"] {
+  body {
+    font-family: var(--font-zain);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-tajawal);
+  }
+}
+
 .font-edwardian {
   font-family: "Edwardian Script ITC", cursive;
 
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-maroon-700);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-maroon-600);
+}
+
+/* Dark mode */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-soft-pink-300);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-soft-pink-400);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-maroon-700) transparent;
+}
+
+.dark * {
+  scrollbar-color: var(--color-soft-pink-300) transparent;
 }

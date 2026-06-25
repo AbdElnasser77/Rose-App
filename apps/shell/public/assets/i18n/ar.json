@@ -3,7 +3,80 @@
     "WELCOME": "مرحباً",
     "LOGIN": "تسجيل الدخول",
     "EMAIL": "البريد الإلكتروني",
-    "PASSWORD": "كلمة المرور"
+    "PASSWORD": "كلمة المرور",
+
+    "WELCOME_BACK": "أهلاً بعودتك!",
+    "USERNAME": "اسم المستخدم",
+    "USERNAME_PLACEHOLDER": "أدخل اسم المستخدم",
+    "PASSWORD_PLACEHOLDER": "أدخل كلمة المرور",
+    "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
+    "REMEMBER_ME": "تذكّرني",
+    "NO_ACCOUNT": "ليس لديك حساب بعد؟",
+    "CREATE_ONE_NOW": "أنشئ حساباً الآن.",
+
+    "FORGOT_PASSWORD_TITLE": "نسيت كلمة المرور؟",
+    "FORGOT_PASSWORD_SUBTITLE": "لا تقلق، سنرسل لك تعليمات لإعادة تعيينها.",
+    "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+    "CONTINUE": "متابعة",
+
+    "PASSWORD_RESET_SENT": "تم إرسال رابط إعادة التعيين",
+    "RESET_LINK_SENT_TO": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى:",
+    "EDIT": "تعديل",
+    "CHECK_INBOX": "يرجى التحقق من بريدك الإلكتروني واتباع التعليمات لإعادة تعيين كلمة المرور.",
+    "CHECK_SPAM": "إذا لم تجد البريد خلال دقائق، تحقق من مجلد الرسائل غير المرغوب فيها.",
+
+    "CREATE_NEW_PASSWORD": "إنشاء كلمة مرور جديدة",
+    "SET_STRONG_PASSWORD": "عيّن كلمة مرور قوية لتأمين حسابك.",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
+    "NEW_PASSWORD_PLACEHOLDER": "أدخل كلمة مرورك الجديدة",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "أكّد كلمة مرورك الجديدة",
+    "PASSWORDS_DONT_MATCH": "كلمتا المرور غير متطابقتين.",
+    "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
+    "PASSWORD_RESET_SUCCESS": "تم إعادة تعيين كلمة مرورك بنجاح.",
+
+    "NO_ACCOUNT_SHORT": "ليس لديك حساب؟",
+    "CREATE_YOURS": "أنشئ حسابك",
+    "CREATE_ACCOUNT": "أنشئ حساباً الآن!",
+
+    "BECOME_FAMILY": "كن جزءاً من عائلتنا!",
+    "HAVE_ACCOUNT": "لديك حساب بالفعل؟",
+    "NEXT": "التالي",
+
+    "SENT_CODE_TO": "لقد أرسلنا رمزاً مكوناً من 6 أرقام إلى {{email}}",
+    "SEND_NEW_CODE": "إرسال رمز جديد",
+    "RESEND_AVAILABLE": "إعادة الإرسال متاحة خلال",
+    "VERIFY_OTP": "تحقق من الرمز",
+
+    "REGISTER_TITLE": "أنشئ حسابك",
+    "REGISTER_SUBTITLE": "أخبرنا قليلاً عن نفسك.",
+    "FIRST_NAME": "الاسم الأول",
+    "FIRST_NAME_PLACEHOLDER": "أحمد",
+    "LAST_NAME": "اسم العائلة",
+    "LAST_NAME_PLACEHOLDER": "محمد",
+    "GENDER": "الجنس",
+    "GENDER_PLACEHOLDER": "اختر الجنس",
+    "MALE": "ذكر",
+    "FEMALE": "أنثى",
+    "SIGN_IN": "تسجيل الدخول",
+    "SET_PASSWORD_TITLE": "عيّن كلمة مرورك",
+    "SET_PASSWORD_SUBTITLE": "اختر كلمة مرور قوية لتأمين حسابك.",
+    "REGISTER_PASSWORD_PLACEHOLDER": "٨ أحرف على الأقل",
+    "REPEAT_PASSWORD_PLACEHOLDER": "أعد كلمة المرور",
+    "CREATE_ACCOUNT_BTN": "إنشاء الحساب",
+    "BACK": "رجوع",
+    "REGISTER_SUCCESS": "مرحباً بك في Rose! تم إنشاء حسابك بنجاح.",
+    "EMAIL_SENT": "تم إرسال رمز التحقق إلى بريدك الإلكتروني.",
+    "OTP_VERIFIED": "تم التحقق من البريد الإلكتروني بنجاح.",
+    "CODE_RESENT": "تم إرسال رمز تحقق جديد."
+  },
+  "VALIDATION": {
+    "REQUIRED": "هذا الحقل مطلوب.",
+    "EMAIL": "البريد الإلكتروني غير صحيح.",
+    "MIN_LENGTH": "الحد الأدنى {{length}} أحرف.",
+    "MAX_LENGTH": "الحد الأقصى {{length}} أحرف.",
+    "PATTERN": "الصيغة غير صحيحة.",
+    "INVALID": "قيمة غير صحيحة."
   },
   "NAV": {
     "SEARCH_PLACEHOLDER": "عن أي هدية رائعة تبحث؟",
@@ -16,5 +89,18 @@
     "OCCASIONS": "المناسبات",
     "CONTACT": "تواصل معنا",
     "ABOUT": "من نحن"
+  },
+  "FOOTER": {
+    "APP_NAME": "Rose E-Commerce App",
+    "RIGHTS": "جميع الحقوق محفوظة | 2025",
+    "DISCOVER": "اكتشف موقعنا",
+    "COUPON_TITLE": "احصل على خصم 20%",
+    "NEWSLETTER_TEXT": "بالاشتراك في النشرة البريدية",
+    "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+    "SUBSCRIBE": "اشترك",
+    "TERMS": "الشروط والأحكام",
+    "PRIVACY": "سياسة الخصوصية",
+    "FAQS": "الأسئلة الشائعة",
+    "COPYRIGHT": "© 2025 Rose E-Commerce App. جميع الحقوق محفوظة."
   }
 }

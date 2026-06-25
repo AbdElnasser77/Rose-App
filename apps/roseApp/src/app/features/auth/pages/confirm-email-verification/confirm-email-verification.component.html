@@ -1,0 +1,51 @@
+<form [formGroup]="confirmEmailVerificationForm" (ngSubmit)="onConfirmEmailVerificationSubmit()"
+    class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
+    <lib-welcome-message [title]="'AUTH.BECOME_FAMILY' | translate" class="font-edwardian">
+    </lib-welcome-message>
+
+    <lib-divider></lib-divider>
+
+    <p class="font-sarabun font-normal text-[16px] leading-none align-middle text-[#27272A] dark:text-zinc-50 ">
+        {{ 'AUTH.SENT_CODE_TO' | translate:{ email: email } }}
+        <a routerLink="/auth/send-email-verification" class="font-sarabun font-medium text-[16px] text-[#1447E6] leading-none align-middle underline cursor-pointer">
+            {{ 'AUTH.EDIT' | translate }}
+        </a>
+    </p>
+
+    <div class="flex justify-center">
+        <lib-otp-input [length]="6" [otpServerError]="otpServerError()" formControlName="otp" [disabled]="loading()"
+            class="mx-auto">
+        </lib-otp-input>
+    </div>
+
+   
+    <div class="flex justify-end w-full">
+        <lib-button type="button" [disabled]="!canResend()" [loading]="resendLoading()" [variant]="'Ghost'" size="auto" (click)="onResendCode()" 
+            >
+            {{ 'AUTH.SEND_NEW_CODE' | translate }}
+        </lib-button>
+    </div>
+    
+    
+    <div class="text-sm text-zinc-500 text-center dark:text-zinc-400 h-[20px] transition-all duration-300" 
+    [class.opacity-100]="!canResend()" [class.opacity-0]="canResend()">
+        {{ 'AUTH.RESEND_AVAILABLE' | translate }}
+        <countdown #cd class="text-[#A6252A] dark:text-soft-pink-300 font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
+        </countdown>
+    </div>
+   
+    
+  
+    <lib-button type="submit" [disabled]="confirmEmailVerificationForm.invalid || loading() "
+        [loading]="loading()" size="full" variant="Primary">
+        {{ 'AUTH.VERIFY_OTP' | translate }}
+    </lib-button>
+
+    <lib-divider></lib-divider>
+
+    <lib-callout-text
+      [text]="'AUTH.HAVE_ACCOUNT' | translate"
+      [linkText]="'AUTH.LOGIN' | translate"
+      linkUrl="/auth/login">
+    </lib-callout-text>
+</form>

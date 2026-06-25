@@ -1,0 +1,157 @@
+<nav dir="ltr" class="sticky top-0 z-50 bg-white dark:bg-zinc-800">
+  <div class="h-[58px] px-2 sm:px-3 md:px-6 flex items-center gap-2 md:gap-3">
+    <div class="shrink-0">
+      <img src="http://localhost:4203/assets/logo.png" alt="Rose Logo"
+        class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
+    </div>
+
+    @if (isLoggedIn()) {
+    <div class="hidden md:block text-xs md:text-sm shrink-0">
+      <p class="text-gray-400 dark:text-zinc-400">{{ 'NAV.DELIVER_TO' | translate }}</p>
+      <div class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
+        <lucide-icon [img]="MapPin" class="w-4 h-4" />
+        <span>Cairo</span>
+      </div>
+    </div>
+    }
+
+    <div class="flex-1 min-w-0">
+      <input type="text" [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
+        class="w-full h-[34px] md:h-[38px] px-2 md:px-4 border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none" />
+    </div>
+
+    <div class="flex items-center md:gap-2 shrink-0">
+      @if (!isLoggedIn()) {
+      <button (click)="goToLogin()"
+        class="flex items-center gap-1 text-xs md:text-sm text-gray-700 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 cursor-pointer">
+        <lucide-icon [img]="User" class="w-5 h-5" />
+        <span class="inline text-sm">{{ 'NAV.LOGIN' | translate }}</span>
+      </button>
+      } @else {
+      <div class="relative">
+        <button (click)="toggleDropdown()" class="flex items-center gap-2 cursor-pointer">
+          <div class="text-left">
+            <p class="hidden md:block text-xs text-gray-400 dark:text-zinc-400">
+              {{ 'NAV.HELLO' | translate }}
+            </p>
+            <p class="text-sm text-maroon-700 dark:text-soft-pink-300 font-medium">{{ currentUser ?? 'Account' }}</p>
+          </div>
+          <lucide-icon [img]="ChevronDown" class="w-4 h-4 dark:text-zinc-50" />
+        </button>
+
+        @if (isDropdownOpen) {
+        <div class="absolute right-0 top-12 bg-white dark:bg-zinc-700 rounded-lg shadow-lg w-56 z-50 overflow-hidden">
+          <div class="p-4 font-semibold text-[#8B1E24] border-b dark:border-zinc-600">
+            {{ currentUser ?? 'Account' }}
+          </div>
+          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Account</button>
+          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Addresses</button>
+          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Orders</button>
+          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Dashboard</button>
+          <button (click)="logout()" class="w-full cursor-pointer text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-zinc-600 text-red-600">Log out</button>
+        </div>
+        }
+      </div>
+      }
+
+      @if (isLoggedIn()) {
+      <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+
+      <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300">
+        <lucide-icon [img]="Heart" class="w-5 h-5" />
+      </button>
+
+      <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+        <lucide-icon [img]="ShoppingCart" class="w-5 h-5" />
+        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">2</span>
+      </button>
+
+      <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+        <lucide-icon [img]="Bell" class="w-5 h-5" />
+        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">2</span>
+      </button>
+
+      <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+      }
+
+      <div class="hidden md:flex items-center gap-2">
+        <lib-theme-toggle />
+        <div class="w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+        <div class="text-xs md:text-sm text-gray-700 dark:text-zinc-50">
+          <lib-language-switcher />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden dark:bg-pink-300 md:flex bg-[#8B1E24] h-[34px] items-end justify-center">
+    <div class="flex items-center gap-6 lg:gap-10 text-white text-xs">
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="House" class="w-5 h-5" />{{ 'NAV.HOME' | translate }}</a>
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="Gift" class="w-5 h-5" />{{ 'NAV.PRODUCTS' | translate }}</a>
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="ClipboardList" class="w-5 h-5" />{{ 'NAV.CATEGORIES' | translate }}</a>
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="PartyPopper" class="w-5 h-5" />{{ 'NAV.OCCASIONS' | translate }}</a>
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="Headset" class="w-5 h-5" />{{ 'NAV.CONTACT' | translate }}</a>
+      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+        <lucide-icon [img]="Info" class="w-5 h-5" />{{ 'NAV.ABOUT' | translate }}</a>
+    </div>
+  </div>
+
+  <div class="md:hidden text-white bg-[#8B1E24] dark:bg-soft-pink-300 h-[40px] px-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <lib-theme-toggle />
+        <lib-language-switcher />
+    </div>
+    <button (click)="toggleMobileMenu()" class="text-white dark:text-zinc-50 flex items-center cursor-pointer">
+      <lucide-icon [img]="isMobileMenuOpen ? X : Menu" class="w-5 h-5" />
+    </button>
+  </div>
+
+  <div *ngIf="isMobileMenuOpen" class="md:hidden bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 shadow-sm">
+    <div class="flex flex-col text-sm">
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="House" class="w-4 h-4 shrink-0" />{{ 'NAV.HOME' | translate }}</a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="Gift" class="w-4 h-4 shrink-0" />{{ 'NAV.PRODUCTS' | translate }}</a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="ClipboardList" class="w-4 h-4 shrink-0" />{{ 'NAV.CATEGORIES' | translate }}</a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="PartyPopper" class="w-4 h-4 shrink-0" />{{ 'NAV.OCCASIONS' | translate }}</a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="Headset" class="w-4 h-4 shrink-0" />{{ 'NAV.CONTACT' | translate }}</a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="Info" class="w-4 h-4 shrink-0" />{{ 'NAV.ABOUT' | translate }}</a>
+
+      @if (isLoggedIn()) {
+      <a class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <span class="flex items-center gap-3"><lucide-icon [img]="Bell" class="w-4 h-4 shrink-0" />Notifications</span>
+        <span class="bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">2</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="ShoppingCart" class="w-4 h-4 shrink-0" />Cart
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+        <lucide-icon [img]="Heart" class="w-4 h-4 shrink-0" />Wishlist
+      </a>
+      <button (click)="logout()" class="flex items-center gap-3 px-4 py-3 text-left text-red-600 cursor-pointer">
+        <lucide-icon [img]="LogOut" class="w-4 h-4 shrink-0" />Logout
+      </button>
+      } @else {
+      <div class="flex gap-3 px-4 py-4">
+        <button (click)="goToLogin()"
+          class="flex-1 py-2 rounded-md border border-[#8B1E24] dark:border-soft-pink-300 text-[#8B1E24] dark:text-soft-pink-300 text-sm font-medium transition-colors hover:bg-maroon-50 dark:hover:bg-zinc-700">
+          {{ 'AUTH.LOGIN' | translate }}
+        </button>
+        <button (click)="goToRegister()"
+          class="flex-1 py-2 rounded-md bg-[#8B1E24] dark:bg-soft-pink-300 text-white dark:text-zinc-800 text-sm font-medium transition-colors hover:bg-maroon-800 dark:hover:bg-soft-pink-400">
+          {{ 'AUTH.CREATE_ONE_NOW' | translate }}
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</nav>

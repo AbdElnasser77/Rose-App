@@ -1,0 +1,63 @@
+<div class="flex flex-col mx-5">
+  @if (currentStep() === 1) {
+    <h1 class="text-3xl text-zinc-800 font-bold dark:text-zinc-50">{{ 'AUTH.REGISTER_TITLE' | translate }}</h1>
+    <p class="text-zinc-600 dark:text-zinc-400 pt-1">{{ 'AUTH.REGISTER_SUBTITLE' | translate }}</p>
+    <lib-divider class="mt-4 mb-6"></lib-divider>
+
+    <div class="flex flex-col gap-4">
+      <div class="grid grid-cols-2 gap-4">
+        <lib-reusable-input [formControl]="registerForm.controls.firstName" type="text"
+          [label]="'AUTH.FIRST_NAME' | translate" [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | translate" />
+        <lib-reusable-input [formControl]="registerForm.controls.lastName" type="text"
+          [label]="'AUTH.LAST_NAME' | translate" [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | translate" />
+      </div>
+
+      <lib-reusable-input [formControl]="registerForm.controls.username" type="text"
+        [label]="'AUTH.USERNAME' | translate" [placeholder]="'AUTH.USERNAME_PLACEHOLDER' | translate" />
+
+      <lib-select-input [formControl]="registerForm.controls.gender"
+        [label]="'AUTH.GENDER' | translate" [options]="genderOptions()" [placeholder]="'AUTH.GENDER_PLACEHOLDER' | translate" />
+
+      <lib-button class="text-white mt-2" [size]="'full'" (clicked)="nextStep()">
+        {{ 'AUTH.NEXT' | translate }}
+      </lib-button>
+
+      <lib-divider class="my-2"></lib-divider>
+
+      <lib-callout-text
+        [text]="'AUTH.HAVE_ACCOUNT' | translate"
+        [linkText]="'AUTH.SIGN_IN' | translate"
+        linkUrl="/auth/login">
+      </lib-callout-text>
+    </div>
+  }
+
+  @if (currentStep() === 2) {
+    <h1 class="text-3xl text-zinc-800 font-bold dark:text-zinc-50">{{ 'AUTH.SET_PASSWORD_TITLE' | translate }}</h1>
+    <p class="text-zinc-600 dark:text-zinc-400 pt-1">{{ 'AUTH.SET_PASSWORD_SUBTITLE' | translate }}</p>
+    <lib-divider class="mt-4 mb-6"></lib-divider>
+
+    <form [formGroup]="registerForm" class="flex flex-col gap-4">
+      <lib-reusable-input formControlName="password" type="password"
+        [label]="'AUTH.PASSWORD' | translate" [placeholder]="'AUTH.REGISTER_PASSWORD_PLACEHOLDER' | translate" />
+
+      <lib-reusable-input formControlName="confirmPassword" type="password"
+        [label]="'AUTH.CONFIRM_PASSWORD' | translate" [placeholder]="'AUTH.REPEAT_PASSWORD_PLACEHOLDER' | translate" />
+
+      @if (registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.dirty) {
+        <p class="text-sm text-red-600 dark:text-red-400">{{ 'AUTH.PASSWORDS_DONT_MATCH' | translate }}</p>
+      }
+
+      <lib-button class="text-white mt-2" [type]="'submit'" [size]="'full'"
+        [loading]="authStore.loading()" [disabled]="authStore.loading()"
+        (clicked)="onSubmit()">
+        {{ 'AUTH.CREATE_ACCOUNT_BTN' | translate }}
+      </lib-button>
+
+      <button type="button" (click)="backStep()"
+        class="text-sm text-center text-zinc-500 dark:text-zinc-400 hover:underline cursor-pointer">
+        {{ 'AUTH.BACK' | translate }}
+      </button>
+    </form>
+  }
+</div>

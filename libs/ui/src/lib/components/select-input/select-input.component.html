@@ -1,14 +1,14 @@
-<div class="flex flex-col gap-[6px] w-full ">
+<div class="flex flex-col gap-[6px] w-full relative">
      @if(label){
-  <label  class="font-inter text-[14px] font-medium leading-none text-zinc-800">
+  <label  class="font-inter text-[14px] font-medium leading-none text-zinc-800 dark:text-zinc-50">
     {{ label }}
   </label>
   }
      <div class="relative w-full">
 
     <select [value]="value()" (blur)="emitTouched()" (change)="onSelectChange($event)"
-        class="w-full h-[49px] rounded-[10px] font-inter border border-zinc-300 focus:border-zinc-500 px-4 
-        text-[14px] font-normal text-zinc-400 appearance-none
+        class="w-full h-[49px] rounded-[10px] font-inter border border-zinc-300 focus:border-zinc-500 ps-4 pe-10
+        text-[14px] font-normal text-zinc-400 appearance-none dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-50
          placeholder:text-zinc-500 placeholder:font-inter leading-none outline-none">
         <option value="" disabled selected>
             {{ placeholder }}
@@ -21,12 +21,12 @@
         }
     </select>
 
-      <div class="absolute right-4 w-[20px] h-[20px] top-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none text-zinc-500">
+      <div class="absolute end-4 w-[20px] h-[20px] top-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
               <lucide-icon  [img]="ChevronDown" />
 
   </div>
   </div>
-    <div class="min-h-[20px]">
+    <div class="absolute top-full left-0 mt-1 z-20">
         <lib-validation-errors [control]="control"></lib-validation-errors>
     </div>
 

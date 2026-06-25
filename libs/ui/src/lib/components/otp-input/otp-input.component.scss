@@ -1,0 +1,61 @@
+:host ::ng-deep {
+  .p-inputotp {
+    display: flex;
+    gap: 8px;
+  }
+
+  .p-inputotp-input {
+    width: 45px !important;
+    height: 45px !important;
+    padding: 16px !important;
+    border-radius: 10px !important;
+    border: 1px solid #d9d9d9 !important;
+    background: #ffffff !important;
+
+    font-size: 16px;
+    text-align: center;
+
+    transition: border-color 0.2s ease;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Default */
+  .p-inputotp-input:not(:disabled) {
+    border-color: #d9d9d9 !important;
+  }
+
+  /* Hover */
+  .p-inputotp-input:hover:not(:disabled):not(:focus) {
+    border-color: #a1a1aa !important;
+  }
+
+  /* Focus */
+  .p-inputotp-input:focus,
+  .p-inputotp-input:focus-visible,
+  .p-inputotp-input:hover:focus,
+  .p-inputotp-input:hover:focus-visible {
+    border-color: #a6252a !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Disabled */
+  .p-inputotp-input:disabled {
+    background: #f4f4f5 !important;
+    border-color: #d9d9d9 !important;
+    color: #a1a1aa !important;
+    cursor: not-allowed !important;
+  }
+
+  /* Error */
+  .otp-error .p-inputotp-input {
+    border-color: #dc2626 !important;
+  }
+
+  .otp-error .p-inputotp-input:focus,
+  .otp-error .p-inputotp-input:focus-visible,
+  .otp-error .p-inputotp-input:hover:focus {
+    border-color: #dc2626 !important;
+  }
+}
