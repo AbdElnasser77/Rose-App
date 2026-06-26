@@ -1,0 +1,22 @@
+<div class="section-title-wrapper mb-8 flex flex-col gap-[8px]" 
+     [ngClass]="{
+        'text-left items-start': alignment === 'left',
+        'text-center items-center': alignment === 'center'
+     }">
+    @if (subTitle) {
+    <span class="text-[#FF668B] font-sarabun text-[16px] font-bold uppercase tracking-[0.25em] leading-none ">
+        {{ subTitle }}
+    </span>
+    }
+
+    <h2
+        class="text-[#741C21] font-sarabun font-bold tracking-tight leading-none align-middle relative inline-block text-[36px]">
+
+        <span class="relative z-10">{{ mainTitle }}</span>
+
+        <div class="w-[73%] h-[17px] absolute -bottom-1 left-0 -z-1 bg-[#FFE0E7] rounded-tr-[20px] rounded-br-[20px]">
+        </div>
+        <div class="absolute  w-[30%] h-[2px] -bottom-1 left-0 bg-[#E65073]"></div>
+    </h2>
+
+</div>

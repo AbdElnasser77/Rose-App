@@ -1,13 +1,17 @@
 <button [type]="type" [disabled]="disabled" (click)="onButtonClick($event)" class="
-     h-[41px] px-4 py-[14px] rounded-[10px] font-sarabun font-medium text-[16px] leading-none
-    flex items-center justify-center gap-[10px]
+     font-sarabun font-medium text-[16px] leading-none
+    flex items-center justify-center
     cursor-pointer disabled:cursor-not-allowed
-    transition
-  "
-  [ngClass]="{
-    'w-full': size === 'full',
-    'w-1/2': size === 'half',
-    'w-auto min-w-[120px]': size === 'auto',
+    transition-all duration-300 ease-in-out"
+     [ngClass]="{
+    'h-[42px] w-full': size === 'full',
+    'h-[42px] w-1/2': size === 'half',
+    'h-[42px] w-auto min-w-[120px]': size === 'auto',
+    'px-4 py-[14px] rounded-[10px] gap-[10px]': size !== 'icon',
+    
+    'rounded-full p-0 flex-shrink-0': size === 'icon',
+    'w-[30px] h-[30px]': size === 'icon' && variant === 'IconWhite',
+    'w-[42px] h-[42px]': size === 'icon' && variant === 'IconRed',
 
     'bg-maroon-600 text-[#FFFFFF] hover:bg-maroon-700 dark:bg-soft-pink-300 dark:text-zinc-800 dark:hover:bg-soft-pink-500':variant === 'Primary' && !disabled && !loading,
 
@@ -23,15 +27,25 @@
     'bg-zinc-100 text-zinc-400': variant === 'Ghost' && (disabled || loading),
 
     'bg-red-600 text-[#FFFFFF] hover:bg-red-700 ' : variant === 'Destructive' && !disabled && !loading,
-
+    'bg-white text-maroon-600 shadow-sm hover:bg-gray-50 hover:shadow-md active:scale-95 [&_svg]:stroke-maroon-600': variant === 'IconWhite' && !disabled && !loading,
+    'bg-[#A6252A] text-maroon-50 shadow-[0px_0px_40px_5px_#0000000D] hover:bg-[#741C21] hover:shadow-lg active:scale-95 [&_svg]:stroke-[#FBEAEA]': variant === 'IconRed' && !disabled && !loading,
 
     'bg-zinc-300 text-zinc-500': (disabled || loading) && (variant === 'Primary' || variant === 'Secondary' || variant === 'Destructive')
     
-  }"
-  >
- 
-  <ng-content></ng-content>
-   @if (loading) {
-    <lucide-icon [img]="LoaderCircle" class="animate-spin h-5 w-5"></lucide-icon>
+  }">
+  @if (!loading){
+  
+      <ng-content select="[leftIcon]"></ng-content>
+
+      <span class="flex items-center justify-center">
+        <ng-content></ng-content>
+      </span>
+      
+      <ng-content select="[rightIcon]"></ng-content>
+    
+
+  }
+  @else{
+  <lucide-icon [img]="LoaderCircle" class="animate-spin h-5 w-5"></lucide-icon>
   }
 </button>
