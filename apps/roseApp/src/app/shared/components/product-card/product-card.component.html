@@ -22,10 +22,7 @@
         <!-- Hover -->
         <div
             class="absolute inset-0 bg-[#E65073]/50 flex items-center justify-center gap-[10px] p-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[12px]">
-            <!-- <button (click)="$event.stopPropagation(); wishListClicked.emit(product.id)"
-            class="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center text-maroon-600 transition-all transform translate-y-2 group-hover:translate-y-0 duration-300 cursor-pointer">
-                <lucide-icon [img]="HeartPlus" class="w-[20px] h-[20px] stroke-[2px] stroke-maroon-600"></lucide-icon>
-            </button> -->
+            
             <lib-button size="icon" variant="IconWhite" (clicked)="wishListClicked.emit(product.id)">
                 <lucide-icon [img]="Heart" class="w-[20px] h-[20px] stroke-[2px]"></lucide-icon>
             </lib-button>
@@ -34,9 +31,7 @@
                 <lucide-icon [img]="Eye" class="w-[20px] h-[20px] stroke-[2px] "></lucide-icon>
 
             </lib-button>
-            <!-- <button (click)="$event.stopPropagation(); quickViewClicked.emit(product.id)"
-                class="w-[30px] h-[30px] bg-white rounded-full flex items-center justify-center text-maroon-600 transition-all transform translate-y-2 group-hover:translate-y-0 duration-300 cursor-pointer ">
-            </button> -->
+            
         </div>
     </div>
 
