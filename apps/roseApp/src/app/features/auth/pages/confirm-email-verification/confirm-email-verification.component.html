@@ -5,7 +5,7 @@
 
     <lib-divider></lib-divider>
 
-    <p class="font-sarabun font-normal text-[16px] leading-none align-middle text-[#27272A] dark:text-zinc-50 ">
+    <p class="font-sarabun font-normal text-[16px] leading-relaxed align-middle text-[#27272A] dark:text-zinc-50 ">
         {{ 'AUTH.SENT_CODE_TO' | translate:{ email: email } }}
         <a routerLink="/auth/send-email-verification" class="font-sarabun font-medium text-[16px] text-[#1447E6] leading-none align-middle underline cursor-pointer">
             {{ 'AUTH.EDIT' | translate }}
@@ -18,20 +18,15 @@
         </lib-otp-input>
     </div>
 
-   
-    <div class="flex justify-end w-full">
-        <lib-button type="button" [disabled]="!canResend()" [loading]="resendLoading()" [variant]="'Ghost'" size="auto" (click)="onResendCode()" 
-            >
-            {{ 'AUTH.SEND_NEW_CODE' | translate }}
-        </lib-button>
-    </div>
-    
-    
     <div class="text-sm text-zinc-500 text-center dark:text-zinc-400 h-[20px] transition-all duration-300" 
-    [class.opacity-100]="!canResend()" [class.opacity-0]="canResend()">
-        {{ 'AUTH.RESEND_AVAILABLE' | translate }}
-        <countdown #cd class="text-[#A6252A] dark:text-soft-pink-300 font-bold" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
+      [class.cursor-default]="canResend()" >
+        {{ 'AUTH.RESEND_AVAILABLE' | translate }}: 
+        <countdown #cd class="text-maroon-700 dark:text-soft-pink-300 font-bold" [hidden]="canResend()" [config]="countdownConfig" (event)="handleCountdownEvent($event)">
         </countdown>
+        
+        <button type="button" class="text-maroon-700 hover:text-maroon-800 dark:text-soft-pink-300 font-bold cursor-pointer dark:hover:text-soft-pink-400 " [disabled]="resendLoading()" [hidden]="!canResend()" (click)="onResendCode()">
+          {{ (resendLoading() ? 'AUTH.SENDING' : 'AUTH.SEND_NEW_CODE') | translate }}
+        </button>
     </div>
    
     
