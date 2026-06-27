@@ -45,6 +45,7 @@
 
     "SENT_CODE_TO": "We have sent a 6-digit code to {{email}}",
     "SEND_NEW_CODE": "Send a new code",
+    "SENDING": "Sending...",
     "RESEND_AVAILABLE": "Resend available in",
     "VERIFY_OTP": "Verify OTP",
 
