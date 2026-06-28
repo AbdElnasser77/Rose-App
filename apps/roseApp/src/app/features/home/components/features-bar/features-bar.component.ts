@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '@org/ui';
 import { Headset, LucideAngularModule, RefreshCw, ShieldCheck, Truck } from 'lucide-angular';
 
 @Component({
   selector: 'app-features-bar',
-  imports: [ButtonComponent,LucideAngularModule],
+  imports: [ButtonComponent,LucideAngularModule,TranslatePipe],
   templateUrl: './features-bar.component.html',
   styleUrl: './features-bar.component.scss',
 })
 export class FeaturesBarComponent {
+
   
   features = [
-    { icon: Truck, title: 'Free Delivery', desc: 'For orders above 120 EGP' },
-    { icon: RefreshCw, title: 'Get Refund', desc: 'Refunds within 30 days' },
-    { icon: ShieldCheck, title: 'Safe Payment', desc: '100% Secure Payment' },
-    { icon: Headset, title: '24/7 Support', desc: 'Contact us at any time' }
+    { icon: Truck, title: 'FEATURES.FREE_DELIVERY_TITLE', desc: 'FEATURES.FREE_DELIVERY_DESC' },
+    { icon: RefreshCw, title: 'FEATURES.GET_REFUND_TITLE', desc: 'FEATURES.GET_REFUND_DESC' },
+    { icon: ShieldCheck, title: 'FEATURES.SAFE_PAYMENT_TITLE', desc:'FEATURES.SAFE_PAYMENT_DESC' },
+    { icon: Headset, title: 'FEATURES.SUPPORT_TITLE', desc: 'FEATURES.SUPPORT_DESC' }
   ];
 }

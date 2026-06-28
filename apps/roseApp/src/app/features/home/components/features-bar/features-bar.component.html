@@ -1,28 +1,34 @@
-<section class="w-full px-[81px] mt-[40px]">
-    <div class="w-full bg-[#FBEAEA] rounded-[16px] mx-auto 
-    grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-[40px]">
+<section class="w-full px-4 sm:px-6 lg:px-[81px] mt-[40px]">
+
+    <div class="w-full bg-[#FBEAEA]  rounded-[16px] mx-auto 
+            grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+            p-6 sm:p-8 lg:p-[40px]
+             gap-y-8  dark:bg-[#3F3F46]">
 
         @for (feature of features; track feature.title) {
-        <div clas="flex justify-center items-center gap-[16px]">
-            <lib-button size="icon" variant="Primary" shape="circle">
-                <lucide-icon [img]="feature.icon" class="w-[40px] h-[40px] stroke-[2px] "></lucide-icon>
+        <div class="flex  flex-col sm:flex-row items-center   mx-auto sm:items-center gap-4 text-center sm:text-start">
 
+
+            <lib-button size="icon-lg" variant="Primary" shape="circle">
+                <lucide-icon [img]="feature.icon"
+                    class="w-[32px] h-[32px] sm:w-[40px] sm:h-[40px]   dark:text-[#27272A]"></lucide-icon>
             </lib-button>
-            <!-- Title and Description -->
-            <div class="flext justify-center items-center gap-[5px] ">
-                
-                <h4 class="text-[#A6252A] font-sarabun font-semibold text-[20px] 
-                leading-none tracking-normal align-middle">{{feature.title}}</h4>
 
 
-                <p class="font-sarabun font-normal text-[14px] leading-none 
-                text-[#71717A] align-middle" >{{feature.desc}}</p>
+            <div class="flex flex-col justify-center pt-[11px]  gap-[5px] flex-1">
+                <h4
+                    class="text-[#A6252A] font-sarabun font-semibold text-[18px] lg:text-[20px] leading-tight dark:text-[#FFC2D0]">
+                    {{feature.title | translate}}
+                </h4>
 
+                <p
+                    class="font-sarabun font-normal text-[13px] lg:text-[14px] leading-relaxed text-[#71717A] dark:text-[#D9D9D9]">
+                    {{feature.desc | translate}}
+                </p>
             </div>
 
         </div>
         }
 
     </div>
-
 </section>
