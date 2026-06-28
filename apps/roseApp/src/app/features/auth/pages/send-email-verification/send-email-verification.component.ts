@@ -5,6 +5,7 @@ import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
 import {ToastService}  from '@org/shared-util-notification';
 import {WelcomeMessageComponent,DividerComponent,ReusableInputComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-send-email-verification',
   imports: [ReactiveFormsModule, TranslatePipe, WelcomeMessageComponent,DividerComponent,ReusableInputComponent,ButtonComponent,CalloutTextComponent],
@@ -59,4 +60,5 @@ export class SendEmailVerificationComponent implements OnInit {
     });
   }
  }
+  
 }
