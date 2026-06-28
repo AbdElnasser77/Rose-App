@@ -1,0 +1,28 @@
+<p>Testimonials</p>
+<h2>Real Words from Happy Customers</h2>
+
+<section class="pt-15 pb-5 bg-soft-pink-50">
+  <div class="container mx-auto px-4">
+    <p-carousel
+      [value]="testimonials"
+      [numVisible]="3"
+      [numScroll]="1"
+      [autoplayInterval]="4000"
+      [showIndicators]="false"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template #item let-testimonial>
+        <div class="pt-12 pb-4 px-3">
+          <app-testimonial-card
+            [name]="testimonial.name"
+            [role]="testimonial.role"
+            [message]="testimonial.message"
+            [rating]="testimonial.rating"
+            [date]="testimonial.date"
+            [avatarUrl]="testimonial.avatarUrl"
+          />
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>

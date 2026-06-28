@@ -1,0 +1,37 @@
+<div
+  class="relative bg-white dark:bg-gray-800 rounded-2xl px-6 shadow-sm flex flex-col items-center text-center gap-3 w-full"
+>
+  <div
+    class="w-24 h-24 rounded-full overflow-hidden shrink-0 absolute top-[-35px]"
+  >
+    <img
+      [src]="avatarUrl()"
+      [alt]="name()"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <p class="font-semibold text-gray-800 dark:text-white text-lg pt-17">
+    {{ name() }}
+  </p>
+
+  <div class="cursor-default">
+    <p-rating
+      [ngModel]="rating()"
+      [readonly]="true"
+      [stars]="5"
+      color="!yellow"
+      size="!small"
+    />
+  </div>
+
+  <p
+    class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-3"
+  >
+    {{ message() }}
+  </p>
+
+  <span class="text-gray-400 dark:text-gray-500 text-xs mt-1 pb-3">{{
+    date()
+  }}</span>
+</div>
