@@ -2,14 +2,26 @@
     <div class="w-full bg-[#FBEAEA] rounded-[16px] mx-auto 
     grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-[40px]">
 
-        <!-- Free Delivery -->
+        @for (feature of features; track feature.title) {
         <div clas="flex justify-center items-center gap-[16px]">
             <lib-button size="icon" variant="Primary" shape="circle">
-                <lucide-icon [img]="Truck" class="w-[20px] h-[20px] stroke-[2px] "></lucide-icon>
+                <lucide-icon [img]="feature.icon" class="w-[40px] h-[40px] stroke-[2px] "></lucide-icon>
 
             </lib-button>
+            <!-- Title and Description -->
+            <div class="flext justify-center items-center gap-[5px] ">
+                
+                <h4 class="text-[#A6252A] font-sarabun font-semibold text-[20px] 
+                leading-none tracking-normal align-middle">{{feature.title}}</h4>
+
+
+                <p class="font-sarabun font-normal text-[14px] leading-none 
+                text-[#71717A] align-middle" >{{feature.desc}}</p>
+
+            </div>
 
         </div>
+        }
 
     </div>
 
