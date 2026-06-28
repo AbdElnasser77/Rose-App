@@ -5,6 +5,8 @@ import { Eye, Heart, LucideAngularModule, ShoppingCart } from 'lucide-angular';
 import { RatingModule } from 'primeng/rating';
 import { Product } from '../../../core/models/product.model';
 import { ButtonComponent } from '@org/ui';
+import { ProductBadge } from '../../../core/types/product-padge.type';
+
 
 @Component({
   selector: 'app-product-card',
@@ -37,8 +39,8 @@ export class ProductCardComponent {
     return Number(this.product.price);
   }
 
- get badges(): ('NEW' | 'HOT' | 'OUT OF STOCK')[]{
-  const badges: ('NEW' | 'HOT' | 'OUT OF STOCK')[] = [];
+ get badges(): ProductBadge[]{
+  const badges: ProductBadge[] = [];
 
      
     const createdAt = new Date(this.product.createdAt);
