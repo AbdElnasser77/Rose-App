@@ -107,5 +107,15 @@
   "TRUST": {
   "TITLE_PART1": "موضع ثقة لأكثر من",
   "TITLE_PART2": "شركة"
-}
+},
+  "FEATURES": {
+    "FREE_DELIVERY_TITLE": "توصيل مجاني",
+    "FREE_DELIVERY_DESC": "للطلبات الأكثر من 120 جنيه",
+    "GET_REFUND_TITLE": "إسترجاع الأموال",
+    "GET_REFUND_DESC": "الإسترجاع خلال 30 يوماً",
+    "SAFE_PAYMENT_TITLE": "دفع آمن",
+    "SAFE_PAYMENT_DESC": "طرق دفع آمنة 100%",
+    "SUPPORT_TITLE": "دعم 24/7",
+    "SUPPORT_DESC": "تواصل معنا في أي وقت"
+  }
 }

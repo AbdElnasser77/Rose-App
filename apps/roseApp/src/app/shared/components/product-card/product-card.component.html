@@ -1,0 +1,70 @@
+@if (product) {
+<div class="product-card  w-[302px] h-[364px]  rounded-2xl flex flex-col gap-4">
+    <!-- img -->
+    <div class="image-wrapper group relative w-full h-[272px] overflow-hidden" (click)="cardDetailsClicked.emit(product.id)">
+        <img [src]="product.cover" [alt]="product.title" class="w-full h-full object-cover rounded-[12px]" />
+
+        <!-- Badge  -->
+        <div class="absolute top-[10px] right-[10px]  flex gap-[6px]">
+            @for (badge of badges; track badge) {
+            <span class=" pt-[2px] pb-[2px] px-[8px] gap-[10px] rounded-full
+          flex items-center justify-center uppercase  transition-colors duration-300
+          font-sarabun text-[12px] font-medium leading-none tracking-normal" [ngClass]="{
+              'bg-[#DC2626] text-[#FFF1F5] hover:bg-[#741C21] hover:text-[#FFFFFF]': badge === 'OUT OF STOCK',
+              'bg-[#F4F4F5] text-[#3F3F46] hover:bg-[#E4E4E7] hover:text-[#A6252A]': badge === 'NEW',
+              'bg-[#FBEAEA] text-[#A6252A] hover:bg-[#F3C5C7] hover:text-[#FFFFFF]': badge === 'HOT'
+          }">
+                {{ badge }}
+
+            </span>
+            }
+        </div>
+        <!-- Hover -->
+        <div
+            class="absolute inset-0 bg-[#E65073]/50 flex items-center justify-center gap-[10px] p-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[12px]">
+            
+            <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="wishListClicked.emit(product.id)">
+                <lucide-icon [img]="Heart" class="w-[20px] h-[20px] stroke-[2px]"></lucide-icon>
+            </lib-button>
+
+            <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="quickViewClicked.emit(product.id)">
+                <lucide-icon [img]="Eye" class="w-[20px] h-[20px] stroke-[2px] "></lucide-icon>
+
+            </lib-button>
+            
+        </div>
+    </div>
+
+    <!-- card body -->
+    <div class="card-body flex flex-col gap-[12px]">
+        <h3 class="product-title   cursor-pointer font-sarabun text-[18px] font-semibold dark:text-soft-pink-200
+        text-[#741C21] leading-none align-middle  truncate hover:underline "
+            (click)="cardDetailsClicked.emit(product.id)">
+            {{ product.title }}</h3>
+        <div class="flex justify-between gap-[10px]">
+            <div class="flex flex-col gap-[10px]">
+                <!-- stars -->
+                <div class="card flex gap-[4px]">
+                    <p-rating [ngModel]="product.rating" [readonly]="true" [stars]="4"
+                        iconOnClass="pi pi-star-fill text-[#FBA707] text-[15px]"
+                        iconOffClass="pi pi-star text-[#FBA707] text-[15px] " />
+                </div>
+
+                <!-- price -->
+                <div class="flex gap-[7px] font-sarabun text-[16px] font-medium leading-[100%] align-bottom">
+                    <span class="text-maroon-700  dark:text-soft-pink-200">{{ currentPrice | number:'1.2-2' }} EGP</span>
+                    @if (hasDiscount) {
+                    <span class="text-zinc-400 line-through dark:text-zinc-500">{{ product.price | number:'1.2-2' }} EGP</span>
+                    }
+                </div>
+            </div>
+
+            <lib-button (click)=" addToCartClicked.emit(product.id)" variant="Primary" shape="circle" size="icon"
+                class="  shadow-[0px_0px_40px_5px_#0000000D] dark:bg-maroon-500 dark:hover:bg-maroon-600">
+                <lucide-icon [img]="ShoppingCart"
+                    class="w-[24px] h-[24px] stroke-[1.46px] "></lucide-icon>
+            </lib-button>
+        </div>
+    </div>
+</div>
+}
