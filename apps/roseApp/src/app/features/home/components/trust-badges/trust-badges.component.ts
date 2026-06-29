@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { TrustBadgeModel } from '../../models/trust-badge.model';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trust-badges',
-  imports: [CommonModule],
+  imports: [CommonModule,TranslatePipe],
   templateUrl: './trust-badges.component.html',
   styleUrl: './trust-badges.component.scss',
 })

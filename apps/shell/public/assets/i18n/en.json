@@ -103,5 +103,9 @@
     "PRIVACY": "Privacy Policy",
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
+  },
+  "TRUST": {
+  "TITLE_PART1": "Trusted by over",
+  "TITLE_PART2": "companies"
   }
 }

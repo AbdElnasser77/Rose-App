@@ -103,5 +103,9 @@
     "PRIVACY": "سياسة الخصوصية",
     "FAQS": "الأسئلة الشائعة",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. جميع الحقوق محفوظة."
-  }
+  },
+  "TRUST": {
+  "TITLE_PART1": "موضع ثقة لأكثر من",
+  "TITLE_PART2": "شركة"
+}
 }

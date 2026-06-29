@@ -5,7 +5,7 @@
          py-[40px]
          gap-[32px] lg:gap-[40px]
          bg-[#FBEAEA] rounded-[20px]
-         text-center shadow-sm">
+         text-center shadow-sm dark:bg-[#3F3F46]">
 
     <h3 class="font-sarabun
            text-[24px] sm:text-[30px] lg:text-[36px]
@@ -13,8 +13,9 @@
            leading-tight lg:leading-[100%]
            tracking-[0]
            text-center
-           text-[#A6252A]">
-      Trusted by over <span class="text-[#FF668B]">4.5k+</span>companies
+           text-[#A6252A] dark:text-[#FFC2D0]">
+      {{ 'TRUST.TITLE_PART1' | translate }} <span class="text-[#FF668B] dark:text-[#741C21] mx-1.5 ">
+        4.5k+</span>{{ 'TRUST.TITLE_PART2' | translate }}
     </h3>
 
     <div class="flex flex-wrap items-center justify-center
