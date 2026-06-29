@@ -103,5 +103,15 @@
     "PRIVACY": "Privacy Policy",
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
+  },
+  "FEATURES": {
+    "FREE_DELIVERY_TITLE": "Free Delivery",
+    "FREE_DELIVERY_DESC": "For orders above 120 EGP",
+    "GET_REFUND_TITLE": "Get Refund",
+    "GET_REFUND_DESC": "Refunds within 30 days",
+    "SAFE_PAYMENT_TITLE": "Safe Payment",
+    "SAFE_PAYMENT_DESC": "100% Secure Payment",
+    "SUPPORT_TITLE": "24/7 Support",
+    "SUPPORT_DESC": "Contact us at any time"
   }
 }
