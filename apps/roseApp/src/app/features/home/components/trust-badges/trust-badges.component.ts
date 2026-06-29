@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { TrustBadgeModel } from '../../models/trust-badge.model';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
 
 @Component({
   selector: 'app-trust-badges',
-  imports: [CommonModule,TranslatePipe],
+  imports: [CommonModule,TranslatePipe,AssetUrlPipe],
   templateUrl: './trust-badges.component.html',
   styleUrl: './trust-badges.component.scss',
 })

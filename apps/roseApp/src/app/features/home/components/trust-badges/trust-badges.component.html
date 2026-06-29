@@ -27,7 +27,7 @@
                sm:w-[130px] sm:h-[48px]
                lg:w-[146px] lg:h-[51px]">
 
-        <img [src]="partner.src" [alt]="partner.alt" class="max-h-full max-w-full object-contain" />
+        <img [src]="partner.src | assetUrl" [alt]="partner.alt" class="max-h-full max-w-full object-contain" />
       </div>
       }
 
