@@ -71,6 +71,7 @@
     "OTP_VERIFIED": "Email verified successfully.",
     "CODE_RESENT": "A new verification code has been sent."
   },
+
   "VALIDATION": {
     "REQUIRED": "This field is required.",
     "EMAIL": "Invalid email address.",
@@ -79,6 +80,7 @@
     "PATTERN": "Invalid format.",
     "INVALID": "Invalid value."
   },
+
   "NAV": {
     "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
     "LOGIN": "Login",
@@ -91,6 +93,7 @@
     "CONTACT": "Contact",
     "ABOUT": "About"
   },
+
   "FOOTER": {
     "APP_NAME": "Rose E-Commerce App",
     "RIGHTS": "All rights reserved | 2025",
@@ -104,25 +107,42 @@
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   },
- "ABOUT_US": {
-  "LABEL": "ABOUT",
-  "TITLE_1": "Delivering the ",
-"TITLE_RED_1": "Finest",
-"TITLE_2": " Gift Boxes for Your",
-"TITLE_RED_2": "Special",
-"TITLE_3": " Moments",
-  "DESCRIPTION": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it’s for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
-  "BUTTON": "Discover",
-  "IMAGES": {
-    "MAIN_ALT": "Gift box",
-    "GIFT_ALT": "Gift package",
-    "BALLOONS_ALT": "Gift balloons"
+
+  "ABOUT_US": {
+    "LABEL": "ABOUT",
+    "TITLE_1": "Delivering the ",
+    "TITLE_RED_1": "Finest",
+    "TITLE_2": " Gift Boxes for Your",
+    "TITLE_RED_2": "Special",
+    "TITLE_3": " Moments",
+    "DESCRIPTION": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it’s for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+    "BUTTON": "Discover",
+    "IMAGES": {
+      "MAIN_ALT": "Gift box",
+      "GIFT_ALT": "Gift package",
+      "BALLOONS_ALT": "Gift balloons"
+    },
+    "FEATURES": {
+      "PRICES": "Competitive Prices & Easy Shopping",
+      "PREMIUM": "Premium Quality & Elegant Packaging",
+      "OCCASION": "Perfect for Every Occasion",
+      "DELIVERY": "Fast & Reliable Delivery"
+    }
   },
+
+  "TRUST": {
+    "TITLE_PART1": "Trusted by over",
+    "TITLE_PART2": "companies"
+  },
+
   "FEATURES": {
-    "PRICES": "Competitive Prices & Easy Shopping",
-    "PREMIUM": "Premium Quality & Elegant Packaging",
-    "OCCASION": "Perfect for Every Occasion",
-    "DELIVERY": "Fast & Reliable Delivery"
+    "FREE_DELIVERY_TITLE": "Free Delivery",
+    "FREE_DELIVERY_DESC": "For orders above 120 EGP",
+    "GET_REFUND_TITLE": "Get Refund",
+    "GET_REFUND_DESC": "Refunds within 30 days",
+    "SAFE_PAYMENT_TITLE": "Safe Payment",
+    "SAFE_PAYMENT_DESC": "100% Secure Payment",
+    "SUPPORT_TITLE": "24/7 Support",
+    "SUPPORT_DESC": "Contact us at any time"
   }
-}
 }

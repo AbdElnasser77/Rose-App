@@ -1,0 +1,37 @@
+<section class="w-full  mt-[120px] lg:mt-[139px] px-4 sm:px-6 lg:px-[81px]
+     mb-16 md:mb-24 lg:mb-[359px]">
+  <div class="w-full max-w-[1280px] mx-auto flex flex-col
+         px-[16px] sm:px-[24px]
+         py-[40px]
+         gap-[32px] lg:gap-[40px]
+         bg-[#FBEAEA] rounded-[20px]
+         text-center shadow-sm dark:bg-[#3F3F46]">
+
+    <h3 class="font-sarabun
+           text-[24px] sm:text-[30px] lg:text-[36px]
+           font-bold
+           leading-tight lg:leading-[100%]
+           tracking-[0]
+           text-center
+           text-[#A6252A] dark:text-[#FFC2D0]">
+      {{ 'TRUST.TITLE_PART1' | translate }} <span class="text-[#FF668B] dark:text-[#741C21] mx-1.5 ">
+        4.5k+</span>{{ 'TRUST.TITLE_PART2' | translate }}
+    </h3>
+
+    <div class="flex flex-wrap items-center justify-center
+           gap-[24px] md:gap-[40px] lg:gap-[71px]">
+
+      @for (partner of partners; track partner.name) {
+      <div class="flex items-center justify-center
+               w-[110px] h-[40px]
+               sm:w-[130px] sm:h-[48px]
+               lg:w-[146px] lg:h-[51px]">
+
+        <img [src]="partner.src | assetUrl" [alt]="partner.alt" class="max-h-full max-w-full object-contain" />
+      </div>
+      }
+
+    </div>
+
+  </div>
+</section>

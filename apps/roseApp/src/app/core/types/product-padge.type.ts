@@ -1,0 +1,1 @@
+export type ProductBadge = 'NEW' | 'HOT' | 'OUT OF STOCK';
