@@ -1,6 +1,7 @@
 <span class="pt-[2px] pb-[2px] px-[8px] gap-[10px] rounded-full
              flex items-center justify-center uppercase transition-colors duration-300
              font-sarabun text-[12px] font-medium leading-none tracking-normal" 
-      [ngClass]="variantClasses[variant]">
+             [ngClass]="[variantClasses[variant],
+                        widthClasses[width]]">
   {{ text }}
 </span>
