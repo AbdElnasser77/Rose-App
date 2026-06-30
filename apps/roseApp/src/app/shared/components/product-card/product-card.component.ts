@@ -6,11 +6,12 @@ import { RatingModule } from 'primeng/rating';
 import { Product } from '../../../core/models/product.model';
 import { ButtonComponent } from '@org/ui';
 import { ProductBadge } from '../../../core/types/product-padge.type';
-
+import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
   selector: 'app-product-card',
-  imports: [RatingModule, FormsModule,LucideAngularModule,CommonModule,ButtonComponent],
+  imports: [RatingModule, FormsModule,LucideAngularModule,CommonModule,ButtonComponent,BadgeComponent
+],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
