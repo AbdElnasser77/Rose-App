@@ -1,0 +1,24 @@
+::ng-deep p-carousel {
+  .p-carousel-prev-button,
+  .p-carousel-next-button {
+    background-color: var(--color-maroon-700) !important;
+    border-color: var(--color-maroon-700) !important;
+    border-radius: 50% !important;
+    color: white !important;
+
+    svg {
+      color: white !important;
+      stroke: white !important;
+    }
+  }
+
+  .p-button-text.p-button-secondary:not(:disabled):hover {
+    background: white !important;
+    border-color: var(--color-maroon-600) !important;
+  }
+
+  .p-button-text.p-button-secondary:not(:disabled):hover svg {
+    color: var(--color-maroon-600) !important;
+    stroke: var(--color-maroon-600) !important;
+  }
+}

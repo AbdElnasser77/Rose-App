@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { TestimonialCardComponent } from '../testimonial-card/testimonial-card.component';
+import { AssetUrlPipe } from '../../../../../core/pipes/asset-url.pipe';
 
 export interface Testimonial {
   name: string;
@@ -13,7 +14,7 @@ export interface Testimonial {
 
 @Component({
   selector: 'app-testimonial-section',
-  imports: [CarouselModule, TestimonialCardComponent],
+  imports: [CarouselModule, TestimonialCardComponent, AssetUrlPipe],
   templateUrl: './testimonial-section.component.html',
   styleUrl: './testimonial-section.component.scss',
 })
