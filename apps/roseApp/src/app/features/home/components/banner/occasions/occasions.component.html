@@ -1,8 +1,9 @@
 <section class="w-full px-4 md:px-8 lg:px-[81px] mt-[25px]">
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px] justify-items-center">
+<div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-[24px] justify-items-center">
     @for(card of occasionsCards ;track card.title){
-        <div class="relative  rounded-[16px] w-full max-w-[410px]  min-h-[271px] overflow-hidden flex flex-col ">
+        <div class="relative  rounded-[16px] w-full max-w-[410px]  min-h-[271px] overflow-hidden flex flex-col "
+        >
             <img [src]="card.image |assetUrl" [alt]="card.title" 
             class="absolute inset-0 w-full h-full object-cover  "/>
 
