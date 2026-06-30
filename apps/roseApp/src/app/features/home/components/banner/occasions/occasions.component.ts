@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
+import { BadgeComponent } from "apps/roseApp/src/app/shared/components/badge/badge.component";
 
 @Component({
   selector: 'app-occasions',
-  imports: [AssetUrlPipe],
+  imports: [AssetUrlPipe, BadgeComponent,TranslatePipe],
   templateUrl: './occasions.component.html',
   styleUrl: './occasions.component.scss',
 })
 export class OccasionsComponent {
   occasionsCards = [
     {
-      badge: 'Wedding',
-      title: 'Celebrate Her Forever with a Gift She\'ll Always Remember',
+      badgeKey: 'OCCASIONS.WEDDING.BADGE',
+      titleKey: 'OCCASIONS.WEDDING.TITLE',
       image: 'assets/images/banner/wedding.png'  
     },
     {
-      badge: 'Engagement',
-      title: 'Honor the Beginning of a Beautiful Journey Together',
+      badgeKey: 'OCCASIONS.ENGAGEMENT.BADGE',
+      titleKey: 'OCCASIONS.ENGAGEMENT.TITLE',
       image: 'assets/images/banner/engagement.png'
     },
     {
-      badge: 'Anniversary',
-      title: 'Mark Every Year of Love with a Meaningful Surprise',
+      badgeKey: 'OCCASIONS.ANNIVERSARY.BADGE',
+      titleKey: 'OCCASIONS.ANNIVERSARY.TITLE',
       image: 'assets/images/banner/anniversary.png'
     }
   ];
