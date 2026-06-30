@@ -103,5 +103,26 @@
     "PRIVACY": "Privacy Policy",
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
+  },
+ "ABOUT_US": {
+  "LABEL": "ABOUT",
+  "TITLE_1": "Delivering the ",
+"TITLE_RED_1": "Finest",
+"TITLE_2": " Gift Boxes for Your",
+"TITLE_RED_2": "Special",
+"TITLE_3": " Moments",
+  "DESCRIPTION": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it’s for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+  "BUTTON": "Discover",
+  "IMAGES": {
+    "MAIN_ALT": "Gift box",
+    "GIFT_ALT": "Gift package",
+    "BALLOONS_ALT": "Gift balloons"
+  },
+  "FEATURES": {
+    "PRICES": "Competitive Prices & Easy Shopping",
+    "PREMIUM": "Premium Quality & Elegant Packaging",
+    "OCCASION": "Perfect for Every Occasion",
+    "DELIVERY": "Fast & Reliable Delivery"
   }
+}
 }
