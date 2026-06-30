@@ -7,16 +7,10 @@
         <!-- Badge  -->
         <div class="absolute top-[10px] right-[10px]  flex gap-[6px]">
             @for (badge of badges; track badge) {
-            <span class=" pt-[2px] pb-[2px] px-[8px] gap-[10px] rounded-full
-          flex items-center justify-center uppercase  transition-colors duration-300
-          font-sarabun text-[12px] font-medium leading-none tracking-normal" [ngClass]="{
-              'bg-[#DC2626] text-[#FFF1F5] hover:bg-[#741C21] hover:text-[#FFFFFF]': badge === 'OUT OF STOCK',
-              'bg-[#F4F4F5] text-[#3F3F46] hover:bg-[#E4E4E7] hover:text-[#A6252A]': badge === 'NEW',
-              'bg-[#FBEAEA] text-[#A6252A] hover:bg-[#F3C5C7] hover:text-[#FFFFFF]': badge === 'HOT'
-          }">
-                {{ badge }}
+            <app-badge [text]="badge"
+            [variant]="badge === 'OUT OF STOCK' ? 'primary' : (badge === 'NEW' ? 'subtle' : 'secondary')">
 
-            </span>
+            </app-badge>
             }
         </div>
         <!-- Hover -->
