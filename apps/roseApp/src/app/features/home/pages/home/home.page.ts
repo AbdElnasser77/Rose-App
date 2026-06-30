@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FeaturesBarComponent } from '../../components/features-bar/features-bar.component';
+import { OccasionsComponent } from '../../components/banner/occasions/occasions.component';
 
 @Component({
   selector: 'app-home',
-  imports: [FeaturesBarComponent],
+  imports: [FeaturesBarComponent,OccasionsComponent],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
 })
