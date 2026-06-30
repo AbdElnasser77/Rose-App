@@ -1,6 +1,6 @@
 <section class="w-full px-4 md:px-8 lg:px-[81px] mt-[25px]">
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px]">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px] justify-items-center">
     @for(card of occasionsCards ;track card.title){
         <div class="relative  rounded-[16px] w-full max-w-[410px]  min-h-[271px] overflow-hidden flex flex-col ">
             <img [src]="card.image |assetUrl" [alt]="card.title" 
@@ -11,7 +11,7 @@
             
         <div class=" mt-auto  relative z-10 p-[24px] flex flex-col grid-[10px]">
             <span>{{card.badge}}</span>
-            <h3 class="font-sarabun font-semibold text-[24px] leading-none tracking-normal text-white"
+            <h3 class="font-sarabun font-semibold  text-[18px] sm:text-[20px] xl:text-[24px]  leading-none tracking-normal text-white"
             >{{card.title}}</h3>
 
         </div>

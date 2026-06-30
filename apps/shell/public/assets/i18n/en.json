@@ -104,6 +104,12 @@
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   },
+
+  "TRUST": {
+  "TITLE_PART1": "Trusted by over",
+  "TITLE_PART2": "companies"
+  },
+
   "FEATURES": {
     "FREE_DELIVERY_TITLE": "Free Delivery",
     "FREE_DELIVERY_DESC": "For orders above 120 EGP",
@@ -113,5 +119,6 @@
     "SAFE_PAYMENT_DESC": "100% Secure Payment",
     "SUPPORT_TITLE": "24/7 Support",
     "SUPPORT_DESC": "Contact us at any time"
+
   }
 }
