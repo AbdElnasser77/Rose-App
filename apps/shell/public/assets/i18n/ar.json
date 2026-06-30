@@ -117,5 +117,9 @@
     "SAFE_PAYMENT_DESC": "طرق دفع آمنة 100%",
     "SUPPORT_TITLE": "دعم 24/7",
     "SUPPORT_DESC": "تواصل معنا في أي وقت"
+  },
+  "TESTIMONIALS": {
+    "TITLE": "كلمات حقيقية من عملاء سعداء",
+    "SUBTITLE": "آراء العملاء"
   }
 }

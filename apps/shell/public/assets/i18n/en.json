@@ -120,5 +120,10 @@
     "SUPPORT_TITLE": "24/7 Support",
     "SUPPORT_DESC": "Contact us at any time"
 
+  },
+
+  "TESTIMONIALS": {
+    "TITLE": "Real Words from Happy Customers",
+    "SUBTITLE": "Testimonials"
   }
 }

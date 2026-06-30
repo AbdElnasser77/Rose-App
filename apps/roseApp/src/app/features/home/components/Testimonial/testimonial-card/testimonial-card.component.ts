@@ -18,6 +18,10 @@ export class TestimonialCardComponent {
 
   readonly User = User;
 
+  get initials(): string {
+    return this.name().slice(0, 2).toUpperCase();
+  }
+
   get formattedDate(): string {
     return new Date(this.createdAt()).toLocaleDateString('en-US', {
       year: 'numeric',

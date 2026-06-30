@@ -1,10 +1,13 @@
-<p>Testimonials</p>
-<h2>Real Words from Happy Customers</h2>
+<section class="pt-8 pb-10 mt-15">
+  <app-section-title
+    [mainTitle]="'TESTIMONIALS.TITLE' | translate"
+    [subTitle]="'TESTIMONIALS.SUBTITLE' | translate"
+    [alignment]="'center'"
+  ></app-section-title>
 
-<section class="pt-15 pb-5 bg-soft-pink-50 dark:bg-zinc-700">
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto px-4 bg-soft-pink-50 dark:bg-zinc-700 mt-15">
     <p-carousel
-      [value]="testimonials"
+      [value]="testimonials()"
       [numVisible]="3"
       [numScroll]="1"
       [circular]="true"
