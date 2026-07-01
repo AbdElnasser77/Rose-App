@@ -118,6 +118,10 @@
     "SUPPORT_TITLE": "دعم 24/7",
     "SUPPORT_DESC": "تواصل معنا في أي وقت"
   },
+  "TESTIMONIALS": {
+    "TITLE": "كلمات حقيقية من عملاء سعداء",
+    "SUBTITLE": "آراء العملاء"
+  },
   "HERO": {
     "SIDE_BANNER": {
       "BADGE": "تبدأ من 10.99 ج.م",
