@@ -1,0 +1,51 @@
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a3262a;
+}
+
+:host{
+    display:block;
+}
+
+:host ::ng-deep .p-rating .p-rating-icon{
+    color:#F59E0B;
+    font-size:1.15rem;
+}
+
+:host ::ng-deep .p-inputtext{
+    width:100%;
+    padding:.9rem;
+    border-radius:10px;
+}
+
+:host ::ng-deep textarea{
+    width:100%;
+    min-height:170px;
+    padding:.9rem;
+    border-radius:10px;
+}
+
+.review-btn{
+    background:#A3262A !important;
+    border-color:#A3262A !important;
+    border-radius:10px !important;
+    height:48px;
+}
+
+.review-btn:hover{
+    background:#8B1F22 !important;
+    border-color:#8B1F22 !important;
+}

@@ -43,15 +43,15 @@ export interface Category {
 }
 
 export interface Review {
-  id: string
-  userId: string
-  productId: string
+  id?: string
+  userId?: string
+  productId?: string
   headline: string
   content: string
   rating: number
-  createdAt: string
-  updatedAt: string
-  user: User
+  createdAt?: string
+  updatedAt?: string
+  user?: User
 }
 
 export interface User {
