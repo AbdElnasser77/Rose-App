@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CarouselModule } from 'primeng/carousel';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TestimonialCardComponent } from '../testimonial-card/testimonial-card.component';
@@ -12,8 +13,9 @@ import { Testimonial } from '../../../models/testimonial.model';
   templateUrl: './testimonial-section.component.html',
   styleUrl: './testimonial-section.component.scss',
 })
-export class TestimonialSectionComponent implements OnInit {
+export class TestimonialSectionComponent implements OnInit, OnDestroy {
   private testimonialsService = inject(TestimonialsService);
+  private sub?: Subscription;
 
   testimonials = signal<Testimonial[]>([]);
 
@@ -24,12 +26,16 @@ export class TestimonialSectionComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.testimonialsService.getTestimonials().subscribe({
+    this.sub = this.testimonialsService.getTestimonials().subscribe({
       next: (data) => {
         console.log(data);
         this.testimonials.set(data);
       },
       error: (err) => console.error('Testimonials API error:', err),
     });
+  }
+
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
   }
 }
