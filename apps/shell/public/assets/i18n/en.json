@@ -125,5 +125,41 @@
   "TESTIMONIALS": {
     "TITLE": "Real Words from Happy Customers",
     "SUBTITLE": "Testimonials"
+  },
+   "HERO": {
+    "SIDE_BANNER": {
+      "BADGE": "Starting from 10.99 EGP",
+      "TITLE": "Special Gifts For The People You Love",
+      "BUTTON": "Shop Now"
+    },
+    "SLIDES": {
+      "BUY_BUTTON": "I'm buying!",
+      "FIRST": {
+        "TITLE": "Say It with Flowers",
+        "SUBTITLE": "Elegant gifts for every special moment."
+      },
+      "SECOND": {
+        "TITLE": "Special Gifts For The People You Love",
+        "SUBTITLE": "Elegant gifts for every special moment."
+      }
+    }
+  },
+  "OCCASIONS": {
+    "WEDDING": {
+      "BADGE": "Wedding",
+      "TITLE": "Celebrate Her Forever with a Gift She'll Always Remember"
+    },
+    "ENGAGEMENT": {
+      "BADGE": "Engagement",
+      "TITLE": "Honor the Beginning of a Beautiful Journey Together"
+    },
+    "ANNIVERSARY": {
+      "BADGE": "Anniversary",
+      "TITLE": "Mark Every Year of Love with a Meaningful Surprise"
+    }
+  },
+  "GALLERY": {
+    "TITLE": "Gallery",
+    "SUBTITLE": "Check Out our Wonderful Gallery"
   }
 }
