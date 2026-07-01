@@ -14,10 +14,10 @@
 
                 </app-badge>
                 <h3
-                    class="font-sarabun font-semibold  text-[18px] sm:text-[20px] xl:text-[24px]  leading-none tracking-normal text-white">
+                    class="font-sarabun font-semibold  text-[18px] sm:text-[20px] xl:text-[24px]  leading-none tracking-normal text-white mb-[8px]">
                     {{ 'HERO.SIDE_BANNER.TITLE' | translate }}</h3>
 
-                <lib-button size="auto" class=" text-maroon-700 " variant="Secondary">
+                <lib-button size="auto"  customClass="text-maroon-700  w-[129px]  px-4 py-[10px] gap-[10px] mt-[30px]" variant="Secondary">
                     {{ 'HERO.SIDE_BANNER.BUTTON' | translate }}
                     <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
 
@@ -40,15 +40,15 @@
                             class="absolute inset-0 w-full h-full object-cover" />
                         <div class="absolute inset-0  bg-linear-to-r  from-black/80 to-transparent"></div>
 
-                        <div class="relative z-10 max-w-[500px] flex flex-col gap-[16px] mb-[40px] ml-[24px]">
-                            <h2 class="font-sarabun font-bold text-[32px] md:text-[48px] text-white leading-tight">
+                        <div class="relative z-10 max-w-[500px] flex flex-col gap-[6px] mb-[40px] ml-[24px]">
+                            <h2 class="font-sarabun font-semibold text-[36px] md:text-[48px] text-white m-0 leading-none">
                                 {{ slide.title | translate }}</h2>
-                            <p class="text-white/90 text-[16px] md:text-[18px]">{{ slide.subTitle | translate }}</p>
-                            <div class="w-fit">
-                                <lib-button size="auto" class="text-maroon-700" variant="Secondary">
+                            <p class="font-sarabun text-white text-[16px] font-normal m-0 leading-none tracking-normal">{{ slide.subTitle | translate }}</p>
+                            
+                                <lib-button size="auto"   customClass=" w-[129px] py-[10px] px-[16px] gap-[10px] text-[16px] text-maroon-700 mt-[36px]" variant="Secondary">
                                     {{ 'HERO.SLIDES.BUY_BUTTON' | translate }}
                                 </lib-button>
-                            </div>
+                            
                         </div>
                     </div>
                 </ng-template>

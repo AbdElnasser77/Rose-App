@@ -12,18 +12,18 @@ import { BadgeComponent } from "apps/roseApp/src/app/shared/components/badge/bad
 export class OccasionsComponent {
   occasionsCards = [
     {
-      badgeKey: 'OCCASIONS.WEDDING.BADGE',
-      titleKey: 'OCCASIONS.WEDDING.TITLE',
+      badge: 'OCCASIONS.WEDDING.BADGE',
+      title: 'OCCASIONS.WEDDING.TITLE',
       image: 'assets/images/banner/wedding.png'  
     },
     {
-      badgeKey: 'OCCASIONS.ENGAGEMENT.BADGE',
-      titleKey: 'OCCASIONS.ENGAGEMENT.TITLE',
+      badge: 'OCCASIONS.ENGAGEMENT.BADGE',
+      title: 'OCCASIONS.ENGAGEMENT.TITLE',
       image: 'assets/images/banner/engagement.png'
     },
     {
-      badgeKey: 'OCCASIONS.ANNIVERSARY.BADGE',
-      titleKey: 'OCCASIONS.ANNIVERSARY.TITLE',
+      badge: 'OCCASIONS.ANNIVERSARY.BADGE',
+      title: 'OCCASIONS.ANNIVERSARY.TITLE',
       image: 'assets/images/banner/anniversary.png'
     }
   ];

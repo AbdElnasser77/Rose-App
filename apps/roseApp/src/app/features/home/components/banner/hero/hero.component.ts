@@ -29,6 +29,16 @@ export class HeroComponent {
       image: 'assets/images/banner/slide(2).png', 
       title: 'HERO.SLIDES.SECOND.TITLE',
       subTitle: 'HERO.SLIDES.SECOND.SUBTITLE'
+    },
+    {
+      image: 'assets/images/banner/wedding.png', 
+      title: 'HERO.SLIDES.SECOND.TITLE',
+      subTitle: 'HERO.SLIDES.SECOND.SUBTITLE'
+    },
+    {
+      image: 'assets/images/banner/engagement.png', 
+      title: 'HERO.SLIDES.SECOND.TITLE',
+      subTitle: 'HERO.SLIDES.SECOND.SUBTITLE'
     }
   ]);
 
