@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
 import {
   LucideAngularModule,
@@ -15,10 +16,11 @@ import {
   ChevronRight,
   ZoomIn,
 } from 'lucide-angular';
+import { SectionTitleComponent } from 'apps/roseApp/src/app/shared/components/section-title/section-title.component';
 
 @Component({
   selector: 'app-gallery',
-  imports: [AssetUrlPipe, LucideAngularModule],
+  imports: [AssetUrlPipe, LucideAngularModule, SectionTitleComponent, TranslatePipe],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss',
 })
