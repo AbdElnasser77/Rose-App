@@ -1,0 +1,113 @@
+<div class="max-w-7xl mx-auto py-10">
+    <h1 class="text-4xl font-bold text-[#7C2326] mb-8">
+        {{ 'REVIEWS.TITLE' | translate }}
+    </h1>
+    
+    <div class="mb-8 border-b border-gray-200 pb-4">
+        <p class="text-xl font-semibold">
+            {{ 'REVIEWS.GENERAL_RATING' | translate }}
+        </p>
+        <div class="flex items-center gap-2 mt-2">
+            <span class="text-4xl font-bold">
+                {{ averageRate() }}
+            </span>
+            <span class="text-gray-500">
+                {{ 'REVIEWS.RATINGS_COUNT' | translate: { count: reviewsData().length } }}
+            </span>
+        </div>
+        <p-rating
+            [ngModel]="averageRate()"
+            [readonly]="true">
+        </p-rating>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div class="lg:col-span-7">
+            <div class="max-h-[390px] overflow-y-auto pr-4 custom-scrollbar">
+                @for(review of reviewsData(); track $index){
+                <div class="border-t border-gray-200 py-6 first:border-t-0">
+                    <div class="flex gap-5">
+                        <div class="w-12 h-12 rounded-full bg-[#A3262A] text-white flex justify-center items-center font-bold text-lg shrink-0">
+                            {{review.user.username.charAt(0)}}
+                        </div>
+                        <div class="flex-1">
+                            <div>
+                                <h3 class="font-semibold text-lg">
+                                    {{review.user.username}}
+                                </h3>
+                                <p class="text-gray-400 text-sm">
+                                    {{review.createdAt}}
+                                </p>
+                            </div>
+
+                            <div class="flex items-center gap-2 mt-2">
+                                <p-rating
+                                    [ngModel]="review.rating"
+                                    [readonly]="true">
+                                </p-rating>
+                                <span class="font-semibold">
+                                    ({{review.rating}})
+                                </span>
+                            </div>
+
+                            <h4 class="font-bold text-lg mt-2">
+                                {{review.headline}}
+                            </h4>
+                            <p class="text-gray-600 leading-7">
+                                {{review.content}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 lg:border-s lg:border-gray-200 lg:ps-12">
+            
+            <div class="flex items-center gap-3 mb-8">
+                <span class="font-semibold">
+                    {{ 'REVIEWS.YOUR_RATING' | translate }}
+                </span>
+                <p-rating
+                    [ngModel]="rating()"
+                    (ngModelChange)="rating.set($event)">
+                </p-rating>
+            </div>
+
+            <div class="mb-5">
+                <h3 class="font-medium mb-2 block">
+                    {{ 'REVIEWS.FORM_TITLE' | translate }}
+                </h3>
+                <input
+                    pInputText
+                    class="w-full"
+                    [placeholder]="'REVIEWS.PLACEHOLDER_TITLE' | translate"
+                    [ngModel]="headline()"
+                    (ngModelChange)="headline.set($event)">
+            </div>
+
+            <div class="mb-6">
+                <h3 class="font-medium mb-2 block">
+                    {{ 'REVIEWS.FORM_REVIEW' | translate }}
+                </h3>
+                <textarea
+                    pInputTextarea
+                    rows="7"
+                    class="w-full resize-none"
+                    [placeholder]="'REVIEWS.PLACEHOLDER_REVIEW' | translate"
+                    [ngModel]="content()"
+                    (ngModelChange)="content.set($event)">
+                </textarea>
+            </div>
+
+            <button
+                pButton
+                [label]="'REVIEWS.BTN_ADD' | translate"
+                class="w-full review-btn"
+                (click)="addReview()">
+            </button>
+
+        </div>
+    </div>
+</div>

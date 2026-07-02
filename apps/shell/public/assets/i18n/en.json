@@ -108,6 +108,18 @@
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   },
 
+  "REVIEWS": {
+    "TITLE": "Product Reviews",
+    "GENERAL_RATING": "General rating:",
+    "RATINGS_COUNT": "{{count}} ratings",
+    "YOUR_RATING": "Your rating:",
+    "FORM_TITLE": "Title",
+    "PLACEHOLDER_TITLE": "Enter review title",
+    "FORM_REVIEW": "Review",
+    "PLACEHOLDER_REVIEW": "What do you think of this product?",
+    "BTN_ADD": "Add Review"
+  },
+
   "ABOUT_US": {
     "LABEL": "ABOUT",
     "TITLE_1": "Delivering the ",
@@ -144,5 +156,49 @@
     "SAFE_PAYMENT_DESC": "100% Secure Payment",
     "SUPPORT_TITLE": "24/7 Support",
     "SUPPORT_DESC": "Contact us at any time"
+  },
+
+  "TESTIMONIALS": {
+    "TITLE": "Real Words from Happy Customers",
+    "SUBTITLE": "Testimonials"
+  },
+
+  "HERO": {
+    "SIDE_BANNER": {
+      "BADGE": "Starting from 10.99 EGP",
+      "TITLE": "Special Gifts For The People You Love",
+      "BUTTON": "Shop Now"
+    },
+    "SLIDES": {
+      "BUY_BUTTON": "I'm buying!",
+      "FIRST": {
+        "TITLE": "Say It with Flowers",
+        "SUBTITLE": "Elegant gifts for every special moment."
+      },
+      "SECOND": {
+        "TITLE": "Special Gifts For The People You Love",
+        "SUBTITLE": "Elegant gifts for every special moment."
+      }
+    }
+  },
+
+  "OCCASIONS": {
+    "WEDDING": {
+      "BADGE": "Wedding",
+      "TITLE": "Celebrate Her Forever with a Gift She'll Always Remember"
+    },
+    "ENGAGEMENT": {
+      "BADGE": "Engagement",
+      "TITLE": "Honor the Beginning of a Beautiful Journey Together"
+    },
+    "ANNIVERSARY": {
+      "BADGE": "Anniversary",
+      "TITLE": "Mark Every Year of Love with a Meaningful Surprise"
+    }
+  },
+
+  "GALLERY": {
+    "TITLE": "Gallery",
+    "SUBTITLE": "Check Out our Wonderful Gallery"
   }
 }
