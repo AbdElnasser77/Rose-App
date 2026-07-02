@@ -117,5 +117,25 @@
     "SAFE_PAYMENT_DESC": "طرق دفع آمنة 100%",
     "SUPPORT_TITLE": "دعم 24/7",
     "SUPPORT_DESC": "تواصل معنا في أي وقت"
-  }
+  },
+  "MOST_POPULAR": {
+  "TITLE": "الأكثر شهرة",
+  "TABS": {
+    "WEDDING": "زفاف",
+    "ANNIVERSARY": "ذكرى سنوية",
+    "BIRTHDAY": "عيد ميلاد",
+    "ENGAGEMENT": "خطوبة"
+  },
+  "VIEW_MORE": "عرض المزيد",
+  "TRY_AGAIN": "حاول مرة أخرى",
+  "ERROR": "حدث خطأ أثناء تحميل المنتجات."
+},
+"PRODUCT_CARD": {
+  "BADGES": {
+    "NEW": "جديد",
+    "HOT": "مميز",
+    "OUT_OF_STOCK": "غير متوفر"
+  },
+  "CURRENCY": "جنيه"
+}
 }

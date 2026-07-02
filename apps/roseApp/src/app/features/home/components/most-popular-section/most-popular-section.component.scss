@@ -1,0 +1,97 @@
+.most-popular-section {
+  background: #ffffff;
+}
+
+.section-heading {
+  color: #741c21;
+}
+
+.tabs {
+  color: #111827;
+}
+
+.tab-btn {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  color: #e65073;
+}
+
+.skeleton-card {
+  height: 364px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: loading 1.2s infinite;
+}
+
+.error-box {
+  background: #fff1f8;
+  color: #741c21;
+}
+
+.retry-btn {
+  border-radius: 999px;
+  background: #e65073;
+  color: #ffffff;
+  padding: 10px 28px;
+  font-weight: 600;
+}
+
+.view-more-btn {
+  border: 0;
+  background: transparent;
+  color: #741c21;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes loading {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+:host-context(.dark) .most-popular-section {
+  background: #111827;
+}
+
+:host-context(.dark) .section-heading {
+  color: #fbcfe8;
+}
+
+:host-context(.dark) .tabs,
+:host-context(.dark) .tab-btn {
+  color: #d1d5db;
+}
+
+:host-context(.dark) .tab-btn:hover,
+:host-context(.dark) .tab-btn.active {
+  color: #f9a8d4;
+}
+
+:host-context(.dark) .error-box {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+:host-context(.dark) .skeleton-card {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+  background-size: 200% 100%;
+}
+
+:host-context(.dark) .view-more-btn {
+  color: #f9a8d4;
+}
