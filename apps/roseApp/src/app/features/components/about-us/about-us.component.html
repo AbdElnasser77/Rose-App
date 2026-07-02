@@ -35,13 +35,13 @@
         </p>
 
         <h2 class="about-title">
-  {{ 'ABOUT_US.TITLE_1' | translate }}
-  <span>{{ 'ABOUT_US.TITLE_RED_1' | translate }}</span>
-  {{ 'ABOUT_US.TITLE_2' | translate }}
-  <br />
-  <span>{{ 'ABOUT_US.TITLE_RED_2' | translate }}</span>
-  {{ 'ABOUT_US.TITLE_3' | translate }}
-</h2>
+          {{ 'ABOUT_US.TITLE_1' | translate }}
+          <span>{{ 'ABOUT_US.TITLE_RED_1' | translate }}</span>
+          {{ 'ABOUT_US.TITLE_2' | translate }}
+          <br />
+          <span>{{ 'ABOUT_US.TITLE_RED_2' | translate }}</span>
+          {{ 'ABOUT_US.TITLE_3' | translate }}
+        </h2>
 
         <p class="about-description">
           {{ 'ABOUT_US.DESCRIPTION' | translate }}
@@ -53,10 +53,12 @@
         </button>
 
         <div class="about-features">
-          <div *ngFor="let feature of features" class="feature-item">
-            <span class="check">✓</span>
-            <span>{{ feature | translate }}</span>
-          </div>
+          @for (feature of features; track $index) {
+            <div class="feature-item">
+              <span class="check">✓</span>
+              <span>{{ feature | translate }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
