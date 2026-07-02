@@ -125,6 +125,16 @@
   "PRODUCTS": {
     "EMPTY": "لا توجد منتجات."
   },
+  "FILTER": {
+    "CATEGORY": "الفئة",
+    "OCCASION": "المناسبة",
+    "RATING": "التقييم",
+    "PRICE": "السعر",
+    "RESET": "إعادة تعيين",
+    "RESET_ALL": "إعادة تعيين الكل",
+    "FROM": "من",
+    "TO": "إلى"
+  },
   "HERO": {
     "SIDE_BANNER": {
       "BADGE": "تبدأ من 10.99 ج.م",

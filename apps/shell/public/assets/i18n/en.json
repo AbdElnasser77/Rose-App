@@ -129,6 +129,16 @@
   "PRODUCTS": {
     "EMPTY": "No products found."
   },
+  "FILTER": {
+    "CATEGORY": "Category",
+    "OCCASION": "Occasion",
+    "RATING": "Rating",
+    "PRICE": "Price",
+    "RESET": "Reset",
+    "RESET_ALL": "Reset All",
+    "FROM": "from",
+    "TO": "to"
+  },
    "HERO": {
     "SIDE_BANNER": {
       "BADGE": "Starting from 10.99 EGP",
