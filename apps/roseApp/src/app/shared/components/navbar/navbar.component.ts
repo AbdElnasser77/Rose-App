@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
 import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, LogOut, LucideAngularModule, MapPin, Menu, PartyPopper, ShoppingCart, User, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AssetUrlPipe } from '../../../core/pipes/asset-url.pipe';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, LanguageSwitcherComponent, ThemeToggleComponent, TranslatePipe],
+  imports: [CommonModule, RouterLink, LucideAngularModule, LanguageSwitcherComponent, ThemeToggleComponent, TranslatePipe, AssetUrlPipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
