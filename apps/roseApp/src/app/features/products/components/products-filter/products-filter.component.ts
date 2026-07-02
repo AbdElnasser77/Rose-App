@@ -1,82 +1,68 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { RatingModule } from 'primeng/rating';
-import {
-  Cake,
-  Candy,
-  Flower,
-  Gem,
-  Gift,
-  LucideAngularModule,
-  Mail,
-  PartyPopper,
-  RotateCcw,
-  SprayCan,
-  Sprout,
-  ToyBrick,
-  X,
-} from 'lucide-angular';
+import { SkeletonModule } from 'primeng/skeleton';
+import { LucideAngularModule, RotateCcw, X } from 'lucide-angular';
 import { ButtonComponent } from '@org/ui';
-import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
+import { Category } from '../../models/category.model';
+import { Occasion } from '../../models/occasion.model';
+import { CategoriesService } from '../../services/categories.service';
+import { OccasionsService } from '../../services/occasions.service';
 
 @Component({
   selector: 'app-products-filter',
   imports: [
     FormsModule,
     RatingModule,
+    SkeletonModule,
     LucideAngularModule,
     ButtonComponent,
-    AssetUrlPipe,
     TranslatePipe,
   ],
   templateUrl: './products-filter.component.html',
   styleUrl: './products-filter.component.scss',
 })
-export class ProductsFilterComponent {
+export class ProductsFilterComponent implements OnInit, OnDestroy {
+  private categoriesService = inject(CategoriesService);
+  private occasionsService = inject(OccasionsService);
+  private subs = new Subscription();
+
   // Icons
   readonly X = X;
   readonly RotateCcw = RotateCcw;
 
-  // --- UI state (self-contained; not wired to the product query yet) ---
+  // Placeholder cells while the lists load.
+  readonly skeletons = Array.from({ length: 6 });
+
+  // --- Option lists (from the API) ---
+  categories = signal<Category[]>([]);
+  occasions = signal<Occasion[]>([]);
+  categoriesLoading = signal<boolean>(true);
+  occasionsLoading = signal<boolean>(true);
+
+  // Displayed sorted by name (requirement).
+  readonly sortedCategories = computed(() =>
+    [...this.categories()].sort((a, b) => a.title.localeCompare(b.title)),
+  );
+  readonly sortedOccasions = computed(() =>
+    [...this.occasions()].sort((a, b) => a.title.localeCompare(b.title)),
+  );
+
+  // --- Selection state (self-contained; not wired to the product query yet) ---
   selectedCategoryId = signal<string | null>(null);
   selectedOccasionId = signal<string | null>(null);
   rating = signal<number>(0);
   priceFrom = signal<number | null>(null);
   priceTo = signal<number | null>(null);
-
-  // --- Mock data (UI only — no categories/occasions endpoint exists yet) ---
-  readonly categories = [
-    { id: 'balloons', title: 'Balloons', icon: PartyPopper },
-    { id: 'cakes', title: 'Cakes', icon: Cake },
-    { id: 'cards', title: 'Cards', icon: Mail },
-    { id: 'chocolate', title: 'Chocolate', icon: Candy },
-    { id: 'flowers', title: 'Flowers', icon: Flower },
-    { id: 'gifts', title: 'Gifts', icon: Gift },
-    { id: 'jewelry', title: 'Jewelry', icon: Gem },
-    { id: 'perfumes', title: 'Perfumes', icon: SprayCan },
-    { id: 'plants', title: 'Plants', icon: Sprout },
-    { id: 'toys', title: 'Toys', icon: ToyBrick },
-  ];
-
-  readonly occasions = [
-    { id: 'anniversary', title: 'Anniversary', image: 'assets/images/banner/anniversary.png' },
-    { id: 'apology', title: 'Apology', image: 'assets/images/banner/specialGifts.png' },
-    { id: 'birthday', title: 'Birthday', image: 'assets/images/banner/engagement.png' },
-    { id: 'engagement', title: 'Engagement', image: 'assets/images/banner/engagement.png' },
-    { id: 'fathers-day', title: "Father's Day", image: 'assets/images/banner/specialGifts.png' },
-    { id: 'graduation', title: 'Graduation', image: 'assets/images/banner/wedding.png' },
-    { id: 'valentine', title: "Valentine's", image: 'assets/images/banner/anniversary.png' },
-    { id: 'wedding', title: 'Wedding', image: 'assets/images/banner/wedding.png' },
-  ];
-
-  // Displayed sorted by name (requirement).
-  readonly sortedCategories = computed(() =>
-    [...this.categories].sort((a, b) => a.title.localeCompare(b.title)),
-  );
-  readonly sortedOccasions = computed(() =>
-    [...this.occasions].sort((a, b) => a.title.localeCompare(b.title)),
-  );
 
   readonly hasActiveFilters = computed(
     () =>
@@ -86,6 +72,34 @@ export class ProductsFilterComponent {
       this.priceFrom() !== null ||
       this.priceTo() !== null,
   );
+
+  ngOnInit(): void {
+    this.subs.add(
+      this.categoriesService.getCategories().subscribe({
+        next: (data) => {
+          this.categories.set(data);
+          this.categoriesLoading.set(false);
+        },
+        error: (err) => {
+          console.error('Categories API error:', err);
+          this.categoriesLoading.set(false);
+        },
+      }),
+    );
+
+    this.subs.add(
+      this.occasionsService.getOccasions().subscribe({
+        next: (data) => {
+          this.occasions.set(data);
+          this.occasionsLoading.set(false);
+        },
+        error: (err) => {
+          console.error('Occasions API error:', err);
+          this.occasionsLoading.set(false);
+        },
+      }),
+    );
+  }
 
   selectCategory(id: string): void {
     this.selectedCategoryId.set(id);
@@ -117,5 +131,9 @@ export class ProductsFilterComponent {
     this.resetOccasion();
     this.resetRating();
     this.resetPrice();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
