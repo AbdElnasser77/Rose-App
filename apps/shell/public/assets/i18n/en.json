@@ -104,6 +104,17 @@
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   },
+  "REVIEWS": {
+    "TITLE": "Product Reviews",
+    "GENERAL_RATING": "General rating:",
+    "RATINGS_COUNT": "{{count}} ratings",
+    "YOUR_RATING": "Your rating:",
+    "FORM_TITLE": "Title",
+    "PLACEHOLDER_TITLE": "Enter review title",
+    "FORM_REVIEW": "Review",
+    "PLACEHOLDER_REVIEW": "What do you think of this product?",
+    "BTN_ADD": "Add Review"
+  },
 
   "TRUST": {
   "TITLE_PART1": "Trusted by over",

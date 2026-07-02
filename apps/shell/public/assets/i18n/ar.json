@@ -104,10 +104,21 @@
     "FAQS": "الأسئلة الشائعة",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. جميع الحقوق محفوظة."
   },
-  "TRUST": {
-  "TITLE_PART1": "موضع ثقة لأكثر من",
-  "TITLE_PART2": "شركة"
-},
+  "REVIEWS": {
+    "TITLE": "آراء المنتج",
+    "GENERAL_RATING": "التقييم العام:",
+    "RATINGS_COUNT": "({{count}} تقييمات)",
+    "YOUR_RATING": "تقييمك:",
+    "FORM_TITLE": "العنوان",
+    "PLACEHOLDER_TITLE": "أدخل عنوان التقييم",
+    "FORM_REVIEW": "التعليق",
+    "PLACEHOLDER_REVIEW": "ما هو رأيك في هذا المنتج؟",
+    "BTN_ADD": "إضافة التقييم"
+  },
+    "TRUST": {
+    "TITLE_PART1": "موضع ثقة لأكثر من",
+    "TITLE_PART2": "شركة"
+  },
   "FEATURES": {
     "FREE_DELIVERY_TITLE": "توصيل مجاني",
     "FREE_DELIVERY_DESC": "للطلبات الأكثر من 120 جنيه",
