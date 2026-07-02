@@ -182,5 +182,22 @@
     "ADD_TO_CART": "Add To Cart",
     "ADD_TO_WISHLIST": "Add to wishlist",
     "SELECT_IMAGE": "Select image"
+  },
+   "home": {
+    "bestSelling": "Best Selling",
+    "checkOut": "Check Out",
+    "what": "What",
+    "everyones": "Everyone's",
+    "buying": "Buying",
+    "rightNow": "Right Now",
+    "bestSellingDescription": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+
+    "hot": "HOT",
+    "new": "NEW",
+    "outOfStock": "OUT OF STOCK"
+  },
+
+  "buttons": {
+    "exploreGifts": "Explore Gifts"
   }
 }

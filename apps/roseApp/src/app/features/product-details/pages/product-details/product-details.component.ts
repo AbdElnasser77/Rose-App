@@ -5,7 +5,6 @@ import { ReviewersComponent } from '../../components/reviews/reviews.component';
 @Component({
   selector: 'app-product-details',
   imports: [ProductDataComponent, ReviewersComponent],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss',
+  templateUrl: './product-details.component.html'
 })
 export class ProductDetailsComponent {}
