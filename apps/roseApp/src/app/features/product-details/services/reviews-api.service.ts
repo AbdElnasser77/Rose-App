@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Review } from '../models/product.model';
 import { BASE_URL_CONFIG } from '@org/auth';
+import { Review } from '../../../core/models/product.model';
 @Injectable({
   providedIn: 'root',
 })

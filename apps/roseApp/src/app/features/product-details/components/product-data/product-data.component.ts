@@ -6,7 +6,6 @@ import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Product } from '../../models/product.model';
 import { ProductDataService } from './../../services/product-data-api.service';
@@ -17,7 +16,6 @@ import { ProductDataService } from './../../services/product-data-api.service';
       DividerModule,
       TagModule,
       FormsModule,
-      NgClass,
       TranslatePipe,
       CommonModule, ButtonModule],
   templateUrl: './product-data.component.html',
