@@ -1,0 +1,24 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <aside class="w-full lg:w-72 shrink-0">
+      <app-products-filter />
+    </aside>
+
+    <section class="flex-1">
+      <app-products-grid
+        [products]="products()"
+        [loading]="loading()"
+        (cardDetails)="onDetails($event)"
+        (wishList)="onWishlist($event)"
+        (quickView)="onQuickView($event)"
+        (addToCart)="onAddToCart($event)"
+      />
+
+      <app-products-pagination
+        [page]="page()"
+        [totalPages]="totalPages()"
+        (pageChange)="onPageChange($event)"
+      />
+    </section>
+  </div>
+</div>

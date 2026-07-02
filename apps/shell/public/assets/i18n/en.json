@@ -126,6 +126,9 @@
     "TITLE": "Real Words from Happy Customers",
     "SUBTITLE": "Testimonials"
   },
+  "PRODUCTS": {
+    "EMPTY": "No products found."
+  },
    "HERO": {
     "SIDE_BANNER": {
       "BADGE": "Starting from 10.99 EGP",
