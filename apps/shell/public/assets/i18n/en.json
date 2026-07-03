@@ -183,21 +183,17 @@
     "ADD_TO_WISHLIST": "Add to wishlist",
     "SELECT_IMAGE": "Select image"
   },
-   "home": {
-    "bestSelling": "Best Selling",
-    "checkOut": "Check Out",
-    "what": "What",
-    "everyones": "Everyone's",
-    "buying": "Buying",
-    "rightNow": "Right Now",
-    "bestSellingDescription": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
-
-    "hot": "HOT",
-    "new": "NEW",
-    "outOfStock": "OUT OF STOCK"
-  },
-
-  "buttons": {
-    "exploreGifts": "Explore Gifts"
+  "BEST_SELLING": {
+    "BEST_SELLING": "Best Selling",
+    "CHECK_OUT": "Check Out",
+    "WHAT": "What",
+    "EVERYONES": "Everyone's",
+    "BUYING": "Buying",
+    "RIGHT_NOW": "Right Now",
+    "BEST_SELLING_DESCRIPTION": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+    "HOT": "HOT",
+    "NEW": "NEW",
+    "OUT_OF_STOCK": "OUT OF STOCK",
+    "EXPLORE_GIFTS": "Explore Gifts"
   }
 }

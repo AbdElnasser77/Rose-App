@@ -3,37 +3,37 @@
 
     <div class="lg:col-span-1 flex flex-col justify-center">
 
-  <span class="uppercase tracking-[4px] text-[#FF85A2] font-semibold text-sm">
-    {{ 'home.bestSelling' | translate }}
-  </span>
+      <span class="uppercase tracking-[4px] text-[#FF85A2] font-semibold text-sm">
+        {{ 'BEST_SELLING.BEST_SELLING' | translate }}
+      </span>
 
-  <h2 class="mt-4 text-4xl xl:text-5xl font-bold leading-tight text-[#2F2B2B]">
-    <span class="text-[#FF85A2]">
-      {{ 'home.checkOut' | translate }}
-    </span>
-    {{ 'home.what' | translate }}
-    <br>
-    {{ 'home.everyones' | translate }}
-    <span class="text-[#FF85A2]">
-      {{ 'home.buying' | translate }}
-    </span>
-    <br>
-    {{ 'home.rightNow' | translate }}
-  </h2>
+      <h2 class="mt-4 text-4xl xl:text-5xl font-bold leading-tight text-[#2F2B2B]">
+        <span class="text-[#FF85A2]">
+          {{ 'BEST_SELLING.CHECK_OUT' | translate }}
+        </span>
+        {{ 'BEST_SELLING.WHAT' | translate }}
+        <br>
+        {{ 'BEST_SELLING.EVERYONES' | translate }}
+        <span class="text-[#FF85A2]">
+          {{ 'BEST_SELLING.BUYING' | translate }}
+        </span>
+        <br>
+        {{ 'BEST_SELLING.RIGHT_NOW' | translate }}
+      </h2>
 
-  <p class="mt-6 text-gray-500 leading-8">
-    {{ 'home.bestSellingDescription' | translate }}
-  </p>
+      <p class="mt-6 text-gray-500 leading-8">
+        {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
+      </p>
 
-  <button
-    pButton
-    [label]="'buttons.exploreGifts' | translate"
-    icon="pi pi-arrow-right"
-    iconPos="right"
-    class="mt-8 w-fit">
-  </button>
+      <button
+        pButton
+        [label]="'BEST_SELLING.EXPLORE_GIFTS' | translate"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        class="mt-8 w-fit">
+      </button>
 
-</div>
+  </div>
     <div class="lg:col-span-3">
       <p-carousel
         [value]="products"
@@ -54,23 +54,20 @@
 
                 <div class="absolute top-4 right-4 flex items-center gap-2">
                   @if (product.rating === 5) {
-                    <span
-                      class="rounded-full bg-[#FBEAEA] text-[#D63C6A] px-3 py-1 text-[10px] font-semibold">
-                      HOT
+                    <span class="rounded-full bg-[#FBEAEA] text-[#D63C6A] px-3 py-1 text-[10px] font-semibold uppercase">
+                      {{ 'BEST_SELLING.HOT' | translate }}
                     </span>
                   }
 
                   @if (product.stock === 0) {
-                    <span
-                      class="rounded-full bg-[#A01D26] text-white px-3 py-1 text-[10px] font-semibold">
-                      OUT OF STOCK
+                    <span class="rounded-full bg-[#A01D26] text-white px-3 py-1 text-[10px] font-semibold uppercase">
+                      {{ 'BEST_SELLING.OUT_OF_STOCK' | translate }}
                     </span>
                   }
 
                   @if (isNew(product.createdAt)) {
-                    <span
-                      class="rounded-full bg-white text-gray-500 px-3 py-1 text-[10px] font-semibold shadow">
-                      NEW
+                    <span class="rounded-full bg-white text-gray-500 px-3 py-1 text-[10px] font-semibold shadow uppercase">
+                      {{ 'BEST_SELLING.NEW' | translate }}
                     </span>
                   }
                 </div>
@@ -101,7 +98,7 @@
                   </div>
 
                   <button
-                    class="w-11 h-11 rounded-full bg-[#A01D26] hover:bg-[#86161e] text-white flex justify-center items-center transition">
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-[#A01D26] text-white transition hover:bg-[#86161e]">
                     <i class="pi pi-shopping-cart text-lg"></i>
                   </button>
                 </div>
