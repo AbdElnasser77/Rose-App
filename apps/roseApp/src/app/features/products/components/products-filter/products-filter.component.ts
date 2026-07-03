@@ -80,8 +80,7 @@ export class ProductsFilterComponent implements OnInit, OnDestroy {
           this.categories.set(data);
           this.categoriesLoading.set(false);
         },
-        error: (err) => {
-          console.error('Categories API error:', err);
+        error: () => {
           this.categoriesLoading.set(false);
         },
       }),
@@ -93,8 +92,7 @@ export class ProductsFilterComponent implements OnInit, OnDestroy {
           this.occasions.set(data);
           this.occasionsLoading.set(false);
         },
-        error: (err) => {
-          console.error('Occasions API error:', err);
+        error: () => {
           this.occasionsLoading.set(false);
         },
       }),
