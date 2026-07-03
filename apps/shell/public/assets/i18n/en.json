@@ -71,6 +71,7 @@
     "OTP_VERIFIED": "Email verified successfully.",
     "CODE_RESENT": "A new verification code has been sent."
   },
+
   "VALIDATION": {
     "REQUIRED": "This field is required.",
     "EMAIL": "Invalid email address.",
@@ -79,6 +80,7 @@
     "PATTERN": "Invalid format.",
     "INVALID": "Invalid value."
   },
+
   "NAV": {
     "SEARCH_PLACEHOLDER": "What awesome gift are you looking for?",
     "LOGIN": "Login",
@@ -91,6 +93,7 @@
     "CONTACT": "Contact",
     "ABOUT": "About"
   },
+
   "FOOTER": {
     "APP_NAME": "Rose E-Commerce App",
     "RIGHTS": "All rights reserved | 2025",
@@ -104,6 +107,7 @@
     "FAQS": "FAQs",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. All Rights Reserved."
   },
+
   "REVIEWS": {
     "TITLE": "Product Reviews",
     "GENERAL_RATING": "General rating:",
@@ -116,9 +120,31 @@
     "BTN_ADD": "Add Review"
   },
 
+  "ABOUT_US": {
+    "LABEL": "ABOUT",
+    "TITLE_1": "Delivering the ",
+    "TITLE_RED_1": "Finest",
+    "TITLE_2": " Gift Boxes for Your",
+    "TITLE_RED_2": "Special",
+    "TITLE_3": " Moments",
+    "DESCRIPTION": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it’s for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+    "BUTTON": "Discover",
+    "IMAGES": {
+      "MAIN_ALT": "Gift box",
+      "GIFT_ALT": "Gift package",
+      "BALLOONS_ALT": "Gift balloons"
+    },
+    "FEATURES": {
+      "PRICES": "Competitive Prices & Easy Shopping",
+      "PREMIUM": "Premium Quality & Elegant Packaging",
+      "OCCASION": "Perfect for Every Occasion",
+      "DELIVERY": "Fast & Reliable Delivery"
+    }
+  },
+
   "TRUST": {
-  "TITLE_PART1": "Trusted by over",
-  "TITLE_PART2": "companies"
+    "TITLE_PART1": "Trusted by over",
+    "TITLE_PART2": "companies"
   },
 
   "FEATURES": {
@@ -130,14 +156,29 @@
     "SAFE_PAYMENT_DESC": "100% Secure Payment",
     "SUPPORT_TITLE": "24/7 Support",
     "SUPPORT_DESC": "Contact us at any time"
-
   },
 
   "TESTIMONIALS": {
     "TITLE": "Real Words from Happy Customers",
     "SUBTITLE": "Testimonials"
   },
-   "HERO": {
+
+  "PRODUCTS": {
+    "EMPTY": "No products found."
+  },
+
+  "FILTER": {
+    "CATEGORY": "Category",
+    "OCCASION": "Occasion",
+    "RATING": "Rating",
+    "PRICE": "Price",
+    "RESET": "Reset",
+    "RESET_ALL": "Reset All",
+    "FROM": "from",
+    "TO": "to"
+  },
+
+  "HERO": {
     "SIDE_BANNER": {
       "BADGE": "Starting from 10.99 EGP",
       "TITLE": "Special Gifts For The People You Love",
@@ -155,6 +196,7 @@
       }
     }
   },
+
   "OCCASIONS": {
     "WEDDING": {
       "BADGE": "Wedding",
@@ -169,13 +211,16 @@
       "TITLE": "Mark Every Year of Love with a Meaningful Surprise"
     }
   },
+
   "GALLERY": {
     "TITLE": "Gallery",
     "SUBTITLE": "Check Out our Wonderful Gallery"
   },
+
   "COMMON": {
     "EGP": "EGP"
   },
+
   "PRODUCT": {
     "LEFT_IN_STOCK": "{{count}} left in stock",
     "RATINGS": "({{count}} ratings)",
@@ -183,10 +228,25 @@
     "ADD_TO_WISHLIST": "Add to wishlist",
     "SELECT_IMAGE": "Select image"
   },
+
   "PRODUCT_DETAILS": {
-  "RELATED_PRODUCTS": {
-    "MAIN_TITLE": "Related Products",
-    "SUB_TITLE": "You may also like"
+    "RELATED_PRODUCTS": {
+      "MAIN_TITLE": "Related Products",
+      "SUB_TITLE": "You may also like"
+    }
+  },
+
+  "BEST_SELLING": {
+    "BEST_SELLING": "Best Selling",
+    "CHECK_OUT": "Check Out",
+    "WHAT": "What",
+    "EVERYONES": "Everyone's",
+    "BUYING": "Buying",
+    "RIGHT_NOW": "Right Now",
+    "BEST_SELLING_DESCRIPTION": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+    "HOT": "HOT",
+    "NEW": "NEW",
+    "OUT_OF_STOCK": "OUT OF STOCK",
+    "EXPLORE_GIFTS": "Explore Gifts"
   }
-}
 }

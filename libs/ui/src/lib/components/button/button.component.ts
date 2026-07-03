@@ -15,7 +15,7 @@ export class ButtonComponent {
   @Input() disabled = false;
   @Input() loading = false;
   @Input() size: 'full' | 'half' | 'auto' | 'icon' | 'icon-sm'  | 'icon-lg' = 'full';
-  @Input() variant: 'Primary' | 'Secondary' | 'Outline' | 'Subtle' | 'Ghost' | 'Destructive'| 'IconWhite' | 'IconRed' = 'Primary';
+  @Input() variant: 'Primary' | 'Secondary' | 'Outline' | 'Subtle' | 'Ghost' | 'Destructive'| 'Maroon' = 'Primary';
   @Input() shape: 'square' | 'circle' = 'square';
   @Input() customClass = 'px-4 py-2.5 gap-2.5 text-[16px]';
   @Output() clicked = new EventEmitter<MouseEvent>();
