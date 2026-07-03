@@ -1,0 +1,32 @@
+:host ::ng-deep .p-carousel-prev,
+:host ::ng-deep .p-carousel-next {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #a01d26;
+  color: #fff;
+  border: none;
+}
+
+:host ::ng-deep .p-carousel-prev:hover,
+:host ::ng-deep .p-carousel-next:hover {
+  background: #86161e;
+}
+
+:host ::ng-deep .p-carousel-indicators {
+  display: none;
+}
+
+:host ::ng-deep .p-rating .p-rating-icon {
+  color: #f59e0b;
+}
+
+:host ::ng-deep .p-button {
+  background: #a01d26;
+  border-color: #a01d26;
+}
+
+:host ::ng-deep .p-button:hover {
+  background: #86161e;
+  border-color: #86161e;
+}

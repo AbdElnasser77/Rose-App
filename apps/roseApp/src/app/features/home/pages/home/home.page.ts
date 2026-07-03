@@ -5,6 +5,7 @@ import { TestimonialSectionComponent } from '../../components/Testimonial/testim
 import { OccasionsComponent } from '../../components/banner/occasions/occasions.component';
 import { HeroComponent } from '../../components/banner/hero/hero.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
+import { BestSellingComponent } from '../../components/best-selling/best-selling.component';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
     OccasionsComponent,
     HeroComponent,
     GalleryComponent,
+    BestSellingComponent
   ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
