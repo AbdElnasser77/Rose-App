@@ -41,8 +41,7 @@ export class ProductsPage implements OnInit, OnDestroy {
         this.totalPages.set(payload.metadata.totalPages);
         this.loading.set(false);
       },
-      error: (err) => {
-        console.error('Products API error:', err);
+      error: () => {
         this.loading.set(false);
       },
     });
