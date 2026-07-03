@@ -1,0 +1,143 @@
+.related-products-section {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.related-products-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 24px;
+  padding-inline: 44px;
+}
+
+.products-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 4);
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 0 24px;
+  scrollbar-width: none;
+}
+
+.products-list::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card-item {
+  width: 100%;
+  min-width: 0;
+}
+
+.product-card-item app-product-card {
+  display: block;
+  width: 100%;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 45%;
+  z-index: 30;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background-color: #a82029;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  box-shadow: 0 4px 10px rgba(168, 32, 41, 0.28);
+  transition: 0.2s ease;
+}
+
+.scroll-btn:hover {
+  background-color: #8b1a22;
+}
+
+.scroll-btn-left {
+  left: 10px;
+}
+
+.scroll-btn-right {
+  right: 10px;
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  display: block;
+}
+
+.chevron-left {
+  transform: rotate(-135deg);
+  margin-left: 2px;
+}
+
+.chevron-right {
+  transform: rotate(45deg);
+  margin-right: 2px;
+}
+
+:host-context(.dark) {
+  .related-products-section {
+    background-color: #111827;
+  }
+
+  .scroll-btn {
+    background-color: #a82029;
+    color: #ffffff;
+  }
+
+  .scroll-btn:hover {
+    background-color: #8b1a22;
+  }
+}
+
+@media (max-width: 1279px) {
+  .products-list {
+    grid-auto-columns: calc((100% - 32px) / 3);
+  }
+}
+
+@media (max-width: 991px) {
+  .products-list {
+    grid-auto-columns: calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 575px) {
+  .related-products-wrapper {
+    padding-inline: 34px;
+  }
+
+  .products-list {
+    grid-auto-columns: 100%;
+  }
+
+  .scroll-btn {
+    width: 22px;
+    height: 22px;
+  }
+
+  .scroll-btn-left {
+    left: 4px;
+  }
+
+  .scroll-btn-right {
+    right: 4px;
+  }
+
+  .chevron {
+    width: 6px;
+    height: 6px;
+  }
+}

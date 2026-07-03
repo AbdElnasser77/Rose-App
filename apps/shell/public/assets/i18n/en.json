@@ -229,6 +229,13 @@
     "SELECT_IMAGE": "Select image"
   },
 
+  "PRODUCT_DETAILS": {
+    "RELATED_PRODUCTS": {
+      "MAIN_TITLE": "Related Products",
+      "SUB_TITLE": "You may also like"
+    }
+  },
+
   "BEST_SELLING": {
     "BEST_SELLING": "Best Selling",
     "CHECK_OUT": "Check Out",

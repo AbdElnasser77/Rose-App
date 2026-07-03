@@ -230,6 +230,13 @@
     "SELECT_IMAGE": "اختر الصورة"
   },
 
+  "PRODUCT_DETAILS": {
+    "RELATED_PRODUCTS": {
+      "MAIN_TITLE": "منتجات مشابهة",
+      "SUB_TITLE": "قد يعجبك أيضًا"
+    }
+  },
+
   "BEST_SELLING": {
     "BEST_SELLING": "الأكثر مبيعًا",
     "CHECK_OUT": "اكتشف",

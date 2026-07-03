@@ -1,0 +1,43 @@
+@if (relatedProducts().length > 0) {
+  <section class="related-products-section">
+    <app-section-title
+      [mainTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.MAIN_TITLE' | translate"
+      [subTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.SUB_TITLE' | translate"
+      alignment="left"
+    ></app-section-title>
+
+    <div class="related-products-wrapper">
+      <button
+        type="button"
+        class="scroll-btn scroll-btn-left"
+        aria-label="Scroll left"
+        (click)="scrollProducts('left')"
+      >
+        <span class="chevron chevron-left"></span>
+      </button>
+
+      <div #productsSlider class="products-list">
+        @for (product of relatedProducts(); track product.id) {
+          <div class="product-card-item">
+            <app-product-card
+              [product]="product"
+              (cardDetailsClicked)="onCardDetailsClicked(product)"
+              (wishListClicked)="onWishListClicked(product)"
+              (quickViewClicked)="onQuickViewClicked(product)"
+              (addToCartClicked)="onAddToCartClicked(product)"
+            ></app-product-card>
+          </div>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="scroll-btn scroll-btn-right"
+        aria-label="Scroll right"
+        (click)="scrollProducts('right')"
+      >
+        <span class="chevron chevron-right"></span>
+      </button>
+    </div>
+  </section>
+}
