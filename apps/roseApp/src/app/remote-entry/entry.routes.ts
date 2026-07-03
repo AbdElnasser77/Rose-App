@@ -4,7 +4,7 @@ import { MainLayoutComponent } from '../layouts/main-layout/main-layout.componen
 export const remoteRoutes: Route[] = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -13,15 +13,27 @@ export const remoteRoutes: Route[] = [
       import('../features/auth/auth.routes').then((m) => m.AuthRoutes),
   },
   {
-    path:'',
-    component:MainLayoutComponent,
-    children:[
+    path: '',
+    component: MainLayoutComponent,
+    children: [
       {
-        path:'home',
+        path: 'home',
         loadChildren: () =>
-        import('../features/home/home.routes').then((m) => m.HomeRoutes),
+          import('../features/home/home.routes').then((m) => m.HomeRoutes),
       },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('../features/products/products.routes').then(
+            (m) => m.ProductsRoutes,
+          ),
+      },
+      {
+        path:'product-details/:id',
+        loadChildren: () =>
+        import('../features/product-details/product-details.routes').then((m) => m.ProductDetailsRoutes),
+      }
       // add products,cart,checkout all here.
-    ]
+    ],
   },
 ];

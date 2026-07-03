@@ -71,6 +71,7 @@
     "OTP_VERIFIED": "تم التحقق من البريد الإلكتروني بنجاح.",
     "CODE_RESENT": "تم إرسال رمز تحقق جديد."
   },
+
   "VALIDATION": {
     "REQUIRED": "هذا الحقل مطلوب.",
     "EMAIL": "البريد الإلكتروني غير صحيح.",
@@ -79,6 +80,7 @@
     "PATTERN": "الصيغة غير صحيحة.",
     "INVALID": "قيمة غير صحيحة."
   },
+
   "NAV": {
     "SEARCH_PLACEHOLDER": "عن أي هدية رائعة تبحث؟",
     "LOGIN": "تسجيل الدخول",
@@ -91,6 +93,7 @@
     "CONTACT": "تواصل معنا",
     "ABOUT": "من نحن"
   },
+
   "FOOTER": {
     "APP_NAME": "Rose E-Commerce App",
     "RIGHTS": "جميع الحقوق محفوظة | 2025",
@@ -104,38 +107,169 @@
     "FAQS": "الأسئلة الشائعة",
     "COPYRIGHT": "© 2025 Rose E-Commerce App. جميع الحقوق محفوظة."
   },
+
+  "ABOUT_US": {
+    "LABEL": "من نحن",
+    "TITLE_1": "نقدم لك ",
+    "TITLE_RED_1": "أجمل",
+    "TITLE_2": " صناديق الهدايا من أجل ",
+    "TITLE_RED_2": "لحظاتك",
+    "TITLE_3": " الخاصة",
+    "TITLE_4": "لحظاتك الخاصة",
+    "DESCRIPTION": "اجعل كل لحظة مميزة مع صناديق الهدايا الفاخرة لدينا. يتم تنسيق كل صندوق بعناية وتغليفه بشكل أنيق ليضم منتجات مختارة بعناية تناسب مختلف المناسبات، سواء عيد ميلاد أو زفاف أو رسالة شكر بسيطة.",
+    "BUTTON": "اكتشف الآن",
+    "IMAGES": {
+      "MAIN_ALT": "صندوق هدايا",
+      "GIFT_ALT": "علبة هدايا",
+      "BALLOONS_ALT": "بالونات هدايا"
+    },
+    "FEATURES": {
+      "PRICES": "أسعار مناسبة وتسوق سهل",
+      "PREMIUM": "جودة عالية وتغليف أنيق",
+      "OCCASION": "مناسب لكل المناسبات",
+      "DELIVERY": "توصيل سريع وموثوق"
+    }
+  },
+
+  "REVIEWS": {
+    "TITLE": "آراء المنتج",
+    "GENERAL_RATING": "التقييم العام:",
+    "RATINGS_COUNT": "({{count}} تقييمات)",
+    "YOUR_RATING": "تقييمك:",
+    "FORM_TITLE": "العنوان",
+    "PLACEHOLDER_TITLE": "أدخل عنوان التقييم",
+    "FORM_REVIEW": "التعليق",
+    "PLACEHOLDER_REVIEW": "ما هو رأيك في هذا المنتج؟",
+    "BTN_ADD": "إضافة التقييم"
+  },
+
   "TRUST": {
-  "TITLE_PART1": "موضع ثقة لأكثر من",
-  "TITLE_PART2": "شركة"
-},
+    "TITLE_PART1": "موضع ثقة لأكثر من",
+    "TITLE_PART2": "شركة"
+  },
+
   "FEATURES": {
     "FREE_DELIVERY_TITLE": "توصيل مجاني",
     "FREE_DELIVERY_DESC": "للطلبات الأكثر من 120 جنيه",
-    "GET_REFUND_TITLE": "إسترجاع الأموال",
-    "GET_REFUND_DESC": "الإسترجاع خلال 30 يوماً",
+    "GET_REFUND_TITLE": "استرجاع الأموال",
+    "GET_REFUND_DESC": "الاسترجاع خلال 30 يوماً",
     "SAFE_PAYMENT_TITLE": "دفع آمن",
     "SAFE_PAYMENT_DESC": "طرق دفع آمنة 100%",
     "SUPPORT_TITLE": "دعم 24/7",
     "SUPPORT_DESC": "تواصل معنا في أي وقت"
   },
+
   "MOST_POPULAR": {
-  "TITLE": "الأكثر شهرة",
-  "TABS": {
-    "WEDDING": "زفاف",
-    "ANNIVERSARY": "ذكرى سنوية",
-    "BIRTHDAY": "عيد ميلاد",
-    "ENGAGEMENT": "خطوبة"
+    "TITLE": "الأكثر شهرة",
+    "TABS": {
+      "WEDDING": "زفاف",
+      "ANNIVERSARY": "ذكرى سنوية",
+      "BIRTHDAY": "عيد ميلاد",
+      "ENGAGEMENT": "خطوبة"
+    },
+    "VIEW_MORE": "عرض المزيد",
+    "TRY_AGAIN": "حاول مرة أخرى",
+    "ERROR": "حدث خطأ أثناء تحميل المنتجات."
   },
-  "VIEW_MORE": "عرض المزيد",
-  "TRY_AGAIN": "حاول مرة أخرى",
-  "ERROR": "حدث خطأ أثناء تحميل المنتجات."
-},
-"PRODUCT_CARD": {
-  "BADGES": {
+
+  "PRODUCT_CARD": {
+    "BADGES": {
+      "NEW": "جديد",
+      "HOT": "مميز",
+      "OUT_OF_STOCK": "غير متوفر"
+    },
+    "CURRENCY": "جنيه"
+  },
+
+  "TESTIMONIALS": {
+    "TITLE": "كلمات حقيقية من عملاء سعداء",
+    "SUBTITLE": "آراء العملاء"
+  },
+
+  "PRODUCTS": {
+    "EMPTY": "لا توجد منتجات."
+  },
+
+  "FILTER": {
+    "CATEGORY": "الفئة",
+    "OCCASION": "المناسبة",
+    "RATING": "التقييم",
+    "PRICE": "السعر",
+    "RESET": "إعادة تعيين",
+    "RESET_ALL": "إعادة تعيين الكل",
+    "FROM": "من",
+    "TO": "إلى"
+  },
+
+  "HERO": {
+    "SIDE_BANNER": {
+      "BADGE": "تبدأ من 10.99 ج.م",
+      "TITLE": "هدايا خاصة لمن تحب",
+      "BUTTON": "تسوق الآن"
+    },
+    "SLIDES": {
+      "BUY_BUTTON": "إشتري الآن!",
+      "FIRST": {
+        "TITLE": "عبر عنها بالزهور",
+        "SUBTITLE": "هدايا أنيقة لكل لحظة خاصة."
+      },
+      "SECOND": {
+        "TITLE": "هدايا خاصة للأشخاص الذين تحبهم",
+        "SUBTITLE": "هدايا أنيقة لكل لحظة خاصة."
+      }
+    }
+  },
+
+  "OCCASIONS": {
+    "WEDDING": {
+      "BADGE": "زفاف",
+      "TITLE": "احتفل بيوم الزفاف بهدية تبقى ذكرى لا تُنسى"
+    },
+    "ENGAGEMENT": {
+      "BADGE": "خطوبة",
+      "TITLE": "عبّر عن فرحة الخطوبة بهدية تليق بهذه المناسبة"
+    },
+    "ANNIVERSARY": {
+      "BADGE": "ذكرى سنوية",
+      "TITLE": "احتفل بكل عام من الحب بهدية لا تُنسى."
+    }
+  },
+
+  "GALLERY": {
+    "TITLE": "المعرض",
+    "SUBTITLE": "اطّلع على معرضنا الرائع"
+  },
+
+  "COMMON": {
+    "EGP": "ج.م"
+  },
+
+  "PRODUCT": {
+    "LEFT_IN_STOCK": "متبقي {{count}} في المخزون",
+    "RATINGS": "({{count}} تقييم)",
+    "ADD_TO_CART": "أضف إلى السلة",
+    "ADD_TO_WISHLIST": "أضف إلى المفضلة",
+    "SELECT_IMAGE": "اختر الصورة"
+  },
+
+  "PRODUCT_DETAILS": {
+    "RELATED_PRODUCTS": {
+      "MAIN_TITLE": "منتجات مشابهة",
+      "SUB_TITLE": "قد يعجبك أيضًا"
+    }
+  },
+
+  "BEST_SELLING": {
+    "BEST_SELLING": "الأكثر مبيعًا",
+    "CHECK_OUT": "اكتشف",
+    "WHAT": "",
+    "EVERYONES": "ما يشتريه",
+    "BUYING": "الجميع",
+    "RIGHT_NOW": "الآن",
+    "BEST_SELLING_DESCRIPTION": "لست متأكدًا ماذا تختار؟ ابدأ بمنتجاتنا الأكثر مبيعًا، فهي الهدايا التي يختارها عملاؤنا باستمرار. سواء كنت تحتفل بعيد ميلاد أو ذكرى سنوية أو حفل زفاف، فإن أفضل اختياراتنا ستترك انطباعًا يدوم.",
+    "HOT": "الأكثر طلبًا",
     "NEW": "جديد",
-    "HOT": "مميز",
-    "OUT_OF_STOCK": "غير متوفر"
-  },
-  "CURRENCY": "جنيه"
-}
+    "OUT_OF_STOCK": "نفدت الكمية",
+    "EXPLORE_GIFTS": "استكشف الهدايا"
+  }
 }

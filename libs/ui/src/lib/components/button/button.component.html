@@ -1,19 +1,21 @@
-<button [type]="type" [disabled]="disabled" (click)="onButtonClick($event)" class="
-     font-sarabun font-medium text-[16px] leading-none
+<button [type]="type" [disabled]="disabled" (click)="onButtonClick($event)" [class]="
+     'font-sarabun font-medium  leading-none
     flex items-center justify-center
     cursor-pointer disabled:cursor-not-allowed
-    transition-all duration-300 ease-in-out" [ngClass]="{
-    'h-[42px] w-full': size === 'full',
-    'h-[42px] w-1/2': size === 'half',
-    'h-[42px] w-auto min-w-[120px]': size === 'auto',
+    transition-all duration-300 ease-in-out ' + (!isIconButton ? customClass : '') "
+     [ngClass]="{
+    ' w-full': size === 'full',
+    ' w-1/2': size === 'half',
+    ' w-auto min-w-[120px]': size === 'auto',
     'w-[42px] h-[42px] p-0 flex-shrink-0': size === 'icon',
+
     'w-[30px] h-[30px] p-0 flex-shrink-0': size === 'icon-sm',
     'w-[65px] h-[65px]  p-0 flex-shrink-0': size === 'icon-lg',
-    'px-4 py-[14px] gap-[10px]': size !== 'icon' && size !== 'icon-sm',
+    
     
     'rounded-[10px]': shape === 'square',
     'rounded-full': shape === 'circle',
-
+     'bg-[#A6252A] text-white hover:bg-[#741C21] dark:bg-maroon-500 dark:hover:bg-maroon-600': variant === 'Maroon' && !disabled && !loading,
     'bg-maroon-600 text-[#FFFFFF] hover:bg-maroon-700 dark:bg-soft-pink-300 dark:text-zinc-800 dark:hover:bg-soft-pink-500':variant === 'Primary' && !disabled && !loading,
 
     'bg-maroon-50 text-maroon-600 hover:bg-maroon-100' : variant === 'Secondary' && !disabled && !loading,

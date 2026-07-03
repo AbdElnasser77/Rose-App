@@ -1,0 +1,34 @@
+<section class="pt-8 pb-10 mt-15">
+  <app-section-title
+    [mainTitle]="'TESTIMONIALS.TITLE' | translate"
+    [subTitle]="'TESTIMONIALS.SUBTITLE' | translate"
+    [alignment]="'center'"
+  ></app-section-title>
+
+  <div class="px-4 bg-soft-pink-50 dark:bg-zinc-700 mt-15">
+    <div class="container mx-auto">
+
+    <p-carousel
+      [value]="testimonials()"
+      [numVisible]="3"
+      [numScroll]="1"
+      [circular]="true"
+      [autoplayInterval]="4000"
+      [showIndicators]="false"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template #item let-testimonial>
+        <div class="pt-12 pb-4 px-3">
+          <app-testimonial-card
+            [name]="testimonial.name"
+            [content]="testimonial.content"
+            [rating]="testimonial.rating"
+            [image]="testimonial.image"
+            [createdAt]="testimonial.createdAt"
+          />
+        </div>
+      </ng-template>
+    </p-carousel>
+    </div>
+  </div>
+</section>
