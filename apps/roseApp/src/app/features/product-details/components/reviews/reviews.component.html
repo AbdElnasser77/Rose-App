@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto py-10">
+<div class="w-[90%] mx-auto py-10">
     <h1 class="text-4xl font-bold text-[#7C2326] mb-8">
         {{ 'REVIEWS.TITLE' | translate }}
     </h1>
@@ -23,9 +23,9 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
         <div class="lg:col-span-7">
-            <div class="max-h-[390px] overflow-y-auto pr-4 custom-scrollbar">
+            <div class="max-h-[450px] overflow-y-auto pr-4 custom-scrollbar">
                 @for(review of reviewsData(); track $index){
-                <div class="border-t border-gray-200 py-6 first:border-t-0">
+                <div class="border-t border-gray-200 py-3 first:border-t-0">
                     <div class="flex gap-5">
                         <div class="w-12 h-12 rounded-full bg-[#A3262A] text-white flex justify-center items-center font-bold text-lg shrink-0">
                             {{review.user.username.charAt(0)}}

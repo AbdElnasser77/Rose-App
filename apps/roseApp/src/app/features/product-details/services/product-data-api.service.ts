@@ -1,26 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Review } from '../models/product.model';
+import { Review } from '../../../core/models/product.model';
 import { BASE_URL_CONFIG } from '@org/auth';
 @Injectable({
   providedIn: 'root',
 })
-export class ReviewsService {
+export class ProductDataService {
    private readonly _httpClient = inject(HttpClient);
   private readonly _baseUrlConfig =inject(BASE_URL_CONFIG);
 
 
-  getReviews(): Observable<any> {
+  getProductDetails(id: string): Observable<any> {
     return this._httpClient.get<Review>(
-      `${this._baseUrlConfig.apiUrl}/reviews`
-    );
-  }
-
-  postReviews(data: Review): Observable<Review> {
-    return this._httpClient.post<Review>(
-      `${this._baseUrlConfig.apiUrl}/reviews`,
-      data
+      `${this._baseUrlConfig.apiUrl}/products/${id}`
     );
   }
 }

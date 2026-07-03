@@ -172,5 +172,15 @@
   "GALLERY": {
     "TITLE": "Gallery",
     "SUBTITLE": "Check Out our Wonderful Gallery"
+  },
+  "COMMON": {
+    "EGP": "EGP"
+  },
+  "PRODUCT": {
+    "LEFT_IN_STOCK": "{{count}} left in stock",
+    "RATINGS": "({{count}} ratings)",
+    "ADD_TO_CART": "Add To Cart",
+    "ADD_TO_WISHLIST": "Add to wishlist",
+    "SELECT_IMAGE": "Select image"
   }
 }

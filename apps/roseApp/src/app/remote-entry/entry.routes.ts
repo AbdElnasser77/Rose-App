@@ -21,6 +21,11 @@ export const remoteRoutes: Route[] = [
         loadChildren: () =>
         import('../features/home/home.routes').then((m) => m.HomeRoutes),
       },
+      {
+        path:'product-details/:id',
+        loadChildren: () =>
+        import('../features/product-details/product-details.routes').then((m) => m.ProductDetailsRoutes),
+      }
       // add products,cart,checkout all here.
     ]
   },

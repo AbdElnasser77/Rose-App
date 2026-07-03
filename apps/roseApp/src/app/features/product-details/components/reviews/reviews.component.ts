@@ -6,10 +6,10 @@ import { RatingModule } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
-import { ReviewsService } from '../../core/services/reviews-api.service';
-import { ProductModel, Review } from '../../core/models/product.model';
+import { Review } from '../../../../core/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { ReviewsService } from '../../services/reviews-api.service';
 
 @Component({
   selector: 'app-reviews',
@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.scss',
 })
-export class ProductDatailsComponent implements OnInit {
+export class ReviewersComponent implements OnInit {
   private readonly reviewsService = inject(ReviewsService);
   private readonly cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);

@@ -168,5 +168,15 @@
   "GALLERY": {
     "TITLE": "المعرض",
     "SUBTITLE": "اطّلع على معرضنا الرائع"
+  },
+  "COMMON": {
+    "EGP": "ج.م"
+  },
+  "PRODUCT": {
+    "LEFT_IN_STOCK": "متبقي {{count}} في المخزون",
+    "RATINGS": "({{count}} تقييم)",
+    "ADD_TO_CART": "أضف إلى السلة",
+    "ADD_TO_WISHLIST": "أضف إلى المفضلة",
+    "SELECT_IMAGE": "اختر الصورة"
   }
 }
