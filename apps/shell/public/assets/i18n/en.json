@@ -182,5 +182,11 @@
     "ADD_TO_CART": "Add To Cart",
     "ADD_TO_WISHLIST": "Add to wishlist",
     "SELECT_IMAGE": "Select image"
+  },
+  "PRODUCT_DETAILS": {
+  "RELATED_PRODUCTS": {
+    "MAIN_TITLE": "Related Products",
+    "SUB_TITLE": "You may also like"
   }
+}
 }

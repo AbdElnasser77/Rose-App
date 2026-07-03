@@ -178,5 +178,11 @@
     "ADD_TO_CART": "أضف إلى السلة",
     "ADD_TO_WISHLIST": "أضف إلى المفضلة",
     "SELECT_IMAGE": "اختر الصورة"
+  },
+  "PRODUCT_DETAILS": {
+  "RELATED_PRODUCTS": {
+    "MAIN_TITLE": "منتجات مشابهة",
+    "SUB_TITLE": "قد يعجبك أيضًا"
   }
+}
 }
