@@ -1,9 +1,9 @@
 <nav dir="ltr" class="sticky top-0 z-50 bg-white dark:bg-zinc-800">
   <div class="h-[58px] px-2 sm:px-3 md:px-6 flex items-center gap-2 md:gap-3">
-    <div class="shrink-0">
-      <img src="http://localhost:4203/assets/logo.png" alt="Rose Logo"
+    <a routerLink="/home" class="shrink-0 cursor-pointer">
+      <img [src]="'assets/logo.png' | assetUrl" alt="Rose Logo"
         class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
-    </div>
+    </a>
 
     @if (isLoggedIn()) {
     <div class="hidden md:block text-xs md:text-sm shrink-0">
@@ -86,9 +86,9 @@
 
   <div class="hidden dark:bg-pink-300 md:flex bg-[#8B1E24] h-[34px] items-end justify-center">
     <div class="flex items-center gap-6 lg:gap-10 text-white text-xs">
-      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+      <a routerLink="/home" class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
         <lucide-icon [img]="House" class="w-5 h-5" />{{ 'NAV.HOME' | translate }}</a>
-      <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
+      <a routerLink="/products" class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
         <lucide-icon [img]="Gift" class="w-5 h-5" />{{ 'NAV.PRODUCTS' | translate }}</a>
       <a class="flex items-center gap-1 font-semibold cursor-pointer dark:text-zinc-800 pb-1 px-2 border-b-2 border-transparent hover:border-pink-300 dark:hover:border-maroon-600 hover:text-pink-300 dark:hover:text-maroon-600 transition-colors">
         <lucide-icon [img]="ClipboardList" class="w-5 h-5" />{{ 'NAV.CATEGORIES' | translate }}</a>
@@ -113,9 +113,9 @@
 
   <div *ngIf="isMobileMenuOpen" class="md:hidden bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 shadow-sm">
     <div class="flex flex-col text-sm">
-      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+      <a routerLink="/home" (click)="isMobileMenuOpen = false" class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
         <lucide-icon [img]="House" class="w-4 h-4 shrink-0" />{{ 'NAV.HOME' | translate }}</a>
-      <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
+      <a routerLink="/products" (click)="isMobileMenuOpen = false" class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
         <lucide-icon [img]="Gift" class="w-4 h-4 shrink-0" />{{ 'NAV.PRODUCTS' | translate }}</a>
       <a class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
         <lucide-icon [img]="ClipboardList" class="w-4 h-4 shrink-0" />{{ 'NAV.CATEGORIES' | translate }}</a>
