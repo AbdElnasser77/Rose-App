@@ -1,6 +1,14 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, timeout } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProductsService } from '../../../../core/services/products.service';
@@ -20,13 +28,14 @@ type Tab = (typeof TABS)[number]['value'];
 @Component({
   selector: 'app-most-popular-section',
   standalone: true,
-  imports: [ProductCardComponent, TranslatePipe,SectionTitleComponent],
+  imports: [ProductCardComponent, TranslatePipe, SectionTitleComponent],
   templateUrl: './most-popular-section.component.html',
   styleUrl: './most-popular-section.component.scss',
 })
 export class MostPopularSectionComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly tabs = TABS;
   readonly activeTab = signal<Tab>('Anniversary');
@@ -46,7 +55,7 @@ export class MostPopularSectionComponent implements OnInit {
       )
     );
 
-    return matchedProducts.length ? matchedProducts : allProducts;
+    return matchedProducts.length >= 4 ? matchedProducts : allProducts;
   });
 
   readonly displayedProducts = computed(() =>
@@ -70,16 +79,15 @@ export class MostPopularSectionComponent implements OnInit {
       .getProducts({ page: 1, limit: 20 })
       .pipe(
         timeout(10000),
-        finalize(() => this.isLoading.set(false))
+        finalize(() => this.isLoading.set(false)),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (response) => {
-         const products = response?.payload?.data ?? [];
-const productsWithValidImages = this.prepareProductsImages(products as Product[]);
-this.products.set(this.sortMostPopular(productsWithValidImages));
+          const products = response?.payload?.data ?? [];
+          this.products.set(this.sortMostPopular(products as Product[]));
         },
-        error: (error) => {
-          console.error('Most Popular API Error:', error);
+        error: () => {
           this.errorMessage.set('MOST_POPULAR.ERROR');
         },
       });
@@ -89,92 +97,34 @@ this.products.set(this.sortMostPopular(productsWithValidImages));
     this.displayedLimit.update((value) => value + 4);
   }
 
-goToProductDetails(productId: string): void {
-  this.router.navigate(['/products', productId]);
-}
-
-onCartClick(productId: string): void {
-  console.log('Add to cart UI only:', productId);
-}
-
-onWishlistClick(productId: string): void {
-  console.log('Wishlist UI only:', productId);
-}
-
-
-
-private prepareProductsImages(products: Product[]): Product[] {
-  return products
-    .map((product) => {
-      const image = this.getValidProductImage(product);
-
-      return {
-        ...product,
-        cover: image,
-      };
-    })
-    .filter((product) => !!product.cover);
-}
-
-private getValidProductImage(product: Product): string {
-  if (this.isValidApiImage(product.cover)) {
-    return product.cover;
+  goToProductDetails(productId: string): void {
+    this.router.navigate(['/product-details', productId]);
   }
 
-  const galleryImages = this.getGalleryImages(product.gallery);
-  const validGalleryImage = galleryImages.find((image) =>
-    this.isValidApiImage(image)
-  );
-
-  return validGalleryImage || '';
-}
-
-
-
-
-
-private getGalleryImages(gallery: string): string[] {
-  try {
-    const parsedGallery = JSON.parse(gallery || '[]');
-    return Array.isArray(parsedGallery) ? parsedGallery : [];
-  } catch {
-    return [];
-  }
-}
-
-private isValidApiImage(url?: string): boolean {
-  if (!url) {
-    return false;
+  onCartClick(productId: string): void {
+    void productId;
   }
 
-  const cleanUrl = url.trim();
-
-  return (
-    cleanUrl.includes('/storage/entities/product/') &&
-    /\.(png|jpg|jpeg|webp|gif)$/i.test(cleanUrl)
-  );
-}
-
-
-
-
-
-
-
+  onWishlistClick(productId: string): void {
+    void productId;
+  }
 
   private sortMostPopular(products: Product[]): Product[] {
     return [...products].sort((firstProduct, secondProduct) => {
-      const ratingDiff = secondProduct.rating - firstProduct.rating;
+      const ratingDiff =
+        (secondProduct.rating ?? 0) - (firstProduct.rating ?? 0);
 
       if (ratingDiff !== 0) {
         return ratingDiff;
       }
 
       const firstPopularity =
-        firstProduct._count.cartItems + firstProduct._count.wishlistItems;
+        (firstProduct._count?.cartItems ?? 0) +
+        (firstProduct._count?.wishlistItems ?? 0);
 
       const secondPopularity =
-        secondProduct._count.cartItems + secondProduct._count.wishlistItems;
+        (secondProduct._count?.cartItems ?? 0) +
+        (secondProduct._count?.wishlistItems ?? 0);
 
       return secondPopularity - firstPopularity;
     });

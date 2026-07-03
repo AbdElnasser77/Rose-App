@@ -1,33 +1,27 @@
 <section class="most-popular-section py-10 md:py-14">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
-  <app-section-title
-    [mainTitle]="'MOST_POPULAR.TITLE' | translate"
-    [alignment]="'left'"
-  ></app-section-title>
+    <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+      <app-section-title
+        [mainTitle]="'MOST_POPULAR.TITLE' | translate"
+        [alignment]="'left'"
+      ></app-section-title>
 
-  <div class="tabs flex flex-wrap gap-4 md:gap-6">
-    @for (tab of tabs; track tab.value) {
-      <button
-        type="button"
-        class="tab-btn"
-        [class.active]="activeTab() === tab.value"
-        (click)="selectTab(tab.value)"
-      >
-        {{ tab.labelKey | translate }}
-      </button>
-    }
-  </div>
-</div>
-
-<p class="text-red-500 text-sm font-bold">
-  DEBUG products: {{ products().length }} |
-  filtered: {{ filteredProducts().length }} |
-  displayed: {{ displayedProducts().length }}
-</p>
+      <div class="tabs flex flex-wrap gap-4 md:gap-6">
+        @for (tab of tabs; track tab.value) {
+          <button
+            type="button"
+            class="tab-btn"
+            [class.active]="activeTab() === tab.value"
+            (click)="selectTab(tab.value)"
+          >
+            {{ tab.labelKey | translate }}
+          </button>
+        }
+      </div>
+    </div>
 
     @if (isLoading()) {
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
         @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
           <div class="skeleton-card rounded-2xl"></div>
         }
@@ -45,7 +39,7 @@
         </button>
       </div>
     } @else {
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
         @for (product of displayedProducts(); track product.id) {
           <app-product-card
             [product]="product"
@@ -58,9 +52,10 @@
       </div>
 
       @if (displayedProducts().length < filteredProducts().length) {
-        <div class="mt-8 text-right">
+        <div class="mt-8 flex justify-end">
           <button type="button" class="view-more-btn" (click)="viewMore()">
-            {{ 'MOST_POPULAR.VIEW_MORE' | translate }} ↗
+            {{ 'MOST_POPULAR.VIEW_MORE' | translate }}
+            <span aria-hidden="true">↗</span>
           </button>
         </div>
       }
