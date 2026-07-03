@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   OnInit,
   ViewChild,
@@ -9,12 +10,16 @@ import {
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, filter, map, of, switchMap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 import { ProductDataService } from '../../services/product-data-api.service';
-import { RelatedProductsApiService, RelatedProductsParams } from '../../services/related-products-api.service';
+import {
+  RelatedProductsApiService,
+  RelatedProductsParams,
+} from '../../services/related-products-api.service';
 
 @Component({
   selector: 'app-related-products-section',
@@ -32,6 +37,7 @@ export class RelatedProductsSectionComponent implements OnInit {
 
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly productDataService = inject(ProductDataService);
   private readonly relatedProductsApiService = inject(RelatedProductsApiService);
 
@@ -55,22 +61,25 @@ export class RelatedProductsSectionComponent implements OnInit {
               const currentProduct = res?.payload?.product;
               const params = this.getRelatedProductsParams(currentProduct);
 
-              return this.relatedProductsApiService.getRelatedProducts(params).pipe(
-                map((productsRes) => {
-                  const products = productsRes?.payload?.data || [];
+              return this.relatedProductsApiService
+                .getRelatedProducts(params)
+                .pipe(
+                  map((productsRes) => {
+                    const products = productsRes?.payload?.data || [];
 
-                  return products
-                    .filter((product: any) => product.id !== currentProduct?.id)
-                    .slice(0, 10);
-                })
-              );
+                    return products
+                      .filter((product: any) => product.id !== currentProduct?.id)
+                      .slice(0, 10);
+                  })
+                );
             }),
             catchError(() => {
               this.isLoading.set(false);
               return of([]);
             })
           );
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (products) => {
@@ -115,12 +124,9 @@ export class RelatedProductsSectionComponent implements OnInit {
   }
 
   onCardDetailsClicked(product: any): void {
-    const currentId = this.route.snapshot.paramMap.get('id');
+    if (!product?.id) return;
 
-    if (!currentId || !product?.id) return;
-
-    const nextUrl = this.router.url.replace(currentId, product.id);
-    this.router.navigateByUrl(nextUrl);
+    this.router.navigate(['/product-details', product.id]);
   }
 
   onWishListClicked(product: any): void {}
