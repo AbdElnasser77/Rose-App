@@ -14,17 +14,17 @@ export class OccasionsComponent {
     {
       badge: 'OCCASIONS.WEDDING.BADGE',
       title: 'OCCASIONS.WEDDING.TITLE',
-      image: 'assets/images/banner/wedding.png'  
+      image: 'assets/images/banner/wedding.webp'  
     },
     {
       badge: 'OCCASIONS.ENGAGEMENT.BADGE',
       title: 'OCCASIONS.ENGAGEMENT.TITLE',
-      image: 'assets/images/banner/engagement.png'
+      image: 'assets/images/banner/engagement.webp'
     },
     {
       badge: 'OCCASIONS.ANNIVERSARY.BADGE',
       title: 'OCCASIONS.ANNIVERSARY.TITLE',
-      image: 'assets/images/banner/anniversary.png'
+      image: 'assets/images/banner/anniversary.webp'
     }
   ];
 }
