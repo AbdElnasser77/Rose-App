@@ -29,7 +29,8 @@
         "./libs/shared/util-notification/src/index.ts"
       ],
       "@org/util-storage": ["./libs/shared/util-storage/src/index.ts"],
-      "@org/util-validation": ["./libs/shared/util-validation/src/index.ts"]
+      "@org/util-validation": ["./libs/shared/util-validation/src/index.ts"],
+      "@org/util-directives": ["./libs/shared/util-directives/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -5,11 +5,15 @@ import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
 import { BadgeComponent } from "apps/roseApp/src/app/shared/components/badge/badge.component";
 import { LucideAngularModule, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-angular';
 import { Carousel, CarouselModule } from 'primeng/carousel';
+import {IntersectionObserverDirective } from '@org/util-directives';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-hero',
-  imports: [AssetUrlPipe, BadgeComponent,ButtonComponent,LucideAngularModule,CarouselModule,TranslatePipe],
+  imports: [AssetUrlPipe, BadgeComponent,ButtonComponent,CommonModule,IntersectionObserverDirective,
+    LucideAngularModule,CarouselModule,
+    TranslatePipe],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
@@ -19,10 +23,21 @@ export class HeroComponent {
   readonly  ArrowRight= ArrowRight;
    readonly ChevronLeft = ChevronLeft;
    readonly ChevronRight = ChevronRight; 
+  
+  // Intersection observer
 
-    isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
+   isBannerVisible = signal<boolean>(false);
+  onBannerVisible(event: any) {
+    const isIntersecting = typeof event === 'boolean' ? event : event.isIntersecting;
+    
+    if (isIntersecting) {
+      this.isBannerVisible.set(true);
+    }
+  }
+
+  isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
   renderCarousel = signal(true);
-   currentPage = signal(0);
+  currentPage = signal(0);
   slides = signal([
     {
       image: 'assets/images/banner/slide_1_.webp',
