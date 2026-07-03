@@ -1,0 +1,112 @@
+<section class="w-[90%] mx-auto px-4 py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+
+    <div class="lg:col-span-1 flex flex-col justify-center">
+
+      <span class="uppercase tracking-[4px] text-[#FF85A2] font-semibold text-sm">
+        {{ 'BEST_SELLING.BEST_SELLING' | translate }}
+      </span>
+
+      <h2 class="mt-4 text-4xl xl:text-5xl font-bold leading-tight text-[#2F2B2B]">
+        <span class="text-[#FF85A2]">
+          {{ 'BEST_SELLING.CHECK_OUT' | translate }}
+        </span>
+        {{ 'BEST_SELLING.WHAT' | translate }}
+        <br>
+        {{ 'BEST_SELLING.EVERYONES' | translate }}
+        <span class="text-[#FF85A2]">
+          {{ 'BEST_SELLING.BUYING' | translate }}
+        </span>
+        <br>
+        {{ 'BEST_SELLING.RIGHT_NOW' | translate }}
+      </h2>
+
+      <p class="mt-6 text-gray-500 leading-8">
+        {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
+      </p>
+
+      <button
+        pButton
+        [label]="'BEST_SELLING.EXPLORE_GIFTS' | translate"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        class="mt-8 w-fit">
+      </button>
+
+  </div>
+    <div class="lg:col-span-3">
+      <p-carousel
+        [value]="products"
+        [numVisible]="3"
+        [numScroll]="1"
+        [responsiveOptions]="responsiveOptions"
+        [circular]="true">
+
+        <ng-template pTemplate="item" let-product>
+          <div class="px-3">
+            <div
+              class="group rounded-3xl overflow-hidden bg-white transition duration-300">
+              <div class="relative overflow-hidden rounded-3xl">
+                <img
+                  [src]="product.cover"
+                  [alt]="product.title"
+                  class="w-full h-[360px] object-cover duration-300 group-hover:scale-105" />
+
+                <div class="absolute top-4 right-4 flex items-center gap-2">
+                  @if (product.rating === 5) {
+                    <span class="rounded-full bg-[#FBEAEA] text-[#D63C6A] px-3 py-1 text-[10px] font-semibold uppercase">
+                      {{ 'BEST_SELLING.HOT' | translate }}
+                    </span>
+                  }
+
+                  @if (product.stock === 0) {
+                    <span class="rounded-full bg-[#A01D26] text-white px-3 py-1 text-[10px] font-semibold uppercase">
+                      {{ 'BEST_SELLING.OUT_OF_STOCK' | translate }}
+                    </span>
+                  }
+
+                  @if (isNew(product.createdAt)) {
+                    <span class="rounded-full bg-white text-gray-500 px-3 py-1 text-[10px] font-semibold shadow uppercase">
+                      {{ 'BEST_SELLING.NEW' | translate }}
+                    </span>
+                  }
+                </div>
+              </div>
+
+              <div class="pt-5">
+                <div class="flex justify-between items-start gap-4">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-lg text-[#2F2B2B] line-clamp-1">
+                      {{ product.title }}
+                    </h3>
+
+                    <p-rating
+                      [readonly]="true"
+                      [(ngModel)]="product.rating">
+                    </p-rating>
+
+                    <div class="flex items-center gap-2 mt-2">
+                      <span class="font-bold text-xl text-[#2F2B2B]">
+                        {{ product.price }} EGP
+                      </span>
+                      @if (+product.discountValue > 0) {
+                        <span class="text-gray-400 line-through text-sm">
+                          {{ getOldPrice(product) | number:'1.0-0' }} EGP
+                        </span>
+                      }
+                    </div>
+                  </div>
+
+                  <button
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-[#A01D26] text-white transition hover:bg-[#86161e]">
+                    <i class="pi pi-shopping-cart text-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+</section>

@@ -163,6 +163,21 @@
     "SUBTITLE": "Testimonials"
   },
 
+  "PRODUCTS": {
+    "EMPTY": "No products found."
+  },
+
+  "FILTER": {
+    "CATEGORY": "Category",
+    "OCCASION": "Occasion",
+    "RATING": "Rating",
+    "PRICE": "Price",
+    "RESET": "Reset",
+    "RESET_ALL": "Reset All",
+    "FROM": "from",
+    "TO": "to"
+  },
+
   "HERO": {
     "SIDE_BANNER": {
       "BADGE": "Starting from 10.99 EGP",
@@ -200,5 +215,31 @@
   "GALLERY": {
     "TITLE": "Gallery",
     "SUBTITLE": "Check Out our Wonderful Gallery"
+  },
+
+  "COMMON": {
+    "EGP": "EGP"
+  },
+
+  "PRODUCT": {
+    "LEFT_IN_STOCK": "{{count}} left in stock",
+    "RATINGS": "({{count}} ratings)",
+    "ADD_TO_CART": "Add To Cart",
+    "ADD_TO_WISHLIST": "Add to wishlist",
+    "SELECT_IMAGE": "Select image"
+  },
+
+  "BEST_SELLING": {
+    "BEST_SELLING": "Best Selling",
+    "CHECK_OUT": "Check Out",
+    "WHAT": "What",
+    "EVERYONES": "Everyone's",
+    "BUYING": "Buying",
+    "RIGHT_NOW": "Right Now",
+    "BEST_SELLING_DESCRIPTION": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+    "HOT": "HOT",
+    "NEW": "NEW",
+    "OUT_OF_STOCK": "OUT OF STOCK",
+    "EXPLORE_GIFTS": "Explore Gifts"
   }
 }
