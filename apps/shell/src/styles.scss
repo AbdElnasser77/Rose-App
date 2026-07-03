@@ -62,43 +62,46 @@ html[dir="rtl"] {
   font-family: "Edwardian Script ITC", cursive;
 
 }
+// Scrollbar Style, Chromium (Chrome, Edge, Opera) و Safari)
 
-/* Scrollbar */
+html {
+  
+  ::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+    display: block !important;
+  }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-maroon-700) !important;
+    border-radius: 9999px !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-maroon-600) !important;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+html.dark {
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-soft-pink-300) !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-soft-pink-400) !important;
+  }
+}
+//  Scrollbar Style , Firefox
+html, body {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--color-maroon-700) transparent !important;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-maroon-700);
-  border-radius: 9999px;
-  transition: background-color 0.2s ease;
-}
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-maroon-600);
-}
-
-/* Dark mode */
-.dark ::-webkit-scrollbar-thumb {
-  background-color: var(--color-soft-pink-300);
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-soft-pink-400);
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-maroon-700) transparent;
-}
-
-.dark * {
-  scrollbar-color: var(--color-soft-pink-300) transparent;
+html.dark, html.dark body {
+  scrollbar-color: var(--color-soft-pink-300) transparent !important;
 }
