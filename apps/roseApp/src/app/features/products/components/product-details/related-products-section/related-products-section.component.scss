@@ -1,5 +1,7 @@
 ::ng-deep p-carousel {
-    width: auto !important;
+    display: block;
+    width: 100% !important;
+
   .p-carousel-prev-button,
   .p-carousel-next-button {
     background-color: var(--color-maroon-700) !important;

@@ -9,11 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, map, switchMap, tap } from 'rxjs';
-import { ShoppingCart, LucideAngularModule, Heart, HeartPlus } from 'lucide-angular';
+import { ShoppingCart, LucideAngularModule, Heart, HeartPlus, HeartMinus } from 'lucide-angular';
 
 import { Product } from '../../../../products/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 import { ButtonComponent } from '@org/ui';
+import { ToastService } from '@org/shared-util-notification';
 
 @Component({
   selector: 'app-product-data',
@@ -35,14 +36,17 @@ export class ProductDataComponent implements OnInit {
   private readonly productDetailsService = inject(ProductDataService);
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toastService = inject(ToastService);
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
+  readonly HeartMinus = HeartMinus;
 
   productId = signal('');
   productData = signal<any>('');
   product!: Product;
   images: string[] = [];
   selectedImage = signal<any>('');
+  isWishlisted = signal(false);
 
   roundRating(value: number): number {
     if (!value) return 0;
@@ -69,5 +73,15 @@ export class ProductDataComponent implements OnInit {
           this.selectedImage.set(this.images[0]);
         },
       });
+  }
+
+  onWishlistClicked(): void {
+    const next = !this.isWishlisted();
+    this.isWishlisted.set(next);
+    if (next) {
+      this.toastService.show('Product added to wishlist', 'success');
+    } else {
+      this.toastService.show('Product removed from wishlist', 'default');
+    }
   }
 }

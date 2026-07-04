@@ -21,6 +21,7 @@ import {
   RelatedProductsParams,
 } from '../../../services/product-details/related-products-api.service';
 import { Carousel } from "primeng/carousel";
+import { ToastService } from '@org/shared-util-notification';
 
 @Component({
   selector: 'app-related-products-section',
@@ -40,28 +41,25 @@ export class RelatedProductsSectionComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly productDataService = inject(ProductDataService);
   private readonly relatedProductsApiService = inject(RelatedProductsApiService);
+  private readonly toastService = inject(ToastService);
 
   relatedProducts = signal<any[]>([]);
   isLoading = signal(false);
+  wishlistedIds = signal<Set<string>>(new Set());
 
   responsiveOptions = [
     {
       breakpoint: '1400px',
-      numVisible: 4,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '1024px',
       numVisible: 3,
       numScroll: 1,
     },
     {
-      breakpoint: '768px',
+      breakpoint: '1024px',
       numVisible: 2,
       numScroll: 1,
     },
     {
-      breakpoint: '576px',
+      breakpoint: '768px',
       numVisible: 1,
       numScroll: 1,
     },
@@ -142,8 +140,16 @@ export class RelatedProductsSectionComponent implements OnInit {
     this.router.navigate(['/products', product.id]);
   }
 
-  onWishListClicked(product:any) {
-    console.log('onWish')
+  onWishListClicked(product: any): void {
+    const current = new Set(this.wishlistedIds());
+    if (current.has(product.id)) {
+      current.delete(product.id);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(product.id);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
   }
 
   onQuickViewClicked(product:any) {
