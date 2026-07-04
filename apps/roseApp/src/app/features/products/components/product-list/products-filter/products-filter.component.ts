@@ -13,10 +13,10 @@ import { RatingModule } from 'primeng/rating';
 import { SkeletonModule } from 'primeng/skeleton';
 import { LucideAngularModule, RotateCcw, X } from 'lucide-angular';
 import { ButtonComponent } from '@org/ui';
-import { Category } from '../../models/category.model';
-import { Occasion } from '../../models/occasion.model';
-import { CategoriesService } from '../../services/categories.service';
-import { OccasionsService } from '../../services/occasions.service';
+import { Category } from '../../../models/category.model';
+import { Occasion } from '../../../models/occasion.model';
+import { CategoriesService } from '../../../services/product-list/categories.service';
+import { OccasionsService } from '../../../services/product-list/occasions.service';
 
 @Component({
   selector: 'app-products-filter',

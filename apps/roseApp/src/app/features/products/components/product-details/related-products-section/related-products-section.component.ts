@@ -13,13 +13,13 @@ import { catchError, filter, map, of, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
-import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
-import { ProductDataService } from '../../services/product-data-api.service';
+import { ProductCardComponent } from '../../../../../shared/components/product-card/product-card.component';
+import { SectionTitleComponent } from '../../../../../shared/components/section-title/section-title.component';
+import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 import {
   RelatedProductsApiService,
   RelatedProductsParams,
-} from '../../services/related-products-api.service';
+} from '../../../services/product-details/related-products-api.service';
 
 @Component({
   selector: 'app-related-products-section',
