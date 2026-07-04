@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
 import { ThemeService } from '@rose/theme';
-import { ToastContainerComponent } from '@org/ui';
+import { ToastContainerComponent, LoaderContainerComponent } from '@org/ui';
+import { AssetUrlPipe } from '../../core/pipes/asset-url.pipe';
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterOutlet, LanguageSwitcherComponent, ThemeToggleComponent, ToastContainerComponent],
+  imports: [RouterOutlet, LanguageSwitcherComponent, ThemeToggleComponent, ToastContainerComponent, LoaderContainerComponent, AssetUrlPipe],
   templateUrl: './auth-layout.html',
   styleUrl: './auth-layout.scss',
 })

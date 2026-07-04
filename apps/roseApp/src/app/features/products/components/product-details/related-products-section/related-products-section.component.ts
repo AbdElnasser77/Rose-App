@@ -22,6 +22,7 @@ import {
 } from '../../../services/product-details/related-products-api.service';
 import { Carousel } from "primeng/carousel";
 import { ToastService } from '@org/shared-util-notification';
+import { LoaderService } from '@org/shared-util-loader';
 
 @Component({
   selector: 'app-related-products-section',
@@ -42,9 +43,9 @@ export class RelatedProductsSectionComponent implements OnInit {
   private readonly productDataService = inject(ProductDataService);
   private readonly relatedProductsApiService = inject(RelatedProductsApiService);
   private readonly toastService = inject(ToastService);
+  private readonly loader = inject(LoaderService);
 
   relatedProducts = signal<any[]>([]);
-  isLoading = signal(false);
   wishlistedIds = signal<Set<string>>(new Set());
 
   responsiveOptions = [
@@ -75,10 +76,8 @@ export class RelatedProductsSectionComponent implements OnInit {
       .pipe(
         map((params) => params.get('id') || ''),
         filter((id) => !!id),
-        switchMap((id) => {
-          this.isLoading.set(true);
-
-          return this.productDataService.getProductDetails(id).pipe(
+        switchMap((id) =>
+          this.productDataService.getProductDetails(id).pipe(
             switchMap((res) => {
               const currentProduct = res?.payload?.product;
               const params = this.getRelatedProductsParams(currentProduct);
@@ -97,18 +96,15 @@ export class RelatedProductsSectionComponent implements OnInit {
                   })
                 );
             }),
-            catchError(() => {
-              this.isLoading.set(false);
-              return of([]);
-            })
-          );
-        }),
+            catchError(() => of([])),
+            this.loader.track<any[]>()
+          )
+        ),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (products) => {
           this.relatedProducts.set(products);
-          this.isLoading.set(false);
         },
       });
   }

@@ -18,3 +18,4 @@ export * from './lib/components/divider/divider.component';
 export * from './lib/components/toast-components/toast/toast.component';
 export * from './lib/components/toast-components/toast-container/toast-container.component';
 export * from './lib/components/otp-input/otp-input.component';
+export * from './lib/components/loader-container/loader-container.component';
