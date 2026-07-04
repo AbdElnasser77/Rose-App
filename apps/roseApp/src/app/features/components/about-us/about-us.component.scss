@@ -1,11 +1,8 @@
 .about-section {
-  background: #ffffff;
   padding: 80px 0;
   transition: background-color 0.5s ease;
 
-  :host-context(.dark) & {
-    background: #22222b;
-  }
+ 
 }
 
 .about-container {
@@ -260,14 +257,7 @@
     grid-template-columns: 1fr;
   }
 }
-.about-section {
-  background: #ffffff;
-  transition: background-color 0.5s ease;
 
-  :host-context(.dark) & {
-    background: #22222b;
-  }
-}
 
 .about-title {
   color: #7a171f;
