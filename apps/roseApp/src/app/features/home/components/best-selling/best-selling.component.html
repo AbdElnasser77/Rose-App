@@ -6,7 +6,7 @@
  class="w-full px-4 sm:px-6 lg:px-[81px] mt-[107px]">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
-        <div class="xl:col-span-1 flex flex-col  gap-[16px] justify-between h-full
+        <div class="lg:col-span-1 flex flex-col  gap-[16px] justify-between h-full
                transition-all duration-700 ease-out"
         [ngClass]="{
          'opacity-100 translate-x-0': isBestSellingVisible(),
@@ -27,7 +27,7 @@
                 </p>
             </div>
 
-            <lib-button shape="square" size="auto" class="mt-auto w-fit text-white rounded-[10px] dark:bg-[#FFC2D0] dark:hover:bg-[#FFA3B9] dark:text-[#27272A]" >
+            <lib-button variant="Primary" shape="square" size="auto" class="mt-auto w-fit rounded-[10px]" >
 
                 {{ 'BEST_SELLING.EXPLORE_GIFTS' | translate }}
                 @if (isRtl()) {
@@ -41,7 +41,7 @@
             </lib-button>
         </div>
 
-        <div class="xl:col-span-3 custom-carousel transition-all duration-700 ease-out "
+        <div class="lg:col-span-3 custom-carousel transition-all duration-700 ease-out "
         [style.transition-delay.ms]="200"
         [ngClass]="{
          'opacity-100 translate-x-0': isBestSellingVisible(),
@@ -51,7 +51,12 @@
                 [responsiveOptions]="responsiveOptions" [showIndicators]="false">
                 <ng-template let-product pTemplate="item">
                     <div class="p-2 flex justify-center">
-                        <app-product-card [product]="product" (cardDetailsClicked)="handleCardClicked($event)">
+                        <app-product-card
+                            [product]="product"
+                            [isWishlisted]="wishlistedIds().has(product.id)"
+                            (cardDetailsClicked)="handleCardClicked($event)"
+                            (quickViewClicked)="handleCardClicked($event)"
+                            (wishListClicked)="onWishlist($event)">
                         </app-product-card>
                     </div>
                 </ng-template>

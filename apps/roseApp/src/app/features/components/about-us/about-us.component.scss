@@ -49,6 +49,10 @@
   border-radius: 38px 115px 115px 115px;
   transform: rotate(-3.09deg);
   z-index: 0;
+
+  :host-context(.dark) & {
+    border-color: var(--color-soft-pink-300);
+  }
 }
 
 .main-image {
@@ -150,6 +154,10 @@
   span {
     font-size: 16px;
     line-height: 1;
+  }
+
+  :host-context([dir='rtl']) & {
+    flex-direction: row-reverse;
   }
 
   :host-context(.dark) & {

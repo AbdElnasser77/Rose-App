@@ -11,6 +11,7 @@ import { ProductCardComponent } from '../../../../shared/components/product-card
 import { Product } from '../../../../shared/models/product.model';
 import {IntersectionObserverDirective } from '@org/util-directives';
 import { ProductDataService } from '../../../products/services/product-details/product-data-api.service';
+import { ToastService } from '@org/shared-util-notification';
 
 @Component({
   selector: 'app-best-selling',
@@ -28,6 +29,7 @@ export class BestSellingComponent implements OnInit {
   public _translateService = inject(TranslateService);
   private productService = inject(ProductDataService);
  private _router = inject(Router);
+  private toastService = inject(ToastService);
 
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
@@ -36,25 +38,13 @@ export class BestSellingComponent implements OnInit {
 
   isBestSellingVisible = signal(false);
   products :Product[]=[];
+  wishlistedIds = signal<Set<string>>(new Set());
    isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
 
   responsiveOptions: any[] = [
-  {
-    breakpoint: '1400px',
-    numVisible: 3,
-    numScroll: 1
-  },
-  {
-    breakpoint: '1024px',
-    numVisible: 2,
-    numScroll: 1
-  },
-  {
-    breakpoint: '768px',
-    numVisible: 1,
-    numScroll: 1
-  }
-];
+    { breakpoint: '1535px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '767px', numVisible: 1, numScroll: 1 },
+  ];
   ngOnInit(): void {
     this.getProducts();
   }
@@ -68,8 +58,19 @@ export class BestSellingComponent implements OnInit {
   }
 
   handleCardClicked(productId: string){
-    this._router.navigate(['/product-details', productId]);
+    this._router.navigate(['/products', productId]);
+  }
 
+  onWishlist(id: string): void {
+    const current = new Set(this.wishlistedIds());
+    if (current.has(id)) {
+      current.delete(id);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(id);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
   }
 
 

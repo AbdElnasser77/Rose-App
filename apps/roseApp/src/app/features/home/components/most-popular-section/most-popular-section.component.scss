@@ -6,9 +6,7 @@
 
 .most-popular-container {
   width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 32px;
 }
 
 .most-popular-header {
@@ -146,10 +144,6 @@
 }
 
 @media (max-width: 675px) {
-  .most-popular-container {
-    padding: 0 16px;
-  }
-
   .products-grid {
     grid-template-columns: 302px;
     justify-content: center;
