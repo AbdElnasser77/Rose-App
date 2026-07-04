@@ -5,8 +5,8 @@ import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductDataService } from '../../../product-details/services/product-data-api.service';
-import { Product } from '../../../product-details/models/product.model';
+import { ProductDataService } from '../../../products/services/product-details/product-data-api.service';
+import { Product } from '../../../products/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

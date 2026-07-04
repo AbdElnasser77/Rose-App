@@ -4,10 +4,12 @@ export const ProductsRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./pages/products/products.page').then((m) => m.ProductsPage),
+      import('./pages/product-list/products.page').then((m) => m.ProductsPage),
+    title: 'Products',
   },
-  // {
-  //   path: ':id',
-  //   loadComponent: () => import('./pages/product-detail/product-detail.page').then((m) => m.ProductDetailPage)
-  // }
+  {
+    path: ':id',
+    loadComponent: () => import('./pages/product-details/product-details.component').then((m) => m.ProductDetailsComponent),
+    title: 'Product Details',
+  }
 ];

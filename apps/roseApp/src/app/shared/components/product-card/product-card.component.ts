@@ -17,6 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
+  @Input() isWishlisted = false;
    readonly ShoppingCart=ShoppingCart;
    readonly  Heart= Heart;
    readonly Eye=Eye;

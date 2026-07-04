@@ -1,11 +1,20 @@
-<section class="w-full  mt-[120px] lg:mt-[139px] px-4 sm:px-6 lg:px-[81px]
+<section  libIntersectionObserverDirective
+  [observeOnce]="true"
+  (visibilityChange)="onTrustVisible($event)"
+ class="w-full  mt-[120px] lg:mt-[139px] px-4 sm:px-6 lg:px-[81px]
      mb-16 md:mb-24 lg:mb-[359px]">
   <div class="w-full max-w-[1280px] mx-auto flex flex-col
          px-[16px] sm:px-[24px]
          py-[40px]
          gap-[32px] lg:gap-[40px]
          bg-[#FBEAEA] rounded-[20px]
-         text-center shadow-sm dark:bg-[#3F3F46]">
+         text-center shadow-sm dark:bg-[#3F3F46]  transition-all duration-1000"
+          [ngClass]="{
+      'opacity-100 translate-y-0': isTrustVisible(),
+      'opacity-0 translate-y-8': !isTrustVisible()
+    }"
+         
+         >
 
     <h3 class="font-sarabun
            text-[24px] sm:text-[30px] lg:text-[36px]

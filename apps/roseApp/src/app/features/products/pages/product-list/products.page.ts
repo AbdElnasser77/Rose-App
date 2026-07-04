@@ -1,0 +1,89 @@
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Product } from '../../../../core/models/product.model';
+import { ProductsService } from '../../services/product-list/products.service';
+import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
+import { ProductsPaginationComponent } from '../../components/product-list/products-pagination/products-pagination.component';
+import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
+import { Router } from '@angular/router';
+import { ToastService } from '@org/shared-util-notification';
+
+@Component({
+  selector: 'app-products',
+  imports: [
+    ProductsGridComponent,
+    ProductsPaginationComponent,
+    ProductsFilterComponent,
+  ],
+  templateUrl: './products.page.html',
+  styleUrl: './products.page.scss',
+})
+export class ProductsPage implements OnInit, OnDestroy {
+  private productsService = inject(ProductsService);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
+  private sub?: Subscription;
+
+  private readonly limit = 20;
+
+  products = signal<Product[]>([]);
+  loading = signal<boolean>(true);
+  page = signal<number>(1);
+  totalPages = signal<number>(1);
+  wishlistedIds = signal<Set<string>>(new Set());
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.loading.set(true);
+    this.sub?.unsubscribe();
+    this.sub = this.productsService.getProducts(this.page(), this.limit).subscribe({
+      next: (payload) => {
+        this.products.set(payload.data);
+        this.page.set(payload.metadata.page);
+        this.totalPages.set(payload.metadata.totalPages);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+      },
+    });
+  }
+
+  onPageChange(page: number): void {
+    this.page.set(page);
+    this.loadProducts();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onDetails(id: string): void {
+    this.router.navigate(['/products', id]);
+  }
+
+  onWishlist(id: string): void {
+    const current = new Set(this.wishlistedIds());
+    if (current.has(id)) {
+      current.delete(id);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(id);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
+  }
+
+  onQuickView(id: string): void {
+    this.router.navigate(['/products', id]);
+  }
+
+  onAddToCart(id: string): void {
+    // TODO: wire add-to-cart feature.
+    console.log('addToCart', id);
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+}
