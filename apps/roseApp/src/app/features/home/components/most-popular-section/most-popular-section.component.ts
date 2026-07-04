@@ -15,6 +15,7 @@ import { ProductsService } from '../../../../core/services/products.service';
 import type { Product } from '../../../../shared/models/product.model';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
+import { ToastService } from '@org/shared-util-notification';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -36,6 +37,7 @@ export class MostPopularSectionComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toastService = inject(ToastService);
 
   readonly tabs = TABS;
   readonly activeTab = signal<Tab>('Anniversary');
@@ -43,6 +45,7 @@ export class MostPopularSectionComponent implements OnInit {
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(false);
   readonly displayedLimit = signal(12);
+  readonly wishlistedIds = signal<Set<string>>(new Set());
 
   readonly filteredProducts = computed(() => {
     const tab = this.activeTab().toLowerCase();
@@ -92,7 +95,7 @@ export class MostPopularSectionComponent implements OnInit {
   }
 
   goToProductDetails(productId: string): void {
-    this.router.navigate(['/product-details', productId]);
+    this.router.navigate(['/products', productId]);
   }
 
   onCartClick(productId: string): void {
@@ -100,7 +103,15 @@ export class MostPopularSectionComponent implements OnInit {
   }
 
   onWishlistClick(productId: string): void {
-    void productId;
+    const current = new Set(this.wishlistedIds());
+    if (current.has(productId)) {
+      current.delete(productId);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(productId);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
   }
 
   private sortMostPopular(products: Product[]): Product[] {
