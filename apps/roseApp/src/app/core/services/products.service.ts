@@ -2,11 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BASE_URL_CONFIG } from '@org/auth';
 import { Observable } from 'rxjs';
+import { ProductQueryParams, ProductsListResponse } from '../../shared/models/products-list-response.model';
 
-import type {
-  ProductQueryParams,
-  ProductsListResponse,
-} from '../models/products-list-response.model';
+
 
 @Injectable({
   providedIn: 'root',
