@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, computed, inject, signal, OnInit, ChangeDetectorRef, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,8 @@ import { Textarea } from 'primeng/textarea';
 import { Review } from '../../../../../core/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { ReviewsService } from '../../../services/product-details/reviews-api.service';
 import { ButtonComponent } from '@org/ui';
 
@@ -28,6 +30,7 @@ export class ReviewersComponent implements OnInit {
   private readonly reviewsService = inject(ReviewsService);
   private readonly cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
   reviewsData = signal<any[]>([]);
   averageRate = computed(() => {
     const reviews = this.reviewsData();
@@ -44,8 +47,12 @@ export class ReviewersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReviews();
-    const id = this.route.snapshot.paramMap.get('id');
-    this.productId.set(id || '');
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id') || ''),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((id) => this.productId.set(id));
   }
 
   getReviews(): void {

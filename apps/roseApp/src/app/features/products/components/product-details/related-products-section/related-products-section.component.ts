@@ -139,9 +139,7 @@ export class RelatedProductsSectionComponent implements OnInit {
   }
 
   onCardDetailsClicked(product: any): void {
-    if (!product?.id) return;
-
-    this.router.navigate(['/product-details', product.id]);
+    this.router.navigate(['/products', product.id]);
   }
 
   onWishListClicked(product:any) {
@@ -149,7 +147,7 @@ export class RelatedProductsSectionComponent implements OnInit {
   }
 
   onQuickViewClicked(product:any) {
-    console.log('onQuickView')
+    this.router.navigate(['/products', product.id]);
   }
 
   onAddToCartClicked(product:any) {
