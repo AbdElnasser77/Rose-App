@@ -5,11 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
 import { Review } from '../../../../../core/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewsService } from '../../../services/product-details/reviews-api.service';
+import { ButtonComponent } from '@org/ui';
 
 @Component({
   selector: 'app-reviews',
@@ -19,7 +19,8 @@ import { ReviewsService } from '../../../services/product-details/reviews-api.se
     RatingModule,
     InputTextModule,
     Textarea,
-    ButtonModule, TranslatePipe],
+    ButtonComponent, 
+    TranslatePipe],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.scss',
 })
