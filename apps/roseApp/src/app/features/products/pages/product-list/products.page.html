@@ -8,6 +8,7 @@
       <app-products-grid
         [products]="products()"
         [loading]="loading()"
+        [wishlistedIds]="wishlistedIds()"
         (cardDetails)="onDetails($event)"
         (wishList)="onWishlist($event)"
         (quickView)="onQuickView($event)"

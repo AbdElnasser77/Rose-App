@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Eye, Heart, LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import { Eye, Heart, HeartMinus, LucideAngularModule, ShoppingCart } from 'lucide-angular';
 import { RatingModule } from 'primeng/rating';
 import { Product } from '../../../core/models/product.model';
 import { ButtonComponent } from '@org/ui';
@@ -17,8 +17,10 @@ import { BadgeComponent } from '../badge/badge.component';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
+  @Input() isWishlisted = false;
    readonly ShoppingCart=ShoppingCart;
    readonly  Heart= Heart;
+   readonly HeartMinus=HeartMinus;
    readonly Eye=Eye;
 
   @Output() cardDetailsClicked = new EventEmitter<string>();

@@ -5,6 +5,8 @@ import { ProductsService } from '../../services/product-list/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
 import { ProductsPaginationComponent } from '../../components/product-list/products-pagination/products-pagination.component';
 import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
+import { Router } from '@angular/router';
+import { ToastService } from '@org/shared-util-notification';
 
 @Component({
   selector: 'app-products',
@@ -18,6 +20,8 @@ import { ProductsFilterComponent } from '../../components/product-list/products-
 })
 export class ProductsPage implements OnInit, OnDestroy {
   private productsService = inject(ProductsService);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
   private sub?: Subscription;
 
   private readonly limit = 20;
@@ -26,6 +30,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   loading = signal<boolean>(true);
   page = signal<number>(1);
   totalPages = signal<number>(1);
+  wishlistedIds = signal<Set<string>>(new Set());
 
   ngOnInit(): void {
     this.loadProducts();
@@ -54,18 +59,23 @@ export class ProductsPage implements OnInit, OnDestroy {
   }
 
   onDetails(id: string): void {
-    // TODO: navigate to product detail once the detail route is enabled.
-    console.log('details', id);
+    this.router.navigate(['/products', id]);
   }
 
   onWishlist(id: string): void {
-    // TODO: wire wishlist feature.
-    console.log('wishlist', id);
+    const current = new Set(this.wishlistedIds());
+    if (current.has(id)) {
+      current.delete(id);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(id);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
   }
 
   onQuickView(id: string): void {
-    // TODO: wire quick view.
-    console.log('quickView', id);
+    this.router.navigate(['/products', id]);
   }
 
   onAddToCart(id: string): void {
