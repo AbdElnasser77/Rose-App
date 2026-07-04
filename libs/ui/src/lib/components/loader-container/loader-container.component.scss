@@ -1,0 +1,8 @@
+:host ::ng-deep .loader-spinner .p-progressspinner-circle {
+  stroke: var(--color-maroon-800) !important;
+  animation: p-progressspinner-dash 1.5s ease-in-out infinite !important;
+}
+
+:host-context(.dark) ::ng-deep .loader-spinner .p-progressspinner-circle {
+  stroke: var(--color-soft-pink-300) !important;
+}
