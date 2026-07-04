@@ -1,12 +1,12 @@
-<section class="most-popular-section py-10 md:py-14">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+<section class="most-popular-section">
+  <div class="most-popular-container">
+    <div class="most-popular-header">
       <app-section-title
         [mainTitle]="'MOST_POPULAR.TITLE' | translate"
         [alignment]="'left'"
       ></app-section-title>
 
-      <div class="tabs flex flex-wrap gap-4 md:gap-6">
+      <div class="tabs">
         @for (tab of tabs; track tab.value) {
           <button
             type="button"
@@ -21,13 +21,13 @@
     </div>
 
     @if (isLoading()) {
-      <div class="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="products-grid">
         @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
           <div class="skeleton-card rounded-2xl"></div>
         }
       </div>
     } @else {
-      <div class="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="products-grid">
         @for (product of displayedProducts(); track product.id) {
           <app-product-card
             [product]="product"
@@ -40,7 +40,7 @@
       </div>
 
       @if (displayedProducts().length < filteredProducts().length) {
-        <div class="mt-8 flex justify-end">
+        <div class="view-more-wrapper">
           <button type="button" class="view-more-btn" (click)="viewMore()">
             {{ 'MOST_POPULAR.VIEW_MORE' | translate }}
             <span aria-hidden="true">↗</span>
