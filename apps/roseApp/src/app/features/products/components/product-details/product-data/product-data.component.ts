@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, map, switchMap, tap } from 'rxjs';
 import { ShoppingCart, LucideAngularModule, Heart, HeartPlus, HeartMinus } from 'lucide-angular';
 
-import { Product } from '../../../../products/models/product.model';
+import { Product } from '../../../../../shared/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 import { ButtonComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';

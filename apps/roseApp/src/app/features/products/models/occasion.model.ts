@@ -1,4 +1,4 @@
-import { PaginationMetadata } from './products-list.model';
+import { ProductsMetadata } from '../../../shared/models/products-list-response.model';
 
 export interface Occasion {
   id: string;
@@ -15,6 +15,6 @@ export interface OccasionsResponse {
   code: number;
   payload: {
     data: Occasion[];
-    metadata: PaginationMetadata;
+    metadata: ProductsMetadata;
   };
 }

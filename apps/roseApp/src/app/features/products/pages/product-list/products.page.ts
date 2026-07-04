@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../../shared/models/product.model';
-import { ProductsService } from '../../services/product-list/products.service';
+import { ProductsService } from '../../../../core/services/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
 import { ProductsPaginationComponent } from '../../components/product-list/products-pagination/products-pagination.component';
 import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
@@ -39,11 +39,11 @@ export class ProductsPage implements OnInit, OnDestroy {
   loadProducts(): void {
     this.loading.set(true);
     this.sub?.unsubscribe();
-    this.sub = this.productsService.getProducts(this.page(), this.limit).subscribe({
-      next: (payload) => {
-        this.products.set(payload.data);
-        this.page.set(payload.metadata.page);
-        this.totalPages.set(payload.metadata.totalPages);
+    this.sub = this.productsService.getProducts({ page: this.page(), limit: this.limit }).subscribe({
+      next: (res) => {
+        this.products.set(res.payload.data);
+        this.page.set(res.payload.metadata.page);
+        this.totalPages.set(res.payload.metadata.totalPages);
         this.loading.set(false);
       },
       error: () => {
