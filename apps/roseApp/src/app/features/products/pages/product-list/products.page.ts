@@ -1,10 +1,10 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../../core/models/product.model';
-import { ProductsService } from '../../services/products.service';
-import { ProductsGridComponent } from '../../components/products-grid/products-grid.component';
-import { ProductsPaginationComponent } from '../../components/products-pagination/products-pagination.component';
-import { ProductsFilterComponent } from '../../components/products-filter/products-filter.component';
+import { ProductsService } from '../../services/product-list/products.service';
+import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
+import { ProductsPaginationComponent } from '../../components/product-list/products-pagination/products-pagination.component';
+import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
 
 @Component({
   selector: 'app-products',

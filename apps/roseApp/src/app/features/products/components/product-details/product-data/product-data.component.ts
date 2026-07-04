@@ -9,8 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Product } from '../../models/product.model';
-import { ProductDataService } from './../../services/product-data-api.service';
+import { Product } from '../../../../products/models/product.model';
+import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 
 @Component({
   selector: 'app-product-data',
