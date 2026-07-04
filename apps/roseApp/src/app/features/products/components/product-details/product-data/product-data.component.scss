@@ -1,0 +1,13 @@
+:host ::ng-deep p-rating {
+  .p-rating-on-icon {
+    color: #FBA707 !important;
+  }
+
+  .p-rating-off-icon {
+    color: #d4a01740;
+  }
+
+  * {
+    cursor: default !important;
+  }
+}

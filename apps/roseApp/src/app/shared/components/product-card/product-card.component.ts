@@ -7,16 +7,17 @@ import { Product } from '../../models/product.model';
 import { ButtonComponent } from '@org/ui';
 import { ProductBadge } from '../../../core/types/product-padge.type';
 import { BadgeComponent } from '../badge/badge.component';
-
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-product-card',
-  imports: [RatingModule, FormsModule,LucideAngularModule,CommonModule,ButtonComponent,BadgeComponent
+  imports: [RatingModule, FormsModule,LucideAngularModule,CommonModule,ButtonComponent,BadgeComponent,TranslatePipe
 ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
+  @Input() isWishlisted = false;
    readonly ShoppingCart=ShoppingCart;
    readonly  Heart= Heart;
    readonly Eye=Eye;
@@ -64,6 +65,10 @@ export class ProductCardComponent {
 
   get hasDiscount(): boolean {
   return Number(this.product.discountValue) > 0;
+}
+
+getBadgeTranslationKey(badge: ProductBadge): string {
+  return `PRODUCT_CARD.BADGES.${badge.replace(/\s+/g, '_')}`;
 }
    
   

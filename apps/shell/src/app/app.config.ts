@@ -4,7 +4,7 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
@@ -18,7 +18,13 @@ import { provideI18n } from '@rose/i18n';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(appRoutes),
+    provideRouter(
+      appRoutes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
+      })
+    ),
     provideAnimationsAsync(),
     provideHttpClient(),
     provideI18n(),

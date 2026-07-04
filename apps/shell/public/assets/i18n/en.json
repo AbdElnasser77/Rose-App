@@ -158,6 +158,28 @@
     "SUPPORT_DESC": "Contact us at any time"
   },
 
+  "MOST_POPULAR": {
+    "TITLE": "Most Popular",
+    "TABS": {
+      "WEDDING": "Wedding",
+      "ANNIVERSARY": "Anniversary",
+      "BIRTHDAY": "Birthday",
+      "ENGAGEMENT": "Engagement"
+    },
+    "VIEW_MORE": "View More",
+    "TRY_AGAIN": "Try Again",
+    "ERROR": "Something went wrong while loading products."
+  },
+
+  "PRODUCT_CARD": {
+    "BADGES": {
+      "NEW": "NEW",
+      "HOT": "HOT",
+      "OUT_OF_STOCK": "OUT OF STOCK"
+    },
+    "CURRENCY": "EGP"
+  },
+
   "TESTIMONIALS": {
     "TITLE": "Real Words from Happy Customers",
     "SUBTITLE": "Testimonials"

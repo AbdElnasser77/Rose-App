@@ -7,10 +7,10 @@
         <!-- Badge  -->
         <div class="absolute top-[10px] right-[10px]  flex gap-[6px]">
             @for (badge of badges; track badge) {
-            <app-badge [text]="badge"
-            [variant]="badge === 'OUT OF STOCK' ? 'primary' : (badge === 'NEW' ? 'subtle' : 'secondary')">
-
-            </app-badge>
+           <app-badge
+  [text]="getBadgeTranslationKey(badge) | translate"
+  [variant]="badge === 'OUT OF STOCK' ? 'primary' : (badge === 'NEW' ? 'subtle' : 'secondary')">
+</app-badge>
             }
         </div>
         <!-- Hover -->
@@ -18,7 +18,7 @@
             class="absolute inset-0 bg-[#E65073]/50 flex items-center justify-center gap-[10px] p-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[12px]">
             
             <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="wishListClicked.emit(product.id)">
-                <lucide-icon [img]="Heart" class="w-[20px] h-[20px] stroke-[2px]"></lucide-icon>
+                <lucide-icon [img]="Heart" class="w-[20px] h-[20px] stroke-[2px]" [ngClass]="isWishlisted ? '[&_svg]:fill-red-500 [&_svg]:stroke-red-500' : ''"></lucide-icon>
             </lib-button>
 
             <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="quickViewClicked.emit(product.id)">
@@ -46,7 +46,7 @@
 
                 <!-- price -->
                 <div class="flex gap-[7px] font-sarabun text-[16px] font-medium leading-[100%] align-bottom">
-                    <span class="text-maroon-700  dark:text-soft-pink-200">{{ currentPrice | number:'1.2-2' }} EGP</span>
+                    <span class="text-maroon-700  dark:text-soft-pink-200">{{ currentPrice | number:'1.2-2' }} {{ 'PRODUCT_CARD.CURRENCY' | translate }}</span>
                     @if (hasDiscount) {
                     <span class="text-zinc-400 line-through dark:text-zinc-500">{{ product.price | number:'1.2-2' }} EGP</span>
                     }

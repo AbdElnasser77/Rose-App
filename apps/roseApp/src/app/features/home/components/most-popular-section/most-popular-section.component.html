@@ -1,0 +1,52 @@
+<section class="most-popular-section">
+  <div class="most-popular-container">
+    <div class="most-popular-header">
+      <app-section-title
+        [mainTitle]="'MOST_POPULAR.TITLE' | translate"
+        [alignment]="'left'"
+      ></app-section-title>
+
+      <div class="tabs">
+        @for (tab of tabs; track tab.value) {
+          <button
+            type="button"
+            class="tab-btn"
+            [class.active]="activeTab() === tab.value"
+            (click)="selectTab(tab.value)"
+          >
+            {{ tab.labelKey | translate }}
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="products-grid">
+        @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
+          <div class="skeleton-card rounded-2xl"></div>
+        }
+      </div>
+    } @else {
+      <div class="products-grid">
+        @for (product of displayedProducts(); track product.id) {
+          <app-product-card
+            [product]="product"
+            (cardDetailsClicked)="goToProductDetails($event)"
+            (quickViewClicked)="goToProductDetails($event)"
+            (wishListClicked)="onWishlistClick($event)"
+            (addToCartClicked)="onCartClick($event)"
+          ></app-product-card>
+        }
+      </div>
+
+      @if (displayedProducts().length < filteredProducts().length) {
+        <div class="view-more-wrapper">
+          <button type="button" class="view-more-btn" (click)="viewMore()">
+            {{ 'MOST_POPULAR.VIEW_MORE' | translate }}
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      }
+    }
+  </div>
+</section>
