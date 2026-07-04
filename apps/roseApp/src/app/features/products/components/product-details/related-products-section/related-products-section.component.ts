@@ -20,6 +20,7 @@ import {
   RelatedProductsApiService,
   RelatedProductsParams,
 } from '../../../services/product-details/related-products-api.service';
+import { Carousel } from "primeng/carousel";
 
 @Component({
   selector: 'app-related-products-section',
@@ -28,13 +29,12 @@ import {
     TranslatePipe,
     ProductCardComponent,
     SectionTitleComponent,
-  ],
+    Carousel
+],
   templateUrl: './related-products-section.component.html',
   styleUrl: './related-products-section.component.scss',
 })
 export class RelatedProductsSectionComponent implements OnInit {
-  @ViewChild('productsSlider') productsSlider!: ElementRef<HTMLDivElement>;
-
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
@@ -44,8 +44,32 @@ export class RelatedProductsSectionComponent implements OnInit {
   relatedProducts = signal<any[]>([]);
   isLoading = signal(false);
 
+  responsiveOptions = [
+    {
+      breakpoint: '1400px',
+      numVisible: 4,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 2,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '576px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
+
   ngOnInit(): void {
     this.loadRelatedProducts();
+    
   }
 
   loadRelatedProducts(): void {
@@ -68,7 +92,9 @@ export class RelatedProductsSectionComponent implements OnInit {
                     const products = productsRes?.payload?.data || [];
 
                     return products
-                      .filter((product: any) => product.id !== currentProduct?.id)
+                      .filter(
+                        (product: any) => product.id !== currentProduct?.id
+                      )
                       .slice(0, 10);
                   })
                 );
@@ -112,26 +138,21 @@ export class RelatedProductsSectionComponent implements OnInit {
     return params;
   }
 
-  scrollProducts(direction: 'left' | 'right'): void {
-    if (!this.productsSlider) return;
-
-    const scrollAmount = 320;
-
-    this.productsSlider.nativeElement.scrollBy({
-      left: direction === 'left' ? -scrollAmount : scrollAmount,
-      behavior: 'smooth',
-    });
-  }
-
   onCardDetailsClicked(product: any): void {
     if (!product?.id) return;
 
     this.router.navigate(['/product-details', product.id]);
   }
 
-  onWishListClicked(product: any): void {}
+  onWishListClicked(product:any) {
+    console.log('onWish')
+  }
 
-  onQuickViewClicked(product: any): void {}
+  onQuickViewClicked(product:any) {
+    console.log('onQuickView')
+  }
 
-  onAddToCartClicked(product: any): void {}
+  onAddToCartClicked(product:any) {
+    console.log('onAddToCart')
+  }
 }

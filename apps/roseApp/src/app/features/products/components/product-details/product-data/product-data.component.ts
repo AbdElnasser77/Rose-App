@@ -8,7 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ShoppingCart, LucideAngularModule } from 'lucide-angular';
+import { ShoppingCart, LucideAngularModule, Heart, HeartPlus } from 'lucide-angular';
 
 import { Product } from '../../../../products/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
@@ -35,6 +35,7 @@ export class ProductDataComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   readonly ShoppingCart = ShoppingCart;
+  readonly HeartPlus = HeartPlus;
 
   productId = signal('');
   productData = signal<any>('');

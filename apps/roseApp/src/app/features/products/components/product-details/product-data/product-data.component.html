@@ -1,12 +1,12 @@
-  <div class="w-[90%] mx-auto p-6">
+  <div class="container mx-auto p-6">
     @if (productData(); as product) {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>
-          <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-zinc-700">
+          <div class="overflow-hidden h-[500px] rounded-2xl border border-gray-200 dark:border-zinc-700">
             <img
               [src]="selectedImage()"
               [alt]="product.title"
-              class="w-full h-[400px] object-cover">
+              class="w-full h-full object-cover">
           </div>
 
           <div class="flex gap-3 mt-4">
@@ -58,7 +58,8 @@
             <p-rating
               [readonly]="true"
               [ngModel]="roundRating(product.rating)"
-              [stars]="5">
+              [stars]="5"
+              >
             </p-rating>
 
             <span class="text-gray-900 dark:text-white">
@@ -82,16 +83,15 @@
           <div class="flex-1"></div>
 
           <div class="flex items-center gap-4 mt-10">
-            <button
-              pButton
-              icon="pi pi-heart"
-              severity="secondary"
-              outlined
+            <lib-button 
+             [variant]="'Ghost'"
+             class="border border-zinc-200 rounded-xl group"
               [attr.aria-label]="'PRODUCT.ADD_TO_WISHLIST' | translate">
-            </button>
+              <lucide-icon [img]="HeartPlus" [strokeWidth]="1" class="w-[24px] dark:text-zinc-50 dark:group-hover:text-zinc-800 h-[24px]"></lucide-icon>
+            </lib-button>
 
             <lib-button
-            class="flex-1"
+            class="flex-1 text-white"
               [attr.aria-label]="'PRODUCT.ADD_TO_CART' | translate">
               <lucide-icon [img]="ShoppingCart" class="w-[24px] h-[24px]" leftIcon></lucide-icon>
               {{ 'PRODUCT.ADD_TO_CART' | translate }}

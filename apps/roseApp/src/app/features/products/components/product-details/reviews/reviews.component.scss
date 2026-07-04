@@ -49,3 +49,19 @@
     background:#8B1F22 !important;
     border-color:#8B1F22 !important;
 }
+
+
+:host ::ng-deep p-rating {
+  .p-rating-on-icon {
+    color: #FBA707 !important;
+  }
+
+  .p-rating-off-icon {
+    color: #d4a01740;
+  }
+}
+
+
+:host ::ng-deep .p-rating.p-readonly .p-rating-option {
+  cursor: default !important;
+}
