@@ -8,7 +8,8 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ShoppingCart, LucideAngularModule } from 'lucide-angular';
+import { filter, map, switchMap, tap } from 'rxjs';
+import { ShoppingCart, LucideAngularModule, Heart, HeartPlus } from 'lucide-angular';
 
 import { Product } from '../../../../products/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
@@ -35,6 +36,7 @@ export class ProductDataComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   readonly ShoppingCart = ShoppingCart;
+  readonly HeartPlus = HeartPlus;
 
   productId = signal('');
   productData = signal<any>('');
@@ -48,15 +50,14 @@ export class ProductDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.productId.set(id || '');
-    this.getProductDetails();
-  }
-
-  getProductDetails(): void {
-    this.productDetailsService
-      .getProductDetails(this.productId())
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id') || ''),
+        filter((id) => !!id),
+        tap((id) => this.productId.set(id)),
+        switchMap((id) => this.productDetailsService.getProductDetails(id)),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe({
         next: (res) => {
           this.productData.set(res.payload.product);

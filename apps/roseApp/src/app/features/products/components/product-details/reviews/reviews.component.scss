@@ -30,12 +30,25 @@
     padding:.9rem;
     border-radius:10px;
 }
+:host ::ng-deep .p-inputtext:enabled:focus {
+  border-color: #8B1F22 !important;
+}
+:host-context(.dark) ::ng-deep .p-inputtext:enabled:focus {
+  border-color: #f9a8d4 !important; 
+}
 
 :host ::ng-deep textarea{
     width:100%;
     min-height:170px;
     padding:.9rem;
     border-radius:10px;
+    resize:none;
+}
+:host ::ng-deep textarea:enabled:focus {
+  border-color: #8B1F22 !important;
+}
+:host-context(.dark) ::ng-deep textarea:enabled:focus {
+  border-color: #f9a8d4 !important; 
 }
 
 .review-btn{
@@ -48,4 +61,20 @@
 .review-btn:hover{
     background:#8B1F22 !important;
     border-color:#8B1F22 !important;
+}
+
+
+:host ::ng-deep p-rating {
+  .p-rating-on-icon {
+    color: #FBA707 !important;
+  }
+
+  .p-rating-off-icon {
+    color: #d4a01740;
+  }
+}
+
+
+:host ::ng-deep .p-rating.p-readonly .p-rating-option {
+  cursor: default !important;
 }
