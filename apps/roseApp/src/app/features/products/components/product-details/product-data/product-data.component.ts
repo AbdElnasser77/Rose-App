@@ -15,6 +15,7 @@ import { Product } from '../../../../products/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 import { ButtonComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
+import { LoaderService } from '@org/shared-util-loader';
 
 @Component({
   selector: 'app-product-data',
@@ -37,6 +38,7 @@ export class ProductDataComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   private readonly toastService = inject(ToastService);
+  private readonly loader = inject(LoaderService);
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
   readonly HeartMinus = HeartMinus;
@@ -59,7 +61,9 @@ export class ProductDataComponent implements OnInit {
         map((params) => params.get('id') || ''),
         filter((id) => !!id),
         tap((id) => this.productId.set(id)),
-        switchMap((id) => this.productDetailsService.getProductDetails(id)),
+        switchMap((id) =>
+          this.productDetailsService.getProductDetails(id).pipe(this.loader.track<any>())
+        ),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({

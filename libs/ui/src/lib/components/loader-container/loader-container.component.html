@@ -1,0 +1,16 @@
+@if (loader.loading()) {
+  <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 dark:bg-zinc-900/70 backdrop-blur-sm">
+    <div class="relative flex items-center justify-center">
+      <p-progressSpinner
+        styleClass="loader-spinner"
+        strokeWidth="2"
+        animationDuration=".8s"
+        [style]="{ width: '200px', height: '200px' }">
+      </p-progressSpinner>
+
+      @if (logoSrc) {
+        <img [src]="logoSrc" alt="loading" class="absolute w-30 h-30 object-contain" />
+      }
+    </div>
+  </div>
+}
