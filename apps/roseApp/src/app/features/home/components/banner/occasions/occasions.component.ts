@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
-import { BadgeComponent } from "apps/roseApp/src/app/shared/components/badge/badge.component";
+import { AssetUrlPipe } from '../../../../../core/pipes/asset-url.pipe';
+import { BadgeComponent } from '../../../../../shared/components/badge/badge.component';
 import {IntersectionObserverDirective } from '@org/util-directives';
 import { CommonModule } from '@angular/common';
 @Component({

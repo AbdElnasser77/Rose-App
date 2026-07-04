@@ -1,8 +1,8 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '@org/ui';
-import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
-import { BadgeComponent } from "apps/roseApp/src/app/shared/components/badge/badge.component";
+import { AssetUrlPipe } from '../../../../../core/pipes/asset-url.pipe';
+import { BadgeComponent } from '../../../../../shared/components/badge/badge.component';
 import { LucideAngularModule, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-angular';
 import { Carousel, CarouselModule } from 'primeng/carousel';
 import {IntersectionObserverDirective } from '@org/util-directives';

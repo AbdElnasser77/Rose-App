@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ArrowRight,ArrowLeft, ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
 import { ButtonComponent } from '@org/ui';
-import { ProductCardComponent } from 'apps/roseApp/src/app/shared/components/product-card/product-card.component';
+import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { Product } from '../../../../shared/models/product.model';
 import {IntersectionObserverDirective } from '@org/util-directives';
 import { ProductDataService } from '../../../products/services/product-details/product-data-api.service';

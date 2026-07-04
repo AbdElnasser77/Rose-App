@@ -111,7 +111,8 @@
     </button>
   </div>
 
-  <div *ngIf="isMobileMenuOpen" class="md:hidden bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 shadow-sm">
+  @if (isMobileMenuOpen) {
+  <div class="md:hidden bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 shadow-sm">
     <div class="flex flex-col text-sm">
       <a routerLink="/home" (click)="isMobileMenuOpen = false" class="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-zinc-700 border-l-2 border-l-transparent hover:border-l-maroon-700 dark:hover:border-l-soft-pink-300 hover:text-maroon-700 dark:hover:text-soft-pink-300 hover:bg-maroon-50 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-50 cursor-pointer transition-colors">
         <lucide-icon [img]="House" class="w-4 h-4 shrink-0" />{{ 'NAV.HOME' | translate }}</a>
@@ -154,4 +155,5 @@
       }
     </div>
   </div>
+  }
 </nav>

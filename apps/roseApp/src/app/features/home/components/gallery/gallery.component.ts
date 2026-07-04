@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
+import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
 import {
   LucideAngularModule,
   X,
@@ -16,7 +16,7 @@ import {
   ChevronRight,
   ZoomIn,
 } from 'lucide-angular';
-import { SectionTitleComponent } from 'apps/roseApp/src/app/shared/components/section-title/section-title.component';
+import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 import { IntersectionObserverDirective } from '@org/util-directives';
 
 @Component({

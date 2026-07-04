@@ -9,7 +9,7 @@ export type BadgeWidth = 'auto' | 'full' | 'half';
   styleUrl: './badge.component.scss',
 })
 export class BadgeComponent {
-  @Input() text: string = '';
+  @Input() text = '';
   @Input() variant: BadgeVariant = 'primary';
   @Input() width: BadgeWidth = 'auto';
 

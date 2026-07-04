@@ -1,4 +1,4 @@
-import { PaginationMetadata } from './products-list.model';
+import { ProductsMetadata } from '../../../shared/models/products-list-response.model';
 
 export interface SubCategory {
   id: string;
@@ -24,6 +24,6 @@ export interface CategoriesResponse {
   code: number;
   payload: {
     data: Category[];
-    metadata: PaginationMetadata;
+    metadata: ProductsMetadata;
   };
 }
