@@ -1,6 +1,5 @@
 .most-popular-section {
   width: 100%;
-  background: #ffffff;
   padding: 42px 0 56px;
   overflow: hidden;
 }
@@ -99,9 +98,7 @@
   }
 }
 
-:host-context(.dark) .most-popular-section {
-  background: #111827;
-}
+
 
 :host-context(.dark) .tabs,
 :host-context(.dark) .tab-btn {
