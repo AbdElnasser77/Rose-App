@@ -13,6 +13,7 @@ import { ProductCardComponent } from '../../../../../shared/components/product-c
 export class ProductsGridComponent {
   products = input<Product[]>([]);
   loading = input<boolean>(false);
+  wishlistedIds = input<Set<string>>(new Set());
 
   cardDetails = output<string>();
   wishList = output<string>();

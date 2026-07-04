@@ -14,6 +14,7 @@
     @for (product of products(); track product.id) {
       <app-product-card
         [product]="product"
+        [isWishlisted]="wishlistedIds().has(product.id)"
         (cardDetailsClicked)="cardDetails.emit($event)"
         (wishListClicked)="wishList.emit($event)"
         (quickViewClicked)="quickView.emit($event)"
