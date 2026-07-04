@@ -1,4 +1,4 @@
-import { Product } from '../../../core/models/product.model';
+import { Product } from '../../../shared/models/product.model';
 
 export interface PaginationMetadata {
   page: number;

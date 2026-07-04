@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Eye, Heart, LucideAngularModule, ShoppingCart } from 'lucide-angular';
 import { RatingModule } from 'primeng/rating';
-import { Product } from '../../../core/models/product.model';
+import { Product } from '../../models/product.model';
 import { ButtonComponent } from '@org/ui';
 import { ProductBadge } from '../../../core/types/product-padge.type';
 import { BadgeComponent } from '../badge/badge.component';

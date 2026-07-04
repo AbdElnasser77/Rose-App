@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import {IntersectionObserverDirective } from '@org/util-directives';
+
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe ,IntersectionObserverDirective],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss',
 })
@@ -24,4 +26,12 @@ export class AboutUsComponent {
     'ABOUT_US.FEATURES.OCCASION',
     'ABOUT_US.FEATURES.DELIVERY',
   ];
+
+  aboutVisible = signal(false);
+
+onAboutVisible(entry: IntersectionObserverEntry) {
+  if (entry.isIntersecting) {
+    this.aboutVisible.set(true);
+  }
+}
 }

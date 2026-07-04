@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Product } from '../../../../core/models/product.model';
+import { Product } from '../../../../shared/models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { ProductsGridComponent } from '../../components/products-grid/products-grid.component';
 import { ProductsPaginationComponent } from '../../components/products-pagination/products-pagination.component';

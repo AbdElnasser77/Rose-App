@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
 import {
@@ -17,10 +17,11 @@ import {
   ZoomIn,
 } from 'lucide-angular';
 import { SectionTitleComponent } from 'apps/roseApp/src/app/shared/components/section-title/section-title.component';
+import { IntersectionObserverDirective } from '@org/util-directives';
 
 @Component({
   selector: 'app-gallery',
-  imports: [AssetUrlPipe, LucideAngularModule, SectionTitleComponent, TranslatePipe],
+  imports: [AssetUrlPipe, LucideAngularModule, SectionTitleComponent, TranslatePipe,IntersectionObserverDirective,CommonModule],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss',
 })
@@ -104,4 +105,13 @@ export class GalleryComponent {
         break;
     }
   }
+  //  IntersectionObserver (animation)
+    isGalleryVisible = signal(false);
+
+   onGalleryVisible(entry: IntersectionObserverEntry) {
+    if (entry.isIntersecting) {
+      this.isGalleryVisible.set(true);
+    }
+  }
+
 }

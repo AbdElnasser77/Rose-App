@@ -1,13 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
-import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductDataService } from '../../../product-details/services/product-data-api.service';
-import { Product } from '../../../product-details/models/product.model';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ArrowRight,ArrowLeft, ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
+import { ButtonComponent } from '@org/ui';
+import { ProductCardComponent } from 'apps/roseApp/src/app/shared/components/product-card/product-card.component';
+import { Product } from '../../../../shared/models/product.model';
+import {IntersectionObserverDirective } from '@org/util-directives';
 
 @Component({
   selector: 'app-best-selling',
@@ -15,36 +18,43 @@ import { TranslatePipe } from '@ngx-translate/core';
     CommonModule,
     CarouselModule,
     RatingModule,
-    ButtonModule,
     RouterModule,
     TranslatePipe,
-    FormsModule],
+    FormsModule,LucideAngularModule,ButtonComponent,ProductCardComponent ,IntersectionObserverDirective,CommonModule],
   templateUrl: './best-selling.component.html',
   styleUrl: './best-selling.component.scss',
 })
 export class BestSellingComponent implements OnInit {
-   
+  public _translateService = inject(TranslateService);
   private productService = inject(ProductDataService);
-  products: Product[] = [];
+ private _router = inject(Router);
 
-  responsiveOptions = [
-    {
-      breakpoint: '1024px',
-      numVisible: 3,
-      numScroll: 2
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 2,
-      numScroll: 1
-    },
-    {
-      breakpoint: '576px',
-      numVisible: 1,
-      numScroll: 1
-    }
-  ];
+  readonly ChevronLeft = ChevronLeft;
+  readonly ChevronRight = ChevronRight;
+  readonly ArrowRight = ArrowRight;
+  readonly ArrowLeft = ArrowLeft ;
 
+  isBestSellingVisible = signal(false);
+  products :Product[]=[];
+   isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
+
+  responsiveOptions: any[] = [
+  {
+    breakpoint: '1400px',
+    numVisible: 3,
+    numScroll: 1
+  },
+  {
+    breakpoint: '1024px',
+    numVisible: 2,
+    numScroll: 1
+  },
+  {
+    breakpoint: '768px',
+    numVisible: 1,
+    numScroll: 1
+  }
+];
   ngOnInit(): void {
     this.getProducts();
   }
@@ -57,24 +67,15 @@ export class BestSellingComponent implements OnInit {
     });
   }
 
-  getOldPrice(product: Product): number {
+  handleCardClicked(productId: string){
+    this._router.navigate(['/product-details', productId]);
 
-    const price = Number(product.price);
-    const discount = Number(product.discountValue);
-    if (!discount) {
-      return price;
-    }
-    if (product.discountType === 'PERCENT') {
-      return price / (1 - discount / 100);
-    }
-    return price + discount;
   }
 
-  isNew(createdAt: string): boolean {
-    const createdDate = new Date(createdAt);
-    const today = new Date();
-    const diffInMs = today.getTime() - createdDate.getTime();
-    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-    return diffInDays <= 7;
+
+onBestSellingVisible(entry: IntersectionObserverEntry) {
+  if (entry.isIntersecting) {
+    this.isBestSellingVisible.set(true);
   }
+}
 }
