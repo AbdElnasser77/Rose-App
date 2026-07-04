@@ -1,39 +1,19 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { BASE_URL_CONFIG } from '@org/auth';
 import { Observable } from 'rxjs';
-import type { Product } from '../models/product.model';
 
-interface ProductsListResponse {
-  status: boolean;
-  code: number;
-  payload: {
-    data: Product[];
-    metadata: {
-      page: number;
-      limit: number;
-      total: number;
-      totalPages: number;
-    };
-  };
-}
-
-interface ProductQueryParams {
-  page?: number;
-  limit?: number;
-  categoryId?: string;
-  subCategoryId?: string;
-  occasionId?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  minRating?: number;
-}
+import type {
+  ProductQueryParams,
+  ProductsListResponse,
+} from '../models/products-list-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'https://rose-app.elevate-bootcamp.cloud/api';
+  private readonly baseUrlConfig = inject(BASE_URL_CONFIG);
 
   getProducts(query: ProductQueryParams = {}): Observable<ProductsListResponse> {
     let params = new HttpParams();
@@ -44,8 +24,9 @@ export class ProductsService {
       }
     });
 
-    return this.http.get<ProductsListResponse>(`${this.baseUrl}/products`, {
-      params,
-    });
+    return this.http.get<ProductsListResponse>(
+      `${this.baseUrlConfig.apiUrl}/products`,
+      { params }
+    );
   }
 }

@@ -26,18 +26,6 @@
           <div class="skeleton-card rounded-2xl"></div>
         }
       </div>
-    } @else if (errorMessage()) {
-      <div class="error-box rounded-2xl p-6 text-center">
-        <p>{{ errorMessage() | translate }}</p>
-
-        <button
-          type="button"
-          class="retry-btn mt-4"
-          (click)="getMostPopularProducts()"
-        >
-          {{ 'MOST_POPULAR.TRY_AGAIN' | translate }}
-        </button>
-      </div>
     } @else {
       <div class="grid grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
         @for (product of displayedProducts(); track product.id) {

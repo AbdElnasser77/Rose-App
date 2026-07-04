@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize, timeout } from 'rxjs';
+import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -42,7 +42,6 @@ export class MostPopularSectionComponent implements OnInit {
 
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(false);
-  readonly errorMessage = signal('');
   readonly displayedLimit = signal(12);
 
   readonly filteredProducts = computed(() => {
@@ -73,12 +72,10 @@ export class MostPopularSectionComponent implements OnInit {
 
   getMostPopularProducts(): void {
     this.isLoading.set(true);
-    this.errorMessage.set('');
 
     this.productsService
       .getProducts({ page: 1, limit: 20 })
       .pipe(
-        timeout(10000),
         finalize(() => this.isLoading.set(false)),
         takeUntilDestroyed(this.destroyRef)
       )
@@ -86,9 +83,6 @@ export class MostPopularSectionComponent implements OnInit {
         next: (response) => {
           const products = response?.payload?.data ?? [];
           this.products.set(this.sortMostPopular(products as Product[]));
-        },
-        error: () => {
-          this.errorMessage.set('MOST_POPULAR.ERROR');
         },
       });
   }
