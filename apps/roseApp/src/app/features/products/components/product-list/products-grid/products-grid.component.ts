@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
-import { Product } from '../../../../../core/models/product.model';
+import { Product } from '../../../../../shared/models/product.model';
 import { ProductCardComponent } from '../../../../../shared/components/product-card/product-card.component';
 
 @Component({

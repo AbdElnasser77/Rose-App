@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProductsService } from '../../../../core/services/products.service';
-import type { Product } from '../../../../core/models/product.model';
+import type { Product } from '../../../../shared/models/product.model';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 

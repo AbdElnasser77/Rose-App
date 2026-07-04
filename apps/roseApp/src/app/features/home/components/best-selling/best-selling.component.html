@@ -1,114 +1,64 @@
-<section class="w-[90%] mx-auto px-4 py-20">
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+<section
+ libIntersectionObserverDirective
+  [observeOnce]="true"
+  [rootMargin]="'0px 0px -180px 0px'"
+  (visibilityChange)="onBestSellingVisible($event)"
+ class="w-full px-4 sm:px-6 lg:px-[81px] mt-[107px]">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 
-    <div class="lg:col-span-1 flex flex-col justify-center">
-
-      <span class="uppercase tracking-[4px] text-[#FF85A2] font-semibold text-sm">
-        {{ 'BEST_SELLING.BEST_SELLING' | translate }}
-      </span>
-
-      <h2 class="mt-4 text-4xl xl:text-5xl font-bold leading-tight text-[#2F2B2B]">
-        <span class="text-[#FF85A2]">
-          {{ 'BEST_SELLING.CHECK_OUT' | translate }}
-        </span>
-        {{ 'BEST_SELLING.WHAT' | translate }}
-        <br>
-        {{ 'BEST_SELLING.EVERYONES' | translate }}
-        <span class="text-[#FF85A2]">
-          {{ 'BEST_SELLING.BUYING' | translate }}
-        </span>
-        <br>
-        {{ 'BEST_SELLING.RIGHT_NOW' | translate }}
-      </h2>
-
-      <p class="mt-6 text-gray-500 leading-8">
-        {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
-      </p>
-
-      <button
-        pButton
-        [label]="'BEST_SELLING.EXPLORE_GIFTS' | translate"
-        icon="pi pi-arrow-right"
-        iconPos="right"
-        class="mt-8 w-fit">
-      </button>
-
-  </div>
-    <div class="lg:col-span-3">
-      @if (products.length > 0) {
-      <p-carousel
-        [value]="products"
-        [numVisible]="3"
-        [numScroll]="1"
-        [responsiveOptions]="responsiveOptions"
-        [circular]="true">
-
-        <ng-template pTemplate="item" let-product>
-          <div class="px-3">
-            <div
-              class="group rounded-3xl overflow-hidden bg-white transition duration-300">
-              <div class="relative overflow-hidden rounded-3xl">
-                <img
-                  [src]="product.cover"
-                  [alt]="product.title"
-                  class="w-full h-[360px] object-cover duration-300 group-hover:scale-105" />
-
-                <div class="absolute top-4 right-4 flex items-center gap-2">
-                  @if (product.rating === 5) {
-                    <span class="rounded-full bg-[#FBEAEA] text-[#D63C6A] px-3 py-1 text-[10px] font-semibold uppercase">
-                      {{ 'BEST_SELLING.HOT' | translate }}
-                    </span>
-                  }
-
-                  @if (product.stock === 0) {
-                    <span class="rounded-full bg-[#A01D26] text-white px-3 py-1 text-[10px] font-semibold uppercase">
-                      {{ 'BEST_SELLING.OUT_OF_STOCK' | translate }}
-                    </span>
-                  }
-
-                  @if (isNew(product.createdAt)) {
-                    <span class="rounded-full bg-white text-gray-500 px-3 py-1 text-[10px] font-semibold shadow uppercase">
-                      {{ 'BEST_SELLING.NEW' | translate }}
-                    </span>
-                  }
-                </div>
-              </div>
-
-              <div class="pt-5">
-                <div class="flex justify-between items-start gap-4">
-                  <div class="flex-1">
-                    <h3 class="font-semibold text-lg text-[#2F2B2B] line-clamp-1">
-                      {{ product.title }}
-                    </h3>
-
-                    <p-rating
-                      [readonly]="true"
-                      [(ngModel)]="product.rating">
-                    </p-rating>
-
-                    <div class="flex items-center gap-2 mt-2">
-                      <span class="font-bold text-xl text-[#2F2B2B]">
-                        {{ product.price }} EGP
-                      </span>
-                      @if (+product.discountValue > 0) {
-                        <span class="text-gray-400 line-through text-sm">
-                          {{ getOldPrice(product) | number:'1.0-0' }} EGP
-                        </span>
-                      }
-                    </div>
-                  </div>
-
-                  <button
-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-[#A01D26] text-white transition hover:bg-[#86161e]">
-                    <i class="pi pi-shopping-cart text-lg"></i>
-                  </button>
-                </div>
-              </div>
+        <div class="xl:col-span-1 flex flex-col  gap-[16px] justify-between h-full
+               transition-all duration-700 ease-out"
+        [ngClass]="{
+         'opacity-100 translate-x-0': isBestSellingVisible(),
+         'opacity-0 -translate-x-8': !isBestSellingVisible()
+        }" >
+            <div class="flex flex-col   gap-[10px]">
+                <span
+                    class="font-sarabun font-bold text-[13px] sm:text-[14px] uppercase text-[#FF668B] tracking-[0.25em] dark:text-[#D75458]">
+                    {{ 'BEST_SELLING.BEST_SELLING' | translate }}
+                </span>
+                <h2 class="font-sarabun font-bold text-2xl lg:text-[30px] leading-tight text-[#FF85A2] dark:text-[#D75458]">
+                    {{ 'BEST_SELLING.CHECK_OUT' | translate }}<span class="text-[#741C21] dark:text-[#FFC2D0]"> {{ 'BEST_SELLING.WHAT' |
+                        translate }}</span> {{ 'BEST_SELLING.BUYING' | translate }}
+                    <span class="text-[#741C21] dark:text-[#FFC2D0]">{{ 'BEST_SELLING.RIGHT_NOW' | translate }}</span>
+                </h2>
+                <p class="font-sarabun font-normal text-sm text-[#71717A] dark:text-[#A1A1AA] leading-[140%] whitespace-pre-line">
+                    {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
+                </p>
             </div>
-          </div>
-        </ng-template>
-      </p-carousel>
-      }
+
+            <lib-button shape="square" size="auto" class="mt-auto w-fit text-white rounded-[10px] dark:bg-[#FFC2D0] dark:hover:bg-[#FFA3B9] dark:text-[#27272A]" >
+
+                {{ 'BEST_SELLING.EXPLORE_GIFTS' | translate }}
+                @if (isRtl()) {
+                <lucide-icon rightIcon [img]="ArrowLeft"></lucide-icon>
+                }
+
+
+                @if (!isRtl()) {
+                <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
+                }
+            </lib-button>
+        </div>
+
+        <div class="xl:col-span-3 custom-carousel transition-all duration-700 ease-out "
+        [style.transition-delay.ms]="200"
+        [ngClass]="{
+         'opacity-100 translate-x-0': isBestSellingVisible(),
+         'opacity-0 translate-x-8': !isBestSellingVisible()
+        }" >
+            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true"
+                [responsiveOptions]="responsiveOptions" [showIndicators]="false">
+                <ng-template let-product pTemplate="item">
+                    <div class="p-2 flex justify-center">
+                        <app-product-card [product]="product" (cardDetailsClicked)="handleCardClicked($event)">
+                        </app-product-card>
+                    </div>
+                </ng-template>
+
+            </p-carousel>
+
+        </div>
+
     </div>
-  </div>
 </section>

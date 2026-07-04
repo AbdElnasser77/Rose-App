@@ -1,0 +1,798 @@
+diff --git a/apps/roseApp/src/app/core/models/.gitkeep b/apps/roseApp/src/app/core/models/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/apps/roseApp/src/app/core/models/product.model.ts b/apps/roseApp/src/app/core/models/product.model.ts
+deleted file mode 100644
+index 508da98..0000000
+--- a/apps/roseApp/src/app/core/models/product.model.ts
++++ /dev/null
+@@ -1,68 +0,0 @@
+-export interface ProductModel {
+-  status: boolean
+-  code: number
+-  payload: Payload
+-}
+-
+-export interface Payload {
+-  product: Product
+-}
+-
+-export interface Product {
+-  id: string
+-  title: string
+-  description: string
+-  rating: number
+-  ratings: number
+-  stock: number
+-  price: string
+-  discountType: string
+-  discountValue: string
+-  cover: string
+-  gallery: string
+-  categoryId: string
+-  subCategoryId: any
+-  immutable: boolean
+-  createdAt: string
+-  updatedAt: string
+-  category: Category
+-  subCategory: any
+-  occasions: any[]
+-  reviews: Review[]
+-  _count: Count
+-}
+-
+-export interface Category {
+-  id: string
+-  title: string
+-  description: string
+-  image: string
+-  immutable: boolean
+-  createdAt: string
+-  updatedAt: string
+-}
+-
+-export interface Review {
+-  id?: string
+-  userId?: string
+-  productId?: string
+-  headline: string
+-  content: string
+-  rating: number
+-  createdAt?: string
+-  updatedAt?: string
+-  user?: User
+-}
+-
+-export interface User {
+-  id: string
+-  username: string
+-  firstName: string
+-  lastName: string
+-}
+-
+-export interface Count {
+-  reviews: number
+-  cartItems: number
+-  wishlistItems: number
+-}
+diff --git a/apps/roseApp/src/app/features/components/about-us/about-us.component.html b/apps/roseApp/src/app/features/components/about-us/about-us.component.html
+index cce474e..a1241ca 100644
+--- a/apps/roseApp/src/app/features/components/about-us/about-us.component.html
++++ b/apps/roseApp/src/app/features/components/about-us/about-us.component.html
+@@ -1,35 +1,33 @@
+-<section class="about-section">
++<section libIntersectionObserverDirective [observeOnce]="true" [rootMargin]="'0px 0px -180px 0px'" 
++(visibilityChange)="onAboutVisible($event)"
++  class="about-section">
+   <div class="about-container">
+     <div class="about-grid">
+       <!-- Images -->
+-      <div class="about-images">
++      <div class="about-images transition-all duration-700 ease-out" 
++      [ngClass]="{
++       'opacity-100 translate-x-0': aboutVisible(),
++       'opacity-0 -translate-x-10': !aboutVisible()
++      }">
+         <div class="images-layout">
+           <div class="main-image-frame">
+-            <img
+-              [src]="images.main"
+-              [alt]="'ABOUT_US.IMAGES.MAIN_ALT' | translate"
+-              class="main-image"
+-            />
++            <img [src]="images.main" [alt]="'ABOUT_US.IMAGES.MAIN_ALT' | translate" class="main-image" />
+           </div>
+ 
+           <div class="small-images">
+-            <img
+-              [src]="images.giftBox"
+-              [alt]="'ABOUT_US.IMAGES.GIFT_ALT' | translate"
+-              class="gift-image"
+-            />
++            <img [src]="images.giftBox" [alt]="'ABOUT_US.IMAGES.GIFT_ALT' | translate" class="gift-image" />
+ 
+-            <img
+-              [src]="images.balloons"
+-              [alt]="'ABOUT_US.IMAGES.BALLOONS_ALT' | translate"
+-              class="balloons-image"
+-            />
++            <img [src]="images.balloons" [alt]="'ABOUT_US.IMAGES.BALLOONS_ALT' | translate" class="balloons-image" />
+           </div>
+         </div>
+       </div>
+ 
+       <!-- Content -->
+-      <div class="about-content">
++      <div class="about-content transition-all duration-700 ease-out"
++      [ngClass]="{
++       'opacity-100 translate-x-0': aboutVisible(),
++       'opacity-0 translate-x-10': !aboutVisible()
++      }" >
+         <p class="about-label">
+           {{ 'ABOUT_US.LABEL' | translate }}
+         </p>
+@@ -52,12 +50,18 @@
+           <span>→</span>
+         </button>
+ 
+-        <div class="about-features">
+-          @for (feature of features; track $index) {
+-            <div class="feature-item">
+-              <span class="check">✓</span>
+-              <span>{{ feature | translate }}</span>
+-            </div>
++        <div class="about-features "
++        >
++          @for (feature of features; track $index ;let i = $index) {
++          <div class="feature-item  transition-all duration-700"
++           [style.transition-delay.ms]="i * 120"
++        [ngClass]="{
++        'opacity-100 translate-y-0': aboutVisible(),
++        'opacity-0 translate-y-4': !aboutVisible()
++         }" >
++            <span class="check">✓</span>
++            <span>{{ feature | translate }}</span>
++          </div>
+           }
+         </div>
+       </div>
+diff --git a/apps/roseApp/src/app/features/components/about-us/about-us.component.ts b/apps/roseApp/src/app/features/components/about-us/about-us.component.ts
+index 8a6eb0a..77facdb 100644
+--- a/apps/roseApp/src/app/features/components/about-us/about-us.component.ts
++++ b/apps/roseApp/src/app/features/components/about-us/about-us.component.ts
+@@ -1,11 +1,13 @@
+-import { Component } from '@angular/core';
++import { Component, signal } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '@ngx-translate/core';
++import {IntersectionObserverDirective } from '@org/util-directives';
++
+ 
+ @Component({
+   selector: 'app-about-us',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe ,IntersectionObserverDirective],
+   templateUrl: './about-us.component.html',
+   styleUrl: './about-us.component.scss',
+ })
+@@ -24,4 +26,12 @@ export class AboutUsComponent {
+     'ABOUT_US.FEATURES.OCCASION',
+     'ABOUT_US.FEATURES.DELIVERY',
+   ];
++
++  aboutVisible = signal(false);
++
++onAboutVisible(entry: IntersectionObserverEntry) {
++  if (entry.isIntersecting) {
++    this.aboutVisible.set(true);
++  }
++}
+ }
+\ No newline at end of file
+diff --git a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.html b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.html
+index 9c591de..482de5a 100644
+--- a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.html
++++ b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.html
+@@ -1,112 +1,64 @@
+-<section class="w-[90%] mx-auto px-4 py-20">
+-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
++<section
++ libIntersectionObserverDirective
++  [observeOnce]="true"
++  [rootMargin]="'0px 0px -180px 0px'"
++  (visibilityChange)="onBestSellingVisible($event)"
++ class="w-full px-4 sm:px-6 lg:px-[81px] mt-[107px]">
++    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+ 
+-    <div class="lg:col-span-1 flex flex-col justify-center">
+-
+-      <span class="uppercase tracking-[4px] text-[#FF85A2] font-semibold text-sm">
+-        {{ 'BEST_SELLING.BEST_SELLING' | translate }}
+-      </span>
+-
+-      <h2 class="mt-4 text-4xl xl:text-5xl font-bold leading-tight text-[#2F2B2B]">
+-        <span class="text-[#FF85A2]">
+-          {{ 'BEST_SELLING.CHECK_OUT' | translate }}
+-        </span>
+-        {{ 'BEST_SELLING.WHAT' | translate }}
+-        <br>
+-        {{ 'BEST_SELLING.EVERYONES' | translate }}
+-        <span class="text-[#FF85A2]">
+-          {{ 'BEST_SELLING.BUYING' | translate }}
+-        </span>
+-        <br>
+-        {{ 'BEST_SELLING.RIGHT_NOW' | translate }}
+-      </h2>
+-
+-      <p class="mt-6 text-gray-500 leading-8">
+-        {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
+-      </p>
+-
+-      <button
+-        pButton
+-        [label]="'BEST_SELLING.EXPLORE_GIFTS' | translate"
+-        icon="pi pi-arrow-right"
+-        iconPos="right"
+-        class="mt-8 w-fit">
+-      </button>
+-
+-  </div>
+-    <div class="lg:col-span-3">
+-      <p-carousel
+-        [value]="products"
+-        [numVisible]="3"
+-        [numScroll]="1"
+-        [responsiveOptions]="responsiveOptions"
+-        [circular]="true">
++        <div class="xl:col-span-1 flex flex-col  gap-[16px] justify-between h-full
++               transition-all duration-700 ease-out"
++        [ngClass]="{
++         'opacity-100 translate-x-0': isBestSellingVisible(),
++         'opacity-0 -translate-x-8': !isBestSellingVisible()
++        }" >
++            <div class="flex flex-col   gap-[10px]">
++                <span
++                    class="font-sarabun font-bold text-[13px] sm:text-[14px] uppercase text-[#FF668B] tracking-[0.25em] dark:text-[#D75458]">
++                    {{ 'BEST_SELLING.BEST_SELLING' | translate }}
++                </span>
++                <h2 class="font-sarabun font-bold text-2xl lg:text-[30px] leading-tight text-[#FF85A2] dark:text-[#D75458]">
++                    {{ 'BEST_SELLING.CHECK_OUT' | translate }}<span class="text-[#741C21] dark:text-[#FFC2D0]"> {{ 'BEST_SELLING.WHAT' |
++                        translate }}</span> {{ 'BEST_SELLING.BUYING' | translate }}
++                    <span class="text-[#741C21] dark:text-[#FFC2D0]">{{ 'BEST_SELLING.RIGHT_NOW' | translate }}</span>
++                </h2>
++                <p class="font-sarabun font-normal text-sm text-[#71717A] dark:text-[#A1A1AA] leading-[140%] whitespace-pre-line">
++                    {{ 'BEST_SELLING.BEST_SELLING_DESCRIPTION' | translate }}
++                </p>
++            </div>
+ 
+-        <ng-template pTemplate="item" let-product>
+-          <div class="px-3">
+-            <div
+-              class="group rounded-3xl overflow-hidden bg-white transition duration-300">
+-              <div class="relative overflow-hidden rounded-3xl">
+-                <img
+-                  [src]="product.cover"
+-                  [alt]="product.title"
+-                  class="w-full h-[360px] object-cover duration-300 group-hover:scale-105" />
++            <lib-button shape="square" size="auto" class="mt-auto w-fit text-white rounded-[10px] dark:bg-[#FFC2D0] dark:hover:bg-[#FFA3B9] dark:text-[#27272A]" >
+ 
+-                <div class="absolute top-4 right-4 flex items-center gap-2">
+-                  @if (product.rating === 5) {
+-                    <span class="rounded-full bg-[#FBEAEA] text-[#D63C6A] px-3 py-1 text-[10px] font-semibold uppercase">
+-                      {{ 'BEST_SELLING.HOT' | translate }}
+-                    </span>
+-                  }
++                {{ 'BEST_SELLING.EXPLORE_GIFTS' | translate }}
++                @if (isRtl()) {
++                <lucide-icon rightIcon [img]="ArrowLeft"></lucide-icon>
++                }
+ 
+-                  @if (product.stock === 0) {
+-                    <span class="rounded-full bg-[#A01D26] text-white px-3 py-1 text-[10px] font-semibold uppercase">
+-                      {{ 'BEST_SELLING.OUT_OF_STOCK' | translate }}
+-                    </span>
+-                  }
+ 
+-                  @if (isNew(product.createdAt)) {
+-                    <span class="rounded-full bg-white text-gray-500 px-3 py-1 text-[10px] font-semibold shadow uppercase">
+-                      {{ 'BEST_SELLING.NEW' | translate }}
+-                    </span>
+-                  }
+-                </div>
+-              </div>
++                @if (!isRtl()) {
++                <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
++                }
++            </lib-button>
++        </div>
+ 
+-              <div class="pt-5">
+-                <div class="flex justify-between items-start gap-4">
+-                  <div class="flex-1">
+-                    <h3 class="font-semibold text-lg text-[#2F2B2B] line-clamp-1">
+-                      {{ product.title }}
+-                    </h3>
++        <div class="xl:col-span-3 custom-carousel transition-all duration-700 ease-out "
++        [style.transition-delay.ms]="200"
++        [ngClass]="{
++         'opacity-100 translate-x-0': isBestSellingVisible(),
++         'opacity-0 translate-x-8': !isBestSellingVisible()
++        }" >
++            <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true"
++                [responsiveOptions]="responsiveOptions" [showIndicators]="false">
++                <ng-template let-product pTemplate="item">
++                    <div class="p-2 flex justify-center">
++                        <app-product-card [product]="product" (cardDetailsClicked)="handleCardClicked($event)">
++                        </app-product-card>
++                    </div>
++                </ng-template>
+ 
+-                    <p-rating
+-                      [readonly]="true"
+-                      [(ngModel)]="product.rating">
+-                    </p-rating>
++            </p-carousel>
+ 
+-                    <div class="flex items-center gap-2 mt-2">
+-                      <span class="font-bold text-xl text-[#2F2B2B]">
+-                        {{ product.price }} EGP
+-                      </span>
+-                      @if (+product.discountValue > 0) {
+-                        <span class="text-gray-400 line-through text-sm">
+-                          {{ getOldPrice(product) | number:'1.0-0' }} EGP
+-                        </span>
+-                      }
+-                    </div>
+-                  </div>
++        </div>
+ 
+-                  <button
+-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-[#A01D26] text-white transition hover:bg-[#86161e]">
+-                    <i class="pi pi-shopping-cart text-lg"></i>
+-                  </button>
+-                </div>
+-              </div>
+-            </div>
+-          </div>
+-        </ng-template>
+-      </p-carousel>
+     </div>
+-  </div>
+ </section>
+\ No newline at end of file
+diff --git a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.scss b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.scss
+index 2d48128..6f38996 100644
+--- a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.scss
++++ b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.scss
+@@ -1,32 +1,25 @@
+-:host ::ng-deep .p-carousel-prev,
+-:host ::ng-deep .p-carousel-next {
+-  width: 48px;
+-  height: 48px;
+-  border-radius: 9999px;
+-  background: #a01d26;
+-  color: #fff;
+-  border: none;
+-}
+-
+-:host ::ng-deep .p-carousel-prev:hover,
+-:host ::ng-deep .p-carousel-next:hover {
+-  background: #86161e;
+-}
+ 
+-:host ::ng-deep .p-carousel-indicators {
+-  display: none;
++:host ::ng-deep .custom-carousel .p-carousel-prev-button,
++:host ::ng-deep .custom-carousel .p-carousel-next-button {
++  width: 38px !important;
++  height: 38px !important;
++  min-width: 38px !important;
++  border-radius: 9999px !important;
++  background-color: #A6252A !important;
++  color: #ffffff !important;
++  border: none !important;
++  display: flex !important;
++  align-items: center !important;
++  justify-content: center !important;
+ }
+ 
+-:host ::ng-deep .p-rating .p-rating-icon {
+-  color: #f59e0b;
++:host ::ng-deep .custom-carousel .p-carousel-prev-button:hover,
++:host ::ng-deep .custom-carousel .p-carousel-next-button:hover{
++  background-color: #821d21 !important; 
++  color: #ffffff !important;            
++  cursor: pointer !important;           
+ }
+-
+-:host ::ng-deep .p-button {
+-  background: #a01d26;
+-  border-color: #a01d26;
+-}
+-
+-:host ::ng-deep .p-button:hover {
+-  background: #86161e;
+-  border-color: #86161e;
++:host ::ng-deep .dark .custom-carousel .p-carousel-prev-button,
++:host ::ng-deep .dark .custom-carousel .p-carousel-next-button {
++  background-color: #A62125 !important; 
+ }
+\ No newline at end of file
+diff --git a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.ts b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.ts
+index 4d66a2d..32df584 100644
+--- a/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.ts
++++ b/apps/roseApp/src/app/features/home/components/best-selling/best-selling.component.ts
+@@ -1,13 +1,16 @@
+-import { Component, inject, OnInit } from '@angular/core';
++import { Component, computed, inject, OnInit, signal } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { CarouselModule } from 'primeng/carousel';
+ import { RatingModule } from 'primeng/rating';
+-import { ButtonModule } from 'primeng/button';
+-import { RouterModule } from '@angular/router';
++import { Router, RouterModule } from '@angular/router';
+ import { FormsModule } from '@angular/forms';
+ import { ProductDataService } from '../../../product-details/services/product-data-api.service';
+-import { Product } from '../../../product-details/models/product.model';
+-import { TranslatePipe } from '@ngx-translate/core';
++import { TranslatePipe, TranslateService } from '@ngx-translate/core';
++import { ArrowRight,ArrowLeft, ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
++import { ButtonComponent } from '@org/ui';
++import { ProductCardComponent } from 'apps/roseApp/src/app/shared/components/product-card/product-card.component';
++import { Product } from '../../../../shared/models/product.model';
++import {IntersectionObserverDirective } from '@org/util-directives';
+ 
+ @Component({
+   selector: 'app-best-selling',
+@@ -15,36 +18,43 @@ import { TranslatePipe } from '@ngx-translate/core';
+     CommonModule,
+     CarouselModule,
+     RatingModule,
+-    ButtonModule,
+     RouterModule,
+     TranslatePipe,
+-    FormsModule],
++    FormsModule,LucideAngularModule,ButtonComponent,ProductCardComponent ,IntersectionObserverDirective,CommonModule],
+   templateUrl: './best-selling.component.html',
+   styleUrl: './best-selling.component.scss',
+ })
+ export class BestSellingComponent implements OnInit {
+-   
++  public _translateService = inject(TranslateService);
+   private productService = inject(ProductDataService);
+-  products: Product[] = [];
++ private _router = inject(Router);
+ 
+-  responsiveOptions = [
+-    {
+-      breakpoint: '1024px',
+-      numVisible: 3,
+-      numScroll: 2
+-    },
+-    {
+-      breakpoint: '768px',
+-      numVisible: 2,
+-      numScroll: 1
+-    },
+-    {
+-      breakpoint: '576px',
+-      numVisible: 1,
+-      numScroll: 1
+-    }
+-  ];
++  readonly ChevronLeft = ChevronLeft;
++  readonly ChevronRight = ChevronRight;
++  readonly ArrowRight = ArrowRight;
++  readonly ArrowLeft = ArrowLeft ;
+ 
++  isBestSellingVisible = signal(false);
++  products :Product[]=[];
++   isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
++
++  responsiveOptions: any[] = [
++  {
++    breakpoint: '1400px',
++    numVisible: 3,
++    numScroll: 1
++  },
++  {
++    breakpoint: '1024px',
++    numVisible: 2,
++    numScroll: 1
++  },
++  {
++    breakpoint: '768px',
++    numVisible: 1,
++    numScroll: 1
++  }
++];
+   ngOnInit(): void {
+     this.getProducts();
+   }
+@@ -57,24 +67,15 @@ export class BestSellingComponent implements OnInit {
+     });
+   }
+ 
+-  getOldPrice(product: Product): number {
++  handleCardClicked(productId: string){
++    this._router.navigate(['/product-details', productId]);
+ 
+-    const price = Number(product.price);
+-    const discount = Number(product.discountValue);
+-    if (!discount) {
+-      return price;
+-    }
+-    if (product.discountType === 'PERCENT') {
+-      return price / (1 - discount / 100);
+-    }
+-    return price + discount;
+   }
+ 
+-  isNew(createdAt: string): boolean {
+-    const createdDate = new Date(createdAt);
+-    const today = new Date();
+-    const diffInMs = today.getTime() - createdDate.getTime();
+-    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+-    return diffInDays <= 7;
++
++onBestSellingVisible(entry: IntersectionObserverEntry) {
++  if (entry.isIntersecting) {
++    this.isBestSellingVisible.set(true);
+   }
+ }
++}
+diff --git a/apps/roseApp/src/app/features/home/components/gallery/gallery.component.html b/apps/roseApp/src/app/features/home/components/gallery/gallery.component.html
+index 2e9d083..f51d819 100644
+--- a/apps/roseApp/src/app/features/home/components/gallery/gallery.component.html
++++ b/apps/roseApp/src/app/features/home/components/gallery/gallery.component.html
+@@ -1,4 +1,9 @@
+-<section class="w-full px-4 sm:px-6 lg:px-[81px] mt-20">
++<section
++ libIntersectionObserverDirective
++  [observeOnce]="true"
++   [rootMargin]="'0px 0px -180px 0px'"
++   (visibilityChange)="onGalleryVisible($event)"
++ class="w-full px-4 sm:px-6 lg:px-[81px] mt-20">
+   <app-section-title
+     [mainTitle]="'GALLERY.SUBTITLE' | translate"
+     [subTitle]="'GALLERY.TITLE' | translate"
+@@ -12,10 +17,15 @@
+           <button
+             type="button"
+             (click)="openLightbox(colIndex * column.length + imgIndex)"
++            [style.transition-delay.ms]="imgIndex * 100"
+             [class]="
+-              'group relative block w-full overflow-hidden cursor-pointer ' +
++              'group relative block w-full overflow-hidden cursor-pointer transition-all duration-700 ease-out' +
+               image.aspect
+             "
++          [ngClass]="{
++            'opacity-100 translate-y-0 scale-100': isGalleryVisible(),
++             'opacity-0 translate-y-8 scale-95': !isGalleryVisible()
++           }"
+           >
+             <img
+               [src]="image.src | assetUrl"
+diff --git a/apps/roseApp/src/app/features/home/components/gallery/gallery.component.ts b/apps/roseApp/src/app/features/home/components/gallery/gallery.component.ts
+index 86d4c63..5f7423b 100644
+--- a/apps/roseApp/src/app/features/home/components/gallery/gallery.component.ts
++++ b/apps/roseApp/src/app/features/home/components/gallery/gallery.component.ts
+@@ -6,7 +6,7 @@ import {
+   inject,
+   signal,
+ } from '@angular/core';
+-import { DOCUMENT } from '@angular/common';
++import { CommonModule, DOCUMENT } from '@angular/common';
+ import { TranslatePipe } from '@ngx-translate/core';
+ import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
+ import {
+@@ -17,10 +17,11 @@ import {
+   ZoomIn,
+ } from 'lucide-angular';
+ import { SectionTitleComponent } from 'apps/roseApp/src/app/shared/components/section-title/section-title.component';
++import { IntersectionObserverDirective } from '@org/util-directives';
+ 
+ @Component({
+   selector: 'app-gallery',
+-  imports: [AssetUrlPipe, LucideAngularModule, SectionTitleComponent, TranslatePipe],
++  imports: [AssetUrlPipe, LucideAngularModule, SectionTitleComponent, TranslatePipe,IntersectionObserverDirective,CommonModule],
+   templateUrl: './gallery.component.html',
+   styleUrl: './gallery.component.scss',
+ })
+@@ -104,4 +105,13 @@ export class GalleryComponent {
+         break;
+     }
+   }
++  //  IntersectionObserver (animation)
++    isGalleryVisible = signal(false);
++
++   onGalleryVisible(entry: IntersectionObserverEntry) {
++    if (entry.isIntersecting) {
++      this.isGalleryVisible.set(true);
++    }
++  }
++
+ }
+diff --git a/apps/roseApp/src/app/features/home/pages/home/home.page.html b/apps/roseApp/src/app/features/home/pages/home/home.page.html
+index 62da4b6..bc7cc44 100644
+--- a/apps/roseApp/src/app/features/home/pages/home/home.page.html
++++ b/apps/roseApp/src/app/features/home/pages/home/home.page.html
+@@ -4,9 +4,9 @@
+ 
+   <app-features-bar></app-features-bar>
+ 
+-  <app-about-us></app-about-us>
+-
+   <app-best-selling></app-best-selling>
++  
++  <app-about-us></app-about-us>
+ 
+   <app-gallery></app-gallery>
+ 
+diff --git a/apps/roseApp/src/app/features/product-details/components/reviews/reviews.component.ts b/apps/roseApp/src/app/features/product-details/components/reviews/reviews.component.ts
+index 80083e4..98c59a4 100644
+--- a/apps/roseApp/src/app/features/product-details/components/reviews/reviews.component.ts
++++ b/apps/roseApp/src/app/features/product-details/components/reviews/reviews.component.ts
+@@ -6,7 +6,7 @@ import { RatingModule } from 'primeng/rating';
+ import { InputTextModule } from 'primeng/inputtext';
+ import { Textarea } from 'primeng/textarea';
+ import { ButtonModule } from 'primeng/button';
+-import { Review } from '../../../../core/models/product.model';
++import { Review } from '../../../../shared/models/product.model';
+ import { TranslatePipe } from '@ngx-translate/core';
+ import { ActivatedRoute } from '@angular/router';
+ import { ReviewsService } from '../../services/reviews-api.service';
+diff --git a/apps/roseApp/src/app/features/product-details/services/reviews-api.service.ts b/apps/roseApp/src/app/features/product-details/services/reviews-api.service.ts
+index 735be97..f846edf 100644
+--- a/apps/roseApp/src/app/features/product-details/services/reviews-api.service.ts
++++ b/apps/roseApp/src/app/features/product-details/services/reviews-api.service.ts
+@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
+ import { Observable } from 'rxjs';
+ import { HttpClient } from '@angular/common/http';
+ import { BASE_URL_CONFIG } from '@org/auth';
+-import { Review } from '../../../core/models/product.model';
++import { Review } from '../../../shared/models/product.model';
+ @Injectable({
+   providedIn: 'root',
+ })
+diff --git a/apps/roseApp/src/app/features/products/components/products-grid/products-grid.component.ts b/apps/roseApp/src/app/features/products/components/products-grid/products-grid.component.ts
+index f86855c..d09fda2 100644
+--- a/apps/roseApp/src/app/features/products/components/products-grid/products-grid.component.ts
++++ b/apps/roseApp/src/app/features/products/components/products-grid/products-grid.component.ts
+@@ -1,7 +1,7 @@
+ import { Component, input, output } from '@angular/core';
+ import { TranslatePipe } from '@ngx-translate/core';
+ import { SkeletonModule } from 'primeng/skeleton';
+-import { Product } from '../../../../core/models/product.model';
++import { Product } from '../../../../shared/models/product.model';
+ import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
+ 
+ @Component({
+diff --git a/apps/roseApp/src/app/features/products/models/products-list.model.ts b/apps/roseApp/src/app/features/products/models/products-list.model.ts
+index 069db89..f2170ee 100644
+--- a/apps/roseApp/src/app/features/products/models/products-list.model.ts
++++ b/apps/roseApp/src/app/features/products/models/products-list.model.ts
+@@ -1,4 +1,4 @@
+-import { Product } from '../../../core/models/product.model';
++import { Product } from '../../../shared/models/product.model';
+ 
+ export interface PaginationMetadata {
+   page: number;
+diff --git a/apps/roseApp/src/app/features/products/pages/products/products.page.ts b/apps/roseApp/src/app/features/products/pages/products/products.page.ts
+index 5015c2d..a8bc9df 100644
+--- a/apps/roseApp/src/app/features/products/pages/products/products.page.ts
++++ b/apps/roseApp/src/app/features/products/pages/products/products.page.ts
+@@ -1,6 +1,6 @@
+ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+ import { Subscription } from 'rxjs';
+-import { Product } from '../../../../core/models/product.model';
++import { Product } from '../../../../shared/models/product.model';
+ import { ProductsService } from '../../services/products.service';
+ import { ProductsGridComponent } from '../../components/products-grid/products-grid.component';
+ import { ProductsPaginationComponent } from '../../components/products-pagination/products-pagination.component';
+diff --git a/apps/roseApp/src/app/shared/components/product-card/product-card.component.html b/apps/roseApp/src/app/shared/components/product-card/product-card.component.html
+index a6ecec3..8e2e11b 100644
+--- a/apps/roseApp/src/app/shared/components/product-card/product-card.component.html
++++ b/apps/roseApp/src/app/shared/components/product-card/product-card.component.html
+@@ -35,7 +35,7 @@
+         text-[#741C21] leading-none align-middle  truncate hover:underline "
+             (click)="cardDetailsClicked.emit(product.id)">
+             {{ product.title }}</h3>
+-        <div class="flex justify-between gap-[10px]">
++        <div class="flex  justify-between gap-[10px]">
+             <div class="flex flex-col gap-[10px]">
+                 <!-- stars -->
+                 <div class="card flex gap-[4px]">
+diff --git a/apps/roseApp/src/app/shared/components/product-card/product-card.component.ts b/apps/roseApp/src/app/shared/components/product-card/product-card.component.ts
+index 2a1455b..2f5a648 100644
+--- a/apps/roseApp/src/app/shared/components/product-card/product-card.component.ts
++++ b/apps/roseApp/src/app/shared/components/product-card/product-card.component.ts
+@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
+ import { FormsModule } from '@angular/forms';
+ import { Eye, Heart, LucideAngularModule, ShoppingCart } from 'lucide-angular';
+ import { RatingModule } from 'primeng/rating';
+-import { Product } from '../../../core/models/product.model';
++import { Product } from '../../models/product.model';
+ import { ButtonComponent } from '@org/ui';
+ import { ProductBadge } from '../../../core/types/product-padge.type';
+ import { BadgeComponent } from '../badge/badge.component';
+diff --git a/apps/shell/public/assets/i18n/ar.json b/apps/shell/public/assets/i18n/ar.json
+index 375bc68..ede4e62 100644
+--- a/apps/shell/public/assets/i18n/ar.json
++++ b/apps/shell/public/assets/i18n/ar.json
+@@ -238,16 +238,12 @@
+   },
+ 
+   "BEST_SELLING": {
+-    "BEST_SELLING": "الأكثر مبيعًا",
+-    "CHECK_OUT": "اكتشف",
+-    "WHAT": "",
+-    "EVERYONES": "ما يشتريه",
+-    "BUYING": "الجميع",
+-    "RIGHT_NOW": "الآن",
+-    "BEST_SELLING_DESCRIPTION": "لست متأكدًا ماذا تختار؟ ابدأ بمنتجاتنا الأكثر مبيعًا، فهي الهدايا التي يختارها عملاؤنا باستمرار. سواء كنت تحتفل بعيد ميلاد أو ذكرى سنوية أو حفل زفاف، فإن أفضل اختياراتنا ستترك انطباعًا يدوم.",
+-    "HOT": "الأكثر طلبًا",
+-    "NEW": "جديد",
+-    "OUT_OF_STOCK": "نفدت الكمية",
+-    "EXPLORE_GIFTS": "استكشف الهدايا"
+-  }
++  "BEST_SELLING": "الأكثر مبيعاً",
++  "CHECK_OUT": "اكتشف ما",
++  "WHAT": "يشتريه الجميع",
++  "BUYING": "الآن",
++  "RIGHT_NOW": "", 
++  "BEST_SELLING_DESCRIPTION": "محتار تختار إيه؟\n ابدأ بالمنتجات الأكثر مبيعاً لدينا، هذه هي الهدايا التي يعود عملائنا دائماً لأجلها. سواء كنت تحتفل بعيد ميلاد، ذكرى سنوية أو حفل زفاف، خياراتنا المميزة تضمن ترك انطباع يدوم طويلًا.",
++  "EXPLORE_GIFTS": "استكشف الهدايا"
++}
+ }
+\ No newline at end of file
+diff --git a/apps/shell/public/assets/i18n/en.json b/apps/shell/public/assets/i18n/en.json
+index 45933b1..4c311ae 100644
+--- a/apps/shell/public/assets/i18n/en.json
++++ b/apps/shell/public/assets/i18n/en.json
+@@ -239,14 +239,10 @@
+   "BEST_SELLING": {
+     "BEST_SELLING": "Best Selling",
+     "CHECK_OUT": "Check Out",
+-    "WHAT": "What",
+-    "EVERYONES": "Everyone's",
++    "WHAT": "What Everyone’s",
+     "BUYING": "Buying",
+     "RIGHT_NOW": "Right Now",
+-    "BEST_SELLING_DESCRIPTION": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+-    "HOT": "HOT",
+-    "NEW": "NEW",
+-    "OUT_OF_STOCK": "OUT OF STOCK",
++    "BEST_SELLING_DESCRIPTION": "Not sure what to choose?\n Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
+     "EXPLORE_GIFTS": "Explore Gifts"
+   }
+ }
+\ No newline at end of file
+diff --git a/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.spec.ts b/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.spec.ts
+deleted file mode 100644
+index 99089c7..0000000
+--- a/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.spec.ts
++++ /dev/null
+@@ -1,8 +0,0 @@
+-import { IntersectionObserverDirective } from './intersection-observer.directive';
+-
+-describe('IntersectionObserverDirective', () => {
+-  it('should create an instance', () => {
+-    const directive = new IntersectionObserverDirective();
+-    expect(directive).toBeTruthy();
+-  });
+-});
+diff --git a/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.ts b/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.ts
+deleted file mode 100644
+index 537e4d5..0000000
+--- a/libs/shared/util-directives/src/lib/directives/intersection-observer-directive/intersection-observer.directive.ts
++++ /dev/null
+@@ -1,6 +0,0 @@
+-import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+-
+-@Directive({
+-  selector: '[libIntersectionObserverDirective]',
+-  standalone: true
+-})
+\ No newline at end of file
