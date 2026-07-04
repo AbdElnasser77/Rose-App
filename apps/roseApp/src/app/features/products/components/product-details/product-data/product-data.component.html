@@ -2,7 +2,7 @@
     @if (productData(); as product) {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>
-          <div class="overflow-hidden rounded-2xl border border-gray-200">
+          <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-zinc-700">
             <img
               [src]="selectedImage()"
               [alt]="product.title"
@@ -17,6 +17,7 @@
                 class="overflow-hidden rounded-lg border-2 transition-all duration-200"
                 [class.border-red-500]="selectedImage() === image"
                 [class.border-gray-300]="selectedImage() !== image"
+                [class.dark:border-zinc-600]="selectedImage() !== image"
                 [attr.aria-label]="'PRODUCT.SELECT_IMAGE' | translate">
 
                 <img
@@ -30,21 +31,21 @@
         </div>
 
         <div class="flex flex-col">
-          <h1 class="text-4xl font-bold text-gray-900">
+          <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
             {{ product.title }}
           </h1>
           <div class="flex items-center gap-3 mt-4">
             @if (product.discountValue > 0) {
-              <span class="text-2xl text-gray-400 line-through">
+              <span class="text-2xl text-gray-400 line-through dark:text-zinc-500">
                 {{ product.price }}
               </span>
             }
-            <span class="text-4xl font-bold">
+            <span class="text-4xl font-bold text-gray-900 dark:text-white">
               {{ product.discountValue }} {{ 'COMMON.EGP' | translate }}
             </span>
             <div
-              class="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2 text-sm text-gray-700">
-              <i class="pi pi-box text-gray-500 text-sm"></i>
+              class="inline-flex items-center gap-2 rounded-full bg-gray-100 dark:bg-zinc-800 px-3 py-2 text-sm text-gray-700 dark:text-zinc-300">
+              <i class="pi pi-box text-gray-500 dark:text-zinc-400 text-sm"></i>
               <span>
                 {{ 'PRODUCT.LEFT_IN_STOCK' | translate:{ count: product.stock } }}
               </span>
@@ -56,15 +57,15 @@
           <div class="flex items-center gap-3">
             <p-rating
               [readonly]="true"
-              [ngModel]="product.rating"
-              [stars]="1">
+              [ngModel]="roundRating(product.rating)"
+              [stars]="5">
             </p-rating>
 
-            <span>
-              {{ product.rating }}/5
+            <span class="text-gray-900 dark:text-white">
+              {{ roundRating(product.rating) }}/5
             </span>
 
-            <span class="text-blue-600">
+            <span class="text-blue-600 dark:text-blue-400">
               {{
                 'PRODUCT.RATINGS'
                   | translate:{ count: product.ratings }
@@ -74,7 +75,7 @@
 
           <p-divider />
 
-          <p class="text-gray-600 leading-7">
+          <p class="text-gray-600 dark:text-zinc-300 leading-7">
             {{ product.description }}
           </p>
 
@@ -89,13 +90,12 @@
               [attr.aria-label]="'PRODUCT.ADD_TO_WISHLIST' | translate">
             </button>
 
-            <button
-              pButton
-              severity="danger"
-              icon="pi pi-shopping-cart"
-              [label]="'PRODUCT.ADD_TO_CART' | translate"
-              class="flex-1">
-            </button>
+            <lib-button
+            class="flex-1"
+              [attr.aria-label]="'PRODUCT.ADD_TO_CART' | translate">
+              <lucide-icon [img]="ShoppingCart" class="w-[24px] h-[24px]" leftIcon></lucide-icon>
+              {{ 'PRODUCT.ADD_TO_CART' | translate }}
+            </lib-button>
           </div>
         </div>
       </div>

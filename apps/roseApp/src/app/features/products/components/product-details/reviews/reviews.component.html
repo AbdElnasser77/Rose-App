@@ -1,17 +1,17 @@
 <div class="w-[90%] mx-auto py-10">
-    <h1 class="text-4xl font-bold text-[#7C2326] mb-8">
+    <h1 class="text-4xl font-bold text-[#7C2326] dark:text-soft-pink-200 mb-8">
         {{ 'REVIEWS.TITLE' | translate }}
     </h1>
     
-    <div class="mb-8 border-b border-gray-200 pb-4">
-        <p class="text-xl font-semibold">
+    <div class="mb-8 border-b border-gray-200 dark:border-zinc-700 pb-4">
+        <p class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ 'REVIEWS.GENERAL_RATING' | translate }}
         </p>
         <div class="flex items-center gap-2 mt-2">
-            <span class="text-4xl font-bold">
+            <span class="text-4xl font-bold text-gray-900 dark:text-white">
                 {{ averageRate() }}
             </span>
-            <span class="text-gray-500">
+            <span class="text-gray-500 dark:text-zinc-400">
                 {{ 'REVIEWS.RATINGS_COUNT' | translate: { count: reviewsData().length } }}
             </span>
         </div>
@@ -25,17 +25,17 @@
         <div class="lg:col-span-7">
             <div class="max-h-[450px] overflow-y-auto pr-4 custom-scrollbar">
                 @for(review of reviewsData(); track $index){
-                <div class="border-t border-gray-200 py-3 first:border-t-0">
+                <div class="border-t border-gray-200 dark:border-zinc-700 py-3 first:border-t-0">
                     <div class="flex gap-5">
                         <div class="w-12 h-12 rounded-full bg-[#A3262A] text-white flex justify-center items-center font-bold text-lg shrink-0">
                             {{review.user.username.charAt(0)}}
                         </div>
                         <div class="flex-1">
                             <div>
-                                <h3 class="font-semibold text-lg">
+                                <h3 class="font-semibold text-lg text-gray-900 dark:text-white">
                                     {{review.user.username}}
                                 </h3>
-                                <p class="text-gray-400 text-sm">
+                                <p class="text-gray-400 dark:text-zinc-400 text-sm">
                                     {{review.createdAt}}
                                 </p>
                             </div>
@@ -43,17 +43,18 @@
                             <div class="flex items-center gap-2 mt-2">
                                 <p-rating
                                     [ngModel]="review.rating"
-                                    [readonly]="true">
+                                    [readonly]="true"
+                                    [stars]="5">
                                 </p-rating>
-                                <span class="font-semibold">
+                                <span class="font-semibold text-gray-900 dark:text-white">
                                     ({{review.rating}})
                                 </span>
                             </div>
 
-                            <h4 class="font-bold text-lg mt-2">
+                            <h4 class="font-bold text-lg mt-2 text-gray-900 dark:text-white">
                                 {{review.headline}}
                             </h4>
-                            <p class="text-gray-600 leading-7">
+                            <p class="text-gray-600 dark:text-zinc-300 leading-7">
                                 {{review.content}}
                             </p>
                         </div>
@@ -63,10 +64,10 @@
             </div>
         </div>
 
-        <div class="lg:col-span-5 lg:border-s lg:border-gray-200 lg:ps-12">
+        <div class="lg:col-span-5 lg:border-s lg:border-gray-200 dark:lg:border-zinc-700 lg:ps-12">
             
             <div class="flex items-center gap-3 mb-8">
-                <span class="font-semibold">
+                <span class="font-semibold text-gray-900 dark:text-white">
                     {{ 'REVIEWS.YOUR_RATING' | translate }}
                 </span>
                 <p-rating
@@ -76,7 +77,7 @@
             </div>
 
             <div class="mb-5">
-                <h3 class="font-medium mb-2 block">
+                <h3 class="font-medium mb-2 block text-gray-900 dark:text-white">
                     {{ 'REVIEWS.FORM_TITLE' | translate }}
                 </h3>
                 <input
@@ -88,7 +89,7 @@
             </div>
 
             <div class="mb-6">
-                <h3 class="font-medium mb-2 block">
+                <h3 class="font-medium mb-2 block text-gray-900 dark:text-white">
                     {{ 'REVIEWS.FORM_REVIEW' | translate }}
                 </h3>
                 <textarea
@@ -101,12 +102,11 @@
                 </textarea>
             </div>
 
-            <button
-                pButton
-                [label]="'REVIEWS.BTN_ADD' | translate"
-                class="w-full review-btn"
-                (click)="addReview()">
-            </button>
+            <lib-button
+                size="full"
+                (clicked)="addReview()">
+                {{ 'REVIEWS.BTN_ADD' | translate }}
+            </lib-button>
 
         </div>
     </div>

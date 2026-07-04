@@ -8,9 +8,11 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ShoppingCart, LucideAngularModule } from 'lucide-angular';
 
 import { Product } from '../../../../products/models/product.model';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
+import { ButtonComponent } from '@org/ui';
 
 @Component({
   selector: 'app-product-data',
@@ -22,6 +24,8 @@ import { ProductDataService } from '../../../services/product-details/product-da
     TranslatePipe,
     CommonModule,
     ButtonModule,
+    ButtonComponent,
+    LucideAngularModule,
   ],
   templateUrl: './product-data.component.html',
   styleUrl: './product-data.component.scss',
@@ -30,12 +34,18 @@ export class ProductDataComponent implements OnInit {
   private readonly productDetailsService = inject(ProductDataService);
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  readonly ShoppingCart = ShoppingCart;
 
   productId = signal('');
   productData = signal<any>('');
   product!: Product;
   images: string[] = [];
   selectedImage = signal<any>('');
+
+  roundRating(value: number): number {
+    if (!value) return 0;
+    return Math.round(value * 2) / 2;
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

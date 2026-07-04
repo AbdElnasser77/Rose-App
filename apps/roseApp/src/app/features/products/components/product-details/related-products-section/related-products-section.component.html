@@ -9,11 +9,11 @@
     <div class="related-products-wrapper">
       <button
         type="button"
-        class="scroll-btn scroll-btn-left"
+        class="scroll-btn scroll-btn-left dark:bg-zinc-800 dark:border-zinc-700"
         aria-label="Scroll left"
         (click)="scrollProducts('left')"
       >
-        <span class="chevron chevron-left"></span>
+        <span class="chevron chevron-left dark:text-white"></span>
       </button>
 
       <div #productsSlider class="products-list">
@@ -32,11 +32,11 @@
 
       <button
         type="button"
-        class="scroll-btn scroll-btn-right"
+        class="scroll-btn scroll-btn-right right-0 dark:bg-zinc-800 dark:border-zinc-700"
         aria-label="Scroll right"
         (click)="scrollProducts('right')"
       >
-        <span class="chevron chevron-right"></span>
+        <span class="chevron chevron-right dark:text-white"></span>
       </button>
     </div>
   </section>
