@@ -9,7 +9,7 @@ import { Review } from '../../../../../core/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs';
 import { ReviewsService } from '../../../services/product-details/reviews-api.service';
 import { ButtonComponent } from '@org/ui';
 
@@ -46,17 +46,24 @@ export class ReviewersComponent implements OnInit {
   productId = signal('');
 
   ngOnInit(): void {
-    this.getReviews();
     this.route.paramMap
       .pipe(
         map((params) => params.get('id') || ''),
+        filter((id) => !!id),
+        tap((id) => this.productId.set(id)),
+        switchMap((id) => this.reviewsService.getReviews(id)),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((id) => this.productId.set(id));
+      .subscribe({
+        next: (res) => {
+          this.reviewsData.set(res.payload.data);
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   getReviews(): void {
-    this.reviewsService.getReviews().subscribe({
+    this.reviewsService.getReviews(this.productId()).subscribe({
       next: (res) => {
         this.reviewsData.set(res.payload.data);
         this.cdr.detectChanges();
@@ -79,11 +86,10 @@ export class ReviewersComponent implements OnInit {
     };
     this.reviewsService.postReviews(newReview).subscribe({
       next: () => {
-        console.log("done")
+        this.getReviews();
+        this.clearForm();
       },
     });
-    this.getReviews();
-    this.clearForm();
   }
 
   clearForm() {

@@ -11,9 +11,10 @@ export class ReviewsService {
   private readonly _baseUrlConfig =inject(BASE_URL_CONFIG);
 
 
-  getReviews(): Observable<any> {
+  getReviews(productId: string): Observable<any> {
     return this._httpClient.get<Review>(
-      `${this._baseUrlConfig.apiUrl}/reviews`
+      `${this._baseUrlConfig.apiUrl}/reviews`,
+      { params: { productId } }
     );
   }
 
