@@ -1,5 +1,5 @@
 @if (relatedProducts().length > 0) {
-  <section class="container mx-auto py-15">
+  <section class="container mx-auto px-4 py-15">
     <app-section-title
       [mainTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.MAIN_TITLE' | translate"
       [subTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.SUB_TITLE' | translate"
@@ -16,9 +16,10 @@
       [responsiveOptions]="responsiveOptions"
     >
       <ng-template #item let-product>
-        <div class="p-2">
+        <div class="p-2 flex justify-center">
           <app-product-card
             [product]="product"
+            [isWishlisted]="wishlistedIds().has(product.id)"
             (cardDetailsClicked)="onCardDetailsClicked(product)"
             (wishListClicked)="onWishListClicked(product)"
             (quickViewClicked)="onQuickViewClicked(product)"

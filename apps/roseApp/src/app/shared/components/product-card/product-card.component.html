@@ -18,7 +18,7 @@
             class="absolute inset-0 bg-[#E65073]/50 flex items-center justify-center gap-[10px] p-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[12px]">
             
             <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="wishListClicked.emit(product.id)">
-                <lucide-icon [img]="Heart" [class.fill-red-500]="isWishlisted" [class.stroke-red-500]="isWishlisted" class="w-[20px] h-[20px] stroke-[2px]"></lucide-icon>
+                <lucide-icon [img]="Heart" class="w-[20px] h-[20px] stroke-[2px]" [ngClass]="isWishlisted ? '[&_svg]:fill-red-500 [&_svg]:stroke-red-500' : ''"></lucide-icon>
             </lib-button>
 
             <lib-button size="icon-sm" variant="Outline" shape="circle" (clicked)="quickViewClicked.emit(product.id)">

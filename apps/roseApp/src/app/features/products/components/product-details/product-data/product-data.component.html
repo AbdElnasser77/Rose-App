@@ -83,11 +83,13 @@
           <div class="flex-1"></div>
 
           <div class="flex items-center gap-4 mt-10">
-            <lib-button 
+            <lib-button
              [variant]="'Ghost'"
+             (clicked)="onWishlistClicked()"
              class="border border-zinc-200 rounded-xl group"
+             [ngClass]="isWishlisted() ? 'bg-zinc-800 border-zinc-800 dark:bg-zinc-700 dark:border-zinc-700' : ''"
               [attr.aria-label]="'PRODUCT.ADD_TO_WISHLIST' | translate">
-              <lucide-icon [img]="HeartPlus" [strokeWidth]="1" class="w-[24px] dark:text-zinc-50 dark:group-hover:text-zinc-800 h-[24px]"></lucide-icon>
+              <lucide-icon [img]="isWishlisted() ? HeartMinus : HeartPlus" [strokeWidth]="1" class="w-[24px] h-[24px]" [ngClass]="isWishlisted() ? 'text-zinc-50 group-hover:text-zinc-800 dark:text-soft-pink-300' : 'dark:text-zinc-50 dark:group-hover:text-zinc-800'"></lucide-icon>
             </lib-button>
 
             <lib-button
