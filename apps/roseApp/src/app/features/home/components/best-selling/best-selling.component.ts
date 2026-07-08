@@ -40,7 +40,7 @@ export class BestSellingComponent implements OnInit {
 
   responsiveOptions: any[] = [
   {
-    breakpoint: '1400px',
+    breakpoint: '1280px',
     numVisible: 3,
     numScroll: 1
   },
@@ -50,7 +50,7 @@ export class BestSellingComponent implements OnInit {
     numScroll: 1
   },
   {
-    breakpoint: '768px',
+    breakpoint: '680px',
     numVisible: 1,
     numScroll: 1
   }
@@ -68,7 +68,7 @@ export class BestSellingComponent implements OnInit {
   }
 
   handleCardClicked(productId: string){
-    this._router.navigate(['/product-details', productId]);
+    this._router.navigate(['/products', productId]);
 
   }
 

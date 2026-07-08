@@ -1,4 +1,28 @@
 
+:host ::ng-deep .custom-carousel .p-carousel-viewport{
+   position: relative  !important;
+   width: 100% !important;
+   padding: 0 !important;
+   margin: 0 !important;
+
+   
+}
+:host ::ng-deep .custom-carousel .p-carousel-content{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+:host ::ng-deep .custom-carousel .p-carousel-items-container{
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+:host ::ng-deep .custom-carousel .p-carousel-item {
+ 
+   box-sizing: border-box !important;
+    
+  }
+
 :host ::ng-deep .custom-carousel .p-carousel-prev-button,
 :host ::ng-deep .custom-carousel .p-carousel-next-button {
   width: 38px !important;
@@ -11,6 +35,10 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
 :host ::ng-deep .custom-carousel .p-carousel-prev-button:hover,
@@ -22,4 +50,11 @@
 :host ::ng-deep .dark .custom-carousel .p-carousel-prev-button,
 :host ::ng-deep .dark .custom-carousel .p-carousel-next-button {
   background-color: #A62125 !important; 
+}
+:host ::ng-deep .custom-carousel .p-carousel-prev-button{
+  left: -20px;
+}
+
+:host ::ng-deep .custom-carousel .p-carousel-next-button {
+  right: -20px;
 }
