@@ -1,9 +1,11 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   DestroyRef,
   ElementRef,
   OnInit,
   ViewChild,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -11,8 +13,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, filter, map, of, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
-
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import {  ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
 import { ProductCardComponent } from '../../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../../shared/components/section-title/section-title.component';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
@@ -20,10 +22,10 @@ import {
   RelatedProductsApiService,
   RelatedProductsParams,
 } from '../../../services/product-details/related-products-api.service';
-import { Carousel } from "primeng/carousel";
 import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
-
+import { SwiperDirective } from '@org/util-directives';
+import { SwiperOptions } from 'swiper/types';
 @Component({
   selector: 'app-related-products-section',
   imports: [
@@ -31,8 +33,10 @@ import { LoaderService } from '@org/shared-util-loader';
     TranslatePipe,
     ProductCardComponent,
     SectionTitleComponent,
-    Carousel
+    SwiperDirective,
+    LucideAngularModule
 ],
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './related-products-section.component.html',
   styleUrl: './related-products-section.component.scss',
 })
@@ -44,27 +48,15 @@ export class RelatedProductsSectionComponent implements OnInit {
   private readonly relatedProductsApiService = inject(RelatedProductsApiService);
   private readonly toastService = inject(ToastService);
   private readonly loader = inject(LoaderService);
-
+  public translateService = inject(TranslateService);
+  
+ readonly ChevronLeft = ChevronLeft;
+  readonly ChevronRight = ChevronRight;
   relatedProducts = signal<any[]>([]);
   wishlistedIds = signal<Set<string>>(new Set());
+  isRtl = computed(() => (this.translateService.currentLang()) === 'ar');
+  
 
-  responsiveOptions = [
-    {
-      breakpoint: '1400px',
-      numVisible: 3,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '1024px',
-      numVisible: 2,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
 
   ngOnInit(): void {
     this.loadRelatedProducts();
@@ -154,5 +146,36 @@ export class RelatedProductsSectionComponent implements OnInit {
 
   onAddToCartClicked(product:any) {
     console.log('onAddToCart')
+  }
+
+   get swiperConfig(): SwiperOptions {
+    const rtl=this.isRtl();
+    return{
+      spaceBetween: 16,
+    watchSlidesProgress: true,
+    navigation: {
+      nextEl: rtl ? '.swiper-button-prev-custom' : '.swiper-button-next-custom',
+      prevEl: rtl ? '.swiper-button-next-custom' : '.swiper-button-prev-custom',
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1, 
+      } ,
+      640: {
+      slidesPerView: 2,
+      spaceBetween: 16,
+      },
+      1024: {
+        slidesPerView: 3, 
+        spaceBetween: 16,     
+      },
+       1280: {
+        slidesPerView: 4, 
+        spaceBetween: 16,     
+      },
+    },
+
+    }
+    
   }
 }
