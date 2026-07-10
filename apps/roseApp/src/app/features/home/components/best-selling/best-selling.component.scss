@@ -1,25 +1,10 @@
 
-:host ::ng-deep .custom-carousel .p-carousel-prev-button,
-:host ::ng-deep .custom-carousel .p-carousel-next-button {
-  width: 38px !important;
-  height: 38px !important;
-  min-width: 38px !important;
-  border-radius: 9999px !important;
-  background-color: #A6252A !important;
-  color: #ffffff !important;
-  border: none !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+.my-product-swiper {
+  width: 100%;
+  display: block;
+}
+.my-product-swiper swiper-slide {
+  display: flex;
+  justify-content: center;
 }
 
-:host ::ng-deep .custom-carousel .p-carousel-prev-button:hover,
-:host ::ng-deep .custom-carousel .p-carousel-next-button:hover{
-  background-color: #821d21 !important; 
-  color: #ffffff !important;            
-  cursor: pointer !important;           
-}
-:host ::ng-deep .dark .custom-carousel .p-carousel-prev-button,
-:host ::ng-deep .dark .custom-carousel .p-carousel-next-button {
-  background-color: #A62125 !important; 
-}
