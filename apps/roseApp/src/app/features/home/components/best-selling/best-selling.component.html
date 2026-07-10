@@ -50,7 +50,13 @@
              class="my-product-swiper w-full h-full">
                 @for (product of products; track product.id) {
                 <swiper-slide>
-                    <app-product-card [product]="product"></app-product-card>
+                    <app-product-card 
+                    [product]="product"
+                     [isWishlisted]="wishlistedIds().has(product.id)"
+                     (cardDetailsClicked)="handleCardClicked($event)"
+                     (quickViewClicked)="handleCardClicked($event)"
+                     (wishListClicked)="onWishlist($event)"
+                    ></app-product-card>
                 </swiper-slide>
                 }
             </swiper-container>

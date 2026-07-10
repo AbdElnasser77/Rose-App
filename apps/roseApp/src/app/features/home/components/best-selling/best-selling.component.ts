@@ -14,6 +14,7 @@ import { ProductDataService } from '../../../products/services/product-details/p
 import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
 
+import { ToastService } from '@org/shared-util-notification';
 
 @Component({
   selector: 'app-best-selling',
@@ -34,6 +35,7 @@ export class BestSellingComponent implements OnInit {
   public _translateService = inject(TranslateService);
   private productService = inject(ProductDataService);
   private _router = inject(Router);
+  private toastService = inject(ToastService);
 
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
@@ -46,6 +48,9 @@ export class BestSellingComponent implements OnInit {
   isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
 
 
+  wishlistedIds = signal<Set<string>>(new Set());
+
+ 
   ngOnInit(): void {
     this.getProducts();
   }
@@ -92,6 +97,19 @@ export class BestSellingComponent implements OnInit {
   handleCardClicked(productId: string){
     this._router.navigate(['/products', productId]);
 
+  }
+
+
+  onWishlist(id: string): void {
+    const current = new Set(this.wishlistedIds());
+    if (current.has(id)) {
+      current.delete(id);
+      this.toastService.show('Product removed from wishlist', 'default');
+    } else {
+      current.add(id);
+      this.toastService.show('Product added to wishlist', 'success');
+    }
+    this.wishlistedIds.set(current);
   }
 
 

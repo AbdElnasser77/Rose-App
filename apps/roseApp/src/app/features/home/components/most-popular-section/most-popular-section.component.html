@@ -1,4 +1,4 @@
-<section class="most-popular-section">
+<section class="most-popular-section mt-[138px]">
   <div class="most-popular-container">
     <div class="most-popular-header">
       <app-section-title
@@ -31,6 +31,7 @@
         @for (product of displayedProducts(); track product.id) {
           <app-product-card
             [product]="product"
+            [isWishlisted]="wishlistedIds().has(product.id)"
             (cardDetailsClicked)="goToProductDetails($event)"
             (quickViewClicked)="goToProductDetails($event)"
             (wishListClicked)="onWishlistClick($event)"
