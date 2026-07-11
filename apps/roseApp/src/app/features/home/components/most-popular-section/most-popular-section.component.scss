@@ -1,59 +1,25 @@
-.most-popular-section {
-  width: 100%;
-  padding: 42px 0 56px;
-  overflow: hidden;
-}
-
-.most-popular-container {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.most-popular-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-.tabs {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding-top: 6px;
-  color: #111827;
-}
 
 .tab-btn {
   border: 0;
   background: transparent;
   color: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1;
+  font-family: 'Sarabun';
+  font-size: 16px;
+  font-weight: 500; 
+  line-height: 100%; 
+  letter-spacing: 0%;
+  vertical-align: middle;
   cursor: pointer;
   transition: color 0.2s ease;
 }
+.tab-btn:hover {
+  color: #18181B;
+}
 
-.tab-btn:hover,
 .tab-btn.active {
-  color: #e65073;
+  color: #A6252A;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 302px);
-  justify-content: space-between;
-  column-gap: 24px;
-  row-gap: 34px;
-  width: 100%;
-}
-
-.products-grid app-product-card {
-  display: block;
-  width: 302px;
-}
 
 .skeleton-card {
   width: 302px;
@@ -100,12 +66,14 @@
 
 :host-context(.dark) .tabs,
 :host-context(.dark) .tab-btn {
-  color: #d1d5db;
+  color: #A1A1AA;
 }
 
-:host-context(.dark) .tab-btn:hover,
+:host-context(.dark) .tab-btn:hover{
+  color: #F4F4F5;
+}
 :host-context(.dark) .tab-btn.active {
-  color: #f9a8d4;
+  color: #FFC2D0;
 }
 
 :host-context(.dark) .skeleton-card {
@@ -121,31 +89,10 @@
   color: #fbcfe8;
 }
 
-@media (max-width: 1279px) {
-  .products-grid {
-    grid-template-columns: repeat(3, 302px);
-    justify-content: center;
-  }
-}
 
-@media (max-width: 991px) {
-  .most-popular-header {
-    flex-direction: column;
-  }
 
-  .tabs {
-    flex-wrap: wrap;
-  }
 
-  .products-grid {
-    grid-template-columns: repeat(2, 302px);
-    justify-content: center;
-  }
-}
 
-@media (max-width: 675px) {
-  .products-grid {
-    grid-template-columns: 302px;
-    justify-content: center;
-  }
-}
+  
+
+

@@ -72,8 +72,8 @@ export class BestSellingComponent implements OnInit {
       spaceBetween: 24,
     watchSlidesProgress: true,
     navigation: {
-      nextEl: rtl ? '.swiper-button-prev-custom' : '.swiper-button-next-custom',
-      prevEl: rtl ? '.swiper-button-next-custom' : '.swiper-button-prev-custom',
+      nextEl: rtl ? '.best-selling-prev' : '.best-selling-next',
+      prevEl: rtl ? '.best-selling-next' : '.best-selling-prev',
     },
     breakpoints: {
       0: {

@@ -26,7 +26,14 @@
                     customClass="text-maroon-700  w-[129px]  px-4 py-[10px] gap-[10px] mt-[30px] rtl:flex-row-reverse"
                     variant="Secondary">
                     {{ 'HERO.SIDE_BANNER.BUTTON' | translate }}
-                    <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
+                     @if (isRtl()) {
+                <lucide-icon leftIcon [img]="ArrowLeft"></lucide-icon>
+                }
+
+
+                @if (!isRtl()) {
+                <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
+                }
 
                 </lib-button>
 
@@ -35,21 +42,19 @@
 
         <!-- Right Carousel -->
         <div class="relative w-full overflow-hidden lg:col-span-3 h-[440px] rounded-[16px]
-        transition-all duration-700 ease-out delay-200"
-         [ngClass]="{
+        transition-all duration-700 ease-out delay-200" [ngClass]="{
             'opacity-100 translate-x-0': isBannerVisible(),
             'opacity-0 translate-x-8': !isBannerVisible()
-        }"
-        
-        >
-            @if (renderCarousel()) {
-
-            <p-carousel #carousel [value]="slides()" [numVisible]="1" [numScroll]="1" [circular]="false"
-                [showNavigators]="false" [showIndicators]="false" (onPage)="currentPage.set($event.page ?? 0)"
-                styleClass="h-full w-full">
+        }">
 
 
-                <ng-template let-slide pTemplate="item">
+            <swiper-container #bannerSwiper libSwiperDirective [config]="swiperConfig" init="false" class="h-full w-full"
+               >
+
+
+                @for (slide of slides; track $index) {
+
+                <swiper-slide>
                     <div class="relative w-full h-[440px] p-[24px] flex flex-col justify-end">
                         <img [src]="slide.image | assetUrl" [alt]="slide.title"
                             class="absolute inset-0 w-full h-full object-cover" />
@@ -70,40 +75,32 @@
 
                         </div>
                     </div>
-                </ng-template>
+                </swiper-slide>
 
-
-
-            </p-carousel>
-
-            <div class="absolute top-[24px] right-[24px] rtl:right-auto rtl:left-[24px] z-30 flex gap-[8px]">
-                @for (slide of slides(); track $index) {
-                <button (click)="carousel.page = $index; currentPage.set($index)" [class]="currentPage() === $index 
-                ? 'w-[36px] h-[10px] rounded-full bg-[#A6252A] transition-all duration-300' 
-                : 'w-[8px] h-[8px] rounded-full bg-maroon-50 hover:bg-maroon-70 transition-all duration-300'">
-                </button>
                 }
-            </div>
 
 
 
-            <div
-                class="absolute bottom-[31px] end-[32px] z-20 flex justify-between bg-[#FBEAEA] backdrop-blur-sm rounded-full shadow-md p-[2px]">
+            </swiper-container>
 
+            <div  
+                class="absolute w-[74px] h-[35px] bottom-[31px] end-[32px] z-20  bg-[#FBEAEA] backdrop-blur-sm rounded-full shadow-md p-[2px]">
 
-                <button (click)="carousel.navBackward($event)" [disabled]="currentPage() === 0"
-                    class="w-[30px] h-[30px] rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white text-maroon-700 disabled:text-zinc-300 disabled:bg-transparent disabled:cursor-not-allowed">
-                    <lucide-icon [img]="ChevronLeft" [class.rotate-180]="isRtl()"></lucide-icon>
-                </button>
+            <button
+                class="hero-swiper-prev absolute left-0 top-0 w-[37px] h-full rounded-full flex items-center justify-center  transition-colors duration-200 hover:bg-white text-maroon-700 disabled:text-zinc-300 disabled:bg-transparent 
+                cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed ">
+                <lucide-icon [img]=" ChevronLeft" 
+                    class="w-[30px] h-[30px] "></lucide-icon>
+            </button>
 
+            <button
+                class="hero-swiper-next absolute right-0 top-0 w-[37px] h-full rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white text-maroon-700 disabled:text-zinc-300 disabled:bg-transparent 
+                cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed  ">
+                <lucide-icon [img]=" ChevronRight" 
+                    class="w-[30px] h-[30px] "></lucide-icon>
+            </button>
 
-                <button (click)="carousel.navForward($event)" [disabled]="currentPage() === slides().length - 1"
-                    class="w-[30px] h-[30px] rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white text-maroon-700 disabled:text-zinc-300 disabled:bg-transparent disabled:cursor-not-allowed">
-                    <lucide-icon [img]="ChevronRight" [class.rotate-180]="isRtl()"></lucide-icon>
-                </button>
-            </div>
-
-            }
+           </div>
         </div>
     </div>
 </section>
