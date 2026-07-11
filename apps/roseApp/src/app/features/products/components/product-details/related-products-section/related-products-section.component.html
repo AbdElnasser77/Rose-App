@@ -1,22 +1,16 @@
 @if (relatedProducts().length > 0) {
-  <section class="container mx-auto px-4 py-15">
+  <section class="container mx-auto  mb-16 lg:mb-24 xl:mb-[433px] ">
     <app-section-title
       [mainTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.MAIN_TITLE' | translate"
       [subTitle]="'PRODUCT_DETAILS.RELATED_PRODUCTS.SUB_TITLE' | translate"
       alignment="left"
     >
     </app-section-title>
-
-    <p-carousel
-      [value]="relatedProducts()"
-      [numVisible]="4"
-      [numScroll]="1"
-      [circular]="true"
-      [showIndicators]="false"
-      [responsiveOptions]="responsiveOptions"
-    >
-      <ng-template #item let-product>
-        <div class="p-2 flex justify-center">
+  <div class="w-full overflow-hidden relative">
+  <swiper-container libSwiperDirective [config]="swiperConfig" init="false" 
+  class="related-products-swiper w-full h-full">
+      @for (product of relatedProducts(); track product.id) {
+        <swiper-slide class="py-2">
           <app-product-card
             [product]="product"
             [isWishlisted]="wishlistedIds().has(product.id)"
@@ -24,10 +18,25 @@
             (wishListClicked)="onWishListClicked(product)"
             (quickViewClicked)="onQuickViewClicked(product)"
             (addToCartClicked)="onAddToCartClicked(product)"
+            class="w-full max-w-[302px]"
           >
           </app-product-card>
-        </div>
-      </ng-template>
-    </p-carousel>
+        </swiper-slide>
+      }
+    </swiper-container>
+    <button
+                class="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 
+                cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50">
+                <lucide-icon [img]=" ChevronLeft"
+                    class="w-[23px] h-[23px] text-[#FDF2F2]"></lucide-icon>
+            </button>
+
+            <button
+                class="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 
+                cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ">
+                <lucide-icon [img]=" ChevronRight"
+                    class="w-[23px] h-[23px] text-[#FDF2F2]"></lucide-icon>
+            </button>
+    </div>
   </section>
 }

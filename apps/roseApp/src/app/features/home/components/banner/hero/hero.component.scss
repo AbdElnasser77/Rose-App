@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+swiper-container::part(pagination){
+  position: absolute !important;
+  top: 24px !important;
+  right: 24px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto !important;
+}
+
+:host-context([dir="rtl"]) swiper-container::part(pagination) {
+  right: auto !important;
+  left: 24px !important;
+}
+
+swiper-container::part(bullet) {
+  width: 10px;
+  height: 10px;
+  background-color: #FBEAEA !important; 
+  opacity: 1 !important; 
+  margin: 0 !important; 
+  border-radius: 46.6px;
+  transition: all 0.3s ease;
+}
+swiper-container::part(bullet):hover {
+  background-color: #e5b3b5 !important; 
+}
+
+swiper-container::part(bullet-active) {
+  width: 36px !important;
+  height: 10px !important;
+   border-radius: 46.6px;
+  background-color: #A6252A !important; 
+}

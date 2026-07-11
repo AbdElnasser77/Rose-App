@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { TrustBadgesComponent } from '../../components/trust-badges/trust-badges.component';
 import { FeaturesBarComponent } from '../../components/features-bar/features-bar.component';
 import { MostPopularSectionComponent } from '../../components/most-popular-section/most-popular-section.component';
-import { AboutUsComponent } from '../../../components/about-us/about-us.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import { TestimonialSectionComponent } from '../../components/Testimonial/testimonial-section/testimonial-section.component';
 import { OccasionsComponent } from '../../components/banner/occasions/occasions.component';
 import { HeroComponent } from '../../components/banner/hero/hero.component';

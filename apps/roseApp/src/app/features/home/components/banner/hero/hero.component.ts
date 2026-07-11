@@ -1,32 +1,41 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '@org/ui';
 import { AssetUrlPipe } from '../../../../../core/pipes/asset-url.pipe';
 import { BadgeComponent } from '../../../../../shared/components/badge/badge.component';
-import { LucideAngularModule, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-angular';
-import { Carousel, CarouselModule } from 'primeng/carousel';
+import { LucideAngularModule, ArrowRight,ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-angular';
 import {IntersectionObserverDirective } from '@org/util-directives';
 import { CommonModule } from '@angular/common';
+import { SwiperDirective } from '@org/util-directives';
+import { SwiperOptions } from 'swiper/types';
 
 
 @Component({
   selector: 'app-hero',
-  imports: [AssetUrlPipe, BadgeComponent,ButtonComponent,CommonModule,IntersectionObserverDirective,
-    LucideAngularModule,CarouselModule,
-    TranslatePipe],
+  imports: [AssetUrlPipe, BadgeComponent,ButtonComponent,CommonModule,
+    IntersectionObserverDirective,LucideAngularModule,
+    TranslatePipe,SwiperDirective],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
 export class HeroComponent {
   public _translateService = inject(TranslateService);
-
+  @ViewChild('bannerSwiper')
+  bannerSwiper!: ElementRef;
+  
   readonly  ArrowRight= ArrowRight;
+  readonly  ArrowLeft= ArrowLeft;
    readonly ChevronLeft = ChevronLeft;
    readonly ChevronRight = ChevronRight; 
   
+
+  isBannerVisible = signal<boolean>(false);
+  isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
+  currentPage = signal(0);
+
   // Intersection observer
 
-   isBannerVisible = signal<boolean>(false);
   onBannerVisible(event: any) {
     const isIntersecting = typeof event === 'boolean' ? event : event.isIntersecting;
     
@@ -34,11 +43,26 @@ export class HeroComponent {
       this.isBannerVisible.set(true);
     }
   }
+   get swiperConfig():SwiperOptions{
+    const rtl=this.isRtl();
+    
+    return{
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: false,
+      watchSlidesProgress: true,
+      pagination: {
+      clickable: true,
+     },
+      navigation: {
+        nextEl: rtl ? '.hero-swiper-prev' : '.hero-swiper-next',
+        prevEl: rtl ? '.hero-swiper-next' : '.hero-swiper-prev',
+      }
+    };
+   }
+  
 
-  isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
-  renderCarousel = signal(true);
-  currentPage = signal(0);
-  slides = signal([
+  slides = [
     {
       image: 'assets/images/banner/slide_1_.webp',
       title: 'HERO.SLIDES.FIRST.TITLE',
@@ -59,19 +83,9 @@ export class HeroComponent {
       title: 'HERO.SLIDES.SECOND.TITLE',
       subTitle: 'HERO.SLIDES.SECOND.SUBTITLE'
     }
-  ]);
+  ];
+  
   
  
- constructor() {
-    effect(() => {
-      this._translateService.currentLang(); 
-      
-      this.renderCarousel.set(false);
-      this.currentPage.set(0);
 
-      setTimeout(() => {
-        this.renderCarousel.set(true);
-      }, 0);
-    });
-  }
 }
