@@ -1,191 +1,107 @@
 <div class="flex flex-col gap-8">
-  <!-- Category -->
-  <section class="flex flex-col gap-3">
-    <div class="flex items-center justify-between">
-      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
-        {{ 'FILTER.CATEGORY' | translate }}
-      </h3>
-      @if (selectedCategoryId()) {
-        <button
-          type="button"
-          class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
-          (click)="resetCategory()"
-        >
-          <lucide-icon [img]="X" class="w-4 h-4" />
-          {{ 'FILTER.RESET' | translate }}
-        </button>
-      }
-    </div>
+  <app-category-filter /> 
+  <app-occasion-filter />
+  <app-rating-filter />
+  <app-price-filter />
 
-    @if (categoriesLoading()) {
-      <div class="flex flex-col gap-1">
-        @for (s of skeletons; track $index) {
-          <p-skeleton height="3rem" styleClass="rounded-[10px]" />
-        }
-      </div>
-    } @else {
-      <ul class="flex flex-col gap-1 max-h-[240px] overflow-y-auto pr-1">
-        @for (category of sortedCategories(); track category.id) {
-          <li>
-            <button
-              type="button"
-              class="w-full flex items-center gap-3 px-3 py-2 rounded-[10px] text-left font-sarabun text-[15px] transition-colors"
-              [class]="
-                category.id === selectedCategoryId()
-                  ? 'bg-[#FFF1F5] text-[#A6252A]'
-                  : 'text-[#3F3F46] dark:text-zinc-50 hover:bg-[#F4F4F5] dark:hover:bg-zinc-800'
-              "
-              (click)="selectCategory(category.id)"
-            >
-              <img
-                [src]="category.image"
-                [alt]="category.title"
-                class="w-8 h-8 rounded-md object-cover shrink-0"
-              />
-              <span class="truncate">{{ category.title }}</span>
-            </button>
-          </li>
-        }
-      </ul>
-    }
-  </section>
-
-  <!-- Occasion -->
-  <section class="flex flex-col gap-3">
-    <div class="flex items-center justify-between">
-      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
-        {{ 'FILTER.OCCASION' | translate }}
-      </h3>
-      @if (selectedOccasionId()) {
-        <button
-          type="button"
-          class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
-          (click)="resetOccasion()"
-        >
-          <lucide-icon [img]="X" class="w-4 h-4" />
-          {{ 'FILTER.RESET' | translate }}
-        </button>
-      }
-    </div>
-
-    @if (occasionsLoading()) {
-      <div class="grid grid-cols-2 gap-3">
-        @for (s of skeletons; track $index) {
-          <p-skeleton height="84px" styleClass="rounded-[12px]" />
-        }
-      </div>
-    } @else {
-      <div class="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1">
-        @for (occasion of sortedOccasions(); track occasion.id) {
-          <button
-            type="button"
-            class="group relative h-[84px] rounded-[12px] overflow-hidden"
-            (click)="selectOccasion(occasion.id)"
-          >
-            <img
-              [src]="occasion.image"
-              [alt]="occasion.title"
-              class="absolute inset-0 w-full h-full object-cover"
-            />
-            @if (occasion.id === selectedOccasionId()) {
-              <div
-                class="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-[#A6252A]/70 to-transparent dark:from-[#FFA3B9]/70"
-              ></div>
-            } @else {
-              <div
-                class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300"
-              ></div>
-            }
-            <span
-              class="absolute inset-0 z-10 flex items-center justify-center px-2 text-center font-sarabun font-semibold text-[14px] text-white"
-            >
-              {{ occasion.title }}
-            </span>
-          </button>
-        }
-      </div>
-    }
-  </section>
-
-  <!-- Rating -->
-  <section class="flex flex-col gap-3">
-    <div class="flex items-center justify-between">
-      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
-        {{ 'FILTER.RATING' | translate }}
-      </h3>
-      @if (rating() > 0) {
-        <button
-          type="button"
-          class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
-          (click)="resetRating()"
-        >
-          <lucide-icon [img]="X" class="w-4 h-4" />
-          {{ 'FILTER.RESET' | translate }}
-        </button>
-      }
-    </div>
-
-    <p-rating
-      [ngModel]="rating()"
-      (ngModelChange)="rating.set($event)"
-      [stars]="5"
-      iconOnClass="pi pi-star-fill text-[#FBA707] text-[22px] inline-block cursor-pointer transition-transform duration-150 hover:scale-125"
-      iconOffClass="pi pi-star text-[#FBA707] text-[22px] inline-block cursor-pointer transition-transform duration-150 hover:scale-125"
-    />
-  </section>
-
-  <!-- Price -->
-  <section class="flex flex-col gap-3">
-    <div class="flex items-center justify-between">
-      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
-        {{ 'FILTER.PRICE' | translate }}
-      </h3>
-      @if (priceFrom() !== null || priceTo() !== null) {
-        <button
-          type="button"
-          class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
-          (click)="resetPrice()"
-        >
-          <lucide-icon [img]="X" class="w-4 h-4" />
-          {{ 'FILTER.RESET' | translate }}
-        </button>
-      }
-    </div>
-
-    <div class="flex items-end gap-3">
-      <label class="flex-1 flex flex-col gap-1">
-        <span class="text-[#71717A] text-sm font-sarabun">{{ 'FILTER.FROM' | translate }}</span>
-        <input
-          type="number"
-          min="0"
-          placeholder="0"
-          [ngModel]="priceFrom()"
-          (ngModelChange)="priceFrom.set($event)"
-          class="w-full border border-[#D4D4D8] dark:border-zinc-700 dark:bg-zinc-800 rounded-[10px] px-3 py-2 text-[#741C21] dark:text-zinc-50 font-sarabun focus:border-[#A6252A] focus:outline-none"
-        />
-      </label>
-      <label class="flex-1 flex flex-col gap-1">
-        <span class="text-[#71717A] text-sm font-sarabun">{{ 'FILTER.TO' | translate }}</span>
-        <input
-          type="number"
-          min="0"
-          placeholder="1000000"
-          [ngModel]="priceTo()"
-          (ngModelChange)="priceTo.set($event)"
-          class="w-full border border-[#D4D4D8] dark:border-zinc-700 dark:bg-zinc-800 rounded-[10px] px-3 py-2 text-[#741C21] dark:text-zinc-50 font-sarabun focus:border-[#A6252A] focus:outline-none"
-        />
-      </label>
-    </div>
-  </section>
-
-  <!-- Reset All -->
-  <lib-button
-    variant="Secondary"
-    size="full"
-    [disabled]="!hasActiveFilters()"
-    (clicked)="resetAll()"
-  >
+    <!-- Reset All -->
+  <lib-button variant="Secondary" size="full" [disabled]="!_productFilterService.hasActiveFilters()"
+    (clicked)="_productFilterService.resetAll()">
     <lucide-icon leftIcon [img]="RotateCcw" class="w-5 h-5" />
     {{ 'FILTER.RESET_ALL' | translate }}
   </lib-button>
+  </div>
+
+  @if (isDrawer()) {
+  <div class="fixed inset-0 z-50 flex flex-col bg-white dark:bg-zinc-950 lg:hidden">
+    
+    <div class="px-6 py-5 flex justify-between items-center border-b border-zinc-100 dark:border-zinc-900 shrink-0">
+      <span class="text-[18px] font-sarabun font-bold text-[#741C21] dark:text-[#FFA3B9]">
+        {{  'Filters' }}
+      </span>
+      <button 
+        type="button"
+        (click)="close.emit()" 
+        class="text-zinc-550 dark:text-zinc-400 p-1 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
+      >
+        <lucide-icon [img]="X" class="w-6 h-6" />
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-6 py-6 hide-scrollbar">
+
+  <p-accordion [multiple]="true">
+
+    <p-accordion-panel value="category">
+      <p-accordion-header>
+        {{ 'FILTER.CATEGORY' | translate }}
+      </p-accordion-header>
+
+      <p-accordion-content>
+        <app-category-filter />
+      </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="occasion">
+      <p-accordion-header>
+        {{ 'FILTER.OCCASION' | translate }}
+      </p-accordion-header>
+
+      <p-accordion-content>
+        <app-occasion-filter />
+      </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="rating">
+      <p-accordion-header>
+        {{ 'FILTER.RATING' | translate }}
+      </p-accordion-header>
+
+      <p-accordion-content>
+        <app-rating-filter />
+      </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="price">
+      <p-accordion-header>
+        {{ 'FILTER.PRICE' | translate }}
+      </p-accordion-header>
+
+      <p-accordion-content>
+        <app-price-filter />
+      </p-accordion-content>
+    </p-accordion-panel>
+
+  </p-accordion>
+
 </div>
+
+    <div class="p-6 bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900 flex gap-4 shrink-0">
+      <button 
+        type="button"
+        [disabled]="!_productFilterService.hasActiveFilters()"
+        (click)="_productFilterService.resetAll()"
+        class="flex-1 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-sarabun font-medium text-sm rounded-[10px] transition-colors disabled:opacity-50"
+      >
+        {{ 'FILTER.RESET_ALL' | translate }}
+      </button>
+      
+      <button 
+        type="button"
+        (click)="close.emit()"
+        class="flex-1 py-3 bg-[#741C21] hover:bg-[#5a1519] text-white font-sarabun font-semibold text-sm rounded-[10px] transition-colors"
+      >
+        Apply Filters
+      </button>
+    </div>
+
+  </div>
+}
+
+  
+  
+   
+
+ 
+
+  

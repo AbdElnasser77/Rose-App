@@ -1,0 +1,21 @@
+
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
+        {{ 'FILTER.RATING' | translate }}
+      </h3>
+      @if (_productFilterService.rating() > 0) {
+      <button type="button" class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
+        (click)="_productFilterService.resetRating()">
+        <lucide-icon [img]="X" class="w-4 h-4" />
+        {{ 'FILTER.RESET' | translate }}
+      </button>
+      }
+    </div>
+    <div class=" flex gap-[8px]">
+      <p-rating [ngModel]="_productFilterService.rating()" (ngModelChange)="_productFilterService.setRating($event)"
+        [stars]="5" iconOnClass="pi pi-star-fill text-[#FBA707] text-[25px]"
+        iconOffClass="pi pi-star text-[#FBA707] text-[25px] " />
+    </div>
+
+  </section>
