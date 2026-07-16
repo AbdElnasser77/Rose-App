@@ -10,7 +10,7 @@
     }
   </div>
 } @else if (products().length) {
-  <div class="grid grid-cols-[repeat(auto-fit,302px)] justify-center gap-6">
+  <div class="grid grid-cols-[repeat(auto-fit,302px)] justify-center gap-6 mb-[171px]">
     @for (product of products(); track product.id) {
       <app-product-card
         [product]="product"

@@ -197,7 +197,8 @@
     "RESET": "Reset",
     "RESET_ALL": "Reset All",
     "FROM": "from",
-    "TO": "to"
+    "TO": "to",
+    "FILTERS": "Filter"
   },
 
   "HERO": {

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ToastService } from '@org/shared-util-notification';
 import { ProductFilterService } from '../../services/product-list/product-filter.service';
 import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
   imports: [
     ProductsGridComponent,
     ProductsPaginationComponent,
-    ProductsFilterComponent,LucideAngularModule
+    ProductsFilterComponent,LucideAngularModule,TranslatePipe
   ],
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',

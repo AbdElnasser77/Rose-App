@@ -1,14 +1,13 @@
 <div  class="w-full px-4 sm:px-6 lg:px-[81px] " >
   
   <div class="lg:hidden w-full py-4 flex justify-between items-center border-b border-zinc-100 dark:border-zinc-800">
-    <span class="text-sm font-medium text-zinc-500">Products</span>
     <button 
       type="button" 
       (click)="isMobileFilterOpen.set(true)"
       class="flex items-center gap-2 px-4 py-2 bg-[#FDF2F4] text-[#741C21] rounded-[10px] text-sm font-semibold hover:bg-[#FBEAEA] transition-all"
     >
       <lucide-icon [img]="SlidersHorizontal" class="w-4 h-4"></lucide-icon>
-      Filters
+      {{'FILTER.FILTERS' |  translate }}
     </button>
   </div>
 
@@ -26,8 +25,8 @@
       <app-products-filter  />
     </aside>
 
-    <section class="flex-1 mt-[68px] mb-[171]">
-      <app-products-grid
+    <section class="flex-1 mt-[68px] ">
+      <app-products-grid 
         [products]="_productFilterService.filteredProducts()"
         [loading]="loading()"
         [wishlistedIds]="wishlistedIds()"
