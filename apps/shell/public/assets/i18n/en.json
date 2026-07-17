@@ -200,7 +200,8 @@
     "TO": "to",
     "FILTERS": "Filter",
     "PRICE_NEGATIVE": "Price cannot be negative.",
-    "PRICE_RANGE_INVALID": "From price cannot be greater than To price."
+    "PRICE_RANGE_INVALID": "From price cannot be greater than To price.",
+    "APPLY": "Apply"
   },
 
   "HERO": {

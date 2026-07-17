@@ -17,7 +17,7 @@
     
     <div class="px-6 py-5 flex justify-between items-center border-b border-zinc-100 dark:border-zinc-900 shrink-0">
       <span class="text-[18px] font-sarabun font-bold text-[#741C21] dark:text-[#FFA3B9]">
-        {{  'Filters' }}
+        {{ 'FILTER.FILTERS' | translate }}
       </span>
       <button 
         type="button"
@@ -77,22 +77,24 @@
 </div>
 
     <div class="p-6 bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900 flex gap-4 shrink-0">
-      <button 
-        type="button"
-        [disabled]="!_productFilterService.hasActiveFilters()"
-        (click)="_productFilterService.resetAll()"
-        class="flex-1 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-sarabun font-medium text-sm rounded-[10px] transition-colors disabled:opacity-50"
-      >
+       <div class="w-full flex gap-4">
+
+        <div class="flex-1">
+        <lib-button variant="Secondary" size="full" [disabled]="!_productFilterService.hasActiveFilters()"
+        (clicked)="_productFilterService.resetAll()">
+        <lucide-icon leftIcon [img]="RotateCcw" class="w-5 h-5" />
         {{ 'FILTER.RESET_ALL' | translate }}
-      </button>
-      
-      <button 
-        type="button"
+        </lib-button>
+       </div>
+
+      <div class="flex-1">
+      <lib-button  size="full" class="text-white"
         (click)="close.emit()"
-        class="flex-1 py-3 bg-[#741C21] hover:bg-[#5a1519] text-white font-sarabun font-semibold text-sm rounded-[10px] transition-colors"
       >
-        Apply Filters
-      </button>
+       {{ 'FILTER.APPLY' | translate }}
+      </lib-button>
+      </div>
+      </div>
     </div>
 
   </div>
