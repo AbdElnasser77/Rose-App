@@ -25,11 +25,17 @@ export class OccasionFilterComponent {
     // Placeholder cells while the lists load.
   readonly skeletons = Array.from({ length: 6 });
 
-    readonly sortedOccasions = computed(() =>
-    [...this.occasions()].sort((a, b) => a.title.localeCompare(b.title)),
-  );
+  
+
+  // Show only occasions that are used by the currently loaded products.
+  readonly visibleOccasions = computed (() => {
+    const ids = new Set( this._productFilterService.allProducts().flatMap(product => product.occasions));
+
+    return this.occasions().filter( occasion => ids.has(occasion.id))
+    .sort((a,b) => a.title.localeCompare(b.title));
+  })
     
-      ngOnInit(): void {
+   ngOnInit(): void {
         this.subs.add(
       this.occasionsService.getOccasions().subscribe({
         next: (data) => {

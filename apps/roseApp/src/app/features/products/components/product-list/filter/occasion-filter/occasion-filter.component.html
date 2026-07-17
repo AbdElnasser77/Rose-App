@@ -1,3 +1,4 @@
+  @if (visibleOccasions().length > 0) {
   <section class="flex flex-col gap-3">
     <div class="flex items-center justify-between">
       <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
@@ -20,7 +21,7 @@
     </div>
     } @else {
     <div class="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1 hide-scrollbar">
-      @for (occasion of sortedOccasions(); track occasion.id) {
+      @for (occasion of visibleOccasions(); track occasion.id) {
       <button type="button" class="group relative h-[74px] rounded-[8px] overflow-hidden"
         (click)="_productFilterService.toggleOccasion(occasion.id)">
         <img [src]="occasion.image" [alt]="occasion.title" class="absolute inset-0 w-full h-full object-cover" />
@@ -40,3 +41,4 @@
     </div>
     }
   </section>
+  }

@@ -1,5 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
+import {getCurrentPrice } from '../../../../shared/utils/product-price';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,8 @@ export class ProductFilterService {
   readonly rating = signal<number>(0);
   readonly priceFrom = signal<number | null>(null);
   readonly priceTo = signal<number | null>(null);
+  readonly priceFromError = signal<string | null>(null);
+  readonly priceToError = signal<string | null>(null);
 
 
  
@@ -21,42 +24,50 @@ export class ProductFilterService {
  readonly filteredProducts = computed(()=>{
   let products=this.allProducts();
 
-  
-  if(this.selectedCategoryIds().length > 0){ 
+  const selectedCategories = this.selectedCategoryIds();
+  const selectedOccasions = this.selectedOccasionIds();
+  const rating = this.rating();
+  const from = this.priceFrom();
+  const to = this.priceTo();
+
+  if(selectedCategories.length > 0){ 
     products = products.filter(product =>
-      this.selectedCategoryIds().includes(product.categoryId)
+      selectedCategories.includes(product.categoryId)
     );
   }
    
-  if(this.selectedOccasionIds().length >0){  
+  if(selectedOccasions.length >0){  
     products = products.filter(product=>
       product.occasions.some(occasion=>
-        this.selectedOccasionIds().includes(occasion.id)
+        selectedOccasions.includes(occasion.id)
       )
     );
   }
 
   
-  if(this.rating()>0){   
+  if( rating>0){   
     products = products.filter(product =>
-      product.rating >=this.rating()
+      product.rating >= rating
     );
   }
-
-  
- if(this.priceFrom() !== null){  
-  products = products.filter(product =>
-    Number(product.price) >=this.priceFrom()!
-  );
-
- }
-
  
-if (this.priceTo() !== null) {  
-  products = products.filter(product =>
-    Number(product.price) <= this.priceTo()!
-  );
-}
+  
+
+   if (from !== null || to !== null) {
+  products = products.filter(product => {
+    const price = getCurrentPrice(product);
+
+    if (from !== null && price < from) {
+      return false;
+    }
+
+    if (to !== null && price > to) {
+      return false;
+    }
+
+    return true;
+  });
+  }
 
 
   return products;
@@ -79,8 +90,7 @@ if (this.priceTo() !== null) {
     return from === null || to === null || from <= to ;
 
   });
-
-
+ 
 
  // Update methods.
 
@@ -95,18 +105,30 @@ setRating(rating: number): void {
 setPriceFrom(price:number | null):void{
   if(price === null){
     this.priceFrom.set(null);
+    this.priceFromError.set(null);
     return;
   }
-  this.priceFrom.set(Math.max(0,price));
+  if (price < 0) {
+    this.priceFromError.set('Price cannot be negative.');
+    return;
+  }
+  this.priceFromError.set(null);
+  this.priceFrom.set(price);
  }
 
   setPriceTo(price: number | null): void {
   if (price === null) {
     this.priceTo.set(null);
+    this.priceToError.set(null);
+    return;
+  }
+  if (price < 0) {
+    this.priceToError.set('Price cannot be negative.');
     return;
   }
 
-  this.priceTo.set(Math.max(0, price));
+  this.priceToError.set(null);
+  this.priceTo.set(price);
   }
   // Selection methods.
 

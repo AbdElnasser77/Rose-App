@@ -24,13 +24,21 @@ export class CategoryFilterComponent {
     categoriesLoading = signal<boolean>(true);
 
     // Placeholder cells while the lists load.
-  readonly skeletons = Array.from({ length: 6 });
+    readonly skeletons = Array.from({ length: 6 });
 
-    readonly sortedCategories = computed(() =>
-      [...this.categories()].sort((a, b) => a.title.localeCompare(b.title)),
-    );
+   
+
+    readonly visibleCategories = computed (() =>{
+      const ids = new Set(
+        this._productFilterService.allProducts().map(product => product.categoryId)
+      );
+
+      return this.categories().filter(category => ids.has(category.id))
+      .sort((a,b) => a.title.localeCompare(b.title))
+
+    });
     
-      ngOnInit(): void {
+  ngOnInit(): void {
     this.subs.add(
       this.categoriesService.getCategories().subscribe({
         next: (data) => {
