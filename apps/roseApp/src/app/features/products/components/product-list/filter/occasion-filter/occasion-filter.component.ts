@@ -1,11 +1,11 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { Subscription } from 'rxjs';
 import { Occasion } from '../../../../models/occasion.model';
 import { OccasionsService } from '../../../../services/product-list/occasions.service';
 import { ProductFilterService } from '../../../../services/product-list/product-filter.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-occasion-filter',
@@ -16,8 +16,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class OccasionFilterComponent {
     private occasionsService = inject(OccasionsService);
     protected readonly _productFilterService = inject(ProductFilterService);
-    private subs = new Subscription();
-    
+    private readonly destroyRef = inject(DestroyRef);
+
     readonly X = X;
     occasions = signal<Occasion[]>([]);
     occasionsLoading = signal<boolean>(true);
@@ -36,8 +36,8 @@ export class OccasionFilterComponent {
   })
     
    ngOnInit(): void {
-        this.subs.add(
-      this.occasionsService.getOccasions().subscribe({
+      
+      this.occasionsService.getOccasions().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (data) => {
           this.occasions.set(data);
           this.occasionsLoading.set(false);
@@ -45,13 +45,11 @@ export class OccasionFilterComponent {
         error: () => {
           this.occasionsLoading.set(false);
         },
-      }),
-    );
+      });
+    
    }
 
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
+  
   
 }

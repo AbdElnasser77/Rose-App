@@ -1,11 +1,11 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { CategoriesService } from '../../../../services/product-list/categories.service';
 import { Category } from '../../../../models/category.model';
 import { ProductFilterService } from '../../../../services/product-list/product-filter.service';
 import {  LucideAngularModule, X } from 'lucide-angular';
-import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonModule } from 'primeng/skeleton';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class CategoryFilterComponent {
   private categoriesService = inject(CategoriesService);
     protected readonly _productFilterService = inject(ProductFilterService);
-    private subs = new Subscription();
+    private readonly destroyRef = inject(DestroyRef);
     
     readonly X = X;
     categories = signal<Category[]>([]);
@@ -39,8 +39,8 @@ export class CategoryFilterComponent {
     });
     
   ngOnInit(): void {
-    this.subs.add(
-      this.categoriesService.getCategories().subscribe({
+    
+      this.categoriesService.getCategories().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (data) => {
           this.categories.set(data);
           this.categoriesLoading.set(false);
@@ -48,13 +48,11 @@ export class CategoryFilterComponent {
         error: () => {
           this.categoriesLoading.set(false);
         },
-      }),
-    );
+      });
+    
   }
 
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
+ 
   
 }
