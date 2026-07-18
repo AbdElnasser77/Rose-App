@@ -1,0 +1,173 @@
+<div class="container mx-auto p-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-4xl font-bold"> Cart </h1>
+
+          <p class="text-gray-500 mt-1">
+            {{ cartItems().length }} products
+          </p>
+        </div>
+
+        <button
+          pButton
+          severity="danger"
+          class="bg-[#FBEAEA] text-[#A6252A] !border-0"
+          icon="pi pi-trash"
+          label="Clear Cart"
+          (click)="clearCart()">
+        </button>
+      </div>
+
+      <div class="border border-gray-300 rounded-xl overflow-hidden bg-white">
+        @for(item of cartItems(); track item.id){
+        <div
+          class="flex flex-col md:flex-row gap-4 p-5 border-b last:border-b-0 border-gray-300 ">
+          <img
+            [src]="item.product.cover"
+            [alt]="item.product.title"
+            class="w-28 h-28 rounded-lg object-cover border" />
+          <div class="flex-1">
+            <h3
+              class="font-semibold text-[#A6252A]">
+              {{item.product.title}}
+            </h3>
+            <div
+              class="flex items-center gap-2 text-sm mt-1">
+              <p-rating
+                [readonly]="true"
+                [stars]="5"
+                [ngModel]="item.product.rating">
+              </p-rating>
+              <span>
+                Rating:
+                {{item.product.rating}}/5
+              </span>
+              <span
+                class="text-blue-600">
+                ({{item.product.ratings}} ratings)
+              </span>
+            </div>
+
+            <div class="mt-5">
+              <span
+                class="text-[#A6252A] font-semibold">
+                (x{{item.quantity}})
+              </span>
+              <span
+                class="text-2xl font-bold ml-2">
+                {{ item.product.price }}
+              </span>
+              <span class="text-gray-500 ml-1">
+                EGP
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col justify-between items-end">
+            <button
+              pButton
+              class="bg-[#DC2626]"
+              severity="danger"
+              size="small"
+              icon="pi pi-trash"
+              label="Remove"
+              (click)="remove(item.id)">
+            </button>
+
+            <div
+              class="flex items-center gap-2 mt-5">
+              <button
+                class="bg-[#FBEAEA] text-[#A6252A] !border-0"
+                pButton
+                severity="danger"
+                outlined
+                icon="pi pi-minus"
+                (click)="decrease(item)">
+              </button>
+
+              <input
+                pInputText
+                readonly
+                [value]="item.quantity"
+                class="w-16 text-center" />
+              <button
+                class="bg-[#FBEAEA] text-[#A6252A] !border-0"
+                pButton
+                severity="danger"
+                outlined
+                icon="pi pi-plus"
+                (click)="increase(item)">
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+
+        @empty {
+        <div class="text-center py-20">
+          <i
+            class="pi pi-shopping-cart text-6xl text-gray-300">
+          </i>
+          <p class="mt-5 text-xl text-gray-500">
+            Your cart is empty
+          </p>
+        </div>
+        }
+      </div>
+
+      <button
+        pButton
+        severity="danger"
+        class="bg-[#A6252A] mt-6"
+        icon="pi pi-arrow-left"
+        label="Continue Shopping">
+      </button>
+    </div>
+
+    <div class="lg:col-span-4">
+      <div class="p-5 sticky top-5">
+        <h2 class="text-2xl font-semibold mb-5"> Summary </h2>
+
+        <div class="bg-[#FAFAFA] p-5 rounded-xl">
+            <div class="flex gap-2">
+            <input
+                pInputText
+                placeholder="Coupon Code"
+                class="flex-1"
+                [(ngModel)]="coupon" />
+            <button
+                pButton
+                class="bg-[#A6252A]"
+                severity="danger"
+                label="Apply Coupon">
+            </button>
+            </div>
+
+            <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5"> No coupons applied </div>
+
+            <div
+            class="flex justify-between mt-6 text-lg">
+            <span> Subtotal </span>
+            <span> {{subtotal() | number:'1.2-2'}} EGP </span>
+            </div>
+
+            <div class="flex justify-between mt-4 text-2xl font-bold text-[#A6252A] border-t border-gray-200">
+                <span> Total </span>
+                <span> {{total() | number:'1.2-2'}} EGP </span>
+            </div>
+        </div>
+        <button
+          pButton
+          severity="danger"
+          class="w-full mt-6 bg-[#A6252A]"
+          label="Checkout"
+          icon="pi pi-arrow-right"
+          iconPos="right">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
