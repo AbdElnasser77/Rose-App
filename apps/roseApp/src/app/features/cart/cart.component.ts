@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  DestroyRef,
   inject,
   OnInit,
   signal
@@ -13,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
+import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +23,8 @@ import { RatingModule } from 'primeng/rating';
   FormsModule,
   ButtonModule,
   InputTextModule,
-  RatingModule],
+  RatingModule,
+  TranslatePipe],
   templateUrl: './cart.component.html'
 })
 export class CartComponent implements OnInit {
@@ -28,13 +32,18 @@ export class CartComponent implements OnInit {
   private cartService = inject(CartService);
   cartItems = signal<CartItem[]>([]);
   coupon = signal('');
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.loadCart();
   }
 
   loadCart() {
-    this.cartService.getCart().subscribe({
+    this.cartService.getCart()
+    .pipe(
+      takeUntilDestroyed(this.destroyRef)
+    )
+    .subscribe({
       next: (res) => {
         this.cartItems.set(res);
       }
