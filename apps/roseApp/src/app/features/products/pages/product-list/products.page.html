@@ -1,12 +1,33 @@
-<div class="container mx-auto px-4 py-8">
+<div  class="w-full px-4 sm:px-6 lg:px-[81px] " >
+  
+  <div class="lg:hidden w-full py-4 flex justify-between items-center border-b border-zinc-100 dark:border-zinc-800">
+    <button 
+      type="button" 
+      (click)="isMobileFilterOpen.set(true)"
+      class="flex items-center gap-2 px-4 py-2 bg-[#FBEAEA] dark:bg-[#FFA3B9] text-[#741C21] dark:text-[#27272A] rounded-[10px] text-sm font-semibold hover:bg-[#F6D9DF] dark:hover:bg-[#FF8EAC] transition-all cursor-pointer"
+    >
+      <lucide-icon [img]="SlidersHorizontal" class="w-4 h-4"></lucide-icon>
+      {{'FILTER.FILTERS' |  translate }}
+    </button>
+  </div>
+
+  @if (isMobileFilterOpen()) {
+  <div class="fixed inset-0 z-50 lg:hidden">
+    <app-products-filter
+      [isDrawer]="true"
+      (close)="isMobileFilterOpen.set(false)">
+    </app-products-filter>
+  </div>
+}
+
   <div class="flex flex-col lg:flex-row gap-8">
-    <aside class="w-full lg:w-72 shrink-0">
-      <app-products-filter />
+    <aside class="hidden lg:block  w-full lg:w-72 shrink-0 mt-[68px] mb-[171px]">
+      <app-products-filter  />
     </aside>
 
-    <section class="flex-1">
-      <app-products-grid
-        [products]="products()"
+    <section class="flex-1 mt-[68px] ">
+      <app-products-grid 
+        [products]="_productFilterService.filteredProducts()"
         [loading]="loading()"
         [wishlistedIds]="wishlistedIds()"
         (cardDetails)="onDetails($event)"

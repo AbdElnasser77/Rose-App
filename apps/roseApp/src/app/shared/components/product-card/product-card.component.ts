@@ -8,6 +8,7 @@ import { ButtonComponent } from '@org/ui';
 import { ProductBadge } from '../../../core/types/product-padge.type';
 import { BadgeComponent } from '../badge/badge.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { getCurrentPrice, hasDiscount } from '../../utils/product-price';
 @Component({
   selector: 'app-product-card',
   imports: [RatingModule, FormsModule,LucideAngularModule,CommonModule,ButtonComponent,BadgeComponent,TranslatePipe
@@ -22,20 +23,15 @@ export class ProductCardComponent {
    readonly  Heart= Heart;
    readonly Eye=Eye;
 
+   readonly getCurrentPrice = getCurrentPrice;
+   readonly hasDiscount = hasDiscount;
+
   @Output() cardDetailsClicked = new EventEmitter<string>();
   @Output() wishListClicked = new EventEmitter<string>();
   @Output() quickViewClicked = new EventEmitter<string>();
   @Output()  addToCartClicked= new EventEmitter<string>();
   
-  get currentPrice(): number {
-  const price = Number(this.product.price);
-
-  if (this.product.discountType !== 'PERCENT') {
-    return price;
-  }
-
-  return price - (price * Number(this.product.discountValue)) / 100;
-}
+  
 
   get oldPrice():number{
     return Number(this.product.price);
@@ -63,9 +59,7 @@ export class ProductCardComponent {
     return badges;
   }
 
-  get hasDiscount(): boolean {
-  return Number(this.product.discountValue) > 0;
-}
+  
 
 getBadgeTranslationKey(badge: ProductBadge): string {
   return `PRODUCT_CARD.BADGES.${badge.replace(/\s+/g, '_')}`;

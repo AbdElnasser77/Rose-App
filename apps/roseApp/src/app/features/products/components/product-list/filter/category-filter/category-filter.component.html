@@ -1,0 +1,52 @@
+@if ( visibleCategories().length > 0) {
+    <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
+        {{ 'FILTER.CATEGORY' | translate }}
+      </h3>
+      @if (_productFilterService.selectedCategoryIds().length > 0) {
+      <button type="button" class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
+        (click)="_productFilterService.resetCategory()">
+        <lucide-icon [img]="X" class="w-4 h-4" />
+        {{ 'FILTER.RESET' | translate }}
+      </button>
+      }
+    </div>
+
+    @if (categoriesLoading()) {
+    <div class="flex flex-col gap-1">
+      @for (s of skeletons; track $index) {
+      <p-skeleton height="3rem" styleClass="rounded-[10px]" />
+      }
+    </div>
+    } @else {
+    <ul class="flex flex-col gap-[10px] max-h-[240px] overflow-y-auto pr-1 hide-scrollbar ">
+      @for (category of visibleCategories() ; track category.id) {
+      <li>
+        <button type="button"
+          class="w-full min-h-[28px] flex items-center  gap-[10px] pe-[10px]  rounded-r-[4px] text-left font-sarabun text-[15px] transition-colors"
+          [class]="
+                _productFilterService.selectedCategoryIds().includes(category.id)
+                  ? 'bg-[#FBEAEA] text-[#27272A] dark:bg-[#FFE0E7] '
+                  : 'text-[#3F3F46] bg-[#E4E4E7] dark:text-zinc-50 dark:bg-[#52525B] hover:bg-[#DADAE0] dark:hover:bg-zinc-800'
+              " (click)="_productFilterService.toggleCategory(category.id)">
+          <div
+            class="w-[36px] h-[36px] p-[10px] gap-[10px] rounded-l-[4px]  flex items-center justify-center shrink-0 overflow-hidden"
+            [class]="
+                _productFilterService.selectedCategoryIds().includes(category.id)
+              ? 'bg-[#A6252A]'
+              : 'bg-[#71717A]'
+           ">
+            <img [src]="category.image" [alt]="category.title"
+              class="w-[21px] h-[20px]  object-cover shrink-0 " />
+          </div>
+
+          <span class="font-sarabun font-medium text-[14px] leading-[100%] tracking-normal align-middle truncate">{{
+            category.title }}</span>
+        </button>
+      </li>
+      }
+    </ul>
+    }
+  </section>
+}

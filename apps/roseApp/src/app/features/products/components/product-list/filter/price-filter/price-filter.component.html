@@ -1,0 +1,50 @@
+
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
+        {{ 'FILTER.PRICE' | translate }}
+      </h3>
+      @if ( _productFilterService.priceFrom() !== null || _productFilterService.priceTo() !== null) {
+      <button type="button" class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
+        (click)="_productFilterService.resetPrice()">
+        <lucide-icon [img]="X" class="w-4 h-4" />
+        {{ 'FILTER.RESET' | translate }}
+      </button>
+      }
+    </div>
+
+    <div class="flex items-end gap-3">
+      <label class="relative flex-1 flex flex-col gap-1">
+        <span class="text-[#71717A] text-sm font-sarabun">{{ 'FILTER.FROM' | translate }}</span>
+        <input type="number" min="0" placeholder="0" [ngModel]="_productFilterService.priceFrom()"
+          (ngModelChange)="_productFilterService.setPriceFrom($event)"
+          class="w-full border border-[#D4D4D8] dark:border-zinc-700 dark:bg-zinc-800 rounded-[10px] px-3 py-2 text-[#741C21] dark:text-zinc-50 font-sarabun focus:border-[#A6252A] focus:outline-none" />
+        @if (_productFilterService.priceFromError()) {
+      <small class="absolute left-0 -bottom-9 text-red-600 text-xs">
+        {{ 'FILTER.PRICE_NEGATIVE' | translate }}
+      </small>
+    }
+    
+    </label>
+      <label class="relative flex-1 flex flex-col gap-1">
+        <span class="text-[#71717A] text-sm font-sarabun">{{ 'FILTER.TO' | translate }}</span>
+        <input type="number" min="0" placeholder="1000000" [ngModel]="_productFilterService.priceTo()"
+          (ngModelChange)="_productFilterService.setPriceTo($event)"
+          class="w-full border border-[#D4D4D8] dark:border-zinc-700 dark:bg-zinc-800 rounded-[10px] px-3 py-2 text-[#741C21] dark:text-zinc-50 font-sarabun focus:border-[#A6252A] focus:outline-none" />
+      
+      @if (_productFilterService.priceToError()) {
+      <small class="absolute left-0 -bottom-9 text-red-600 text-xs">
+        {{ 'FILTER.PRICE_NEGATIVE' | translate }} 
+      </small>
+    }
+    
+    </label>
+    </div>
+    @if (!_productFilterService.isPriceRangeValid()) {
+  <small class="text-red-600 text-xs">
+    {{ 'FILTER.PRICE_RANGE_INVALID' | translate }}
+  </small>
+  }
+  </section>
+
+
