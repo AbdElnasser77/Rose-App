@@ -35,8 +35,8 @@
             [isWishlisted]="wishlistedIds().has(product.id)"
             (cardDetailsClicked)="goToProductDetails($event)"
             (quickViewClicked)="goToProductDetails($event)"
-            (wishListClicked)="onWishlistClick($event)"
-            (addToCartClicked)="onCartClick($event)"
+            (wishListClicked)="onWishlistClick($event)"            
+            (addToCartClicked)="addToCartClicked($event)"
           ></app-product-card>
         }
       </div>

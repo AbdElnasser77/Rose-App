@@ -28,6 +28,13 @@ export const remoteRoutes: Route[] = [
             (m) => m.ProductsRoutes,
           ),
       },
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('../features/cart/cart.routes').then(
+            (m) => m.CartRoutes,
+          ),
+      },
       // add products,cart,checkout all here.
     ],
   },

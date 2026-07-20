@@ -17,6 +17,15 @@ export class CartService {
     .pipe(map((res) => res.payload.cartItems));
   }
 
+  addToCart(data: {}): Observable<any> {
+    return this.http.post<CartResponse>(`${this.baseUrlConfig.apiUrl}/cart`, data);
+  }
+
+  getCoupons(couponsId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrlConfig.apiUrl}/coupons/${couponsId}`)
+    .pipe(map((res) => res.payload.coupon));
+  }
+
   updateCartQuantity(cartItemId: string, quantity: {}): Observable<CartItem[]> {
     return this.http.patch<CartResponse>(`${this.baseUrlConfig.apiUrl}/cart/${cartItemId}`, quantity)
     .pipe(map((res) => res.payload.cartItems));

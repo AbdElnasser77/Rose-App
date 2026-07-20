@@ -284,6 +284,7 @@
     "COUPON_CODE": "Coupon Code",
     "APPLY_COUPON": "Apply Coupon",
     "NO_COUPONS": "No coupons applied",
+    "HAVE_COUPON": "coupon applied: ",
     "SUBTOTAL": "Subtotal",
     "TOTAL": "Total",
     "CHECKOUT": "Checkout",

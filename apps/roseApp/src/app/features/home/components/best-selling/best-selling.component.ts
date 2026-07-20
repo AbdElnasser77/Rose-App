@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal,CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef, effect } from '@angular/core';
+import { Component, computed, inject, OnInit, signal,CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef, effect, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
@@ -15,6 +15,8 @@ import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
 
 import { ToastService } from '@org/shared-util-notification';
+import { CartService } from '../../../cart/services/cart.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-best-selling',
@@ -36,6 +38,8 @@ export class BestSellingComponent implements OnInit {
   private productService = inject(ProductDataService);
   private _router = inject(Router);
   private toastService = inject(ToastService);
+  private cartService = inject(CartService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
@@ -118,4 +122,19 @@ onBestSellingVisible(entry: IntersectionObserverEntry) {
     this.isBestSellingVisible.set(true);
   }
 }
+
+  onAddToCartClicked(id:any) {
+    this.cartService.addToCart({ productId: id, quantity: 1 }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.message == "Insufficient stock.") {
+            this.toastService.show('out of the stock', 'success');
+          } else {
+            this.toastService.show('product added to cart', 'success');
+          }
+        },
+      });
+  }
 }

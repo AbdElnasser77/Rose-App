@@ -8,14 +8,15 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { CartService } from './services/cart.service';
-import { CartItem } from './models/cart.model';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../models/cart.model';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -24,7 +25,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ButtonModule,
   InputTextModule,
   RatingModule,
-  TranslatePipe],
+  TranslatePipe,
+  RouterLink],
   templateUrl: './cart.component.html'
 })
 export class CartComponent implements OnInit {
@@ -32,7 +34,9 @@ export class CartComponent implements OnInit {
   private cartService = inject(CartService);
   cartItems = signal<CartItem[]>([]);
   coupon = signal('');
+  couponData = signal<any>('');
   private destroyRef = inject(DestroyRef);
+  discount = 0;
 
   ngOnInit(): void {
     this.loadCart();
@@ -49,11 +53,27 @@ export class CartComponent implements OnInit {
       }
     });
   }
+  
+  getCoupon() {
+    const couponCode = this.coupon().trim();
+    if (!couponCode) return;
+
+    this.cartService.getCoupons(couponCode)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.couponData.set(res);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+  }
 
   increase(item: CartItem) {
     if(item.product.stock > item.quantity) {
       const quantity = ++item.quantity;
-      this.cartService.updateCartQuantity(item.id, { quantity: quantity }).subscribe({
+      this.cartService.updateCartQuantity(item.id, { quantity: quantity }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: _ => {
           this.loadCart();
         }
@@ -64,7 +84,7 @@ export class CartComponent implements OnInit {
   decrease(item: CartItem) {
     if (item.quantity > 1) {
     const quantity = --item.quantity;
-      this.cartService.updateCartQuantity(item.id, { quantity: quantity }).subscribe({
+      this.cartService.updateCartQuantity(item.id, { quantity: quantity }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: _ => {
           this.loadCart();
         }
@@ -73,7 +93,7 @@ export class CartComponent implements OnInit {
   }
 
   remove(id: string) {
-    this.cartService.deleteCartItem(id).subscribe({
+    this.cartService.deleteCartItem(id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: _ => {
         this.loadCart();
       }
@@ -81,7 +101,7 @@ export class CartComponent implements OnInit {
   }
 
   clearCart() {
-    this.cartService.clearCartItems().subscribe({
+    this.cartService.clearCartItems().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: _ => {
         this.loadCart();
       }
@@ -102,14 +122,34 @@ export class CartComponent implements OnInit {
 
   subtotal = computed(() =>
     this.cartItems().reduce((sum, item) =>
-      sum + Number(item.product.price) * item.quantity
+    sum + Number(item.product.price) * item.quantity
     , 0)
   );
 
-  total = computed(() =>
-    this.cartItems().reduce((sum, item) =>
-      sum + this.itemTotal(item)
-    , 0)
-  );
+  total = computed(() => {
+    const itemsTotal = this.cartItems().reduce(
+      (sum, item) => sum + this.itemTotal(item),
+      0
+    );
 
+    const coupon = this.couponData();
+
+    if (!coupon) {
+      return itemsTotal;
+    }
+
+    this.discount = 0;
+
+    if (coupon.type === 'PERCENT') {
+      this.discount = itemsTotal * (Number(coupon.value) / 100);
+
+      if (coupon.maxDiscount) {
+        this.discount = Math.min(this.discount, Number(coupon.maxDiscount));
+      }
+    } else if (coupon.type === 'FIXED') {
+      this.discount = Number(coupon.value);
+    }
+
+    return Math.max(0, itemsTotal - this.discount);
+  });
 }
