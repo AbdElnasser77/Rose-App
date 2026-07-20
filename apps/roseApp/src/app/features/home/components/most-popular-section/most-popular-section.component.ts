@@ -16,6 +16,7 @@ import type { Product } from '../../../../shared/models/product.model';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 import { ToastService } from '@org/shared-util-notification';
+import { CartService } from '../../../cart/services/cart.service';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -38,6 +39,7 @@ export class MostPopularSectionComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly toastService = inject(ToastService);
+    private cartService = inject(CartService);
 
   readonly tabs = TABS;
   readonly activeTab = signal<Tab>('Anniversary');
@@ -98,8 +100,19 @@ export class MostPopularSectionComponent implements OnInit {
     this.router.navigate(['/products', productId]);
   }
 
-  onCartClick(productId: string): void {
-    void productId;
+  addToCartClicked(productId: string): void {
+     this.cartService.addToCart({ productId: productId, quantity: 1 }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.message == "Insufficient stock.") {
+            this.toastService.show('out of the stock', 'success');
+          } else {
+            this.toastService.show('product added to cart', 'success');
+          }
+        },
+      });
   }
 
   onWishlistClick(productId: string): void {

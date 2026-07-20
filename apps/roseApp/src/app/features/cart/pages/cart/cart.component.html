@@ -127,6 +127,7 @@
         severity="danger"
         class="bg-[#A6252A] mt-6"
         icon="pi pi-arrow-left"
+        routerLink="/home"
         [label]="'CART.CONTINUE_SHOPPING' | translate">
       </button>
     </div>
@@ -143,19 +144,27 @@
               pInputText
               [placeholder]="'CART.COUPON_CODE' | translate"
               class="flex-1"
-              [(ngModel)]="coupon" />
+              [ngModel]="coupon()"
+              (ngModelChange)="coupon.set($event)" />
 
             <button
               pButton
               class="bg-[#A6252A]"
               severity="danger"
-              [label]="'CART.APPLY_COUPON' | translate">
+              [label]="'CART.APPLY_COUPON' | translate"
+              (click)="getCoupon()">
             </button>
           </div>
 
-          <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5">
-            {{ 'CART.NO_COUPONS' | translate }}
-          </div>
+          @if(couponData()) {
+            <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5">
+              {{ 'CART.HAVE_COUPON' | translate }} {{ discount }}
+            </div>
+          } @else (){
+            <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5">
+              {{ 'CART.NO_COUPONS' | translate }}
+            </div>
+          }
 
           <div class="flex justify-between mt-6 text-lg">
             <span>{{ 'CART.SUBTOTAL' | translate }}</span>
