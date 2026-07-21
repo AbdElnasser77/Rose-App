@@ -9,13 +9,14 @@ import {
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { ProductsService } from '../../../../core/services/products.service';
 import type { Product } from '../../../../shared/models/product.model';
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 import { ToastService } from '@org/shared-util-notification';
+import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -38,14 +39,17 @@ export class MostPopularSectionComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly toastService = inject(ToastService);
+  private readonly _wishlistStore = inject(WishlistStore);
+  private _translateService = inject(TranslateService);
 
+  
   readonly tabs = TABS;
   readonly activeTab = signal<Tab>('Anniversary');
 
   readonly products = signal<Product[]>([]);
   readonly isLoading = signal(false);
   readonly displayedLimit = signal(12);
-  readonly wishlistedIds = signal<Set<string>>(new Set());
+  readonly wishlistedIds = this._wishlistStore.wishlistedIds;
 
   readonly filteredProducts = computed(() => {
     const tab = this.activeTab().toLowerCase();
@@ -103,15 +107,20 @@ export class MostPopularSectionComponent implements OnInit {
   }
 
   onWishlistClick(productId: string): void {
-    const current = new Set(this.wishlistedIds());
-    if (current.has(productId)) {
-      current.delete(productId);
-      this.toastService.show('Product removed from wishlist', 'default');
-    } else {
-      current.add(productId);
-      this.toastService.show('Product added to wishlist', 'success');
+    const wasWishlisted = this._wishlistStore.isWishlisted(productId);
+
+  this._wishlistStore.toggle(productId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    next: () => {
+      this.toastService.show(
+        this._translateService.instant(
+          wasWishlisted
+            ? 'WISHLIST.ITEM_REMOVED'
+            : 'WISHLIST.ITEM_ADDED'
+        ),
+         wasWishlisted ? 'default' : 'success'
+      );
     }
-    this.wishlistedIds.set(current);
+  });
   }
 
   private sortMostPopular(products: Product[]): Product[] {

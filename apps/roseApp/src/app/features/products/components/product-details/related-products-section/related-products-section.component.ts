@@ -26,6 +26,8 @@ import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
 import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
+import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
+import { Product } from 'apps/roseApp/src/app/shared/models/product.model';
 @Component({
   selector: 'app-related-products-section',
   imports: [
@@ -49,14 +51,16 @@ export class RelatedProductsSectionComponent implements OnInit {
   private readonly toastService = inject(ToastService);
   private readonly loader = inject(LoaderService);
   public translateService = inject(TranslateService);
+  private readonly _wishlistStore = inject(WishlistStore);
+  
   
  readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
   relatedProducts = signal<any[]>([]);
-  wishlistedIds = signal<Set<string>>(new Set());
+  wishlistedIds =  this._wishlistStore.wishlistedIds ;
   isRtl = computed(() => (this.translateService.currentLang()) === 'ar');
   
-
+ 
 
   ngOnInit(): void {
     this.loadRelatedProducts();
@@ -128,16 +132,19 @@ export class RelatedProductsSectionComponent implements OnInit {
     this.router.navigate(['/products', product.id]);
   }
 
-  onWishListClicked(product: any): void {
-    const current = new Set(this.wishlistedIds());
-    if (current.has(product.id)) {
-      current.delete(product.id);
-      this.toastService.show('Product removed from wishlist', 'default');
-    } else {
-      current.add(product.id);
-      this.toastService.show('Product added to wishlist', 'success');
-    }
-    this.wishlistedIds.set(current);
+  onWishListClicked(product: Product): void {
+    const wasWishlisted = this._wishlistStore.isWishlisted(product.id);
+    
+        this._wishlistStore.toggle(product.id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+          next : () =>{
+            this.toastService.show(
+              this.translateService.instant(
+                wasWishlisted ? 'WISHLIST.ITEM_REMOVED' : 'WISHLIST.ITEM_ADDED'
+              ),
+               wasWishlisted ? 'default' : 'success'
+            );
+          }
+        });
   }
 
   onQuickViewClicked(product:any) {

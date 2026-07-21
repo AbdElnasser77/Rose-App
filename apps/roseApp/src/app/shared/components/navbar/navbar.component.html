@@ -57,8 +57,15 @@
       @if (isLoggedIn()) {
       <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
 
-      <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300">
+      <button (click)="onWishlistClicked()"
+       class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
         <lucide-icon [img]="Heart" class="w-5 h-5" />
+        @if (wishlistCount() > 0 ){
+            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+              {{ wishlistCount() > 99 ? '99+' : wishlistCount() }}
+            </span>
+        }
+
       </button>
 
       <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">

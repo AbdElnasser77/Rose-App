@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,7 @@ import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, map, switchMap, tap } from 'rxjs';
 import { ShoppingCart, LucideAngularModule, Heart, HeartPlus, HeartMinus } from 'lucide-angular';
@@ -16,6 +16,7 @@ import { ProductDataService } from '../../../services/product-details/product-da
 import { ButtonComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
+import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
 
 @Component({
   selector: 'app-product-data',
@@ -39,6 +40,9 @@ export class ProductDataComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly toastService = inject(ToastService);
   private readonly loader = inject(LoaderService);
+  private readonly _translateService = inject(TranslateService);
+  private readonly _wishlistStore = inject(WishlistStore);
+ 
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
   readonly HeartMinus = HeartMinus;
@@ -48,7 +52,10 @@ export class ProductDataComponent implements OnInit {
   product!: Product;
   images: string[] = [];
   selectedImage = signal<any>('');
-  isWishlisted = signal(false);
+  
+  readonly isWishlisted = computed(() =>
+  this._wishlistStore.isWishlisted(this.productId())
+);
 
   roundRating(value: number): number {
     if (!value) return 0;
@@ -80,12 +87,17 @@ export class ProductDataComponent implements OnInit {
   }
 
   onWishlistClicked(): void {
-    const next = !this.isWishlisted();
-    this.isWishlisted.set(next);
-    if (next) {
-      this.toastService.show('Product added to wishlist', 'success');
-    } else {
-      this.toastService.show('Product removed from wishlist', 'default');
-    }
+    const wasWishlisted = this._wishlistStore.isWishlisted(this.productId());
+
+    this._wishlistStore.toggle(this.productId()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next : () =>{
+        this.toastService.show(
+          this._translateService.instant(
+            wasWishlisted ? 'WISHLIST.ITEM_REMOVED' : 'WISHLIST.ITEM_ADDED'
+          ),
+           wasWishlisted ? 'default' : 'success'
+        );
+      }
+    });
   }
 }
