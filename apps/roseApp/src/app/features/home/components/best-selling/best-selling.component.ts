@@ -15,6 +15,7 @@ import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
 
 import { ToastService } from '@org/shared-util-notification';
+import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -38,8 +39,11 @@ export class BestSellingComponent implements OnInit {
   private productService = inject(ProductDataService);
   private _router = inject(Router);
   private toastService = inject(ToastService);
-  private cartService = inject(CartService);
+  private readonly _wishlistStore = inject(WishlistStore);
   private readonly destroyRef = inject(DestroyRef);
+  
+  private cartService = inject(CartService);
+
 
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
@@ -52,7 +56,7 @@ export class BestSellingComponent implements OnInit {
   isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
 
 
-  wishlistedIds = signal<Set<string>>(new Set());
+  wishlistedIds = this._wishlistStore.wishlistedIds;
 
  
   ngOnInit(): void {
@@ -61,7 +65,7 @@ export class BestSellingComponent implements OnInit {
 
  
   getProducts(): void {
-    this.productService.getProduct().subscribe({
+    this.productService.getProduct().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         this.products = res.payload.data;
     
@@ -105,15 +109,18 @@ export class BestSellingComponent implements OnInit {
 
 
   onWishlist(id: string): void {
-    const current = new Set(this.wishlistedIds());
-    if (current.has(id)) {
-      current.delete(id);
-      this.toastService.show('Product removed from wishlist', 'default');
-    } else {
-      current.add(id);
-      this.toastService.show('Product added to wishlist', 'success');
-    }
-    this.wishlistedIds.set(current);
+    const wasWishlisted = this._wishlistStore.isWishlisted(id);
+
+    this._wishlistStore.toggle(id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next : () =>{
+        this.toastService.show(
+          this._translateService.instant(
+            wasWishlisted ? 'WISHLIST.ITEM_REMOVED' : 'WISHLIST.ITEM_ADDED'
+          ),
+           wasWishlisted ? 'default' : 'success'
+        );
+      }
+    });
   }
 
 

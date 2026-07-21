@@ -7,6 +7,7 @@ import { ThemeToggleComponent } from '@rose/theme';
 import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, LogOut, LucideAngularModule, MapPin, Menu, PartyPopper, ShoppingCart, User, X } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from '../../../core/pipes/asset-url.pipe';
+import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
 import { CartService } from '../../../features/cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -17,11 +18,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit{
   private readonly authStore = inject(AuthStore);
   private readonly sessionService = inject(SessionService);
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
+  private readonly _wishlistStore = inject(WishlistStore);
+
+  readonly wishlistCount = this._wishlistStore.wishlistCount;
 
   readonly Menu = Menu;
   readonly X = X;
@@ -43,9 +47,7 @@ export class NavbarComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   cartCount = signal(0);
 
-  ngOnInit(): void {
-    this.loadCart();
-  }
+ 
 
   loadCart() {
     this.cartService.getCart()
@@ -88,5 +90,12 @@ export class NavbarComponent implements OnInit {
     this.isDropdownOpen = false;
     this.isMobileMenuOpen = false;
     this.router.navigate(['/auth']);
+  }
+    onWishlistClicked() {
+    this.router.navigate(['/wishlist']);
+  }
+  ngOnInit(): void {
+  this._wishlistStore.loadWishlist();
+  this.loadCart();
   }
 }

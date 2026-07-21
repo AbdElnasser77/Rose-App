@@ -1,0 +1,80 @@
+<div
+    class="w-full  sm:h-[180px] flex flex-col sm:flex-row gap-[16px] py-5  items-stretch border-b border-[#F4F4F5]  dark:border-zinc-700 sm:items-stretch mx-auto">
+    <!-- Item img -->
+    <div class="w-full sm:w-[117px] h-[272px] sm:h-full shrink-0 rounded-xl bg-zinc-200">
+        <img (click)="cardDetailsClicked.emit(item().product.id)"
+        [src]="item().product.cover" [alt]="item().product.title"
+            class="w-full  h-full shrink-0  object-cover rounded-[6px] cursor-pointer">
+    </div>
+    <!-- Card Content -->
+    <div class="flex min-w-0 text-center sm:text-start  flex-1 flex-col  gap-[10px] h-full">
+        @if(item().product.stock > 0){
+        <span class="font-sarabun font-semibold text-sm leading-none text-[#00BC7D]">
+             {{ 'WISHLIST.IN_STOCK' | translate }}
+        </span>
+        }
+        @else{
+        <span class="font-sarabun font-semibold text-sm leading-none text-[#DC2626]">
+             {{ 'WISHLIST.OUT_OF_STOCK' | translate }}
+        </span>
+        }
+        <h3 (click)="cardDetailsClicked.emit(item().product.id)"
+         class="font-sarabun font-semibold text-[20px] leading-none text-[#27272A] dark:text-white cursor-pointer  hover:underline truncate">
+         {{item().product.title}} </h3>
+
+        <!-- Rating -->
+        <div class="flex flex-wrap justify-center sm:justify-start items-center gap-[6px] font-sarabun font-medium text-sm leading-none tracking-normal text-[#27272A]  ">
+            <span class="flex gap-[6px] items-center py-[4px] px-[6px] rounded-[6px] bg-[#FACC15]">
+                <lucide-icon [img]="Star" class="w-[16px] h-[16px] text-[#27272A] fill-current"></lucide-icon> {{item().product.rating | number:'1.1-1'}}/5</span>
+            @if(item().product.ratings > 0){
+                <span class="font-sarabun font-normal text-sm leading-none tracking-normal text-[#155DFC]">(
+                {{item().product.ratings}} {{item().product.ratings === 1 ?  ('WISHLIST.RATING' | translate) : ('WISHLIST.RATINGS' | translate) }} )</span>
+            }
+                
+        </div>
+        <!-- Price -->
+        <div class="flex mt-auto justify-center sm:justify-start  items-end gap-[10px] flex-wrap">
+            <span
+                class="font-sarabun font-bold text-2xl leading-none tracking-normal text-[#27272A] dark:text-white whitespace-nowrap">{{ getCurrentPrice(item().product) | number:'1.2-2' }}
+                <span class="text-[14px] font-medium "> {{ 'COMMON.EGP' | translate }} </span>
+            </span>
+            @if (hasDiscount(item().product) ) {
+            <span
+                class="font-sarabun text-[18px] font-medium leading-none tracking-normal line-through text-[#A1A1AA] dark:text-zinc-500">{{item().product.price}}
+                <span class="text-[14px] "> {{ 'COMMON.EGP' | translate }} </span>
+            </span>
+            }
+        </div>
+    </div>
+
+
+    <!-- Actions buttons -->
+    <div class="flex  sm:flex-col justify-between gap-3 items-end shrink-0 h-full  w-full sm:w-auto">
+        <!-- Delete -->
+        <button (click)="removeItem()"
+            class="flex items-center justify-center h-[48px] px-[16px] bg-[#FEF2F2] hover:bg-[#FEE2E2]
+             dark:bg-[#FFA3B9] dark:hover:bg-[#FEE2E2] dark:text-[#27272A] rounded-lg text-[#DC2626] 
+             cursor-pointer transition-colors duration-200">
+            <lucide-icon [img]="Trash2" class="w-[20px] h-[20px]"></lucide-icon>
+        </button>
+
+        <!-- Add to cart -->
+        @if (item().product.stock > 0) {
+        <button (click)="addItemToCart()"
+            class="flex mt-auto  items-center justify-center gap-[10px] h-[48px] px-[24px] bg-[#501419] hover:bg-[#651A20]
+             dark:bg-[#85121b] dark:hover:bg-[#A51D29] rounded-[8px] text-[#FFFFFF] text-center cursor-pointer transition-colors duration-200 ">
+            <lucide-icon [img]="ShoppingCart"></lucide-icon>
+            <span class="font-sarabun font-medium text-[16px] leading-none tracking-normal">{{ 'WISHLIST.ADD_TO_CART' | translate }}</span>
+        </button>
+        }
+        <!-- Explore Similar Products -->
+        @if (item().product.stock === 0) {
+        <button (click)="exploreSimilarClicked.emit(item().product.id)"
+            class="flex items-center justify-center gap-[10px] cursor-pointer h-[48px] rounded-lg px-6  bg-[#FBEAEA] hover:bg-[#F7D9D9]
+                dark:hover:bg-[#FBEAEA] dark:bg-[#F7D9D9] font-sarabun font-medium text-sm sm:text-base leading-none tracking-normal text-[#501419] transition-colors duration-200">
+             {{ 'WISHLIST.SIMILAR_PRODUCTS' | translate }}
+        </button>
+        }
+
+    </div>
+</div>

@@ -29,10 +29,19 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
+
+        path: 'wishlist',
+        loadChildren: () =>
+          import('../features/wishlist/wishlist.routes').then(
+            (m) => m.wishlistRoutes,
+          )
+      },
+      {
         path: 'cart',
         loadChildren: () =>
           import('../features/cart/cart.routes').then(
             (m) => m.CartRoutes,
+
           ),
       },
       // add products,cart,checkout all here.

@@ -1,5 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
 import { ProductsService } from '../../../../core/services/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
@@ -7,6 +6,9 @@ import { ProductsPaginationComponent } from '../../components/product-list/produ
 import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
 import { Router } from '@angular/router';
 import { ToastService } from '@org/shared-util-notification';
+import { WishlistStore } from '../../../wishlist/store/wishlist.store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 import { ProductFilterService } from '../../services/product-list/product-filter.service';
 import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -22,12 +24,15 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
 })
-export class ProductsPage implements OnInit, OnDestroy {
+export class ProductsPage implements OnInit {
   private productsService = inject(ProductsService);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private readonly _wishlistStore = inject(WishlistStore);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly _translateService = inject(TranslateService);
+
   protected readonly _productFilterService = inject(ProductFilterService);
-  private sub?: Subscription;
 
   private readonly limit = 20;
   readonly SlidersHorizontal=SlidersHorizontal;
@@ -37,7 +42,7 @@ export class ProductsPage implements OnInit, OnDestroy {
   loading = signal<boolean>(true);
   page = signal<number>(1);
   totalPages = signal<number>(1);
-  wishlistedIds = signal<Set<string>>(new Set());
+  wishlistedIds =  this._wishlistStore.wishlistedIds;
 
   ngOnInit(): void {
     this.loadProducts();
@@ -45,8 +50,9 @@ export class ProductsPage implements OnInit, OnDestroy {
 
   loadProducts(): void {
     this.loading.set(true);
-    this.sub?.unsubscribe();
-    this.sub = this.productsService.getProducts({ page: this.page(), limit: this.limit }).subscribe({
+    
+    this.productsService.getProducts({ page: this.page(), limit: this.limit }) .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
       next: (res) => {
         this._productFilterService.setProducts(res.payload.data);
         this.page.set(res.payload.metadata.page);
@@ -70,15 +76,18 @@ export class ProductsPage implements OnInit, OnDestroy {
   }
 
   onWishlist(id: string): void {
-    const current = new Set(this.wishlistedIds());
-    if (current.has(id)) {
-      current.delete(id);
-      this.toastService.show('Product removed from wishlist', 'default');
-    } else {
-      current.add(id);
-      this.toastService.show('Product added to wishlist', 'success');
-    }
-    this.wishlistedIds.set(current);
+    const wasWishlisted = this._wishlistStore.isWishlisted(id);
+
+    this._wishlistStore.toggle(id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next : () =>{
+        this.toastService.show(
+          this._translateService.instant(
+            wasWishlisted ? 'WISHLIST.ITEM_REMOVED' : 'WISHLIST.ITEM_ADDED'
+          ),
+           wasWishlisted ? 'default' : 'success'
+        );
+      }
+    });
   }
 
   onQuickView(id: string): void {
@@ -90,7 +99,5 @@ export class ProductsPage implements OnInit, OnDestroy {
     console.log('addToCart', id);
   }
 
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
+  
 }

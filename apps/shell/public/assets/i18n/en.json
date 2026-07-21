@@ -244,7 +244,9 @@
   },
 
   "COMMON": {
-    "EGP": "EGP"
+    "EGP": "EGP",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm"
   },
 
   "PRODUCT": {
@@ -271,6 +273,30 @@
     "BEST_SELLING_DESCRIPTION": "Not sure what to choose?\n Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
     "EXPLORE_GIFTS": "Explore Gifts"
   },
+
+  
+  "WISHLIST": {
+    "TITLE": "Wishlist",
+    "ITEM": "item",
+    "ITEMS": "items",
+    "CLEAR": "Clear Wishlist",
+    "EMPTY": "Your wishlist is empty",
+      "EMPTY_DESCRIPTION": "Looks like you haven't added any products yet. Start exploring and save your favorites.",
+    "CONTINUE": "Continue Shopping",
+    "IN_STOCK": "In Stock",
+    "OUT_OF_STOCK": "Out of Stock",
+    "ADD_TO_CART": "Add to Cart",
+    "SIMILAR_PRODUCTS": "Explore Similar Products",
+    "RATING": "rating",
+    "RATINGS": "ratings" ,
+    "ITEM_ADDED": "Item added to wishlist successfully .",
+     "ITEM_REMOVED": "Item removed from wishlist successfully.",
+    "WISHLIST_CLEARED": "Wishlist cleared successfully.",
+    "ITEM_ADDED_TO_CART": "Item added to cart successfully.",
+    "CLEAR_CONFIRM_TITLE": "Clear Wishlist",
+    "CLEAR_CONFIRM_MESSAGE": "Are you sure you want to clear your wishlist?"
+  },
+   
   "CART": {
     "TITLE": "Cart",
     "PRODUCTS": "Products",
@@ -290,4 +316,5 @@
     "CHECKOUT": "Checkout",
     "CURRENCY": "EGP"
   }
+
 }
