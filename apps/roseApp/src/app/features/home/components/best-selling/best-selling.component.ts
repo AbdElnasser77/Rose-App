@@ -16,6 +16,7 @@ import { SwiperOptions } from 'swiper/types';
 
 import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
+import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -41,6 +42,9 @@ export class BestSellingComponent implements OnInit {
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly destroyRef = inject(DestroyRef);
   
+  private cartService = inject(CartService);
+
+
   readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
   readonly ArrowRight = ArrowRight;
@@ -125,4 +129,19 @@ onBestSellingVisible(entry: IntersectionObserverEntry) {
     this.isBestSellingVisible.set(true);
   }
 }
+
+  onAddToCartClicked(id:any) {
+    this.cartService.addToCart({ productId: id, quantity: 1 }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.message == "Insufficient stock.") {
+            this.toastService.show('out of the stock', 'success');
+          } else {
+            this.toastService.show('product added to cart', 'success');
+          }
+        },
+      });
+  }
 }

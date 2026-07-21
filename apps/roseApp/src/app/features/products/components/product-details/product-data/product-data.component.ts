@@ -17,6 +17,7 @@ import { ButtonComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
 import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
+import { CartService } from '../../../../cart/services/cart.service';
 
 @Component({
   selector: 'app-product-data',
@@ -46,6 +47,7 @@ export class ProductDataComponent implements OnInit {
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
   readonly HeartMinus = HeartMinus;
+  private cartService = inject(CartService);
 
   productId = signal('');
   productData = signal<any>('');
@@ -99,5 +101,25 @@ export class ProductDataComponent implements OnInit {
         );
       }
     });
+  }
+
+  addToCard() {
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get('id') || ''),
+        filter((id) => !!id),
+        tap((id) => this.productId.set(id)),
+        switchMap((id) => this.cartService.addToCart({ productId: id, quantity: 1 })),
+        takeUntilDestroyed(this.destroyRef)
+      )    
+      .subscribe({
+        next: (res: any) => {
+          if (res.message == "Insufficient stock.") {
+            this.toastService.show('out of the stock', 'success');
+          } else {
+            this.toastService.show('product added to cart', 'success');
+          }
+        },
+      });
   }
 }

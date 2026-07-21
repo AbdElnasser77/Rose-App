@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
@@ -8,6 +8,8 @@ import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, Lo
 import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from '../../../core/pipes/asset-url.pipe';
 import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
+import { CartService } from '../../../features/cart/services/cart.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-navbar',
@@ -40,6 +42,24 @@ export class NavbarComponent implements OnInit{
   readonly User = User;
   readonly ChevronDown = ChevronDown;
   readonly LogOut = LogOut;
+
+  private cartService = inject(CartService);
+  private destroyRef = inject(DestroyRef);
+  cartCount = signal(0);
+
+ 
+
+  loadCart() {
+    this.cartService.getCart()
+    .pipe(
+      takeUntilDestroyed(this.destroyRef)
+    )
+    .subscribe({
+      next: (res) => {
+        this.cartCount.set(res.length);
+      }
+    });
+  } 
 
   readonly isLoggedIn = computed(
     () => this.authStore.isAuthenticated() || this.sessionService.isAuthenticated()
@@ -76,5 +96,6 @@ export class NavbarComponent implements OnInit{
   }
   ngOnInit(): void {
   this._wishlistStore.loadWishlist();
+  this.loadCart();
   }
 }

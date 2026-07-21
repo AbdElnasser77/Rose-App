@@ -14,6 +14,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {authInterceptor} from '@org/auth';
 import { SessionService } from '@org/auth';
 import { provideI18n } from '@rose/i18n';
+import { loadingInterceptor } from '@org/shared-util-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +27,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideAnimationsAsync(),
-    provideHttpClient(),
     provideI18n(),
     providePrimeNG({
       theme: {
@@ -49,6 +49,7 @@ export const appConfig: ApplicationConfig = {
     },
      provideHttpClient(
      withInterceptors([
+     loadingInterceptor,
      authInterceptor,
      httpErrorInterceptor,
     ])

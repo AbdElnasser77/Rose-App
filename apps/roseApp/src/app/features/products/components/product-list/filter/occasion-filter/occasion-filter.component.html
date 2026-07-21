@@ -1,0 +1,44 @@
+  @if (visibleOccasions().length > 0) {
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+      <h3 class="text-[#741C21] dark:text-[#FFA3B9] font-sarabun font-semibold text-[18px]">
+        {{ 'FILTER.OCCASION' | translate }}
+      </h3>
+      @if (_productFilterService.selectedOccasionIds().length > 0) {
+      <button type="button" class="flex items-center gap-1 text-[#DC2626] text-sm hover:underline"
+        (click)="_productFilterService.resetOccasion()">
+        <lucide-icon [img]="X" class="w-4 h-4" />
+        {{ 'FILTER.RESET' | translate }}
+      </button>
+      }
+    </div>
+
+    @if (occasionsLoading()) {
+    <div class="grid grid-cols-2 gap-3">
+      @for (s of skeletons; track $index) {
+      <p-skeleton height="84px" styleClass="rounded-[12px]" />
+      }
+    </div>
+    } @else {
+    <div class="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1 hide-scrollbar">
+      @for (occasion of visibleOccasions(); track occasion.id) {
+      <button type="button" class="group relative h-[74px] rounded-[8px] overflow-hidden"
+        (click)="_productFilterService.toggleOccasion(occasion.id)">
+        <img [src]="occasion.image" [alt]="occasion.title" class="absolute inset-0 w-full h-full object-cover" />
+        @if (_productFilterService.selectedOccasionIds().includes(occasion.id)) {
+        <div
+          class="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-[#A6252A]/70 to-transparent dark:from-[#FFA3B9]/70">
+        </div>
+        } @else {
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300"></div>
+        }
+        <span
+          class="absolute inset-0 z-10 flex items-center justify-center px-2 text-center font-sarabun font-semibold text-[14px] text-white">
+          {{ occasion.title }}
+        </span>
+      </button>
+      }
+    </div>
+    }
+  </section>
+  }

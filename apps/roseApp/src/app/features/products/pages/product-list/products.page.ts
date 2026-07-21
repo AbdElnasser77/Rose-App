@@ -9,13 +9,17 @@ import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
+import { ProductFilterService } from '../../services/product-list/product-filter.service';
+import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-products',
   imports: [
     ProductsGridComponent,
     ProductsPaginationComponent,
-    ProductsFilterComponent,
+    ProductsFilterComponent,LucideAngularModule,TranslatePipe
   ],
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
@@ -28,9 +32,12 @@ export class ProductsPage implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly _translateService = inject(TranslateService);
 
+  protected readonly _productFilterService = inject(ProductFilterService);
 
   private readonly limit = 20;
-
+  readonly SlidersHorizontal=SlidersHorizontal;
+  readonly isMobileFilterOpen = signal<boolean>(false);
+  readonly isFilterDrawerOpen = signal(false);
   products = signal<Product[]>([]);
   loading = signal<boolean>(true);
   page = signal<number>(1);
@@ -47,7 +54,7 @@ export class ProductsPage implements OnInit {
     this.productsService.getProducts({ page: this.page(), limit: this.limit }) .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (res) => {
-        this.products.set(res.payload.data);
+        this._productFilterService.setProducts(res.payload.data);
         this.page.set(res.payload.metadata.page);
         this.totalPages.set(res.payload.metadata.totalPages);
         this.loading.set(false);

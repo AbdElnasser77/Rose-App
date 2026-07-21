@@ -197,7 +197,11 @@
     "RESET": "Reset",
     "RESET_ALL": "Reset All",
     "FROM": "from",
-    "TO": "to"
+    "TO": "to",
+    "FILTERS": "Filter",
+    "PRICE_NEGATIVE": "Price cannot be negative.",
+    "PRICE_RANGE_INVALID": "From price cannot be greater than To price.",
+    "APPLY": "Apply"
   },
 
   "HERO": {
@@ -291,7 +295,26 @@
     "ITEM_ADDED_TO_CART": "Item added to cart successfully.",
     "CLEAR_CONFIRM_TITLE": "Clear Wishlist",
     "CLEAR_CONFIRM_MESSAGE": "Are you sure you want to clear your wishlist?"
+  },
    
+  "CART": {
+    "TITLE": "Cart",
+    "PRODUCTS": "Products",
+    "CLEAR_CART": "Clear Cart",
+    "RATING": "Rating",
+    "RATINGS": "Ratings",
+    "REMOVE": "Remove",
+    "EMPTY_CART": "Your cart is empty",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "SUMMARY": "Summary",
+    "COUPON_CODE": "Coupon Code",
+    "APPLY_COUPON": "Apply Coupon",
+    "NO_COUPONS": "No coupons applied",
+    "HAVE_COUPON": "coupon applied: ",
+    "SUBTOTAL": "Subtotal",
+    "TOTAL": "Total",
+    "CHECKOUT": "Checkout",
+    "CURRENCY": "EGP"
   }
 
 }

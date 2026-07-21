@@ -1,0 +1,22 @@
+:host ::ng-deep .p-rating {
+  display: flex !important;
+  gap: 8px !important; 
+  align-items: center;
+}
+
+:host ::ng-deep .p-rating .p-rating-icon {
+  font-size: 25px !important; 
+  width: 25px !important;     
+  height: 25px !important;    
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
