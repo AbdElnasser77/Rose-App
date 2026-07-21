@@ -4,6 +4,7 @@ import { LucideAngularModule, Star ,Trash2 ,ShoppingCart  } from 'lucide-angular
 import { WishlistItemModel } from '../../models/wishlist-item.model';
 import { DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { getCurrentPrice, hasDiscount } from '../../../../shared/utils/product-price';
 
 @Component({
   selector: 'app-wishlist-card',
@@ -13,9 +14,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class WishlistCardComponent {
   @Output() cardDetailsClicked = new EventEmitter<string>();
-    @Output() exploreSimilarClicked = new EventEmitter<string>();
+  @Output() exploreSimilarClicked = new EventEmitter<string>();
 
-  
+  readonly getCurrentPrice = getCurrentPrice;
+  readonly hasDiscount = hasDiscount;
   readonly item = input.required<WishlistItemModel>();
  
   readonly remove = output<string>();

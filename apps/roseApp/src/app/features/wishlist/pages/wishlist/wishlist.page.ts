@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal} from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import { WishlistCardComponent } from '../../components/wishlist-card/wishlist-card.component';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '@org/shared-util-notification';
@@ -7,6 +7,8 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WishlistStore } from '../../store/wishlist.store';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CartService } from '../../../cart/services/cart.service';
 @Component({
   selector: 'app-wishlist',
   imports: [WishlistCardComponent ,CommonModule,LucideAngularModule ,TranslatePipe,DialogModule],
@@ -17,7 +19,10 @@ export class WishlistPage {
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly _translateService = inject(TranslateService);
   private readonly _toastService=inject(ToastService);
-  private readonly router = inject(Router);
+  private readonly _router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly _cartService = inject(CartService);
+
 
   readonly wishlistItems = this._wishlistStore.wishlistItems;
   readonly isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
@@ -57,19 +62,27 @@ export class WishlistPage {
 
   
    addToCart(productId:string):void{
-    this._toastService.show(
-     this._translateService.instant('WISHLIST.ITEM_ADDED_TO_CART')
-    );
+    this._cartService.addToCart({ productId: productId, quantity: 1 }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: () => {
+          this._toastService.show(
+          this._translateService.instant('WISHLIST.ITEM_ADDED_TO_CART')
+         );
+        },
+      });
+    
    }
    
    
   onCardDetailsClicked(productId :string){
-    this.router.navigate(['/products',productId]);
+    this._router.navigate(['/products',productId]);
   }
   onContinueShoppingClicked() {
-    this.router.navigate(['/products']);
+    this._router.navigate(['/products']);
   }
   onExploreSimilarProducts(productId: string): void {
-  this.router.navigate(['/products', productId]);
+  this._router.navigate(['/products', productId]);
  }
 }

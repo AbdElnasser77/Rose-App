@@ -35,14 +35,15 @@
         <!-- Price -->
         <div class="flex mt-auto justify-center sm:justify-start  items-end gap-[10px] flex-wrap">
             <span
-                class="font-sarabun font-bold text-2xl leading-none tracking-normal text-[#27272A] dark:text-white whitespace-nowrap">123
+                class="font-sarabun font-bold text-2xl leading-none tracking-normal text-[#27272A] dark:text-white whitespace-nowrap">{{ getCurrentPrice(item().product) | number:'1.2-2' }}
                 <span class="text-[14px] font-medium "> {{ 'COMMON.EGP' | translate }} </span>
             </span>
+            @if (hasDiscount(item().product) ) {
             <span
                 class="font-sarabun text-[18px] font-medium leading-none tracking-normal line-through text-[#A1A1AA] dark:text-zinc-500">{{item().product.price}}
                 <span class="text-[14px] "> {{ 'COMMON.EGP' | translate }} </span>
             </span>
-
+            }
         </div>
     </div>
 
