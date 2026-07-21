@@ -25,7 +25,7 @@
         <!-- Rating -->
         <div class="flex flex-wrap justify-center sm:justify-start items-center gap-[6px] font-sarabun font-medium text-sm leading-none tracking-normal text-[#27272A]  ">
             <span class="flex gap-[6px] items-center py-[4px] px-[6px] rounded-[6px] bg-[#FACC15]">
-                <lucide-icon [img]="Star"></lucide-icon> {{item().product.rating | number:'1.1-1'}}/5</span>
+                <lucide-icon [img]="Star" class="w-[16px] h-[16px] text-[#27272A] fill-current"></lucide-icon> {{item().product.rating | number:'1.1-1'}}/5</span>
             @if(item().product.ratings > 0){
                 <span class="font-sarabun font-normal text-sm leading-none tracking-normal text-[#155DFC]">(
                 {{item().product.ratings}} {{item().product.ratings === 1 ?  ('WISHLIST.RATING' | translate) : ('WISHLIST.RATINGS' | translate) }} )</span>
