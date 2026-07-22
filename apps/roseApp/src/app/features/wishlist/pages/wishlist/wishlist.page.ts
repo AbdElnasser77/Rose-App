@@ -68,7 +68,7 @@ export class WishlistPage {
       .subscribe({
         next: () => {
           this._toastService.show(
-          this._translateService.instant('WISHLIST.ITEM_ADDED_TO_CART')
+          this._translateService.instant('WISHLIST.ITEM_ADDED_TO_CART'),'success'
          );
         },
       });

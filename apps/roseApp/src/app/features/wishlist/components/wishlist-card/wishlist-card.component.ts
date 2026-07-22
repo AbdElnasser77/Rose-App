@@ -15,7 +15,6 @@ import { getCurrentPrice, hasDiscount } from '../../../../shared/utils/product-p
 export class WishlistCardComponent {
   @Output() cardDetailsClicked = new EventEmitter<string>();
   @Output() exploreSimilarClicked = new EventEmitter<string>();
-
   readonly getCurrentPrice = getCurrentPrice;
   readonly hasDiscount = hasDiscount;
   readonly item = input.required<WishlistItemModel>();
@@ -34,6 +33,6 @@ export class WishlistCardComponent {
   }
 
   addItemToCart():void{
-    this.addToCart.emit(this.item().id);
+    this.addToCart.emit(this.item().product.id);
   }
 }
