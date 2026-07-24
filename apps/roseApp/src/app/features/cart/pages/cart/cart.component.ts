@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   signal
@@ -16,7 +17,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CartStore } from '../../store/cart.store';
 
 @Component({
   selector: 'app-cart',
@@ -30,28 +32,27 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cart.component.html'
 })
 export class CartComponent implements OnInit {
-
+  private readonly router = inject(Router);
   private cartService = inject(CartService);
-  cartItems = signal<CartItem[]>([]);
   coupon = signal('');
   couponData = signal<any>('');
   private destroyRef = inject(DestroyRef);
   discount = 0;
+  private readonly _cartStore = inject(CartStore);
+  cartItemsData: any;
 
   ngOnInit(): void {
     this.loadCart();
   }
+  
+  constructor() {
+    effect(() => {
+      this.cartItemsData = this._cartStore.cartItems();
+    });
+  }
 
   loadCart() {
-    this.cartService.getCart()
-    .pipe(
-      takeUntilDestroyed(this.destroyRef)
-    )
-    .subscribe({
-      next: (res) => {
-        this.cartItems.set(res);
-      }
-    });
+    this._cartStore.loadcart();
   }
   
   getCoupon() {
@@ -121,13 +122,13 @@ export class CartComponent implements OnInit {
   }
 
   subtotal = computed(() =>
-    this.cartItems().reduce((sum, item) =>
+    this._cartStore.cartItems().reduce((sum, item) =>
     sum + Number(item.product.price) * item.quantity
     , 0)
   );
 
   total = computed(() => {
-    const itemsTotal = this.cartItems().reduce(
+    const itemsTotal = this._cartStore.cartItems().reduce(
       (sum, item) => sum + this.itemTotal(item),
       0
     );
@@ -152,4 +153,8 @@ export class CartComponent implements OnInit {
 
     return Math.max(0, itemsTotal - this.discount);
   });
+
+  goToProductDetails(productId: string): void {
+    this.router.navigate(['/products', productId]);
+  }
 }

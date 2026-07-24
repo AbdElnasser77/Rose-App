@@ -315,7 +315,9 @@
   "SUBTOTAL": "المجموع الفرعي",
   "TOTAL": "الإجمالي",
   "CHECKOUT": "إتمام الطلب",
-  "DISCOUNT":"خصم"
+  "DISCOUNT":"خصم",
+  "OUT_OF_STOCK": "نفذت الكميه",
+  "PRODUCT_ADDED": "تم اضافه المنتج فى السله"
 }
 
 }

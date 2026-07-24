@@ -314,7 +314,9 @@
     "SUBTOTAL": "Subtotal",
     "TOTAL": "Total",
     "CHECKOUT": "Checkout",
-    "DISCOUNT" :" Discount"
+    "DISCOUNT" :" Discount",
+    "OUT_OF_STOCK": "out of the stock",
+    "PRODUCT_ADDED": "product added to cart"
   }
 
 }
