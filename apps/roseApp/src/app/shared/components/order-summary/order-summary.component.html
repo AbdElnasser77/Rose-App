@@ -1,0 +1,122 @@
+<div class="w-full max-w-[458px] min-h-[605px] rounded-xl  flex flex-col gap-6 transition-all">
+    <h2 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black">
+        {{ 'CART.SUMMARY' | translate }}
+    </h2>
+    <!-- Content -->
+    <div class="w-full h-full rounded-lg bg-[#FAFAFA] p-4 flex flex-col gap-2.5">
+        <!-- Coupon -->
+        @if (!appliedCoupon()) {
+        <div class="w-full flex gap-2.5 flex-col sm:flex-row items-center">
+
+            <input type="text" [(ngModel)]="couponCode" [placeholder]="'CART.COUPON_CODE' | translate"
+                class="w-full sm:flex-1 rounded-[10px]  h-[49px] border border-[#D9D9D9]  p-4  outline-none focus:border-[#a8a7a7] " />
+
+            <button type="button" (click)="onApplyCoupon()"
+                class="w-full sm:w-auto flex h-[49px] min-w-[159px] items-center justify-center gap-2.5 rounded-[10px] cursor-pointer
+              bg-[#A6252A] px-4 py-2.5 font-mulish text-sm font-semibold leading-[150%] tracking-normal text-white transition-colors hover:bg-[#8f1f23]">
+                <lucide-icon [img]="TicketPercent" class="h-5 w-5"></lucide-icon>
+
+
+                {{ 'CART.APPLY_COUPON' | translate }}
+
+
+            </button>
+        </div>
+        }
+        @if (appliedCoupon() ; as coupon) {
+        <div
+            class="flex h-[242px] w-full flex-col items-center justify-center gap-4 rounded-lg border border-[#A6252A] bg-[#FFF7F7] p-6">
+
+            <lucide-icon [img]="TicketPercent" class="h-10 w-10 text-[#A6252A]">
+            </lucide-icon>
+
+            <span class="font-sarabun text-2xl font-bold text-[#A6252A]">
+
+                {{ coupon.code }}
+
+            </span>
+
+            <span class="font-sarabun text-base text-[#71717A]">
+
+                @if (coupon.type === 'PERCENT') {
+
+                {{ coupon.value }}%
+
+                } @else {
+
+                {{ coupon.value }}
+                {{ 'COMMON.EGP' | translate }}
+
+                }
+
+                {{ 'CART.DISCOUNT' | translate }}
+
+            </span>
+        
+        </div>
+
+        } @else {
+        <div class="flex h-[242px] w-full items-center justify-center rounded-md border border-[#D9D9D9] p-2.5">
+            <p class="font-primary text-base font-normal italic leading-none text-[#A1A1AA]">
+                {{ 'CART.NO_COUPONS' | translate }}
+            </p>
+        </div>
+        }
+        <!-- Subtotal , Discount and Total  -->
+        <div class="w-full p-2.5 flex flex-col gap-2.5">
+            <!-- Subtotal -->
+            <div class="flex items-center justify-between">
+                <span class="font-sarabun text-[18px] font-medium leading-none tracking-normal text-[#27272A]">
+                    {{ 'CART.SUBTOTAL' | translate }}
+                </span>
+
+                <span class="font-sarabun text-[20px] font-semibold leading-none tracking-normal text-[#27272A]">
+                    {{ subtotal() | number:'1.2-2' }}
+                    {{ 'COMMON.EGP' | translate }}
+                </span>
+            </div>
+        </div>
+        @if (appliedCoupon(); as coupon) {
+
+        <!-- Discount -->
+        <div class="flex items-center justify-center ">
+
+            <span class="font-sarabun text-[16px] font-semibold leading-none tracking-normal text-[#27272A]">
+                @if (coupon.type === 'PERCENT') {
+                {{ coupon.value }}%
+                } @else {
+                {{ coupon.value }}
+                {{ 'COMMON.EGP' | translate }}
+                }
+
+                {{ 'CART.DISCOUNT' | translate }}
+
+            </span>
+        </div>
+        }
+        <!-- Total -->
+        <div class="flex items-center justify-between"
+            [ngClass]="showCheckoutButton() ? 'text-[#A6252A]' :'text-[#27272A]' ">
+
+            <span class="font-sarabun text-2xl font-bold leading-none tracking-normal ">
+                {{ 'CART.TOTAL' | translate }}
+            </span>
+
+            <span class="font-sarabun text-2xl font-bold leading-none tracking-normal ">
+                {{ total() | number:'1.2-2' }}
+                {{ 'COMMON.EGP' | translate }}
+            </span>
+        </div>
+    </div>
+    @if (showCheckoutButton()) {
+    <button type="button" (click)="onCheckout()"
+        class="w-full flex h-[49px] min-w-[159px] items-center justify-center gap-2.5 rounded-[10px] cursor-pointer
+              bg-[#A6252A] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal text-white transition-colors hover:bg-[#8f1f23]">
+
+
+        {{ 'CART.CHECKOUT' | translate }}
+        <lucide-icon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
+
+    </button>
+    }
+</div>

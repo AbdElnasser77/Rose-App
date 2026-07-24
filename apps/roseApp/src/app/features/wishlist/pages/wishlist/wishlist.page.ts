@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal} from '@angular/core';
 import { WishlistCardComponent } from '../../components/wishlist-card/wishlist-card.component';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '@org/shared-util-notification';
