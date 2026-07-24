@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { MainLayoutComponent } from '../layouts/main-layout/main-layout.component';
+import { authGuard } from '@org/auth';
 
 export const remoteRoutes: Route[] = [
   {
@@ -43,6 +44,14 @@ export const remoteRoutes: Route[] = [
             (m) => m.CartRoutes,
 
           ),
+      },
+      {
+        path: 'checkout',
+        canActivate: [authGuard],
+        loadChildren: () =>
+        import('../features/checkout/checkout.routes').then(
+          (m) => m.checkoutRoutes
+        ),
       },
       // add products,cart,checkout all here.
     ],

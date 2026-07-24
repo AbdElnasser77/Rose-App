@@ -1,10 +1,7 @@
 import {
-  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   DestroyRef,
-  ElementRef,
   OnInit,
-  ViewChild,
   computed,
   inject,
   signal,
@@ -15,8 +12,6 @@ import { catchError, filter, map, of, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {  ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
-import { ProductCardComponent } from '../../../../../shared/components/product-card/product-card.component';
-import { SectionTitleComponent } from '../../../../../shared/components/section-title/section-title.component';
 import { ProductDataService } from '../../../services/product-details/product-data-api.service';
 import {
   RelatedProductsApiService,
@@ -24,21 +19,17 @@ import {
 } from '../../../services/product-details/related-products-api.service';
 import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
-import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
 import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
 import { Product } from 'apps/roseApp/src/app/shared/models/product.model';
+import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
 @Component({
   selector: 'app-related-products-section',
   imports: [
     CommonModule,
     TranslatePipe,
-    ProductCardComponent,
-    SectionTitleComponent,
-    SwiperDirective,
-    LucideAngularModule
+    LucideAngularModule,ProductsCarouselComponent
 ],
-schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './related-products-section.component.html',
   styleUrl: './related-products-section.component.scss',
 })
@@ -56,7 +47,7 @@ export class RelatedProductsSectionComponent implements OnInit {
   
  readonly ChevronLeft = ChevronLeft;
   readonly ChevronRight = ChevronRight;
-  relatedProducts = signal<any[]>([]);
+  relatedProducts = signal<Product[]>([]);
   wishlistedIds =  this._wishlistStore.wishlistedIds ;
   isRtl = computed(() => (this.translateService.currentLang()) === 'ar');
   
@@ -161,8 +152,8 @@ export class RelatedProductsSectionComponent implements OnInit {
       spaceBetween: 16,
     watchSlidesProgress: true,
     navigation: {
-      nextEl: rtl ? '.swiper-button-prev-custom' : '.swiper-button-next-custom',
-      prevEl: rtl ? '.swiper-button-next-custom' : '.swiper-button-prev-custom',
+      nextEl: rtl ? '.related-products-prev' : '.related-products-next',
+      prevEl: rtl ? '.related-products-next' : '.related-products-prev',
     },
     breakpoints: {
       0: {

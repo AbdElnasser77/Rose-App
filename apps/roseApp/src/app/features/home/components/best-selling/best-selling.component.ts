@@ -7,17 +7,16 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ArrowRight,ArrowLeft, ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
 import { ButtonComponent } from '@org/ui';
-import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { Product } from '../../../../shared/models/product.model';
 import {IntersectionObserverDirective } from '@org/util-directives';
 import { ProductDataService } from '../../../products/services/product-details/product-data-api.service';
-import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
 
 import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
 
 @Component({
   selector: 'app-best-selling',
@@ -27,9 +26,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     RatingModule,
     RouterModule,
     TranslatePipe,
-    FormsModule,LucideAngularModule,ButtonComponent,ProductCardComponent ,
-    IntersectionObserverDirective,CommonModule,SwiperDirective],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    FormsModule,LucideAngularModule,ButtonComponent,
+    IntersectionObserverDirective,CommonModule,ProductsCarouselComponent],
   templateUrl: './best-selling.component.html',
   styleUrl: './best-selling.component.scss',
 })

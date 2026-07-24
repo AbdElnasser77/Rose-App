@@ -1,0 +1,52 @@
+@if (products().length > 0) {
+  <app-section-title
+    [mainTitle]="mainTitle()"
+    [subTitle]="subTitle()"
+    alignment="left">
+  </app-section-title>
+
+  <div class="w-full overflow-hidden relative">
+    <swiper-container
+      libSwiperDirective
+      [config]="swiperConfig()"
+      init="false"
+      class="related-products-swiper w-full h-full">
+
+      @for (product of products(); track product.id) {
+      <swiper-slide class="py-2">
+        <app-product-card
+          [product]="product"
+          [isWishlisted]="wishlistedIds().has(product.id)"
+          (cardDetailsClicked)="cardDetailsClicked.emit(product)"
+          (wishListClicked)="wishListClicked.emit(product)"
+          (quickViewClicked)="quickViewClicked.emit(product)"
+          (addToCartClicked)="addToCartClicked.emit(product)"
+          class="w-full max-w-[302px]">
+        </app-product-card>
+      </swiper-slide>
+      }
+
+    </swiper-container>
+
+    <button
+      [class]="prevButtonClass() +' absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50'">
+
+      <lucide-icon
+        [img]="ChevronLeft"
+        class="w-[23px] h-[23px] text-[#FDF2F2]">
+      </lucide-icon>
+
+    </button>
+
+    <button
+      [class]="nextButtonClass() +' absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50'">
+
+      <lucide-icon
+        [img]="ChevronRight"
+        class="w-[23px] h-[23px] text-[#FDF2F2]">
+      </lucide-icon>
+
+    </button>
+
+  </div>
+}
