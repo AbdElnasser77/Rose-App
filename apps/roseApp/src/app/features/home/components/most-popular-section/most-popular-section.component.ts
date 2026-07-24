@@ -18,6 +18,7 @@ import { SectionTitleComponent } from '../../../../shared/components/section-tit
 import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
+import { CartStore } from '../../../cart/store/cart.store';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -43,6 +44,7 @@ export class MostPopularSectionComponent implements OnInit {
   private readonly _wishlistStore = inject(WishlistStore);
   private _translateService = inject(TranslateService);
     private cartService = inject(CartService);
+    private readonly _cartStore = inject(CartStore);
 
   
   readonly tabs = TABS;
@@ -111,9 +113,10 @@ export class MostPopularSectionComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           if (res.message == "Insufficient stock.") {
-            this.toastService.show('out of the stock', 'success');
+            this.toastService.show(this._translateService.instant('CART.OUT_OF_STOCK'), 'success');
           } else {
-            this.toastService.show('product added to cart', 'success');
+            this._cartStore.loadcart();
+            this.toastService.show(this._translateService.instant('CART.PRODUCT_ADDED'), 'success');
           }
         },
       });

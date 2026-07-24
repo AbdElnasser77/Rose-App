@@ -17,6 +17,7 @@ import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
+import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
   selector: 'app-best-selling',
@@ -39,6 +40,7 @@ export class BestSellingComponent implements OnInit {
   private toastService = inject(ToastService);
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly _cartStore = inject(CartStore);
   
   private cartService = inject(CartService);
 
@@ -135,9 +137,10 @@ onBestSellingVisible(entry: IntersectionObserverEntry) {
       .subscribe({
         next: (res: any) => {
           if (res.message == "Insufficient stock.") {
-            this.toastService.show('out of the stock', 'success');
+            this.toastService.show(this._translateService.instant('CART.OUT_OF_STOCK'), 'success');
           } else {
-            this.toastService.show('product added to cart', 'success');
+            this._cartStore.loadcart();
+            this.toastService.show(this._translateService.instant('CART.PRODUCT_ADDED'), 'success');
           }
         },
       });

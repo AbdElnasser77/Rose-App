@@ -8,7 +8,7 @@
           </h1>
 
           <p class="text-gray-500 mt-1">
-            {{ cartItems().length }}
+            {{ cartItemsData.length }}
             {{ 'CART.PRODUCTS' | translate }}
           </p>
         </div>
@@ -24,17 +24,17 @@
       </div>
 
       <div class="border border-gray-300 rounded-xl overflow-hidden bg-white">
-        @for(item of cartItems(); track item.id){
+        @for(item of cartItemsData; track item.id){
         <div
           class="flex flex-col md:flex-row gap-4 p-5 border-b last:border-b-0 border-gray-300">
 
-          <img
+          <img (click)="goToProductDetails(item.productId)"
             [src]="item.product.cover"
             [alt]="item.product.title"
-            class="w-28 h-28 rounded-lg object-cover border" />
+            class="w-28 h-28 rounded-lg object-cover border cursor-pointer" />
 
           <div class="flex-1">
-            <h3 class="font-semibold text-[#A6252A]">
+            <h3 class="font-semibold text-[#A6252A]" (click)="goToProductDetails(item.productId)" class="cursor-pointer">
               {{ item.product.title }}
             </h3>
 
