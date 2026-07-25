@@ -126,20 +126,24 @@
     </h3>
 
     <div class="flex w-full gap-[10px]">
-      <button
-        type="button"
-        (click)="cancelDelete()"
-        class="flex-1 rounded-lg border border-[#F4F4F5] bg-[#D4D4D8] hover:bg-[#d9d9db] dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-700 px-4 py-[14px] flex items-center justify-center font-sarabun font-medium text-[16px] text-[#27272A] dark:text-white transition-colors duration-200 cursor-pointer"
+      <lib-button
+        class="flex-1"
+        variant="Subtle"
+        size="full"
+        (clicked)="cancelDelete()"
+        customClass="px-4 py-3.5 text-[16px]"
       >
         {{ 'COMMON.CANCEL' | translate }}
-      </button>
-      <button
-        type="button"
-        (click)="confirmDelete()"
-        class="flex-1 rounded-lg bg-[#DC2626] hover:bg-[#B91C1C] transition-colors px-4 py-[14px] flex items-center justify-center font-sarabun font-medium text-[16px] text-white cursor-pointer"
+      </lib-button>
+      <lib-button
+        class="flex-1"
+        variant="Destructive"
+        size="full"
+        (clicked)="confirmDelete()"
+        customClass="px-4 py-3.5 text-[16px]"
       >
         {{ 'COMMON.CONFIRM' | translate }}
-      </button>
+      </lib-button>
     </div>
   </div>
 </p-dialog>
