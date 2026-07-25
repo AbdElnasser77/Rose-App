@@ -15,10 +15,17 @@ import { LucideAngularModule, MapPin, Phone, Pencil, Trash2 } from 'lucide-angul
 import { Address } from '../../models/address.model';
 import { AddressesApiService } from '../../services/addresses-api.service';
 import { DialogModule } from 'primeng/dialog';
+import { AddAddressComponent } from '../add-address/add-address.component';
 
 @Component({
   selector: 'app-manage-addresses-modal',
-  imports: [ButtonComponent, LucideAngularModule, TranslatePipe, DialogModule],
+  imports: [
+    ButtonComponent,
+    LucideAngularModule,
+    TranslatePipe,
+    DialogModule,
+    AddAddressComponent,
+  ],
   templateUrl: './manage-addresses-modal.component.html',
   styleUrl: './manage-addresses-modal.component.scss',
   host: {
@@ -41,6 +48,7 @@ export class ManageAddressesModalComponent implements OnInit {
 
   readonly addresses = signal<Address[]>([]);
   readonly pendingDeleteId = signal<string | null>(null);
+  readonly view = signal<'list' | 'add'>('list');
 
   ngOnInit(): void {
     this.loadAddresses();
@@ -88,8 +96,17 @@ export class ManageAddressesModalComponent implements OnInit {
       });
   }
 
+  onAddressSaved(): void {
+    this.view.set('list');
+    this.loadAddresses();
+  }
+
   onEscape(): void {
     if (this.pendingDeleteId() !== null) return;
+    if (this.view() === 'add') {
+      this.view.set('list');
+      return;
+    }
     this.close();
   }
 

@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .p-stepper,
+  .p-step-panels,
+  .p-step-panel {
+    background: transparent;
+  }
+
+  .p-step-panels {
+    padding: 0;
+  }
+}

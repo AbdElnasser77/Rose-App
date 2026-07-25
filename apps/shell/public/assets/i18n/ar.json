@@ -334,6 +334,18 @@
     "EMPTY": "لا توجد عناوين محفوظة",
     "DELETE_SUCCESS": "تم حذف العنوان بنجاح",
     "DELETE_CONFIRM_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا العنوان؟"
+  },
+  "ADD_ADDRESS": {
+    "TITLE": "إضافة عنوان جديد",
+    "STEP_DETAILS": "أدخل تفاصيل العنوان",
+    "CITY": "المدينة",
+    "CITY_PLACEHOLDER": "أدخل اسم المدينة",
+    "ADDRESS": "العنوان",
+    "ADDRESS_PLACEHOLDER": "أدخل عنوانك بالكامل",
+    "PHONE": "الهاتف",
+    "PHONE_PLACEHOLDER": "رقم الهاتف",
+    "NEXT": "التالي",
+    "STEP_TWO_PLACEHOLDER": "الخطوة الثانية قريباً"
   }
 }
 
