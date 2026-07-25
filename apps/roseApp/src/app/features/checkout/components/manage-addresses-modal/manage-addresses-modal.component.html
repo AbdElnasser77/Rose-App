@@ -1,0 +1,145 @@
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+  <button
+    type="button"
+    aria-label="Close"
+    (click)="close()"
+    class="absolute inset-0 bg-black/50"
+  ></button>
+
+  <div
+    class="relative w-full max-w-[720px] max-h-[85vh] bg-white dark:bg-zinc-900 rounded-2xl shadow-xl flex flex-col overflow-hidden"
+  >
+    <div
+      class="flex items-center justify-between gap-4 px-6 py-5 border-b border-zinc-200 dark:border-zinc-700"
+    >
+      <h2 class="font-sarabun text-2xl font-bold text-black dark:text-white">
+        {{ 'CHECKOUT.MANAGE_ADDRESSES.TITLE' | translate }}
+      </h2>
+      <lib-button
+        variant="Secondary"
+        size="auto"
+        customClass="px-4 py-2.5 text-sm dark:!text-zinc-700"
+      >
+        {{ 'CHECKOUT.MANAGE_ADDRESSES.ADD_NEW_ADDRESS' | translate }}
+      </lib-button>
+    </div>
+
+    <div class="px-6 py-5 overflow-y-auto flex flex-col gap-5">
+      @if (addresses().length > 0) {
+        @for (address of addresses(); track address.id) {
+          <div
+            class="relative rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 hover:shadow-sm p-4 pe-6 flex items-stretch justify-between gap-4 transition-all duration-200 cursor-pointer"
+          >
+            <span
+              class="absolute -top-4 text-xl bg-white dark:bg-zinc-900 px-2 start-5 font-sarabun text-base font-bold text-maroon-600 dark:text-soft-pink-300"
+            >
+              {{ address.title }}
+            </span>
+
+            <div class="flex flex-col justify-center gap-3 min-w-0">
+              <div class="flex items-center gap-3 min-w-0">
+                <span
+                  class="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"
+                >
+                  <lucide-icon
+                    [img]="MapPin"
+                    class="w-[18px] h-[18px] text-white"
+                  ></lucide-icon>
+                </span>
+                <span
+                  class="font-sarabun text-lg font-bold text-zinc-900 dark:text-zinc-100 truncate"
+                >
+                  {{ address.city }}
+                </span>
+              </div>
+              <span
+                class="w-fit rounded-lg bg-zinc-100 dark:bg-zinc-800 px-3 py-1.5 text-sm text-zinc-500 dark:text-zinc-400"
+              >
+                {{ address.street }}
+              </span>
+            </div>
+
+            <div
+              class="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 self-start"
+              dir="ltr"
+            >
+              <lucide-icon [img]="Phone" class="w-4 h-4"></lucide-icon>
+              <span class="text-sm whitespace-nowrap">{{ address.phone }}</span>
+            </div>
+
+            <button
+              type="button"
+              aria-label="Edit address"
+              class="absolute top-4 -end-4.5 w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-300 flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 transition-colors cursor-pointer"
+            >
+              <lucide-icon [img]="Pencil" class="w-4 h-4"></lucide-icon>
+            </button>
+            <button
+              type="button"
+              aria-label="Delete address"
+              (click)="requestDelete(address.id)"
+              class="absolute bottom-4 -end-4.5 w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
+            >
+              <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
+            </button>
+          </div>
+        }
+      } @else {
+        <div
+          class="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-8 text-center text-zinc-500 dark:text-zinc-400"
+        >
+          {{ 'CHECKOUT.MANAGE_ADDRESSES.EMPTY' | translate }}
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [visible]="pendingDeleteId() !== null"
+  (visibleChange)="onDeleteDialogVisibleChange($event)"
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '474px' }"
+>
+  <div class="flex flex-col items-center text-center gap-6">
+    <div class="w-[110px] h-[110px] flex items-center justify-center relative">
+      <div
+        class="absolute w-[105px] h-[105px] bg-[#F4F4F5] dark:bg-zinc-800 rounded-full"
+      ></div>
+      <div
+        class="absolute w-[70px] h-[70px] bg-[#E4E4E7] dark:bg-zinc-700 rounded-full"
+      ></div>
+      <lucide-icon
+        [img]="Trash2"
+        class="relative z-10 w-[29px] h-[29px] text-[#27272A] dark:text-white stroke-2"
+      ></lucide-icon>
+    </div>
+
+    <h3
+      class="font-sarabun font-semibold text-[20px] leading-none text-[#27272A] dark:text-white"
+    >
+      {{ 'CHECKOUT.MANAGE_ADDRESSES.DELETE_CONFIRM_MESSAGE' | translate }}
+    </h3>
+
+    <div class="flex w-full gap-[10px]">
+      <button
+        type="button"
+        (click)="cancelDelete()"
+        class="flex-1 rounded-lg border border-[#F4F4F5] bg-[#D4D4D8] hover:bg-[#d9d9db] dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-700 px-4 py-[14px] flex items-center justify-center font-sarabun font-medium text-[16px] text-[#27272A] dark:text-white transition-colors duration-200 cursor-pointer"
+      >
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button
+        type="button"
+        (click)="confirmDelete()"
+        class="flex-1 rounded-lg bg-[#DC2626] hover:bg-[#B91C1C] transition-colors px-4 py-[14px] flex items-center justify-center font-sarabun font-medium text-[16px] text-white cursor-pointer"
+      >
+        {{ 'COMMON.CONFIRM' | translate }}
+      </button>
+    </div>
+  </div>
+</p-dialog>

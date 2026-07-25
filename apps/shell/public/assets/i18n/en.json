@@ -326,6 +326,13 @@
       "OR": "OR",
       "ADD_NEW_ADDRESS": "Add a New Address",
       "NEXT": "Next"
+    },
+    "MANAGE_ADDRESSES": {
+      "TITLE": "My Addresses",
+      "ADD_NEW_ADDRESS": "Add a New Address",
+      "EMPTY": "No saved addresses",
+      "DELETE_SUCCESS": "Address deleted successfully",
+      "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete this address?"
     }
   }
 

@@ -327,6 +327,13 @@
     "OR": "أو",
     "ADD_NEW_ADDRESS": "إضافة عنوان جديد",
     "NEXT": "التالي"
+  },
+  "MANAGE_ADDRESSES": {
+    "TITLE": "عناويني",
+    "ADD_NEW_ADDRESS": "إضافة عنوان جديد",
+    "EMPTY": "لا توجد عناوين محفوظة",
+    "DELETE_SUCCESS": "تم حذف العنوان بنجاح",
+    "DELETE_CONFIRM_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا العنوان؟"
   }
 }
 
