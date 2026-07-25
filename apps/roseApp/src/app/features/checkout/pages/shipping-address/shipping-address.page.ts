@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
 import { Address } from '../../models/address.model';
 import { AddressesApiService } from '../../services/addresses-api.service';
@@ -24,6 +25,7 @@ import { CouponModel } from '../../../../shared/models/coupon.model';
     ButtonComponent,
     LucideAngularModule,
     OrderSummaryComponent,
+    TranslatePipe,
   ],
   templateUrl: './shipping-address.page.html',
   styleUrl: './shipping-address.page.scss',
@@ -33,9 +35,11 @@ export class ShippingAddressPage implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly addressesApi = inject(AddressesApiService);
   private readonly loader = inject(LoaderService);
+  private readonly translateService = inject(TranslateService);
 
   readonly Phone = Phone;
   readonly ArrowRight = ArrowRight;
+  readonly isRtl = computed(() => this.translateService.currentLang() === 'ar');
 
   readonly addresses = signal<Address[]>([]);
   readonly selectedId = signal<string | null>(null);

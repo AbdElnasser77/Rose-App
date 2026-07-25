@@ -317,6 +317,16 @@
     "DISCOUNT" :" Discount",
     "OUT_OF_STOCK": "out of the stock",
     "PRODUCT_ADDED": "product added to cart"
+  },
+
+  "CHECKOUT": {
+    "SHIPPING_ADDRESS": {
+      "TITLE": "Shipping Address",
+      "NO_ADDRESSES": "No saved addresses",
+      "OR": "OR",
+      "ADD_NEW_ADDRESS": "Add a New Address",
+      "NEXT": "Next"
+    }
   }
 
 }
