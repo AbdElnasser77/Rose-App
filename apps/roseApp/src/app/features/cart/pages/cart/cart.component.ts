@@ -16,7 +16,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CartStore } from '../../store/cart.store';
+import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
 
 @Component({
   selector: 'app-cart',
@@ -26,21 +28,30 @@ import { RouterLink } from '@angular/router';
   InputTextModule,
   RatingModule,
   TranslatePipe,
-  RouterLink],
+  RouterLink ,OrderSummaryComponent],
   templateUrl: './cart.component.html'
 })
 export class CartComponent implements OnInit {
 
   private cartService = inject(CartService);
-  cartItems = signal<CartItem[]>([]);
+  
   coupon = signal('');
-  couponData = signal<any>('');
+  
   private destroyRef = inject(DestroyRef);
-  discount = 0;
+  
+  private readonly _cartStore = inject(CartStore);
+  private readonly router = inject(Router);
+  readonly cartItems = this._cartStore.cartItems;
+
+ readonly subtotal = this._cartStore.subtotal;
+ readonly total = this._cartStore.total;
+ readonly couponData = this._cartStore.couponData;
 
   ngOnInit(): void {
     this.loadCart();
   }
+  
+
 
   loadCart() {
     this.cartService.getCart()
@@ -62,10 +73,7 @@ export class CartComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          this.couponData.set(res);
-        },
-        error: (err) => {
-          console.error(err);
+          this._cartStore.applyCoupon(res);
         }
       });
   }
@@ -120,36 +128,8 @@ export class CartComponent implements OnInit {
     return this.getItemPrice(item) * item.quantity;
   }
 
-  subtotal = computed(() =>
-    this.cartItems().reduce((sum, item) =>
-    sum + Number(item.product.price) * item.quantity
-    , 0)
-  );
-
-  total = computed(() => {
-    const itemsTotal = this.cartItems().reduce(
-      (sum, item) => sum + this.itemTotal(item),
-      0
-    );
-
-    const coupon = this.couponData();
-
-    if (!coupon) {
-      return itemsTotal;
-    }
-
-    this.discount = 0;
-
-    if (coupon.type === 'PERCENT') {
-      this.discount = itemsTotal * (Number(coupon.value) / 100);
-
-      if (coupon.maxDiscount) {
-        this.discount = Math.min(this.discount, Number(coupon.maxDiscount));
-      }
-    } else if (coupon.type === 'FIXED') {
-      this.discount = Number(coupon.value);
-    }
-
-    return Math.max(0, itemsTotal - this.discount);
-  });
+  
+  goToProductDetails(productId: string): void {
+    this.router.navigate(['/products', productId]);
+  }
 }

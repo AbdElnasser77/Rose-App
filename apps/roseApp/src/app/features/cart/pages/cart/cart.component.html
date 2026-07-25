@@ -133,67 +133,14 @@
     </div>
 
     <div class="lg:col-span-4">
-      <div class="p-5 sticky top-5">
-        <h2 class="text-2xl font-semibold mb-5">
-          {{ 'CART.SUMMARY' | translate }}
-        </h2>
+      <!-- Summary -->
 
-        <div class="bg-[#FAFAFA] p-5 rounded-xl">
-          <div class="flex gap-2">
-            <input
-              pInputText
-              [placeholder]="'CART.COUPON_CODE' | translate"
-              class="flex-1"
-              [ngModel]="coupon()"
-              (ngModelChange)="coupon.set($event)" />
-
-            <button
-              pButton
-              class="bg-[#A6252A]"
-              severity="danger"
-              [label]="'CART.APPLY_COUPON' | translate"
-              (click)="getCoupon()">
-            </button>
-          </div>
-
-          @if(couponData()) {
-            <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5">
-              {{ 'CART.HAVE_COUPON' | translate }} {{ discount }}
-            </div>
-          } @else (){
-            <div class="border border-gray-300 rounded-lg h-56 flex items-center justify-center text-gray-400 italic mt-5">
-              {{ 'CART.NO_COUPONS' | translate }}
-            </div>
-          }
-
-          <div class="flex justify-between mt-6 text-lg">
-            <span>{{ 'CART.SUBTOTAL' | translate }}</span>
-
-            <span>
-              {{ subtotal() | number:'1.2-2' }}
-              {{ 'CART.CURRENCY' | translate }}
-            </span>
-          </div>
-
-          <div class="flex justify-between mt-4 text-2xl font-bold text-[#A6252A] border-t border-gray-200">
-            <span>{{ 'CART.TOTAL' | translate }}</span>
-
-            <span>
-              {{ total() | number:'1.2-2' }}
-              {{ 'CART.CURRENCY' | translate }}
-            </span>
-          </div>
-        </div>
-
-        <button
-          pButton
-          severity="danger"
-          class="w-full mt-6 bg-[#A6252A]"
-          [label]="'CART.CHECKOUT' | translate"
-          icon="pi pi-arrow-right"
-          iconPos="right">
-        </button>
-      </div>
+    <app-order-summary
+      [subtotal]="subtotal()"
+      [total]="total()"
+      [showCheckoutButton]="true"
+      [cartHasItems]="cartItems().length > 0">
+    </app-order-summary>
     </div>
   </div>
 </div>

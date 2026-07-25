@@ -48,7 +48,10 @@
         </div>
 
         <div class="w-full  lg:max-w-[458px] shrink-0">
-            <app-order-summary [subtotal]="312" [total]="450" [cartHasItems]="true" />
+            <app-order-summary 
+             [subtotal]="subtotal()"
+             [total]="total()"
+             [cartHasItems]="cartItems().length > 0" />
         </div>
     </div>
     <!-- Products You May Like -->

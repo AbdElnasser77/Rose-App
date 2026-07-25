@@ -16,6 +16,7 @@ import { CheckoutStore } from '../../store/checkout.store';
 import { PaymentMethodModel } from '../../models/payment-method.model';
 import { OrderService } from '../../services/order.service';
 import { CreateOrderRequestModel } from '../../models/order/create-order-request.model';
+import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
   selector: 'app-payment',
@@ -33,13 +34,17 @@ export class PaymentPage implements OnInit{
     private productService = inject(ProductDataService);
     protected readonly _checkoutStore = inject(CheckoutStore);
     private readonly _orderService = inject(OrderService)
-    
+     private readonly _cartStore = inject(CartStore);
+
     suggestedProducts = signal<Product[]>([]);
      wishlistedIds = this._wishlistStore.wishlistedIds;
     isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
     readonly MoveRight = MoveRight;
     readonly ArrowLeft = ArrowLeft;
-
+   
+    readonly subtotal = this._cartStore.subtotal;
+    readonly total = this._cartStore.total;
+     readonly cartItems = this._cartStore.cartItems;
 
     //  View details
     onCardDetailsClicked(productId: string): void {
@@ -62,6 +67,7 @@ export class PaymentPage implements OnInit{
   }
   ngOnInit(): void {
     this.getProducts();
+    this._cartStore.loadcart();
     const payment = this._checkoutStore.paymentMethod();
 
     if (payment) {
