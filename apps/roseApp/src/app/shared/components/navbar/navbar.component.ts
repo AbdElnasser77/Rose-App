@@ -9,6 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AssetUrlPipe } from '../../../core/pipes/asset-url.pipe';
 import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
 import { CartStore } from '../../../features/cart/store/cart.store';
+import { AddressModalService } from '../../../features/checkout/services/address-modal.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit{
   private readonly router = inject(Router);
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly _cartStore = inject(CartStore);
+  private readonly addressModal = inject(AddressModalService);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
   readonly cartCount = this._cartStore.cartCount;
@@ -77,6 +79,11 @@ export class NavbarComponent implements OnInit{
     onWishlistClicked() {
     this.router.navigate(['/wishlist']);
   }
+
+  openAddressModal(): void {
+    this.addressModal.open();
+  }
+
   ngOnInit(): void {
   this._wishlistStore.loadWishlist();
   this._cartStore.loadcart();

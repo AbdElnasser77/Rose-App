@@ -7,3 +7,7 @@
 <app-footer />
 
 <lib-loader-container [logoSrc]="'assets/logo.png' | assetUrl" />
+
+@if (addressModal.isOpen()) {
+  <app-manage-addresses-modal (closed)="addressModal.close()" />
+}

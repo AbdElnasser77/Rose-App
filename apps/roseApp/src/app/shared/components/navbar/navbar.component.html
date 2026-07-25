@@ -6,13 +6,17 @@
     </a>
 
     @if (isLoggedIn()) {
-    <div class="hidden md:block text-xs md:text-sm shrink-0">
-      <p class="text-gray-400 dark:text-zinc-400">{{ 'NAV.DELIVER_TO' | translate }}</p>
-      <div class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
+    <button
+      type="button"
+      (click)="openAddressModal()"
+      class="hidden md:block text-xs md:text-sm shrink-0 text-start cursor-pointer"
+    >
+      <span class="block text-gray-400 dark:text-zinc-400">{{ 'NAV.DELIVER_TO' | translate }}</span>
+      <span class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
         <lucide-icon [img]="MapPin" class="w-4 h-4" />
         <span>Cairo</span>
-      </div>
-    </div>
+      </span>
+    </button>
     }
 
     <div class="flex-1 min-w-0">

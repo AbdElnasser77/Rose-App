@@ -15,6 +15,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
 import { Address } from '../../models/address.model';
 import { AddressesApiService } from '../../services/addresses-api.service';
+import { AddressModalService } from '../../services/address-modal.service';
 import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
 import { CouponModel } from '../../../../shared/models/coupon.model';
 
@@ -36,6 +37,7 @@ export class ShippingAddressPage implements OnInit {
   private readonly addressesApi = inject(AddressesApiService);
   private readonly loader = inject(LoaderService);
   private readonly translateService = inject(TranslateService);
+  private readonly addressModal = inject(AddressModalService);
 
   readonly Phone = Phone;
   readonly ArrowRight = ArrowRight;
@@ -71,6 +73,10 @@ export class ShippingAddressPage implements OnInit {
 
   selectAddress(id: string): void {
     this.selectedId.set(id);
+  }
+
+  openAddressModal(): void {
+    this.addressModal.open();
   }
 
   onApplyCoupon(code: string): void {
