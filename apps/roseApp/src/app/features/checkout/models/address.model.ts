@@ -1,17 +1,25 @@
 export interface Address {
   id: string;
+  userId?: string;
+  title: string;
   city: string;
   street: string;
   phone: string;
-  isDefault?: boolean;
+  isPrimary?: boolean;
+  latitude?: string;
+  longitude?: string;
   createdAt?: string;
   updatedAt?: string;
 }
 
 export interface CreateAddressDto {
+  title: string;
   city: string;
   street: string;
   phone: string;
+  isPrimary?: boolean;
+  latitude?: string;
+  longitude?: string;
 }
 
 export type UpdateAddressDto = Partial<CreateAddressDto>;
@@ -20,8 +28,7 @@ export interface AddressListResponse {
   status: boolean;
   code: number;
   payload: {
-    data?: Address[];
-    addresses?: Address[];
+    addresses: Address[];
   };
 }
 
@@ -29,7 +36,6 @@ export interface AddressResponse {
   status: boolean;
   code: number;
   payload: {
-    address?: Address;
-    data?: Address;
+    address: Address;
   };
 }
