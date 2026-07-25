@@ -21,8 +21,8 @@ import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
 import { SwiperOptions } from 'swiper/types';
 import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
-import { Product } from 'apps/roseApp/src/app/shared/models/product.model';
-import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
+import { Product } from '../../../../../shared/models/product.model';
+import { ProductsCarouselComponent } from '../../../../../shared/components/products-carousel/products-carousel.component';
 @Component({
   selector: 'app-related-products-section',
   imports: [

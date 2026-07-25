@@ -248,7 +248,8 @@
   "COMMON": {
     "EGP": "ج.م",
     "CANCEL": "إلغاء",
-    "CONFIRM": "تأكيد"
+    "CONFIRM": "تأكيد",
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك"
   },
 
   "PRODUCT": {
@@ -316,6 +317,24 @@
   "TOTAL": "الإجمالي",
   "CHECKOUT": "إتمام الطلب",
   "DISCOUNT":"خصم"
-}
+},
+"PAYMENT": {
+    "TITLE": "طريقة الدفع",
+    "BACK": "رجوع",
+    "CHECKOUT": "إتمام الطلب",
+
+    "PAYMENT_REQUIRED": "يرجى اختيار طريقة الدفع.",
+    "ADDRESS_REQUIRED": "يرجى اختيار عنوان أولاً.",
+
+    "CASH": {
+      "TITLE": "الدفع عند الاستلام",
+      "DESCRIPTION": "ستقوم بالدفع نقدًا عند استلام الطلب."
+    },
+
+    "CREDIT_CARD": {
+      "TITLE": "بطاقة ائتمانية",
+      "DESCRIPTION": "سيتم تحويلك بأمان إلى Stripe لإتمام عملية الدفع."
+    }
+  }
 
 }

@@ -1,1 +1,64 @@
-<p>payment works!</p>
+<section class=" w-full px-4 md:px-8 lg:px-[81px] gap-[50px]  mt-[62px] flex flex-col justify-center">
+
+    <!-- Payment Method -->
+    <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:flex-row">
+        <div class="flex-1 flex flex-col  h-full gap-4">
+            <app-checkout-stepper [activeIndex]="1" class="w-full" />
+            <!-- Title -->
+
+            <div class="flex gap-4">
+                 <button type="button" (click)="onBackClicked()"
+                class=" flex items-center justify-center gap-[4px] rounded-[10px]
+                cursor-pointer
+                bg-[#F4F4F5] p-2.5 font-mulish text-sm font-semibold leading-[150%] tracking-normal text-[#27272A]
+                transition-colors ">
+
+                <lucide-icon [img]="ArrowLeft" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
+                {{ 'PAYMENT.BACK' | translate }}
+                </button>
+                <h1 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black">
+                     {{ 'PAYMENT.TITLE' | translate }}
+                </h1>
+            </div>
+            <div class="flex flex-1  flex-col xl:flex-row gap-3 items-stretch ">
+
+                <!-- Payment -->
+                @for(method of paymentMethods; track method.id){
+                <app-payment-method-card 
+                [paymentMethod]="method" 
+                [paymentSelected]="selectedPayment === method.id"
+                (selectedChange)="onPaymentSelected($event)">
+                </app-payment-method-card>
+                }
+
+               
+            </div>
+            <div class="flex ">
+                <button type="button" (click)="onCheckoutClicked()" [disabled]="!_checkoutStore.paymentMethod()"
+                class="ms-auto flex  items-center justify-center gap-2.5 rounded-[10px]
+                cursor-pointer
+                bg-[#A6252A] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal text-white
+                transition-colors hover:bg-[#8f1f23]">
+                {{ 'PAYMENT.CHECKOUT' | translate }}
+                <lucide-icon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
+
+            </button>
+            </div>
+             
+        </div>
+
+        <div class="w-full  lg:max-w-[458px] shrink-0">
+            <app-order-summary [subtotal]="312" [total]="450" [cartHasItems]="true" />
+        </div>
+    </div>
+    <!-- Products You May Like -->
+
+    <app-products-carousel class="mb-16" [products]="suggestedProducts()" [wishlistedIds]="wishlistedIds()"
+        [mainTitle]="'COMMON.PRODUCTS_YOU_MAY_LIKE' | translate" [swiperConfig]="swiperConfig"
+        prevButtonClass="payment-products-prev" nextButtonClass="payment-products-next"
+        (cardDetailsClicked)="onCardDetailsClicked($event.id)" (wishListClicked)="onWishListClicked($event)"
+        (quickViewClicked)="onCardDetailsClicked($event.id)" (addToCartClicked)="onAddToCartClicked($event.id)" />
+
+
+
+</section>

@@ -1,0 +1,1 @@
+export type PaymentMethodType = 'CASH' | 'CREDIT_CARD';

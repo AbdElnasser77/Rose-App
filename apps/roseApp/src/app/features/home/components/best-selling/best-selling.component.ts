@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal,CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef, effect, DestroyRef } from '@angular/core';
+import { Component, computed, inject, OnInit, signal , DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
@@ -16,7 +16,7 @@ import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
+import { ProductsCarouselComponent } from '../../../../shared/components/products-carousel/products-carousel.component';
 
 @Component({
   selector: 'app-best-selling',
@@ -76,6 +76,7 @@ export class BestSellingComponent implements OnInit {
     const rtl=this.isRtl();
     return{
       spaceBetween: 24,
+      centerInsufficientSlides: true,
     watchSlidesProgress: true,
     navigation: {
       nextEl: rtl ? '.best-selling-prev' : '.best-selling-next',
