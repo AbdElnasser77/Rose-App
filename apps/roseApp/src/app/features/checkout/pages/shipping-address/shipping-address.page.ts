@@ -1,9 +1,19 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonComponent } from '@org/ui';
+import { LoaderService } from '@org/shared-util-loader';
 import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
 import { Address } from '../../models/address.model';
+import { AddressesApiService } from '../../services/addresses-api.service';
 import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
 import { CouponModel } from '../../../../shared/models/coupon.model';
 
@@ -18,39 +28,16 @@ import { CouponModel } from '../../../../shared/models/coupon.model';
   templateUrl: './shipping-address.page.html',
   styleUrl: './shipping-address.page.scss',
 })
-export class ShippingAddressPage {
+export class ShippingAddressPage implements OnInit {
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly addressesApi = inject(AddressesApiService);
+  private readonly loader = inject(LoaderService);
 
   readonly Phone = Phone;
   readonly ArrowRight = ArrowRight;
 
-  readonly addresses = signal<Address[]>([
-    {
-      id: '1',
-      city: 'Giza',
-      street: '21 Ahmed Mohamed St., King Faisal St., Giza',
-      phone: '+201012346578',
-    },
-    {
-      id: '2',
-      city: 'Cairo',
-      street: '14 Omar Ibn Akhatab St., Ramsis St., Cairo',
-      phone: '+201112345678',
-    },
-    {
-      id: '3',
-      city: 'Alexandria',
-      street: '16 El-Gaish Rd, San Stefano, El-Raml 2, Alexandria',
-      phone: '+201512345678',
-    },
-    {
-      id: '4',
-      city: 'Giza',
-      street: '5 Hassan Mohamed St., Dokki, Giza',
-      phone: '+201098765432',
-    },
-  ]);
-
+  readonly addresses = signal<Address[]>([]);
   readonly selectedId = signal<string | null>(null);
 
   readonly subtotal = signal(250);
@@ -63,6 +50,20 @@ export class ShippingAddressPage {
     }
     return Math.max(0, this.subtotal() - Number(coupon.value));
   });
+
+  ngOnInit(): void {
+    this.loadAddresses();
+  }
+
+  loadAddresses(): void {
+    this.addressesApi
+      .getAddresses()
+      .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (addresses) => this.addresses.set(addresses),
+        error: () => this.addresses.set([]),
+      });
+  }
 
   selectAddress(id: string): void {
     this.selectedId.set(id);
