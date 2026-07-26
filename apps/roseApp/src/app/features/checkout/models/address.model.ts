@@ -18,8 +18,8 @@ export interface CreateAddressDto {
   street: string;
   phone: string;
   isPrimary?: boolean;
-  latitude?: string;
-  longitude?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export type UpdateAddressDto = Partial<CreateAddressDto>;

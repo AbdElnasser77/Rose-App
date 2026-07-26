@@ -344,7 +344,11 @@
       "PHONE": "Phone",
       "PHONE_PLACEHOLDER": "Phone number",
       "NEXT": "Next",
-      "STEP_TWO_PLACEHOLDER": "Step 2 coming soon"
+      "FIND_LOCATION": "Find Your Location",
+      "FIND_MY_LOCATION": "Find My Location",
+      "ADD_ADDRESS_BTN": "Add Address",
+      "SUCCESS": "Address added successfully",
+      "LOCATION_ERROR": "Could not get your location"
     }
   }
 

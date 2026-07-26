@@ -345,7 +345,11 @@
     "PHONE": "الهاتف",
     "PHONE_PLACEHOLDER": "رقم الهاتف",
     "NEXT": "التالي",
-    "STEP_TWO_PLACEHOLDER": "الخطوة الثانية قريباً"
+    "FIND_LOCATION": "حدد موقعك",
+    "FIND_MY_LOCATION": "تحديد موقعي",
+    "ADD_ADDRESS_BTN": "إضافة العنوان",
+    "SUCCESS": "تمت إضافة العنوان بنجاح",
+    "LOCATION_ERROR": "تعذّر تحديد موقعك"
   }
 }
 
