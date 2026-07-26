@@ -1,4 +1,5 @@
-<div class="flex flex-col md:flex-row gap-4 p-5 border-b last:border-b-0 border-gray-300">
+<div class="p-5 pb-0">
+<div class="flex flex-col md:flex-row gap-4 pb-5  border-b  border-[#E4E4E7] dark:border-zinc-700">
 
     <div role="button" tabindex="0" 
         (click)=" onProductClicked()"  
@@ -11,7 +12,7 @@
     
 
     <div class="flex-1">
-        <h3 class="font-semibold text-[#A6252A] cursor-pointer" 
+        <h3 class="font-semibold text-[#A6252A] cursor-pointer dark:text-[#FFC2D0]" 
         role="button"
         tabindex="0"
         (click)=" onProductClicked()"
@@ -23,13 +24,13 @@
             <lucide-icon [img]="Star" class="w-[20px] h-[20px] text-[#FFA508] fill-current"></lucide-icon>
            
             @if(item().product.rating ){
-            <span>
+            <span class="text-black dark:text-white">
                 {{ 'CART.RATING' | translate }}:
                 {{ item().product.rating }}/5
             </span>
             }
             @if(item().product.ratings ){
-            <span class="text-blue-600">
+            <span class="text-blue-600 dark:text-sky-400">
                 ({{ item().product.ratings }}
                 {{ 'CART.RATINGS' | translate }})
             </span>
@@ -42,35 +43,37 @@
         </div>
 
         <div class="mt-5">
-            <span class="text-[#A6252A] font-semibold">
+            <span class="text-[#A6252A] dark:text-[#FF9EB7] font-semibold">
                 (x{{ item().quantity }})
             </span>
 
-            <span class="text-2xl font-bold ml-2">
+            <span class="text-2xl font-bold ml-2 text-black dark:text-white">
                 {{ item().product.price | number:'1.2-2'}}
             </span>
 
-            <span class="text-gray-500 ml-1">
+            <span class="text-gray-500 ml-1 text-black dark:text-white ">
                 {{ 'COMMON.EGP' | translate }}
             </span>
         </div>
     </div>
 
-    <div class="flex flex-col justify-between items-end">
-        <button pButton class="bg-[#DC2626]" severity="danger" size="small" icon="pi pi-trash"
+    <div class="flex flex-col justify-between items-end ">
+        <button pButton class="bg-[#DC2626] text-white" severity="danger" size="small" icon="pi pi-trash"
             [label]="'CART.REMOVE' | translate" (click)="onRemove()">
         </button>
 
         <div class="flex items-center gap-2 mt-5">
-            <button class="bg-[#FBEAEA] text-[#A6252A] border-0!" pButton severity="danger" outlined icon="pi pi-minus"
+            <button class="bg-[#FBEAEA] dark:bg-zinc-700 text-[#A6252A] dark:text-[#FFC2D0] border-0!" pButton severity="danger" outlined icon="pi pi-minus"
                 (click)="onDecrease()">
             </button>
 
-            <input pInputText readonly [value]="item().quantity" class="w-16 text-center" />
+            <input pInputText readonly [value]="item().quantity"
+            class="w-16 text-center  dark:bg-zinc-700 dark:border-zinc-600 dark:text-white" />
 
-            <button class="bg-[#FBEAEA] text-[#A6252A] border-0!" pButton severity="danger" outlined icon="pi pi-plus"
+            <button class="bg-[#FBEAEA] dark:bg-zinc-700 text-[#A6252A] dark:text-[#FFC2D0] border-0!" pButton severity="danger" outlined icon="pi pi-plus"
                 (click)="onIncrease()">
             </button>
         </div>
     </div>
+</div>
 </div>

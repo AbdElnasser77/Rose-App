@@ -13,7 +13,8 @@
             <app-order-summary 
               [subtotal]="subtotal()" 
               [total]="total()" 
-              [cartHasItems]="cartItems().length > 0">
+              [cartHasItems]="cartItems().length > 0"
+              [showCheckoutButton]="isCartPage()">
             </app-order-summary>
         </div>
 

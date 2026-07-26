@@ -4,20 +4,20 @@
             {{ 'CART.TITLE' | translate }}
         </h1>
         @if(cartCount () >0){
-        <p class="text-gray-500 mt-1">
+        <p class="text-gray-500 mt-1 dark:text-zinc-400">
             {{ cartCount () }}
             {{ 'CART.PRODUCTS' | translate }}
         </p>
         }
     </div>
     @if(cartCount () >0){
-    <button pButton severity="danger" class="bg-[#FBEAEA] text-[#A6252A] border-0!"
+    <button pButton severity="danger" class="bg-[#FBEAEA] dark:bg-zinc-700 text-[#A6252A]  dark:text-[#FFC2D0] border-0!"
         icon="pi pi-trash"
         [label]="'CART.CLEAR_CART' | translate" (click)="clearCart()">
     </button>
     }
 </div>
-<div class="border border-gray-300 rounded-xl overflow-hidden bg-white">
+<div class="border border-gray-300  dark:border-zinc-700 border-b-0 rounded-xl overflow-hidden mb-6">
     @for(item of  cartItems(); track item.id){
          <app-cart-item-card
          [item]="item"
@@ -31,7 +31,7 @@
 
     @empty {
     <div class="text-center py-20">
-        <i class="pi pi-shopping-cart text-6xl text-gray-300"></i>
+        <i class="pi pi-shopping-cart text-6xl text-gray-300 dark:text-zinc-500"></i>
 
         <p class="mt-5 text-xl text-gray-500">
             {{ 'CART.EMPTY_CART' | translate }}
@@ -40,11 +40,20 @@
     }
    
 </div>
- <button
-        pButton
-        severity="danger"
-        class="bg-[#A6252A] mt-6"
-        icon="pi pi-arrow-left"
-        routerLink="/home"
-        [label]="'CART.CONTINUE_SHOPPING' | translate">
-</button>
+ <div routerLink="/home">
+
+ </div>
+<lib-button size="auto" (clicked)="navigateToProducts()"
+class="bg-[#A6252A] dark:bg-[#FFA3B9] dark:text-[#27272A]  text-white "
+>
+@if (!isRtl()) {
+   <lucide-icon leftIcon [img]="ArrowLeft"></lucide-icon>
+}
+ 
+{{ 'CART.CONTINUE_SHOPPING' | translate}}
+ @if (isRtl()) {    
+    <lucide-icon rightIcon [img]="ArrowRight"></lucide-icon>
+ }
+
+
+</lib-button>

@@ -30,6 +30,8 @@ export class CheckoutLayoutComponent implements OnInit{
 
 
    readonly isRtl = computed(() => this._translateService.currentLang() === 'ar');
+   
+   isCartPage = computed(() => this._router.url.includes('/cart'));
 
   readonly subtotal = this._cartStore.subtotal;
   readonly total = this._cartStore.total;

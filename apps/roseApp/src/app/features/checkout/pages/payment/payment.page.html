@@ -1,4 +1,3 @@
-<section class=" w-full px-4 md:px-8 lg:px-[81px] gap-[50px]  mt-[62px] flex flex-col justify-center">
 
     <!-- Payment Method -->
     <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:flex-row">
@@ -11,13 +10,13 @@
                  <button type="button" (click)="onBackClicked()"
                 class=" flex items-center justify-center gap-[4px] rounded-[10px]
                 cursor-pointer
-                bg-[#F4F4F5] p-2.5 font-mulish text-sm font-semibold leading-[150%] tracking-normal text-[#27272A]
+                bg-[#F4F4F5] dark:bg-zinc-700 hover:bg-[#E4E4E7] dark:hover:bg-zinc-600   dark:text-white p-2.5 font-mulish text-sm font-semibold leading-[150%] tracking-normal text-[#27272A]
                 transition-colors ">
 
                 <lucide-icon [img]="ArrowLeft" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
                 {{ 'PAYMENT.BACK' | translate }}
                 </button>
-                <h1 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black">
+                <h1 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black dark:text-white">
                      {{ 'PAYMENT.TITLE' | translate }}
                 </h1>
             </div>
@@ -38,8 +37,8 @@
                 <button type="button" (click)="onCheckoutClicked()" [disabled]="!_checkoutStore.paymentMethod()"
                 class="ms-auto flex  items-center justify-center gap-2.5 rounded-[10px]
                 cursor-pointer
-                bg-[#A6252A] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal text-white
-                transition-colors hover:bg-[#8f1f23]">
+                bg-[#A6252A] dark:bg-[#FFA3B9] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal 
+                text-white dark:text-[#27272A] transition-colors hover:bg-[#8f1f23] dark:hover:bg-[#FF89A6]">
                 {{ 'PAYMENT.CHECKOUT' | translate }}
                 <lucide-icon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
 
@@ -50,7 +49,3 @@
 
        
     </div>
-    
-
-
-</section>
