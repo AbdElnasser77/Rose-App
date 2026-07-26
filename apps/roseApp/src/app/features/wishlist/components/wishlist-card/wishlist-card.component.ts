@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output, output } from '@angular/core';
-import { AssetUrlPipe } from 'apps/roseApp/src/app/core/pipes/asset-url.pipe';
+import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
 import { LucideAngularModule, Star ,Trash2 ,ShoppingCart  } from 'lucide-angular';
 import { WishlistItemModel } from '../../models/wishlist-item.model';
 import { DecimalPipe } from '@angular/common';
@@ -34,6 +34,6 @@ export class WishlistCardComponent {
   }
 
   addItemToCart():void{
-    this.addToCart.emit(this.item().id);
+    this.addToCart.emit(this.item().productId);
   }
 }

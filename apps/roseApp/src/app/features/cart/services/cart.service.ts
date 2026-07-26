@@ -4,6 +4,7 @@ import { CartItem } from '../models/cart.model';
 import { map, Observable } from 'rxjs';
 import { BASE_URL_CONFIG } from '@org/auth';
 import { CartResponseModel } from '../models/cart-response.model';
+import { CouponModel } from '../../../shared/models/coupon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,9 @@ export class CartService {
     return this.http.post<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`, data);
   }
 
-  getCoupons(couponsId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrlConfig.apiUrl}/coupons/${couponsId}`)
-    .pipe(map((res) => res.payload.coupon));
+  getCoupons(page = 1, limit = 20): Observable<CouponModel[]> {
+    return this.http.get<any>(`${this.baseUrlConfig.apiUrl}/coupons?page=${page}&limit=${limit}`)
+    .pipe(map((res) => res.payload.data));
   }
 
   updateCartQuantity(cartItemId: string, quantity: {}): Observable<CartItem[]> {
