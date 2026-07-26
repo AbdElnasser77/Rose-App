@@ -8,7 +8,7 @@ import { WishlistStore } from '../../store/wishlist.store';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CartService } from '../../../cart/services/cart.service';
+import { CartStore } from '../../../cart/store/cart.store';
 @Component({
   selector: 'app-wishlist',
   imports: [WishlistCardComponent ,CommonModule,LucideAngularModule ,TranslatePipe,DialogModule],
@@ -21,7 +21,7 @@ export class WishlistPage {
   private readonly _toastService=inject(ToastService);
   private readonly _router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly _cartService = inject(CartService);
+  private readonly _cartStore = inject(CartStore);
 
 
   readonly wishlistItems = this._wishlistStore.wishlistItems;
@@ -62,7 +62,7 @@ export class WishlistPage {
 
   
    addToCart(productId:string):void{
-    this._cartService.addToCart({ productId: productId, quantity: 1 }).pipe(
+    this._cartStore.addToCart(productId).pipe(
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({

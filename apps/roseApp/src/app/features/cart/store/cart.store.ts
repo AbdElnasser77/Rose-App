@@ -1,15 +1,19 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionService } from '@org/auth';
 import { CartService } from '../services/cart.service';
 import { CartItem } from '../models/cart.model';
 import { CouponModel } from '../../../shared/models/coupon.model';
-import { tap } from 'rxjs';
+import { EMPTY, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartStore {
   private readonly _cartService = inject(CartService);
-  
+  private readonly _sessionService = inject(SessionService);
+  private readonly _router = inject(Router);
+
   readonly cartItems = signal<CartItem[]>([]);
   readonly coupon = signal<CouponModel | null>(null);
 
@@ -69,12 +73,21 @@ export class CartStore {
 
    // Load cart from API
    loadCart(): void {
+    if (!this._sessionService.isAuthenticated()) {
+      return;
+    }
+
     this._cartService.getCart().subscribe({
     next: (res) => {
       this.cartItems.set(res);
-      
+
     }
     });
+  }
+
+  reset(): void {
+    this.cartItems.set([]);
+    this.coupon.set(null);
   }
 
 
@@ -118,8 +131,13 @@ export class CartStore {
  }
 
  // add to cart
-  addToCart(productId: string) {
- 
+  addToCart(productId: string): Observable<any> {
+
+  if (!this._sessionService.isAuthenticated()) {
+    this._router.navigate(['/auth/login']);
+    return EMPTY;
+  }
+
   return this._cartService.addToCart({
     productId,
     quantity: 1,

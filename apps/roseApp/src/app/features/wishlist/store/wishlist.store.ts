@@ -1,4 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { SessionService } from '@org/auth';
 import { WishlistItemModel } from '../models/wishlist-item.model';
 import { WishlistService } from '../services/wishlist.service';
 import { Observable, tap } from 'rxjs';
@@ -10,7 +11,8 @@ import { MessagePayloadModel } from '../models/response/message-response.model';
 })
 export class WishlistStore {
   private readonly _wishlistService = inject(WishlistService);
-  
+  private readonly _sessionService = inject(SessionService);
+
   private loaded = false;
   readonly wishlistItems = signal<WishlistItemModel[]>([]);
 
@@ -27,12 +29,21 @@ export class WishlistStore {
   loadWishlist(): void {
     if (this.loaded) return;
 
+    if (!this._sessionService.isAuthenticated()) {
+      return;
+    }
+
     this._wishlistService.getWishlist().subscribe({
     next: (res) => {
       this.wishlistItems.set(res.wishlistItems);
       this.loaded = true;
     }
     });
+  }
+
+  reset(): void {
+    this.wishlistItems.set([]);
+    this.loaded = false;
   }
   // Add product to wishlist
   add(productId: string): Observable<AddToWishlistPayload>{

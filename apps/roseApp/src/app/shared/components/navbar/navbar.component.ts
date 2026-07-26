@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
@@ -20,7 +20,7 @@ import { AddressStore } from '../../../features/checkout/store/address.store';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent {
   private readonly authStore = inject(AuthStore);
   private readonly sessionService = inject(SessionService);
   private readonly authFacade = inject(AuthFacade);
@@ -65,12 +65,16 @@ export class NavbarComponent implements OnInit{
     effect(() => {
       if (!this.isLoggedIn()) {
         this.addressStore.clear();
+        this._cartStore.reset();
+        this._wishlistStore.reset();
         return;
       }
       this.addressStore
         .load()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
+      this._cartStore.loadCart();
+      this._wishlistStore.loadWishlist();
     });
   }
 
@@ -102,10 +106,5 @@ export class NavbarComponent implements OnInit{
 
   openAddressModal(): void {
     this.addressModal.open();
-  }
-
-  ngOnInit(): void {
-  this._wishlistStore.loadWishlist();
-  this._cartStore.loadCart();
   }
 }
