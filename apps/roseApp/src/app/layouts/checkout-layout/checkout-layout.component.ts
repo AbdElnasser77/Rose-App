@@ -144,7 +144,22 @@ export class CheckoutLayoutComponent implements OnInit{
     }
 
   onApplyCoupon(code: string): void {
-    console.log(code)
+     this._cartStore.applyCoupon(code)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: () => {
+        this._toastService.show(
+          this._translateService.instant('CART.COUPON_APPLIED'),
+          'success'
+        );
+      },
+      error: () => {
+        this._toastService.show(
+          this._translateService.instant('CART.INVALID_COUPON'),
+          'error'
+        );
+      }
+    });
  }
 
  onCheckout(){

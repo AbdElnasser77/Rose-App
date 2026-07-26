@@ -127,4 +127,24 @@ export class CartStore {
     tap(() => this.loadCart())
   );
   }
+
+
+  // Apply coupon 
+   applyCoupon(code: string) {
+  return this._cartService.getCoupons().pipe(
+    tap((coupons) => {
+
+      const coupon = coupons.find(
+        (c: CouponModel) =>
+          c.code.toLowerCase() === code.toLowerCase()
+      );
+
+      if (!coupon) {
+        throw new Error('Coupon not found');
+      }
+
+      this.coupon.set(coupon);
+    })
+  );
+  }
 }
