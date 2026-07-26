@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
 import { ProductsService } from '../../../../core/services/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProductFilterService } from '../../services/product-list/product-filter.service';
 import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CartStore } from '../../../cart/store/cart.store';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ProductsPage implements OnInit {
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly _translateService = inject(TranslateService);
-
+  private readonly _cartStore = inject(CartStore);
   protected readonly _productFilterService = inject(ProductFilterService);
 
   private readonly limit = 20;
@@ -94,9 +95,34 @@ export class ProductsPage implements OnInit {
     this.router.navigate(['/products', id]);
   }
 
-  onAddToCart(id: string): void {
-    // TODO: wire add-to-cart feature.
-    console.log('addToCart', id);
+  
+     onAddToCart(productId: string): void {
+      if (this._cartStore.isProductInCart(productId)) {
+      this.toastService.show(
+      this._translateService.instant('CART.ALREADY_IN_CART'),
+      'default'
+      );
+      return;
+      }
+
+     this._cartStore
+     .addToCart(productId)
+     .pipe(takeUntilDestroyed(this.destroyRef))
+     .subscribe({
+     next: (res) => {
+      if (res.message === 'Insufficient stock.') {
+        this.toastService.show(
+          this._translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
+        );
+      } else {
+        this.toastService.show(
+          this._translateService.instant('CART.PRODUCT_ADDED'),
+          'success'
+        );
+      }
+    },
+  });
   }
 
   
