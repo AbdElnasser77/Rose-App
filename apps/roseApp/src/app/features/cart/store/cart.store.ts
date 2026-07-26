@@ -44,6 +44,13 @@ export class CartStore {
      }
 
     const subtotal = this.subtotal();
+
+    // Re-checked here, not only on apply: removing items can drop the subtotal back
+    // under the minimum while a valid coupon is already attached.
+    if (subtotal < Number(coupon.minPurchase)) {
+      return 0;
+    }
+
     let discount = 0;
 
     if (coupon.type === 'PERCENT') {
@@ -147,22 +154,46 @@ export class CartStore {
   }
 
 
-  // Apply coupon 
+  // Apply coupon
+  // There is no server-side validate endpoint, so the rules on the coupon record are
+  // enforced here. The thrown message is an i18n key for the caller to translate.
    applyCoupon(code: string) {
-  return this._cartService.getCoupons().pipe(
+  const wanted = code.trim();
+
+  return this._cartService.getCoupons(wanted).pipe(
     tap((coupons) => {
 
       const coupon = coupons.find(
         (c: CouponModel) =>
-          c.code.toLowerCase() === code.toLowerCase()
+          c.code.toLowerCase() === wanted.toLowerCase()
       );
 
-      if (!coupon) {
-        throw new Error('Coupon not found');
+      if (!coupon || !coupon.isActive) {
+        throw new Error('CART.INVALID_COUPON');
+      }
+
+      if (!this.isWithinValidityWindow(coupon)) {
+        throw new Error('CART.COUPON_EXPIRED');
+      }
+
+      if (coupon.usageLimit > 0 && coupon.usedCount >= coupon.usageLimit) {
+        throw new Error('CART.COUPON_USED_UP');
+      }
+
+      if (this.subtotal() < Number(coupon.minPurchase)) {
+        throw new Error('CART.COUPON_MIN_PURCHASE');
       }
 
       this.coupon.set(coupon);
     })
   );
+  }
+
+  private isWithinValidityWindow(coupon: CouponModel): boolean {
+    const now = Date.now();
+    const from = new Date(coupon.validFrom).getTime();
+    const until = new Date(coupon.validUntil).getTime();
+
+    return now >= from && now <= until;
   }
 }

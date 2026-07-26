@@ -22,6 +22,7 @@ export class OrderSummaryComponent {
   readonly subtotal = input.required<number>();
   readonly total = input.required<number>();
   readonly cartHasItems = input.required<boolean>();
+  readonly discount = input<number>(0);
   readonly showCheckoutButton = input<boolean>(false);
   readonly checkoutDisabled = input(false);
 

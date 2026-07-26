@@ -7,6 +7,7 @@ import { WishlistStore } from '../../features/wishlist/store/wishlist.store';
 import { ToastService } from '@org/shared-util-notification';
 import { ProductDataService } from '../../features/products/services/product-details/product-data-api.service';
 import { CartStore } from '../../features/cart/store/cart.store';
+import { CheckoutStore } from '../../features/checkout/store/checkout.store';
 import { Product } from '../../shared/models/product.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SwiperOptions } from 'swiper/types';
@@ -28,6 +29,7 @@ export class CheckoutLayoutComponent implements OnInit{
   private readonly _toastService = inject(ToastService);
   private readonly _productService = inject(ProductDataService);
   private readonly _cartStore = inject(CartStore);
+  private readonly _checkoutStore = inject(CheckoutStore);
 
 
    readonly isRtl = computed(() => this._translateService.currentLang() === 'ar');
@@ -36,6 +38,7 @@ export class CheckoutLayoutComponent implements OnInit{
   readonly total = this._cartStore.total;
   readonly cartItems = this._cartStore.cartItems;
   readonly appliedCoupon = this._cartStore.coupon;
+  readonly discount = this._cartStore.discount;
 
   readonly showCheckoutButton =
     this._route.snapshot.data['showSummaryCheckout'] === true;
@@ -155,14 +158,25 @@ export class CheckoutLayoutComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: () => {
+        // The cart shows the discount locally; the order API needs the code itself so
+        // the server applies the same discount when the order is created.
+        this._checkoutStore.setCoupon(code.trim());
+
         this._toastService.show(
           this._translateService.instant('CART.COUPON_APPLIED'),
           'success'
         );
       },
-      error: () => {
+      error: (error) => {
+        // applyCoupon rejects with an i18n key explaining which rule failed; anything
+        // else (an HTTP failure) falls back to the generic message.
+        const messageKey =
+          typeof error?.message === 'string' && error.message.startsWith('CART.')
+            ? error.message
+            : 'CART.INVALID_COUPON';
+
         this._toastService.show(
-          this._translateService.instant('CART.INVALID_COUPON'),
+          this._translateService.instant(messageKey),
           'error'
         );
       }

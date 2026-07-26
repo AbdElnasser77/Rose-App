@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartStore } from '../../../cart/store/cart.store';
+import { ProductFilterService } from '../../../products/services/product-list/product-filter.service';
 @Component({
   selector: 'app-wishlist',
   imports: [WishlistCardComponent ,CommonModule,LucideAngularModule ,TranslatePipe,DialogModule],
@@ -21,6 +22,7 @@ export class WishlistPage {
   private readonly _toastService=inject(ToastService);
   private readonly _router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly _productFilterService = inject(ProductFilterService);
   private readonly _cartStore = inject(CartStore);
 
   readonly wishlistItems = this._wishlistStore.wishlistItems;
@@ -97,7 +99,11 @@ export class WishlistPage {
   onContinueShoppingClicked() {
     this._router.navigate(['/products']);
   }
-  onExploreSimilarProducts(productId: string): void {
-  this._router.navigate(['/products', productId]);
+  // Opens the products page filtered to the same category. ProductFilterService is
+  // root-scoped, so the filter set here is still applied once the page loads.
+  onExploreSimilarProducts(categoryId: string): void {
+  this._productFilterService.resetAll();
+  this._productFilterService.toggleCategory(categoryId);
+  this._router.navigate(['/products']);
  }
 }

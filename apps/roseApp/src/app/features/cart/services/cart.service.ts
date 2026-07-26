@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { CartItem } from '../models/cart.model';
 import { map, Observable } from 'rxjs';
 import { BASE_URL_CONFIG } from '@org/auth';
@@ -23,8 +23,16 @@ export class CartService {
     return this.http.post<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`, data);
   }
 
-  getCoupons(page = 1, limit = 20): Observable<CouponModel[]> {
-    return this.http.get<any>(`${this.baseUrlConfig.apiUrl}/coupons?page=${page}&limit=${limit}`)
+  // `search` is a substring filter on the code, so the exact match still has to be
+  // verified by the caller - it narrows the page rather than returning one coupon.
+  getCoupons(search?: string, page = 1, limit = 20): Observable<CouponModel[]> {
+    let params = new HttpParams().set('page', page).set('limit', limit);
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    return this.http.get<any>(`${this.baseUrlConfig.apiUrl}/coupons`, { params })
     .pipe(map((res) => res.payload.data));
   }
 
