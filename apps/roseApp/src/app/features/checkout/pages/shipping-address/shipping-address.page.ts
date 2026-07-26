@@ -3,8 +3,10 @@ import {
   DestroyRef,
   OnInit,
   computed,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -13,8 +15,8 @@ import { ButtonComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
-import { Address } from '../../models/address.model';
-import { AddressesApiService } from '../../services/addresses-api.service';
+import { AddressModalService } from '../../services/address-modal.service';
+import { AddressStore } from '../../store/address.store';
 import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
 import { CouponModel } from '../../../../shared/models/coupon.model';
 
@@ -33,15 +35,16 @@ import { CouponModel } from '../../../../shared/models/coupon.model';
 export class ShippingAddressPage implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly addressesApi = inject(AddressesApiService);
+  private readonly addressStore = inject(AddressStore);
   private readonly loader = inject(LoaderService);
   private readonly translateService = inject(TranslateService);
+  private readonly addressModal = inject(AddressModalService);
 
   readonly Phone = Phone;
   readonly ArrowRight = ArrowRight;
   readonly isRtl = computed(() => this.translateService.currentLang() === 'ar');
 
-  readonly addresses = signal<Address[]>([]);
+  readonly addresses = this.addressStore.addresses;
   readonly selectedId = signal<string | null>(null);
 
   readonly subtotal = signal(250);
@@ -55,22 +58,36 @@ export class ShippingAddressPage implements OnInit {
     return Math.max(0, this.subtotal() - Number(coupon.value));
   });
 
+  constructor() {
+    // Fall back to the default address whenever the current pick is gone - on first
+    // load, and again if it gets deleted from the addresses modal.
+    effect(() => {
+      const addresses = this.addressStore.addresses();
+      const selected = untracked(this.selectedId);
+      if (selected && addresses.some((address) => address.id === selected)) {
+        return;
+      }
+      this.selectedId.set(this.addressStore.deliveryAddress()?.id ?? null);
+    });
+  }
+
   ngOnInit(): void {
     this.loadAddresses();
   }
 
   loadAddresses(): void {
-    this.addressesApi
-      .getAddresses()
+    this.addressStore
+      .load()
       .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (addresses) => this.addresses.set(addresses),
-        error: () => this.addresses.set([]),
-      });
+      .subscribe();
   }
 
   selectAddress(id: string): void {
     this.selectedId.set(id);
+  }
+
+  openAddressModal(): void {
+    this.addressModal.open();
   }
 
   onApplyCoupon(code: string): void {

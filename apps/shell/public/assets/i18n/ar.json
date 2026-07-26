@@ -86,6 +86,8 @@
     "LOGIN": "تسجيل الدخول",
     "HELLO": "مرحباً",
     "DELIVER_TO": "التوصيل إلى:",
+    "NO_ADDRESS": "لا يوجد عنوان محفوظ",
+    "ADD_ADDRESS": "أضف عنواناً",
     "HOME": "الرئيسية",
     "PRODUCTS": "المنتجات",
     "CATEGORIES": "الفئات",
@@ -327,6 +329,39 @@
     "OR": "أو",
     "ADD_NEW_ADDRESS": "إضافة عنوان جديد",
     "NEXT": "التالي"
+  },
+  "MANAGE_ADDRESSES": {
+    "TITLE": "عناويني",
+    "ADD_NEW_ADDRESS": "إضافة عنوان جديد",
+    "EMPTY": "لا توجد عناوين محفوظة",
+    "DELETE_SUCCESS": "تم حذف العنوان بنجاح",
+    "DELETE_ERROR": "تعذّر حذف العنوان. حاول مرة أخرى",
+    "DELETE_CONFIRM_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+    "PRIMARY_GROUP": "عنوان التوصيل الافتراضي",
+    "DEFAULT": "الافتراضي",
+    "SET_AS_DEFAULT": "تعيين كافتراضي",
+    "SET_PRIMARY_ERROR": "تعذّر تغيير العنوان الافتراضي. حاول مرة أخرى"
+  },
+  "ADD_ADDRESS": {
+    "TITLE": "إضافة عنوان جديد",
+    "STEP_DETAILS": "أدخل تفاصيل العنوان",
+    "CITY": "المدينة",
+    "CITY_PLACEHOLDER": "أدخل اسم المدينة",
+    "ADDRESS": "العنوان",
+    "ADDRESS_PLACEHOLDER": "أدخل عنوانك بالكامل",
+    "PHONE": "الهاتف",
+    "PHONE_PLACEHOLDER": "رقم الهاتف",
+    "NEXT": "التالي",
+    "FIND_LOCATION": "حدد موقعك",
+    "FIND_MY_LOCATION": "تحديد موقعي",
+    "ADD_ADDRESS_BTN": "إضافة العنوان",
+    "SUCCESS": "تمت إضافة العنوان بنجاح",
+    "LOCATION_ERROR": "تعذّر تحديد موقعك"
+  },
+  "UPDATE_ADDRESS": {
+    "TITLE": "تحديث بيانات العنوان",
+    "UPDATE_ADDRESS_BTN": "تحديث العنوان",
+    "SUCCESS": "تم تحديث العنوان بنجاح"
   }
 }
 
