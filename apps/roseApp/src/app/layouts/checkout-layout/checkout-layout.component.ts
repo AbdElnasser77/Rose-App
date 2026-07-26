@@ -40,7 +40,7 @@ export class CheckoutLayoutComponent implements OnInit{
    readonly wishlistedIds = this._wishlistStore.wishlistedIds;
 
    suggestedProducts = signal<Product[]>([]);
-
+  readonly appliedCoupon = this._cartStore.coupon;
    ngOnInit(): void {
     this.loadSuggestedProducts();
   }
@@ -142,4 +142,12 @@ export class CheckoutLayoutComponent implements OnInit{
       }
       
     }
+
+  onApplyCoupon(code: string): void {
+    console.log(code)
+ }
+
+ onCheckout(){
+  this._router.navigate(['/checkout']);
+ }
 }

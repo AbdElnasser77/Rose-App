@@ -151,7 +151,7 @@ export class PaymentPage implements OnInit{
     }
 
     onBackClicked(){
-      this._router.navigate(['/checkout/address']);
+      this._router.navigate(['/checkout']);
     }
 
     onCheckoutClicked(){
@@ -161,7 +161,7 @@ export class PaymentPage implements OnInit{
         this._toastService.show(
           this._translateService.instant('PAYMENT.ADDRESS_REQUIRED'),'error'
         );
-         this._router.navigate(['/checkout/address']);
+         this._router.navigate(['/checkout']);
          return;
       }
       if (!checkout.paymentMethod) {

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep {
+  .leaflet-div-icon {
+    background: transparent;
+    border: none;
+  }
+}

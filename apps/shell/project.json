@@ -22,6 +22,7 @@
           }
         ],
         "styles": ["node_modules/primeicons/primeicons.css",
+          "node_modules/leaflet/dist/leaflet.css",
           "apps/shell/src/styles.scss"],
         "customWebpackConfig": {
           "path": "apps/shell/webpack.config.ts"
