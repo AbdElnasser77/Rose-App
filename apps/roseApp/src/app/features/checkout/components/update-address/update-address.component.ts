@@ -1,4 +1,12 @@
-import { Component, DestroyRef, inject, output, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,13 +17,13 @@ import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { LucideAngularModule, X, ArrowLeft } from 'lucide-angular';
 import { AddressesApiService } from '../../services/addresses-api.service';
-import { CreateAddressDto } from '../../models/address.model';
+import { Address, UpdateAddressDto } from '../../models/address.model';
 import { AddressLocationMapComponent } from '../address-location-map/address-location-map.component';
 
 const DEFAULT_CENTER: [number, number] = [30.0444, 31.2357];
 
 @Component({
-  selector: 'app-add-address',
+  selector: 'app-update-address',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -26,16 +34,18 @@ const DEFAULT_CENTER: [number, number] = [30.0444, 31.2357];
     LucideAngularModule,
     AddressLocationMapComponent,
   ],
-  templateUrl: './add-address.component.html',
-  styleUrl: './add-address.component.scss',
+  templateUrl: './update-address.component.html',
+  styleUrl: './update-address.component.scss',
 })
-export class AddAddressComponent {
+export class UpdateAddressComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly addressesApi = inject(AddressesApiService);
   private readonly loader = inject(LoaderService);
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
+
+  readonly address = input.required<Address>();
 
   readonly cancelled = output<void>();
   readonly saved = output<void>();
@@ -52,6 +62,17 @@ export class AddAddressComponent {
     street: ['', Validators.required],
     phone: ['', Validators.required],
   });
+
+  ngOnInit(): void {
+    const address = this.address();
+    this.detailsForm.patchValue({
+      city: address.city,
+      street: address.street,
+      phone: address.phone,
+    });
+    this.latitude.set(this.toCoordinate(address.latitude, DEFAULT_CENTER[0]));
+    this.longitude.set(this.toCoordinate(address.longitude, DEFAULT_CENTER[1]));
+  }
 
   goToStep2(): void {
     if (this.detailsForm.invalid) {
@@ -71,22 +92,22 @@ export class AddAddressComponent {
       return;
     }
     const value = this.detailsForm.getRawValue();
-    const dto: CreateAddressDto = {
+    const dto: UpdateAddressDto = {
       title: value.city,
       city: value.city,
       street: value.street,
       phone: value.phone,
-      isPrimary: false,
+      isPrimary: this.address().isPrimary ?? false,
       latitude: this.latitude(),
       longitude: this.longitude(),
     };
     this.addressesApi
-      .createAddress(dto)
+      .updateAddress(this.address().id, dto)
       .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.toast.show(
-            this.translate.instant('CHECKOUT.ADD_ADDRESS.SUCCESS'),
+            this.translate.instant('CHECKOUT.UPDATE_ADDRESS.SUCCESS'),
             'success'
           );
           this.saved.emit();
@@ -96,5 +117,12 @@ export class AddAddressComponent {
 
   close(): void {
     this.cancelled.emit();
+  }
+
+  private toCoordinate(value: string | undefined, fallback: number): number {
+    const parsed = Number(value);
+    return value != null && value !== '' && !Number.isNaN(parsed)
+      ? parsed
+      : fallback;
   }
 }

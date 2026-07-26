@@ -350,6 +350,11 @@
     "ADD_ADDRESS_BTN": "إضافة العنوان",
     "SUCCESS": "تمت إضافة العنوان بنجاح",
     "LOCATION_ERROR": "تعذّر تحديد موقعك"
+  },
+  "UPDATE_ADDRESS": {
+    "TITLE": "تحديث بيانات العنوان",
+    "UPDATE_ADDRESS_BTN": "تحديث العنوان",
+    "SUCCESS": "تم تحديث العنوان بنجاح"
   }
 }
 

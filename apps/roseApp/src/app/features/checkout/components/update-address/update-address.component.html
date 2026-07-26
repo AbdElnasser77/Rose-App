@@ -1,7 +1,7 @@
 <div class="flex flex-col max-h-[85vh]">
   <div class="flex items-center justify-between gap-4 px-6 py-5 shrink-0">
     <h2 class="font-sarabun text-2xl font-bold text-black dark:text-white">
-      {{ 'CHECKOUT.ADD_ADDRESS.TITLE' | translate }}
+      {{ 'CHECKOUT.UPDATE_ADDRESS.TITLE' | translate }}
     </h2>
     <button
       type="button"
@@ -86,13 +86,13 @@
 
               <div class="flex flex-col gap-[6px] w-full">
                 <label
-                  for="address-street"
+                  for="update-address-street"
                   class="font-inter text-[14px] font-medium leading-none text-zinc-800 dark:text-zinc-50"
                 >
                   {{ 'CHECKOUT.ADD_ADDRESS.ADDRESS' | translate }}
                 </label>
                 <textarea
-                  id="address-street"
+                  id="update-address-street"
                   formControlName="street"
                   rows="4"
                   [placeholder]="
@@ -153,7 +153,7 @@
                 (clicked)="submit()"
                 customClass="px-4 py-3.5 text-[16px] !text-zinc-50 dark:!text-zinc-900"
               >
-                {{ 'CHECKOUT.ADD_ADDRESS.ADD_ADDRESS_BTN' | translate }}
+                {{ 'CHECKOUT.UPDATE_ADDRESS.UPDATE_ADDRESS_BTN' | translate }}
               </lib-button>
             </div>
           </ng-template>

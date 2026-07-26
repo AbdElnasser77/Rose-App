@@ -10,8 +10,11 @@
     class="relative w-full max-w-[720px] max-h-[85vh] bg-white dark:bg-zinc-900 rounded-2xl shadow-xl flex flex-col overflow-hidden"
   >
     @if (view() === 'add') {
-    <app-add-address
-      (cancelled)="view.set('list')"
+    <app-add-address (cancelled)="showList()" (saved)="onAddressSaved()" />
+    } @else if (view() === 'edit' && editingAddress() !== null) {
+    <app-update-address
+      [address]="editingAddress()!"
+      (cancelled)="showList()"
       (saved)="onAddressSaved()"
     />
     } @else {
@@ -77,6 +80,7 @@
             <button
               type="button"
               aria-label="Edit address"
+              (click)="startEdit(address)"
               class="absolute top-4 -end-4.5 w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-300 flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 transition-colors cursor-pointer"
             >
               <lucide-icon [img]="Pencil" class="w-4 h-4"></lucide-icon>

@@ -16,6 +16,7 @@ import { Address } from '../../models/address.model';
 import { AddressesApiService } from '../../services/addresses-api.service';
 import { DialogModule } from 'primeng/dialog';
 import { AddAddressComponent } from '../add-address/add-address.component';
+import { UpdateAddressComponent } from '../update-address/update-address.component';
 
 @Component({
   selector: 'app-manage-addresses-modal',
@@ -25,6 +26,7 @@ import { AddAddressComponent } from '../add-address/add-address.component';
     TranslatePipe,
     DialogModule,
     AddAddressComponent,
+    UpdateAddressComponent,
   ],
   templateUrl: './manage-addresses-modal.component.html',
   styleUrl: './manage-addresses-modal.component.scss',
@@ -48,7 +50,8 @@ export class ManageAddressesModalComponent implements OnInit {
 
   readonly addresses = signal<Address[]>([]);
   readonly pendingDeleteId = signal<string | null>(null);
-  readonly view = signal<'list' | 'add'>('list');
+  readonly view = signal<'list' | 'add' | 'edit'>('list');
+  readonly editingAddress = signal<Address | null>(null);
 
   ngOnInit(): void {
     this.loadAddresses();
@@ -96,15 +99,25 @@ export class ManageAddressesModalComponent implements OnInit {
       });
   }
 
-  onAddressSaved(): void {
+  startEdit(address: Address): void {
+    this.editingAddress.set(address);
+    this.view.set('edit');
+  }
+
+  showList(): void {
+    this.editingAddress.set(null);
     this.view.set('list');
+  }
+
+  onAddressSaved(): void {
+    this.showList();
     this.loadAddresses();
   }
 
   onEscape(): void {
     if (this.pendingDeleteId() !== null) return;
-    if (this.view() === 'add') {
-      this.view.set('list');
+    if (this.view() !== 'list') {
+      this.showList();
       return;
     }
     this.close();

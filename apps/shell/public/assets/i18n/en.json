@@ -349,6 +349,11 @@
       "ADD_ADDRESS_BTN": "Add Address",
       "SUCCESS": "Address added successfully",
       "LOCATION_ERROR": "Could not get your location"
+    },
+    "UPDATE_ADDRESS": {
+      "TITLE": "Update Address Info",
+      "UPDATE_ADDRESS_BTN": "Update Address",
+      "SUCCESS": "Address updated successfully"
     }
   }
 
