@@ -1,6 +1,33 @@
-<p-steps 
- [model]="items"
- [readonly]="true" 
- [activeIndex]="activeIndex()"
- 
- />
+<div class="flex items-center w-full my-4">
+
+  
+  <div
+    class="flex-1 xl:max-w-[340px] border-t-[6px]"
+    [class.border-[#A6252A]]="activeIndex() >= 1"
+    [class.border-[#E5E7EB]]="activeIndex() < 1">
+  </div>
+
+  @for (step of steps; track step) {
+
+    
+    <div
+      class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
+      [class.bg-[#A6252A]]="activeIndex() >= step"
+      [class.text-white]="activeIndex() >= step"
+      [class.bg-[#E5E7EB]]="activeIndex() < step"
+      [class.text-[#6B7280]]="activeIndex() < step">
+
+      {{ step }}
+
+    </div>
+
+    
+    <div
+      class="flex-1 xl:max-w-[340px] border-t-[6px]"
+      [class.border-[#A6252A]]="activeIndex() >= 2"
+      [class.border-[#E5E7EB]]="activeIndex() < 2">
+    </div>
+
+  }
+
+</div>

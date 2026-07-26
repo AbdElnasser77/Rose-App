@@ -17,7 +17,7 @@ import { ProductCardComponent } from '../../../../shared/components/product-card
 import { SectionTitleComponent } from '../../../../shared/components/section-title/section-title.component';
 import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
-import { CartService } from '../../../cart/services/cart.service';
+import { CartStore } from '../../../cart/store/cart.store';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -42,7 +42,7 @@ export class MostPopularSectionComponent implements OnInit {
   private readonly toastService = inject(ToastService);
   private readonly _wishlistStore = inject(WishlistStore);
   private _translateService = inject(TranslateService);
-    private cartService = inject(CartService);
+  private readonly _cartStore = inject(CartStore);
 
   
   readonly tabs = TABS;
@@ -105,18 +105,32 @@ export class MostPopularSectionComponent implements OnInit {
   }
 
   addToCartClicked(productId: string): void {
-     this.cartService.addToCart({ productId: productId, quantity: 1 }).pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.message == "Insufficient stock.") {
-            this.toastService.show('out of the stock', 'success');
-          } else {
-            this.toastService.show('product added to cart', 'success');
-          }
-        },
-      });
+      if (this._cartStore.isProductInCart(productId)) {
+      this.toastService.show(
+      this._translateService.instant('CART.ALREADY_IN_CART'),
+      'default'
+      );
+      return;
+      }
+
+     this._cartStore
+     .addToCart(productId)
+     .pipe(takeUntilDestroyed(this.destroyRef))
+     .subscribe({
+     next: (res) => {
+      if (res.message === 'Insufficient stock.') {
+        this.toastService.show(
+          this._translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
+        );
+      } else {
+        this.toastService.show(
+          this._translateService.instant('CART.PRODUCT_ADDED'),
+          'success'
+        );
+      }
+    },
+  });
   }
 
   onWishlistClick(productId: string): void {

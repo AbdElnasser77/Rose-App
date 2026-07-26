@@ -1,23 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { StepsModule } from 'primeng/steps';
 
 @Component({
   selector: 'app-checkout-stepper',
-  imports: [StepsModule],
+  imports: [CommonModule],
   templateUrl: './checkout-stepper.component.html',
   styleUrl: './checkout-stepper.component.scss',
 })
 export class CheckoutStepperComponent {
-  activeIndex = input.required<number>();
-  
- 
-  readonly items: MenuItem[] = [
-    {
-      label: 'Shipping Address',
-    },
-    {
-      label: 'Payment',
-    },
-  ];
+    activeIndex = input.required<number>();
+
+    readonly steps = [1, 2];
 }

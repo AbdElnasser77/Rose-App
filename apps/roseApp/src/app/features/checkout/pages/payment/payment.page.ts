@@ -1,6 +1,4 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
-import { ProductsCarouselComponent } from '../../../../shared/components/products-carousel/products-carousel.component';
 import { SwiperOptions } from 'swiper/types';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -20,7 +18,7 @@ import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
   selector: 'app-payment',
-  imports: [OrderSummaryComponent ,ProductsCarouselComponent ,TranslatePipe
+  imports: [ TranslatePipe
     ,PaymentMethodCardComponent,CheckoutStepperComponent,LucideAngularModule,],
   templateUrl: './payment.page.html',
   styleUrl: './payment.page.scss',
@@ -67,7 +65,7 @@ export class PaymentPage implements OnInit{
   }
   ngOnInit(): void {
     this.getProducts();
-    this._cartStore.loadcart();
+    this._cartStore.loadCart();
     const payment = this._checkoutStore.paymentMethod();
 
     if (payment) {

@@ -17,6 +17,7 @@ import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductsCarouselComponent } from '../../../../shared/components/products-carousel/products-carousel.component';
+import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
   selector: 'app-best-selling',
@@ -39,6 +40,7 @@ export class BestSellingComponent implements OnInit {
   private toastService = inject(ToastService);
   private readonly _wishlistStore = inject(WishlistStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly _cartStore = inject(CartStore);
   
   private cartService = inject(CartService);
 
@@ -129,18 +131,33 @@ onBestSellingVisible(entry: IntersectionObserverEntry) {
   }
 }
 
-  onAddToCartClicked(id:any) {
-    this.cartService.addToCart({ productId: id, quantity: 1 }).pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.message == "Insufficient stock.") {
-            this.toastService.show('out of the stock', 'success');
-          } else {
-            this.toastService.show('product added to cart', 'success');
-          }
-        },
-      });
+  
+   onAddToCartClicked(productId: string): void {
+      if (this._cartStore.isProductInCart(productId)) {
+      this.toastService.show(
+      this._translateService.instant('CART.ALREADY_IN_CART'),
+      'default'
+      );
+      return;
+      }
+
+     this._cartStore
+     .addToCart(productId)
+     .pipe(takeUntilDestroyed(this.destroyRef))
+     .subscribe({
+     next: (res) => {
+      if (res.message === 'Insufficient stock.') {
+        this.toastService.show(
+          this._translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
+        );
+      } else {
+        this.toastService.show(
+          this._translateService.instant('CART.PRODUCT_ADDED'),
+          'success'
+        );
+      }
+    },
+  });
   }
 }
