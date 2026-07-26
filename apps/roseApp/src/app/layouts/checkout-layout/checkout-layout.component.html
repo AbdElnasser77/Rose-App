@@ -15,6 +15,7 @@
               [total]="total()"
               [appliedCoupon]="appliedCoupon()"
               [cartHasItems]="cartItems().length > 0"
+              [discount]="discount()"
               [showCheckoutButton]="showCheckoutButton"
               (applyCouponClicked)="onApplyCoupon($event)"
               (checkoutClicked)="onCheckoutClicked()">

@@ -82,18 +82,22 @@
         @if (appliedCoupon(); as coupon) {
 
         <!-- Discount -->
-        <div class="flex items-center justify-center ">
+        <div class="w-full px-2.5 pb-2.5 flex items-center justify-between">
 
-            <span class="font-sarabun text-[16px] font-semibold leading-none tracking-normal text-[#27272A]">
-                @if (coupon.type === 'PERCENT') {
-                {{ coupon.value }}%
-                } @else {
-                {{ coupon.value }}
-                {{ 'COMMON.EGP' | translate }}
-                }
-
+            <span class="font-sarabun text-[18px] font-medium leading-none tracking-normal text-[#27272A] dark:text-white">
                 {{ 'CART.DISCOUNT' | translate }}
+                <span class="text-[14px] text-[#71717A] dark:text-zinc-400">
+                    @if (coupon.type === 'PERCENT') {
+                    ({{ coupon.value }}%)
+                    } @else {
+                    ({{ coupon.value }} {{ 'COMMON.EGP' | translate }})
+                    }
+                </span>
+            </span>
 
+            <span class="font-sarabun text-[20px] font-semibold leading-none tracking-normal text-[#00A63E] dark:text-[#5EE9A0] whitespace-nowrap">
+                - {{ discount() | number:'1.2-2' }}
+                {{ 'COMMON.EGP' | translate }}
             </span>
         </div>
         }

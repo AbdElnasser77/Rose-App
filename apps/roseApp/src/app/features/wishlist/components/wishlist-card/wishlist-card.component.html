@@ -1,7 +1,7 @@
 <div
     class="w-full  sm:h-[180px] flex flex-col sm:flex-row gap-[16px] py-5  items-stretch border-b border-[#F4F4F5]  dark:border-zinc-700 sm:items-stretch mx-auto">
     <!-- Item img -->
-    <div class="w-full sm:w-[117px] h-[272px] sm:h-full shrink-0 rounded-xl bg-zinc-200">
+    <div class="w-full sm:w-[117px] h-[272px] sm:h-full shrink-0 rounded-xl bg-zinc-200 dark:bg-zinc-700">
         <img (click)="cardDetailsClicked.emit(item().product.id)" 
         (keyup.enter)="cardDetailsClicked.emit(item().product.id)"
         role="button"
@@ -12,12 +12,12 @@
     <!-- Card Content -->
     <div class="flex min-w-0 text-center sm:text-start  flex-1 flex-col  gap-[10px] h-full">
         @if(item().product.stock > 0){
-        <span class="font-sarabun font-semibold text-sm leading-none text-[#00BC7D]">
+        <span class="font-sarabun font-semibold text-sm leading-none text-[#00BC7D] dark:text-[#5EE9A0]">
              {{ 'WISHLIST.IN_STOCK' | translate }}
         </span>
         }
         @else{
-        <span class="font-sarabun font-semibold text-sm leading-none text-[#DC2626]">
+        <span class="font-sarabun font-semibold text-sm leading-none text-[#DC2626] dark:text-[#FF8A8A]">
              {{ 'WISHLIST.OUT_OF_STOCK' | translate }}
         </span>
         }
@@ -29,11 +29,11 @@
          {{item().product.title}} </h3>
 
         <!-- Rating -->
-        <div class="flex flex-wrap justify-center sm:justify-start items-center gap-[6px] font-sarabun font-medium text-sm leading-none tracking-normal text-[#27272A]  ">
-            <span class="flex gap-[6px] items-center py-[4px] px-[6px] rounded-[6px] bg-[#FACC15]">
+        <div class="flex flex-wrap justify-center sm:justify-start items-center gap-[6px] font-sarabun font-medium text-sm leading-none tracking-normal text-[#27272A] dark:text-white ">
+            <span class="flex gap-[6px] items-center py-[4px] px-[6px] rounded-[6px] bg-[#FACC15] text-[#27272A]">
                 <lucide-icon [img]="Star" class="w-[16px] h-[16px] text-[#27272A] fill-current"></lucide-icon> {{item().product.rating | number:'1.1-1'}}/5</span>
             @if(item().product.ratings > 0){
-                <span class="font-sarabun font-normal text-sm leading-none tracking-normal text-[#155DFC]">(
+                <span class="font-sarabun font-normal text-sm leading-none tracking-normal text-[#155DFC] dark:text-[#8AB4FF]">(
                 {{item().product.ratings}} {{item().product.ratings === 1 ?  ('WISHLIST.RATING' | translate) : ('WISHLIST.RATINGS' | translate) }} )</span>
             }
                 
@@ -55,11 +55,13 @@
 
 
     <!-- Actions buttons -->
-    <div class="flex  sm:flex-col justify-between gap-3 items-end shrink-0 h-full  w-full sm:w-auto">
+    <!-- Fixed column width on sm+ so Add to Cart and Explore Similar line up despite
+         their different label lengths; the delete button opts out with self-end. -->
+    <div class="flex sm:flex-col justify-between gap-3 items-end sm:items-stretch shrink-0 h-full w-full sm:w-[220px]">
         <!-- Delete -->
         <button (click)="removeItem()"
-            class="flex items-center justify-center h-[48px] px-[16px] bg-[#FEF2F2] hover:bg-[#FEE2E2]
-             dark:bg-[#FFA3B9] dark:hover:bg-[#FEE2E2] dark:text-[#27272A] rounded-lg text-[#DC2626] 
+            class="flex items-center justify-center sm:self-end h-[48px] px-[16px] bg-[#FEF2F2] hover:bg-[#FEE2E2]
+             dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg text-[#DC2626] dark:text-[#FF8A8A]
              cursor-pointer transition-colors duration-200">
             <lucide-icon [img]="Trash2" class="w-[20px] h-[20px]"></lucide-icon>
         </button>
@@ -67,17 +69,17 @@
         <!-- Add to cart -->
         @if (item().product.stock > 0) {
         <button (click)="addItemToCart()"
-            class="flex mt-auto  items-center justify-center gap-[10px] h-[48px] px-[24px] bg-[#501419] hover:bg-[#651A20]
-             dark:bg-[#85121b] dark:hover:bg-[#A51D29] rounded-[8px] text-[#FFFFFF] text-center cursor-pointer transition-colors duration-200 ">
-            <lucide-icon [img]="ShoppingCart"></lucide-icon>
+            class="flex mt-auto w-full items-center justify-center gap-[10px] h-[48px] px-[24px] bg-[#501419] hover:bg-[#651A20]
+             dark:bg-[#FFA3B9] dark:hover:bg-[#FF8DAA] rounded-[8px] text-[#FFFFFF] dark:text-[#27272A] text-center cursor-pointer transition-colors duration-200 ">
+            <lucide-icon [img]="ShoppingCart" class="w-[20px] h-[20px] shrink-0"></lucide-icon>
             <span class="font-sarabun font-medium text-[16px] leading-none tracking-normal">{{ 'WISHLIST.ADD_TO_CART' | translate }}</span>
         </button>
         }
         <!-- Explore Similar Products -->
         @if (item().product.stock === 0) {
-        <button (click)="exploreSimilarClicked.emit(item().product.id)"
-            class="flex items-center justify-center gap-[10px] cursor-pointer h-[48px] rounded-lg px-6  bg-[#FBEAEA] hover:bg-[#F7D9D9]
-                dark:hover:bg-[#FBEAEA] dark:bg-[#F7D9D9] font-sarabun font-medium text-sm sm:text-base leading-none tracking-normal text-[#501419] transition-colors duration-200">
+        <button (click)="exploreSimilarClicked.emit(item().product.categoryId)"
+            class="flex mt-auto w-full items-center justify-center gap-[10px] cursor-pointer h-[48px] rounded-lg px-6 bg-[#FBEAEA] hover:bg-[#F7D9D9]
+                dark:bg-zinc-700 dark:hover:bg-zinc-600 font-sarabun font-medium text-sm sm:text-base leading-none tracking-normal text-[#501419] dark:text-[#FFC2D0] transition-colors duration-200">
              {{ 'WISHLIST.SIMILAR_PRODUCTS' | translate }}
         </button>
         }

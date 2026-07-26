@@ -323,7 +323,11 @@
     "PRODUCT_ADDED": "product added to cart",
     "ALREADY_IN_CART": "This product is already in your cart.",
     "NO_RATINGS_YET": "No ratings yet",
-     "INVALID_COUPON": "The coupon code is invalid or has expired."
+     "INVALID_COUPON": "The coupon code is invalid or has expired.",
+    "COUPON_APPLIED": "Coupon applied.",
+    "COUPON_EXPIRED": "This coupon is outside its valid dates.",
+    "COUPON_USED_UP": "This coupon has reached its usage limit.",
+    "COUPON_MIN_PURCHASE": "Your subtotal is too low for this coupon."
   },
    "PAYMENT": {
     "TITLE": "Payment Method",

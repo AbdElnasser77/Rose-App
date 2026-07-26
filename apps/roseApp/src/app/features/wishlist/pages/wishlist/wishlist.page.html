@@ -2,7 +2,7 @@
     @if(wishlistItems().length){
     <header class="flex flex-col sm:flex-row  justify-between">
         <div class="flex flex-col sm:flex-row gap-[10px] justify-start sm:items-end">
-            <lucide-icon [img]="FolderHeart " class="w-[60px] h-[60px]"></lucide-icon>
+            <lucide-icon [img]="FolderHeart " class="w-[60px] h-[60px] text-[#27272A] dark:text-white"></lucide-icon>
             <h1 class="font-sarabun font-bold text-5xl leading-none tracking-normal text-[#27272A]  dark:text-white">
                 {{ 'WISHLIST.TITLE' | translate }}</h1>
                 @if(wishlistItems().length > 0){
@@ -15,8 +15,8 @@
         </div>
        
         <button (click)="openClearModal()"
-            class="flex items-center justify-center mt-[15px] sm:mt-0  gap-[10px] w-[181px] h-[44px] rounded-lg px-4 py-[14px] 
-            bg-[#DC2626]  hover:bg-[#B91C1C] text-white cursor-pointer transition-colors duration-200">
+            class="flex items-center justify-center mt-[15px] sm:mt-0  gap-[10px] w-[181px] h-[44px] rounded-lg px-4 py-[14px]
+            bg-[#DC2626]  hover:bg-[#B91C1C] dark:bg-[#F87171] dark:hover:bg-[#FCA5A5] text-white dark:text-[#27272A] cursor-pointer transition-colors duration-200">
             <lucide-icon [img]="BrushCleaning " class="w-[20px] h-[20px]"></lucide-icon>
              {{ 'WISHLIST.CLEAR' | translate }}
         </button>
@@ -36,7 +36,7 @@
     <div class="py-6">
         <button (click)="onContinueShoppingClicked()"
             class="flex items-center justify-center gap-[10px]  rounded-lg bg-[#501419] hover:bg-[#651A20]
-             dark:bg-[#85121b] dark:hover:bg-[#A51D29] px-[33px] py-[14px] font-sarabun font-medium text-[16px] leading-none tracking-normal text-white cursor-pointer">
+             dark:bg-[#FFA3B9] dark:hover:bg-[#FF8DAA] px-[33px] py-[14px] font-sarabun font-medium text-[16px] leading-none tracking-normal text-white dark:text-[#27272A] cursor-pointer">
               <lucide-icon [img]="MoveLeft " [class.rotate-180]="isRtl()" class="w-[20px] h-[20px]"></lucide-icon>
               {{ 'WISHLIST.CONTINUE' | translate }}
         </button>
@@ -65,7 +65,7 @@
     <div class="py-6">
         <button (click)="onContinueShoppingClicked()"
             class="flex items-center justify-center gap-[10px]  rounded-lg bg-[#501419] hover:bg-[#651A20]
-             dark:bg-[#85121b] dark:hover:bg-[#A51D29] px-[33px] py-[14px] font-sarabun font-medium text-[16px] leading-none tracking-normal text-white cursor-pointer">
+             dark:bg-[#FFA3B9] dark:hover:bg-[#FF8DAA] px-[33px] py-[14px] font-sarabun font-medium text-[16px] leading-none tracking-normal text-white dark:text-[#27272A] cursor-pointer">
               <lucide-icon [img]="MoveLeft " [class.rotate-180]="isRtl()" class="w-[20px] h-[20px]"></lucide-icon>
               {{ 'WISHLIST.CONTINUE' | translate }}
         </button>
@@ -92,12 +92,12 @@
         <!-- Icon -->
         <div
             class="w-[110px] h-[110px]   flex items-center justify-center relative">
-            <div class="absolute w-[105px] h-[105px] bg-[#F4F4F5] rounded-full"></div>
-            <div class="absolute  w-[70px] h-[70px] bg-[#E4E4E7] rounded-full"></div>
+            <div class="absolute w-[105px] h-[105px] bg-[#F4F4F5] dark:bg-zinc-800 rounded-full"></div>
+            <div class="absolute  w-[70px] h-[70px] bg-[#E4E4E7] dark:bg-zinc-700 rounded-full"></div>
 
             <lucide-icon
                 [img]="BrushCleaning"
-                class="relative z-10 w-[29px] h-[29px] text-[#27272A] stroke-2">
+                class="relative z-10 w-[29px] h-[29px] text-[#27272A] dark:text-white stroke-2">
             </lucide-icon>
 
         </div>
@@ -124,8 +124,8 @@
 
             <button
                 (click)="confirmClearWishlist()"
-                class="flex-1  rounded-lg bg-[#DC2626] hover:bg-[#B91C1C] transition-color px-4 py-[14px]
-                flex items-center justify-center gap-[10px font-sarabun font-medium text-[16px] leading-none tracking-norma text-white cursor-pointer">
+                class="flex-1  rounded-lg bg-[#DC2626] hover:bg-[#B91C1C] dark:bg-[#F87171] dark:hover:bg-[#FCA5A5] transition-colors px-4 py-[14px]
+                flex items-center justify-center gap-[10px] font-sarabun font-medium text-[16px] leading-none tracking-normal text-white dark:text-[#27272A] cursor-pointer">
                 {{ 'COMMON.CONFIRM' | translate }}
             </button>
 
