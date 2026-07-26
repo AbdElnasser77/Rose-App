@@ -23,7 +23,6 @@ export class WishlistPage {
   private readonly destroyRef = inject(DestroyRef);
   private readonly _cartStore = inject(CartStore);
 
-
   readonly wishlistItems = this._wishlistStore.wishlistItems;
   readonly isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
 
@@ -62,17 +61,33 @@ export class WishlistPage {
 
   
    addToCart(productId:string):void{
-    this._cartStore.addToCart(productId).pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
+    if (this._cartStore.isProductInCart(productId)) {
+      this._toastService.show(
+        this._translateService.instant('CART.ALREADY_IN_CART'),
+        'default'
+      );
+      return;
+    }
+
+    this._cartStore
+      .addToCart(productId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          this._toastService.show(
-          this._translateService.instant('WISHLIST.ITEM_ADDED_TO_CART')
-         );
+        next: (res) => {
+          if (res.message === 'Insufficient stock.') {
+            this._toastService.show(
+              this._translateService.instant('CART.OUT_OF_STOCK'),
+              'error'
+            );
+          } else {
+            this._toastService.show(
+              this._translateService.instant('CART.PRODUCT_ADDED'),
+              'success'
+            );
+          }
         },
       });
-    
+
    }
    
    

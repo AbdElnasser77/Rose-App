@@ -322,7 +322,8 @@
     "OUT_OF_STOCK": "out of the stock",
     "PRODUCT_ADDED": "product added to cart",
     "ALREADY_IN_CART": "This product is already in your cart.",
-    "NO_RATINGS_YET": "No ratings yet"
+    "NO_RATINGS_YET": "No ratings yet",
+     "INVALID_COUPON": "The coupon code is invalid or has expired."
   },
    "PAYMENT": {
     "TITLE": "Payment Method",
