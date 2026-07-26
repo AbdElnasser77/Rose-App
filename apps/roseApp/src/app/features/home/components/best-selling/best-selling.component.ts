@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal,CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, ViewChild, ElementRef, effect, DestroyRef } from '@angular/core';
+import { Component, computed, inject, OnInit, signal,  DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
@@ -16,7 +16,7 @@ import { ToastService } from '@org/shared-util-notification';
 import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartService } from '../../../cart/services/cart.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
+import { ProductsCarouselComponent } from '../../../../shared/components/products-carousel/products-carousel.component';
 import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
@@ -130,19 +130,33 @@ onBestSellingVisible(entry: IntersectionObserverEntry) {
   }
 }
 
-  onAddToCartClicked(id:any) {
-    this.cartService.addToCart({ productId: id, quantity: 1 }).pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.message == "Insufficient stock.") {
-            this.toastService.show(this._translateService.instant('CART.OUT_OF_STOCK'), 'success');
-          } else {
-            this._cartStore.loadcart();
-            this.toastService.show(this._translateService.instant('CART.PRODUCT_ADDED'), 'success');
-          }
-        },
-      });
+  
+   onAddToCartClicked(productId: string): void {
+      if (this._cartStore.isProductInCart(productId)) {
+      this.toastService.show(
+      this._translateService.instant('CART.ALREADY_IN_CART'),
+      'default'
+      );
+      return;
+      }
+
+     this._cartStore
+     .addToCart(productId)
+     .pipe(takeUntilDestroyed(this.destroyRef))
+     .subscribe({
+     next: (res) => {
+      if (res.message === 'Insufficient stock.') {
+        this.toastService.show(
+          this._translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
+        );
+      } else {
+        this.toastService.show(
+          this._translateService.instant('CART.PRODUCT_ADDED'),
+          'success'
+        );
+      }
+    },
+  });
   }
 }

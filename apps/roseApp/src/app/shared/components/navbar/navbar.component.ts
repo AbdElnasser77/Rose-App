@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
@@ -79,6 +79,6 @@ export class NavbarComponent implements OnInit{
   }
   ngOnInit(): void {
   this._wishlistStore.loadWishlist();
-  this._cartStore.loadcart();
+  this._cartStore.loadCart();
   }
 }
