@@ -82,7 +82,9 @@
 
       <button routerLink="/cart" class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
         <lucide-icon [img]="ShoppingCart" class="w-5 h-5" />
+         @if (cartCount() > 0 ){
         <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">{{cartCount()}}</span>
+         }
       </button>
 
       <button class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">

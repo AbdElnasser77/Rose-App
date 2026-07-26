@@ -106,6 +106,6 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
   this._wishlistStore.loadWishlist();
-  this._cartStore.loadcart();
+  this._cartStore.loadCart();
   }
 }

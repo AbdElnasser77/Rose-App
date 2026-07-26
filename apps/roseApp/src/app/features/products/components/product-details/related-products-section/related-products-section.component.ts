@@ -21,8 +21,9 @@ import { ToastService } from '@org/shared-util-notification';
 import { LoaderService } from '@org/shared-util-loader';
 import { SwiperOptions } from 'swiper/types';
 import { WishlistStore } from '../../../../wishlist/store/wishlist.store';
-import { Product } from 'apps/roseApp/src/app/shared/models/product.model';
-import { ProductsCarouselComponent } from 'apps/roseApp/src/app/shared/components/products-carousel/products-carousel.component';
+import { Product } from '../../../../../shared/models/product.model';
+import { ProductsCarouselComponent } from '../../../../../shared/components/products-carousel/products-carousel.component';
+import { CartStore } from '../../../../cart/store/cart.store';
 @Component({
   selector: 'app-related-products-section',
   imports: [
@@ -43,6 +44,7 @@ export class RelatedProductsSectionComponent implements OnInit {
   private readonly loader = inject(LoaderService);
   public translateService = inject(TranslateService);
   private readonly _wishlistStore = inject(WishlistStore);
+  private readonly _cartStore = inject(CartStore);
   
   
  readonly ChevronLeft = ChevronLeft;
@@ -142,8 +144,34 @@ export class RelatedProductsSectionComponent implements OnInit {
     this.router.navigate(['/products', product.id]);
   }
 
-  onAddToCartClicked(product:any) {
-    console.log('onAddToCart')
+  
+  onAddToCartClicked(productId: string): void {
+      if (this._cartStore.isProductInCart(productId)) {
+      this.toastService.show(
+      this.translateService.instant('CART.ALREADY_IN_CART'),
+      'default'
+      );
+      return;
+      }
+
+     this._cartStore
+     .addToCart(productId)
+     .pipe(takeUntilDestroyed(this.destroyRef))
+     .subscribe({
+     next: (res) => {
+      if (res.message === 'Insufficient stock.') {
+        this.toastService.show(
+          this.translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
+        );
+      } else {
+        this.toastService.show(
+          this.translateService.instant('CART.PRODUCT_ADDED'),
+          'success'
+        );
+      }
+    },
+  });
   }
 
    get swiperConfig(): SwiperOptions {

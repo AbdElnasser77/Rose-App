@@ -13,7 +13,7 @@
       class="related-products-swiper w-full h-full">
 
       @for (product of products(); track product.id) {
-      <swiper-slide class="py-2">
+      <swiper-slide class="flex justify-center py-2">
         <app-product-card
           [product]="product"
           [isWishlisted]="wishlistedIds().has(product.id)"
