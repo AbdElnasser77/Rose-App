@@ -1,0 +1,164 @@
+<div class="flex flex-col max-h-[85vh]">
+  <div class="flex items-center justify-between gap-4 px-6 py-5 shrink-0">
+    <h2 class="font-sarabun text-2xl font-bold text-black dark:text-white">
+      {{ 'CHECKOUT.ADD_ADDRESS.TITLE' | translate }}
+    </h2>
+    <button
+      type="button"
+      aria-label="Close"
+      (click)="close()"
+      class="w-8 h-8 flex items-center justify-center rounded-full text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+    >
+      <lucide-icon [img]="X" class="w-5 h-5"></lucide-icon>
+    </button>
+  </div>
+
+  <div class="flex-1 min-h-0 overflow-y-auto px-6 pb-6 flex flex-col gap-6">
+    <div class="flex items-center pt-1">
+      <div
+        class="flex-1 h-1.5 transition-colors"
+        [ngClass]="
+          activeStep() >= 1
+            ? 'bg-maroon-600 dark:bg-soft-pink-300'
+            : 'bg-zinc-200 dark:bg-zinc-700'
+        "
+      ></div>
+      <div
+        class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors shrink-0"
+        [ngClass]="
+          activeStep() >= 1
+            ? 'bg-maroon-600 text-white dark:bg-soft-pink-300 dark:text-zinc-900'
+            : 'bg-zinc-100 text-zinc-400 dark:bg-zinc-700'
+        "
+      >
+        1
+      </div>
+      <div
+        class="flex-1 h-1.5 transition-colors"
+        [ngClass]="
+          activeStep() >= 2
+            ? 'bg-maroon-600 dark:bg-soft-pink-300'
+            : 'bg-zinc-200 dark:bg-zinc-700'
+        "
+      ></div>
+      <div
+        class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors shrink-0"
+        [ngClass]="
+          activeStep() >= 2
+            ? 'bg-maroon-600 text-white dark:bg-soft-pink-300 dark:text-zinc-900'
+            : 'bg-zinc-100 text-zinc-400 dark:bg-zinc-700'
+        "
+      >
+        2
+      </div>
+      <div
+        class="flex-1 h-1.5 transition-colors"
+        [ngClass]="
+          activeStep() >= 2
+            ? 'bg-maroon-600 dark:bg-soft-pink-300'
+            : 'bg-zinc-200 dark:bg-zinc-700'
+        "
+      ></div>
+    </div>
+
+    <p-stepper
+      [value]="activeStep()"
+      (valueChange)="activeStep.set($event ?? 1)"
+    >
+      <p-step-panels>
+        <p-step-panel [value]="1">
+          <ng-template #content>
+            <form [formGroup]="detailsForm" class="flex flex-col gap-5">
+              <h3
+                class="font-sarabun text-lg font-bold text-maroon-600 dark:text-soft-pink-300"
+              >
+                {{ 'CHECKOUT.ADD_ADDRESS.STEP_DETAILS' | translate }}
+              </h3>
+
+              <lib-reusable-input
+                formControlName="city"
+                type="text"
+                [label]="'CHECKOUT.ADD_ADDRESS.CITY' | translate"
+                [placeholder]="
+                  'CHECKOUT.ADD_ADDRESS.CITY_PLACEHOLDER' | translate
+                "
+              />
+
+              <div class="flex flex-col gap-[6px] w-full">
+                <label
+                  for="address-street"
+                  class="font-inter text-[14px] font-medium leading-none text-zinc-800 dark:text-zinc-50"
+                >
+                  {{ 'CHECKOUT.ADD_ADDRESS.ADDRESS' | translate }}
+                </label>
+                <textarea
+                  id="address-street"
+                  formControlName="street"
+                  rows="4"
+                  [placeholder]="
+                    'CHECKOUT.ADD_ADDRESS.ADDRESS_PLACEHOLDER' | translate
+                  "
+                  class="w-full rounded-[10px] border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-700 px-4 py-3 text-[14px] font-inter text-zinc-800 dark:text-zinc-50 placeholder:text-zinc-400 outline-none resize-none transition focus:border-zinc-500 dark:focus:border-soft-pink-200"
+                ></textarea>
+              </div>
+
+              <lib-reusable-input
+                formControlName="phone"
+                type="tel"
+                [label]="'CHECKOUT.ADD_ADDRESS.PHONE' | translate"
+                [placeholder]="
+                  'CHECKOUT.ADD_ADDRESS.PHONE_PLACEHOLDER' | translate
+                "
+              />
+
+              <lib-button
+                variant="Primary"
+                size="full"
+                (clicked)="goToStep2()"
+                customClass="px-4 py-3.5 text-[16px] !text-zinc-50 dark:!text-zinc-900"
+              >
+                {{ 'CHECKOUT.ADD_ADDRESS.NEXT' | translate }}
+              </lib-button>
+            </form>
+          </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+          <ng-template #content>
+            <div class="flex flex-col gap-5 pt-1">
+              <div class="flex items-center gap-3">
+                <button
+                  type="button"
+                  aria-label="Back"
+                  (click)="goBack()"
+                  class="w-9 h-9 rounded-full bg-maroon-600 dark:bg-soft-pink-300 text-white dark:text-zinc-900 flex items-center justify-center hover:bg-maroon-700 dark:hover:bg-soft-pink-400 transition-colors cursor-pointer shrink-0"
+                >
+                  <lucide-icon [img]="ArrowLeft" class="w-5 h-5"></lucide-icon>
+                </button>
+                <h3
+                  class="font-sarabun text-lg font-bold text-maroon-600 dark:text-soft-pink-300"
+                >
+                  {{ 'CHECKOUT.ADD_ADDRESS.FIND_LOCATION' | translate }}
+                </h3>
+              </div>
+
+              <app-address-location-map
+                [(latitude)]="latitude"
+                [(longitude)]="longitude"
+              />
+
+              <lib-button
+                variant="Primary"
+                size="full"
+                (clicked)="submit()"
+                customClass="px-4 py-3.5 text-[16px] !text-zinc-50 dark:!text-zinc-900"
+              >
+                {{ 'CHECKOUT.ADD_ADDRESS.ADD_ADDRESS_BTN' | translate }}
+              </lib-button>
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-panels>
+    </p-stepper>
+  </div>
+</div>

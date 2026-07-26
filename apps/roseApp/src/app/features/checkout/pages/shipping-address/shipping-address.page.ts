@@ -1,0 +1,116 @@
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  computed,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ButtonComponent } from '@org/ui';
+import { LoaderService } from '@org/shared-util-loader';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
+import { AddressModalService } from '../../services/address-modal.service';
+import { AddressStore } from '../../store/address.store';
+import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
+import { CouponModel } from '../../../../shared/models/coupon.model';
+
+@Component({
+  selector: 'app-shipping-address',
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    LucideAngularModule,
+    OrderSummaryComponent,
+    TranslatePipe,
+  ],
+  templateUrl: './shipping-address.page.html',
+  styleUrl: './shipping-address.page.scss',
+})
+export class ShippingAddressPage implements OnInit {
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly addressStore = inject(AddressStore);
+  private readonly loader = inject(LoaderService);
+  private readonly translateService = inject(TranslateService);
+  private readonly addressModal = inject(AddressModalService);
+
+  readonly Phone = Phone;
+  readonly ArrowRight = ArrowRight;
+  readonly isRtl = computed(() => this.translateService.currentLang() === 'ar');
+
+  readonly addresses = this.addressStore.addresses;
+  readonly selectedId = signal<string | null>(null);
+
+  readonly subtotal = signal(250);
+  readonly appliedCoupon = signal<CouponModel | null>(null);
+  readonly total = computed(() => {
+    const coupon = this.appliedCoupon();
+    if (!coupon) return this.subtotal();
+    if (coupon.type === 'PERCENT') {
+      return this.subtotal() - (this.subtotal() * Number(coupon.value)) / 100;
+    }
+    return Math.max(0, this.subtotal() - Number(coupon.value));
+  });
+
+  constructor() {
+    // Fall back to the default address whenever the current pick is gone - on first
+    // load, and again if it gets deleted from the addresses modal.
+    effect(() => {
+      const addresses = this.addressStore.addresses();
+      const selected = untracked(this.selectedId);
+      if (selected && addresses.some((address) => address.id === selected)) {
+        return;
+      }
+      this.selectedId.set(this.addressStore.deliveryAddress()?.id ?? null);
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadAddresses();
+  }
+
+  loadAddresses(): void {
+    this.addressStore
+      .load()
+      .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
+      .subscribe();
+  }
+
+  selectAddress(id: string): void {
+    this.selectedId.set(id);
+  }
+
+  openAddressModal(): void {
+    this.addressModal.open();
+  }
+
+  onApplyCoupon(code: string): void {
+    this.appliedCoupon.set({
+      id: 'mock',
+      code,
+      type: 'PERCENT',
+      value: '50',
+      minPurchase: '0',
+      maxDiscount: '0',
+      usageLimit: 0,
+      usedCount: 0,
+      validFrom: '',
+      validUntil: '',
+      isActive: true,
+      immutable: false,
+      createdAt: '',
+      updatedAt: '',
+    });
+  }
+
+  onNext(): void {
+    if (!this.selectedId()) return;
+    this.router.navigate(['/checkout/payment']);
+  }
+}
