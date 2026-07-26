@@ -24,9 +24,10 @@
 
                 <!-- Payment -->
                 @for(method of paymentMethods; track method.id){
-                <app-payment-method-card 
-                [paymentMethod]="method" 
+                <app-payment-method-card
+                [paymentMethod]="method"
                 [paymentSelected]="selectedPayment === method.id"
+                [disabled]="method.disabled === true"
                 (selectedChange)="onPaymentSelected($event)">
                 </app-payment-method-card>
                 }

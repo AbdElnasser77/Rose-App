@@ -331,6 +331,8 @@
 
     "PAYMENT_REQUIRED": "Please select a payment method.",
     "ADDRESS_REQUIRED": "Please select an address first.",
+    "ORDER_PLACED": "Your order has been placed successfully.",
+    "WORK_IN_PROGRESS": "Work in progress - this payment method isn't available yet.",
 
     "CASH": {
       "TITLE": "Cash on Delivery",

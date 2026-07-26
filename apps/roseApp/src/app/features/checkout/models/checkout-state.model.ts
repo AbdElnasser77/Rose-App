@@ -1,6 +1,8 @@
+import { PaymentMethodType } from '../types/payment-method-type';
+
 export interface CheckoutStateModel {
   addressId: string | null;
-  paymentMethod: 'CASH' | 'CREDIT_CARD' | null;
+  paymentMethod: PaymentMethodType | null;
   couponCode: string | null;
   notes: string;
 }

@@ -12,6 +12,7 @@ import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
 import { CartStore } from '../../../features/cart/store/cart.store';
 import { AddressModalService } from '../../../features/checkout/services/address-modal.service';
 import { AddressStore } from '../../../features/checkout/store/address.store';
+import { CheckoutStore } from '../../../features/checkout/store/checkout.store';
 
 @Component({
   selector: 'app-navbar',
@@ -29,6 +30,7 @@ export class NavbarComponent {
   private readonly _cartStore = inject(CartStore);
   private readonly addressModal = inject(AddressModalService);
   private readonly addressStore = inject(AddressStore);
+  private readonly _checkoutStore = inject(CheckoutStore);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
@@ -67,6 +69,8 @@ export class NavbarComponent {
         this.addressStore.clear();
         this._cartStore.reset();
         this._wishlistStore.reset();
+        // Persisted now, so it would otherwise outlive the session it belongs to.
+        this._checkoutStore.clear();
         return;
       }
       this.addressStore
