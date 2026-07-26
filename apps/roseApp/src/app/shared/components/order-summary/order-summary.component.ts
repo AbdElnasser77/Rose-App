@@ -17,14 +17,15 @@ import { CommonModule } from '@angular/common';
 export class OrderSummaryComponent {
     private readonly _translateService = inject(TranslateService);
    
-   appliedCoupon  = input<CouponModel | null>(null);
-   subtotal = input.required<number>();
-   total = input.required<number>();
-   cartHasItems = input.required<boolean>();
-   showCheckoutButton = input<boolean>(false);
+  readonly appliedCoupon  = input<CouponModel | null>(null);
+  readonly subtotal = input.required<number>();
+  readonly total = input.required<number>();
+  readonly cartHasItems = input.required<boolean>();
+  readonly showCheckoutButton = input<boolean>(false);
+  readonly checkoutDisabled = input(false);
 
-   applyCouponClicked = output<string>();
-   checkoutClicked = output<void>();
+  readonly applyCouponClicked = output<string>();
+  readonly checkoutClicked = output<void>();
  
 
    readonly isRtl = computed(() => this._translateService.currentLang() === 'ar');

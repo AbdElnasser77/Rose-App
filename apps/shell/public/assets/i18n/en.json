@@ -246,7 +246,8 @@
   "COMMON": {
     "EGP": "EGP",
     "CANCEL": "Cancel",
-    "CONFIRM": "Confirm"
+    "CONFIRM": "Confirm",
+    "PRODUCTS_YOU_MAY_LIKE" : "Products You May Like"
   },
 
   "PRODUCT": {
@@ -316,7 +317,9 @@
     "CHECKOUT": "Checkout",
     "DISCOUNT" :" Discount",
     "OUT_OF_STOCK": "out of the stock",
-    "PRODUCT_ADDED": "product added to cart"
+    "PRODUCT_ADDED": "product added to cart",
+    "ALREADY_IN_CART": "This product is already in your cart.",
+    "NO_RATINGS_YET": "No ratings yet"
   }
 
 }

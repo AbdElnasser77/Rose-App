@@ -248,7 +248,8 @@
   "COMMON": {
     "EGP": "ج.م",
     "CANCEL": "إلغاء",
-    "CONFIRM": "تأكيد"
+    "CONFIRM": "تأكيد",
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك"
   },
 
   "PRODUCT": {
@@ -317,7 +318,9 @@
   "CHECKOUT": "إتمام الطلب",
   "DISCOUNT":"خصم",
   "OUT_OF_STOCK": "نفذت الكميه",
-  "PRODUCT_ADDED": "تم اضافه المنتج فى السله"
+  "PRODUCT_ADDED": "تم اضافه المنتج فى السله",
+  "ALREADY_IN_CART": "هذا المنتج موجود بالفعل في سلة التسوق.",
+  "NO_RATINGS_YET": "لا توجد تقييمات بعد"
 }
 
 }

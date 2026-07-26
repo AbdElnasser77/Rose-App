@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CartItem, CartResponse } from '../models/cart.model';
+import { CartItem } from '../models/cart.model';
 import { map, Observable } from 'rxjs';
 import { BASE_URL_CONFIG } from '@org/auth';
+import { CartResponseModel } from '../models/cart-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,12 @@ export class CartService {
   private baseUrlConfig = inject(BASE_URL_CONFIG);
 
   getCart(): Observable<CartItem[]> {
-    return this.http.get<CartResponse>(`${this.baseUrlConfig.apiUrl}/cart`)
+    return this.http.get<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`)
     .pipe(map((res) => res.payload.cartItems));
   }
 
   addToCart(data: {}): Observable<any> {
-    return this.http.post<CartResponse>(`${this.baseUrlConfig.apiUrl}/cart`, data);
+    return this.http.post<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`, data);
   }
 
   getCoupons(couponsId: string): Observable<any> {
@@ -27,7 +28,7 @@ export class CartService {
   }
 
   updateCartQuantity(cartItemId: string, quantity: {}): Observable<CartItem[]> {
-    return this.http.patch<CartResponse>(`${this.baseUrlConfig.apiUrl}/cart/${cartItemId}`, quantity)
+    return this.http.patch<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart/${cartItemId}`, quantity)
     .pipe(map((res) => res.payload.cartItems));
   }
 

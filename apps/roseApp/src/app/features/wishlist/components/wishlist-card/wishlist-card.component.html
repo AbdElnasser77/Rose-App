@@ -2,7 +2,10 @@
     class="w-full  sm:h-[180px] flex flex-col sm:flex-row gap-[16px] py-5  items-stretch border-b border-[#F4F4F5]  dark:border-zinc-700 sm:items-stretch mx-auto">
     <!-- Item img -->
     <div class="w-full sm:w-[117px] h-[272px] sm:h-full shrink-0 rounded-xl bg-zinc-200">
-        <img (click)="cardDetailsClicked.emit(item().product.id)"
+        <img (click)="cardDetailsClicked.emit(item().product.id)" 
+        (keyup.enter)="cardDetailsClicked.emit(item().product.id)"
+        role="button"
+        tabindex="0"
         [src]="item().product.cover" [alt]="item().product.title"
             class="w-full  h-full shrink-0  object-cover rounded-[6px] cursor-pointer">
     </div>
@@ -18,7 +21,10 @@
              {{ 'WISHLIST.OUT_OF_STOCK' | translate }}
         </span>
         }
-        <h3 (click)="cardDetailsClicked.emit(item().product.id)"
+        <h3 (click)="cardDetailsClicked.emit(item().product.id)" 
+        (keyup.enter)="cardDetailsClicked.emit(item().product.id)"
+        role="button"
+        tabindex="0"
          class="font-sarabun font-semibold text-[20px] leading-none text-[#27272A] dark:text-white cursor-pointer  hover:underline truncate">
          {{item().product.title}} </h3>
 
