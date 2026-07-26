@@ -11,9 +11,13 @@
         <!-- Shared Summary -->
         <div class="w-full lg:max-w-[458px] shrink-0">
             <app-order-summary 
+             [appliedCoupon]="appliedCoupon()"
               [subtotal]="subtotal()" 
               [total]="total()" 
-              [cartHasItems]="cartItems().length > 0">
+              [cartHasItems]="cartItems().length > 0"
+              [showCheckoutButton]="isCartPage()"
+              (applyCouponClicked)="onApplyCoupon($event)"
+              (checkoutClicked)="onCheckout()">
             </app-order-summary>
         </div>
 

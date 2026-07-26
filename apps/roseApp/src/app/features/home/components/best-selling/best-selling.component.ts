@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal,  DestroyRef } from '@angular/core';
+import { Component, computed, inject, OnInit, signal , DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
@@ -78,6 +78,7 @@ export class BestSellingComponent implements OnInit {
     const rtl=this.isRtl();
     return{
       spaceBetween: 24,
+      centerInsufficientSlides: true,
     watchSlidesProgress: true,
     navigation: {
       nextEl: rtl ? '.best-selling-prev' : '.best-selling-next',

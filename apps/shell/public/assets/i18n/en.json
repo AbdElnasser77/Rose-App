@@ -249,7 +249,8 @@
     "EGP": "EGP",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
-    "PRODUCTS_YOU_MAY_LIKE" : "Products You May Like"
+    "PRODUCTS_YOU_MAY_LIKE": "Products You May Like"
+    
   },
 
   "PRODUCT": {
@@ -323,6 +324,25 @@
     "ALREADY_IN_CART": "This product is already in your cart.",
     "NO_RATINGS_YET": "No ratings yet"
   },
+   "PAYMENT": {
+    "TITLE": "Payment Method",
+    "BACK": "Back",
+    "CHECKOUT": "Checkout",
+
+    "PAYMENT_REQUIRED": "Please select a payment method.",
+    "ADDRESS_REQUIRED": "Please select an address first.",
+
+    "CASH": {
+      "TITLE": "Cash on Delivery",
+      "DESCRIPTION": "You'll pay in cash when your order is delivered."
+    },
+
+    "CREDIT_CARD": {
+      "TITLE": "Credit Card",
+      "DESCRIPTION": "You'll be securely redirected to Stripe to complete your payment."
+    }
+    
+  }, 
 
   "CHECKOUT": {
     "SHIPPING_ADDRESS": {

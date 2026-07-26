@@ -4,7 +4,9 @@
   <div
     class="flex-1 xl:max-w-[340px] border-t-[6px]"
     [class.border-[#A6252A]]="activeIndex() >= 1"
-    [class.border-[#E5E7EB]]="activeIndex() < 1">
+    [class.dark:border-[#FF9EB7]]="activeIndex() >= 1"
+    [class.border-[#E5E7EB]]="activeIndex() < 1"
+    [class.dark:border-zinc-700]="activeIndex() < 1">
   </div>
 
   @for (step of steps; track step) {
@@ -13,9 +15,14 @@
     <div
       class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
       [class.bg-[#A6252A]]="activeIndex() >= step"
+      [class.dark:bg-[#FF9EB7]]="activeIndex() >= step"
       [class.text-white]="activeIndex() >= step"
+      [class.dark:text-[#27272A]]="activeIndex() >= step"
+
       [class.bg-[#E5E7EB]]="activeIndex() < step"
-      [class.text-[#6B7280]]="activeIndex() < step">
+      [class.dark:bg-zinc-700]="activeIndex() < step"
+      [class.text-[#6B7280]]="activeIndex() < step"
+      [class.dark:text-zinc-300]="activeIndex() < step">
 
       {{ step }}
 
@@ -25,7 +32,9 @@
     <div
       class="flex-1 xl:max-w-[340px] border-t-[6px]"
       [class.border-[#A6252A]]="activeIndex() >= 2"
-      [class.border-[#E5E7EB]]="activeIndex() < 2">
+      [class.dark:border-[#FF9EB7]]="activeIndex() >= 2"
+      [class.border-[#E5E7EB]]="activeIndex() < 2"
+       [class.dark:border-zinc-700]="activeIndex() < 2">
     </div>
 
   }
