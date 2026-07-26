@@ -1,5 +1,5 @@
-import { Routes } from "@angular/router";
-import { CheckoutLayoutComponent } from "../../layouts/checkout-layout/checkout-layout.component";
+import { Routes } from '@angular/router';
+import { CheckoutLayoutComponent } from '../../layouts/checkout-layout/checkout-layout.component';
 
 export const checkoutRoutes: Routes = [
   {
@@ -10,7 +10,7 @@ export const checkoutRoutes: Routes = [
         path: '',
         loadComponent: () =>
           import('./pages/shipping-address/shipping-address.page').then(
-            (m) => m.ShippingAddressPage
+            (m) => m.ShippingAddressPage,
           ),
         title: 'shipping-address',
       },

@@ -31,6 +31,10 @@ export class AddressStore {
 
   readonly addresses = signal<Address[]>([]);
 
+  // Distinguishes "not fetched yet" from "this user has none" - callers that reconcile
+  // a remembered selection against the list must not act on the empty initial value.
+  readonly loaded = signal(false);
+
   readonly hasAddresses = computed(() => this.addresses().length > 0);
 
   /** Address shown as the delivery target: the primary one, else the first saved one. */
@@ -57,12 +61,16 @@ export class AddressStore {
   load(): Observable<Address[]> {
     return this._addressesApi.getAddresses().pipe(
       catchError(() => of<Address[]>([])),
-      tap((addresses) => this.addresses.set(addresses))
+      tap((addresses) => {
+        this.addresses.set(addresses);
+        this.loaded.set(true);
+      })
     );
   }
 
   clear(): void {
     this.addresses.set([]);
+    this.loaded.set(false);
   }
 
   setPrimary(id: string): void {

@@ -1,5 +1,5 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { OrderSummaryComponent } from '../../shared/components/order-summary/order-summary.component';
 import { ProductsCarouselComponent } from '../../shared/components/products-carousel/products-carousel.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { SwiperOptions } from 'swiper/types';
 })
 export class CheckoutLayoutComponent implements OnInit{
   private readonly _router = inject(Router);
+  private readonly _route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
   private readonly _translateService = inject(TranslateService);
@@ -30,17 +31,19 @@ export class CheckoutLayoutComponent implements OnInit{
 
 
    readonly isRtl = computed(() => this._translateService.currentLang() === 'ar');
-   
-   isCartPage = computed(() => this._router.url.includes('/cart'));
 
   readonly subtotal = this._cartStore.subtotal;
   readonly total = this._cartStore.total;
   readonly cartItems = this._cartStore.cartItems;
+  readonly appliedCoupon = this._cartStore.coupon;
+
+  readonly showCheckoutButton =
+    this._route.snapshot.data['showSummaryCheckout'] === true;
 
    readonly wishlistedIds = this._wishlistStore.wishlistedIds;
 
    suggestedProducts = signal<Product[]>([]);
-  readonly appliedCoupon = this._cartStore.coupon;
+
    ngOnInit(): void {
     this.loadSuggestedProducts();
   }
@@ -58,6 +61,10 @@ export class CheckoutLayoutComponent implements OnInit{
 
   onCardDetailsClicked(productId: string): void {
     this._router.navigate(['/products', productId]);
+  }
+
+  onCheckoutClicked(): void {
+    this._router.navigate(['/checkout']);
   }
 
   onWishListClicked(product: Product): void {
@@ -160,9 +167,5 @@ export class CheckoutLayoutComponent implements OnInit{
         );
       }
     });
- }
-
- onCheckout(){
-  this._router.navigate(['/checkout']);
  }
 }

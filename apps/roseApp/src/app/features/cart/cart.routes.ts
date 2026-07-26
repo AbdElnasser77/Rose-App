@@ -7,6 +7,7 @@ export const CartRoutes: Routes = [
     path: '',
     canActivate: [authGuard],
      component: CheckoutLayoutComponent,
+     data: { showSummaryCheckout: true },
       children: [
         {
           path: '',

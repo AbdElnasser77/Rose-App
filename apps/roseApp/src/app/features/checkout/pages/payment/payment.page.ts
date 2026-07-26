@@ -13,7 +13,6 @@ import { LucideAngularModule,MoveRight, ArrowLeft} from 'lucide-angular';
 import { CheckoutStore } from '../../store/checkout.store';
 import { PaymentMethodModel } from '../../models/payment-method.model';
 import { OrderService } from '../../services/order.service';
-import { CreateOrderRequestModel } from '../../models/order/create-order-request.model';
 import { CartStore } from '../../../cart/store/cart.store';
 
 @Component({
@@ -127,8 +126,8 @@ export class PaymentPage implements OnInit{
     paymentMethods : PaymentMethodModel[] = [
       
       {
-      id:'CASH',
-      type: 'CASH',
+      id:'CASH_ON_DELIVERY',
+      type: 'CASH_ON_DELIVERY',
       name: this._translateService.instant('PAYMENT.CASH.TITLE'),
       description: this._translateService.instant('PAYMENT.CASH.DESCRIPTION'),
       image:'assets/images/payment/cash.svg'
@@ -138,13 +137,23 @@ export class PaymentPage implements OnInit{
       type: 'CREDIT_CARD',
       name: this._translateService.instant('PAYMENT.CREDIT_CARD.TITLE'),
       description: this._translateService.instant('PAYMENT.CREDIT_CARD.DESCRIPTION'),
-      image:'assets/images/payment/credit.svg'
+      image:'assets/images/payment/credit.svg',
+      disabled: true
       }
 
     ];
     onPaymentSelected(id:string){
       const method = this.paymentMethods.find(x => x.id === id);
       if (!method) return;
+
+      // Bail before touching any state, so an unimplemented method can never end up in
+      // the order body or enable the checkout button.
+      if (method.disabled) {
+        this._toastService.show(
+          this._translateService.instant('PAYMENT.WORK_IN_PROGRESS'),'default'
+        );
+        return;
+      }
 
       this.selectedPayment = id;
       this._checkoutStore.setPaymentMethod(method.type);
@@ -155,40 +164,44 @@ export class PaymentPage implements OnInit{
     }
 
     onCheckoutClicked(){
-      const checkout = this._checkoutStore.checkoutState();
-
-      if (!checkout.addressId) {
+      if (!this._checkoutStore.addressId()) {
         this._toastService.show(
           this._translateService.instant('PAYMENT.ADDRESS_REQUIRED'),'error'
         );
          this._router.navigate(['/checkout']);
          return;
       }
-      if (!checkout.paymentMethod) {
+
+      const paymentMethod = this._checkoutStore.paymentMethod();
+
+      if (!paymentMethod) {
         this._toastService.show(
           this._translateService.instant('PAYMENT.PAYMENT_REQUIRED'),'error'
       );
        return;
       }
 
-      const body :CreateOrderRequestModel = {
-        addressId: checkout.addressId,
-        paymentMethod: checkout.paymentMethod,
-        couponCode: checkout.couponCode ?? undefined,
-        notes: checkout.notes || undefined,
-      };
+      const body = this._checkoutStore.orderRequest();
+
+      if (!body) {
+        return;
+      }
 
       this._orderService.createOrder(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: (res) => {
-        const order = res.payload.order;
-        if (checkout.paymentMethod === 'CASH') {
+        next: () => {
+        if (paymentMethod === 'CASH_ON_DELIVERY') {
 
+            this._toastService.show(
+              this._translateService.instant('PAYMENT.ORDER_PLACED'),'success'
+            );
             this._checkoutStore.clear();
-            this._router.navigate(['/orders']);
+            this._cartStore.loadCart();
+            // Temporary until the orders page exists.
+            this._router.navigate(['/home']);
           }
        },
       });
-    } 
+    }
 
     
 }

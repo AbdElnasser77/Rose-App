@@ -14,7 +14,7 @@ export class OrderService {
 
    createOrder(body: CreateOrderRequestModel) {
   return this._httpClient.post<CreateOrderResponseModel>(
-    `$${this._baseUrlConfig.apiUrl}/orders`,
+    `${this._baseUrlConfig.apiUrl}/orders`,
     body
   );
 }

@@ -1,133 +1,121 @@
-<div class="w-full px-4 sm:px-6 lg:px-[81px] py-8">
-  <div class="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12">
-    <section class="w-full lg:flex-[3] flex flex-col gap-6">
-      <h2 class="font-sarabun text-2xl font-bold text-black dark:text-white">
-        {{ 'CHECKOUT.SHIPPING_ADDRESS.TITLE' | translate }}
-      </h2>
+<section class="w-full flex flex-col gap-6">
+  <app-checkout-stepper [activeIndex]="1"></app-checkout-stepper>
 
-      @if (addresses().length > 0) {
-      <div class="flex flex-col gap-4 max-h-[340px] overflow-y-auto pr-1">
-        @for (address of addresses(); track address.id) {
-        <button
-          type="button"
-          (click)="selectAddress(address.id)"
+  <h2 class="font-sarabun text-2xl font-bold text-black dark:text-white">
+    {{ 'CHECKOUT.SHIPPING_ADDRESS.TITLE' | translate }}
+  </h2>
+
+  @if (addresses().length > 0) {
+  <div class="flex flex-col gap-4 max-h-[340px] overflow-y-auto pr-1">
+    @for (address of addresses(); track address.id) {
+    <button
+      type="button"
+      (click)="selectAddress(address.id)"
+      [ngClass]="
+          selectedId() === address.id
+            ? 'bg-maroon-600 border-maroon-600 dark:bg-soft-pink-300 dark:border-soft-pink-300'
+            : 'bg-white border-zinc-200 hover:border-maroon-400 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:border-soft-pink-300'
+        "
+      class="w-full text-start rounded-2xl border p-4 flex items-center justify-between gap-4 cursor-pointer transition-colors duration-200"
+    >
+      <div class="flex flex-col gap-2 min-w-0">
+        <span
           [ngClass]="
               selectedId() === address.id
-                ? 'bg-maroon-600 border-maroon-600 dark:bg-soft-pink-300 dark:border-soft-pink-300'
-                : 'bg-white border-zinc-200 hover:border-maroon-400 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:border-soft-pink-300'
+                ? 'text-white dark:text-zinc-900'
+                : 'text-zinc-900 dark:text-zinc-100'
             "
-          class="w-full text-start rounded-2xl border p-4 flex items-center justify-between gap-4 cursor-pointer transition-colors duration-200"
+          class="font-sarabun text-lg font-bold"
         >
-          <div class="flex flex-col gap-2 min-w-0">
-            <span
-              [ngClass]="
-                  selectedId() === address.id
-                    ? 'text-white dark:text-zinc-900'
-                    : 'text-zinc-900 dark:text-zinc-100'
-                "
-              class="font-sarabun text-lg font-bold"
-            >
-              {{ address.city }}
-            </span>
+          {{ address.city }}
+        </span>
 
-            <span
-              [ngClass]="
-                  selectedId() === address.id
-                    ? 'bg-maroon-800 text-white dark:bg-soft-pink-500 dark:text-zinc-900'
-                    : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300'
-                "
-              class="rounded-lg px-3 py-1 text-sm truncate"
-            >
-              {{ address.street }}
-            </span>
-          </div>
-
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span
-              [ngClass]="
-                  selectedId() === address.id
-                    ? 'bg-white'
-                    : 'bg-maroon-600 dark:bg-soft-pink-300'
-                "
-              class="w-9 h-9 rounded-full flex items-center justify-center"
-            >
-              <lucide-icon
-                [img]="Phone"
-                [ngClass]="
-                    selectedId() === address.id
-                      ? 'text-maroon-600'
-                      : 'text-white dark:text-zinc-900'
-                  "
-                class="w-[18px] h-[18px]"
-              ></lucide-icon>
-            </span>
-            <span
-              [ngClass]="
-                  selectedId() === address.id
-                    ? 'text-white dark:text-zinc-900'
-                    : 'text-zinc-700 dark:text-zinc-300'
-                "
-              class="text-sm whitespace-nowrap"
-              dir="ltr"
-            >
-              {{ address.phone }}
-            </span>
-          </div>
-        </button>
-        }
-      </div>
-      } @else {
-      <div
-        class="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-8 text-center text-zinc-500 dark:text-zinc-400"
-      >
-        {{ 'CHECKOUT.SHIPPING_ADDRESS.NO_ADDRESSES' | translate }}
-      </div>
-      }
-
-      <div class="flex items-center gap-4">
-        <span class="flex-1 h-px bg-zinc-200 dark:bg-zinc-700"></span>
-        <span class="text-sm font-medium text-zinc-400 dark:text-zinc-500"
-          >{{ 'CHECKOUT.SHIPPING_ADDRESS.OR' | translate }}</span
+        <span
+          [ngClass]="
+              selectedId() === address.id
+                ? 'bg-maroon-800 text-white dark:bg-soft-pink-500 dark:text-zinc-900'
+                : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300'
+            "
+          class="rounded-lg px-3 py-1 text-sm truncate"
         >
-        <span class="flex-1 h-px bg-zinc-200 dark:bg-zinc-700"></span>
+          {{ address.street }}
+        </span>
       </div>
 
-      <lib-button
-        variant="Secondary"
-        size="full"
-        (clicked)="openAddressModal()"
-        customClass="px-4 py-3 text-[16px] dark:!text-zinc-700"
-      >
-        {{ 'CHECKOUT.SHIPPING_ADDRESS.ADD_NEW_ADDRESS' | translate }}
-      </lib-button>
-
-      <div class="flex justify-end">
-        <lib-button
-          variant="Primary"
-          size="auto"
-          [disabled]="!selectedId()"
-          (clicked)="onNext()"
-          customClass="px-8 py-3 gap-2 text-[16px]"
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span
+          [ngClass]="
+              selectedId() === address.id
+                ? 'bg-white'
+                : 'bg-maroon-600 dark:bg-soft-pink-300'
+            "
+          class="w-9 h-9 rounded-full flex items-center justify-center"
         >
-          {{ 'CHECKOUT.SHIPPING_ADDRESS.NEXT' | translate }}
           <lucide-icon
-            rightIcon
-            [img]="ArrowRight"
-            [class.rotate-180]="isRtl()"
+            [img]="Phone"
+            [ngClass]="
+                selectedId() === address.id
+                  ? 'text-maroon-600'
+                  : 'text-white dark:text-zinc-900'
+              "
             class="w-[18px] h-[18px]"
           ></lucide-icon>
-        </lib-button>
+        </span>
+        <span
+          [ngClass]="
+              selectedId() === address.id
+                ? 'text-white dark:text-zinc-900'
+                : 'text-zinc-700 dark:text-zinc-300'
+            "
+          class="text-sm whitespace-nowrap"
+          dir="ltr"
+        >
+          {{ address.phone }}
+        </span>
       </div>
-    </section>
-
-    <aside class="w-full lg:flex-[2]">
-      <app-order-summary
-        [subtotal]="subtotal()"
-        [total]="total()"
-        [appliedCoupon]="appliedCoupon()"
-        [cartHasItems]="true"
-        (applyCouponClicked)="onApplyCoupon($event)"
-      />
-    </aside>
+    </button>
+    }
   </div>
-</div>
+  } @else {
+  <div
+    class="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-8 text-center text-zinc-500 dark:text-zinc-400"
+  >
+    {{ 'CHECKOUT.SHIPPING_ADDRESS.NO_ADDRESSES' | translate }}
+  </div>
+  }
+
+  <div class="flex items-center gap-4">
+    <span class="flex-1 h-px bg-zinc-200 dark:bg-zinc-700"></span>
+    <span class="text-sm font-medium text-zinc-400 dark:text-zinc-500"
+      >{{ 'CHECKOUT.SHIPPING_ADDRESS.OR' | translate }}</span
+    >
+    <span class="flex-1 h-px bg-zinc-200 dark:bg-zinc-700"></span>
+  </div>
+
+  <lib-button
+    variant="Secondary"
+    size="full"
+    (clicked)="openAddressModal()"
+    customClass="px-4 py-3 text-[16px] dark:!text-zinc-700"
+  >
+    {{ 'CHECKOUT.SHIPPING_ADDRESS.ADD_NEW_ADDRESS' | translate }}
+  </lib-button>
+
+  <div class="flex justify-end">
+    <lib-button
+      variant="Primary"
+      size="auto"
+      [disabled]="!selectedId()"
+      (clicked)="onNext()"
+      customClass="px-8 py-3 gap-2 text-[16px]"
+    >
+      {{ 'CHECKOUT.SHIPPING_ADDRESS.NEXT' | translate }}
+      <lucide-icon
+        rightIcon
+        [img]="ArrowRight"
+        [class.rotate-180]="isRtl()"
+        class="w-[18px] h-[18px]"
+      ></lucide-icon>
+    </lib-button>
+  </div>
+</section>

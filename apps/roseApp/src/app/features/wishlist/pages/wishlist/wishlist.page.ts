@@ -8,7 +8,6 @@ import { WishlistStore } from '../../store/wishlist.store';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CartService } from '../../../cart/services/cart.service';
 import { CartStore } from '../../../cart/store/cart.store';
 @Component({
   selector: 'app-wishlist',
@@ -22,8 +21,7 @@ export class WishlistPage {
   private readonly _toastService=inject(ToastService);
   private readonly _router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-   private readonly _cartStore = inject(CartStore);
- 
+  private readonly _cartStore = inject(CartStore);
 
   readonly wishlistItems = this._wishlistStore.wishlistItems;
   readonly isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
@@ -63,33 +61,33 @@ export class WishlistPage {
 
   
    addToCart(productId:string):void{
-      if (this._cartStore.isProductInCart(productId)) {
-           this._toastService.show(
-           this._translateService.instant('CART.ALREADY_IN_CART'),
-           'default'
-           );
-           return;
-           }
-     
-          this._cartStore
-          .addToCart(productId)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-          next: (res) => {
-           if (res.message === 'Insufficient stock.') {
-             this._toastService.show(
-               this._translateService.instant('CART.OUT_OF_STOCK'),
-               'error'
-             );
-           } else {
-             this._toastService.show(
-               this._translateService.instant('CART.PRODUCT_ADDED'),
-               'success'
-             );
-           }
-         },
-       });
-    
+    if (this._cartStore.isProductInCart(productId)) {
+      this._toastService.show(
+        this._translateService.instant('CART.ALREADY_IN_CART'),
+        'default'
+      );
+      return;
+    }
+
+    this._cartStore
+      .addToCart(productId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          if (res.message === 'Insufficient stock.') {
+            this._toastService.show(
+              this._translateService.instant('CART.OUT_OF_STOCK'),
+              'error'
+            );
+          } else {
+            this._toastService.show(
+              this._translateService.instant('CART.PRODUCT_ADDED'),
+              'success'
+            );
+          }
+        },
+      });
+
    }
    
    

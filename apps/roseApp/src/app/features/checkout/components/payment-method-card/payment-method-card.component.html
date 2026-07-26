@@ -1,7 +1,11 @@
-<button class="w-full min-w-[373px] min-h-[299px] rounded-xl border border-[#E4E4E7]  
-         p-4 flex flex-col gap-2.5 cursor-pointer transition-all" [ngClass]="paymentSelected()
-      ? 'bg-[#FAFAFA] dark:bg-zinc-400'
-      : 'bg-white dark:bg-zinc-800' "
+<button class="w-full min-w-[373px] min-h-[299px] rounded-xl border border-[#E4E4E7]
+         p-4 flex flex-col gap-2.5 transition-all" [ngClass]="{
+      'bg-[#FAFAFA] dark:bg-zinc-400': paymentSelected(),
+      'bg-white dark:bg-zinc-800': !paymentSelected(),
+      'cursor-pointer': !disabled(),
+      'cursor-not-allowed opacity-60': disabled()
+    }"
+       [attr.aria-disabled]="disabled()"
        (click)="onSelect()"
       >
 
@@ -22,6 +26,12 @@
         <small class="font-mulish text-[14px] font-semibold leading-[150%] tracking-normal text-[#71717A] dark:text-zinc-300">
             {{ paymentMethod().description }}
         </small>
+
+        @if (disabled()) {
+        <span class="mt-2 rounded-lg bg-zinc-100 dark:bg-zinc-700 px-3 py-1 font-mulish text-[13px] font-semibold text-[#71717A] dark:text-zinc-300">
+            {{ 'PAYMENT.WORK_IN_PROGRESS' | translate }}
+        </span>
+        }
 
     </div>
 </button>

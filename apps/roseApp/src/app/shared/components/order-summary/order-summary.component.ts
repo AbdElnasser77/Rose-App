@@ -2,6 +2,7 @@ import { Component, computed, inject, input,output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, TicketPercent ,MoveRight} from 'lucide-angular';
+import { ButtonComponent } from '@org/ui';
 import { CouponModel } from '../../models/coupon.model';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-order-summary',
   imports: [FormsModule , LucideAngularModule,
-    TranslatePipe ,CommonModule
+    TranslatePipe ,CommonModule, ButtonComponent
   ],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.scss',

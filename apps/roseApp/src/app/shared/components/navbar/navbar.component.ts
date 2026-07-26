@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
@@ -12,6 +12,7 @@ import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
 import { CartStore } from '../../../features/cart/store/cart.store';
 import { AddressModalService } from '../../../features/checkout/services/address-modal.service';
 import { AddressStore } from '../../../features/checkout/store/address.store';
+import { CheckoutStore } from '../../../features/checkout/store/checkout.store';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,7 @@ import { AddressStore } from '../../../features/checkout/store/address.store';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent {
   private readonly authStore = inject(AuthStore);
   private readonly sessionService = inject(SessionService);
   private readonly authFacade = inject(AuthFacade);
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit{
   private readonly _cartStore = inject(CartStore);
   private readonly addressModal = inject(AddressModalService);
   private readonly addressStore = inject(AddressStore);
+  private readonly _checkoutStore = inject(CheckoutStore);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
@@ -65,12 +67,18 @@ export class NavbarComponent implements OnInit{
     effect(() => {
       if (!this.isLoggedIn()) {
         this.addressStore.clear();
+        this._cartStore.reset();
+        this._wishlistStore.reset();
+        // Persisted now, so it would otherwise outlive the session it belongs to.
+        this._checkoutStore.clear();
         return;
       }
       this.addressStore
         .load()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
+      this._cartStore.loadCart();
+      this._wishlistStore.loadWishlist();
     });
   }
 
@@ -102,10 +110,5 @@ export class NavbarComponent implements OnInit{
 
   openAddressModal(): void {
     this.addressModal.open();
-  }
-
-  ngOnInit(): void {
-  this._wishlistStore.loadWishlist();
-  this._cartStore.loadCart();
   }
 }

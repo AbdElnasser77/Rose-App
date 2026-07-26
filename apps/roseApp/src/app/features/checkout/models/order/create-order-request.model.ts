@@ -1,6 +1,8 @@
+import { PaymentMethodType } from '../../types/payment-method-type';
+
 export interface CreateOrderRequestModel {
   addressId: string;
-  paymentMethod: 'CASH' | 'CREDIT_CARD';
+  paymentMethod: PaymentMethodType;
   couponCode?: string;
   notes?: string;
 }
