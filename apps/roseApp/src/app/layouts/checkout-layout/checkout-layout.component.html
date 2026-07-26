@@ -16,6 +16,7 @@
               [appliedCoupon]="appliedCoupon()"
               [cartHasItems]="cartItems().length > 0"
               [showCheckoutButton]="showCheckoutButton"
+              (applyCouponClicked)="onApplyCoupon($event)"
               (checkoutClicked)="onCheckoutClicked()">
             </app-order-summary>
         </div>

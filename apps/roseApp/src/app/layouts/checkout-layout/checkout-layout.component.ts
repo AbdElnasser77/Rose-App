@@ -149,4 +149,8 @@ export class CheckoutLayoutComponent implements OnInit{
       }
       
     }
+
+  onApplyCoupon(code: string): void {
+    console.log(code)
+ }
 }

@@ -10,7 +10,7 @@ export const checkoutRoutes: Routes = [
         path: '',
         loadComponent: () =>
           import('./pages/shipping-address/shipping-address.page').then(
-            (m) => m.ShippingAddressPage
+            (m) => m.ShippingAddressPage,
           ),
         title: 'shipping-address',
       },
