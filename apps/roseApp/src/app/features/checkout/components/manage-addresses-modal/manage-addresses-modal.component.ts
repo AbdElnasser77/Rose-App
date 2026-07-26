@@ -6,14 +6,14 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
-import { ToastService } from '@org/shared-util-notification';
 import { LucideAngularModule, MapPin, Phone, Pencil, Trash2 } from 'lucide-angular';
 import { Address } from '../../models/address.model';
-import { AddressesApiService } from '../../services/addresses-api.service';
+import { AddressStore } from '../../store/address.store';
 import { DialogModule } from 'primeng/dialog';
 import { AddAddressComponent } from '../add-address/add-address.component';
 import { UpdateAddressComponent } from '../update-address/update-address.component';
@@ -21,6 +21,7 @@ import { UpdateAddressComponent } from '../update-address/update-address.compone
 @Component({
   selector: 'app-manage-addresses-modal',
   imports: [
+    NgClass,
     ButtonComponent,
     LucideAngularModule,
     TranslatePipe,
@@ -36,10 +37,8 @@ import { UpdateAddressComponent } from '../update-address/update-address.compone
 })
 export class ManageAddressesModalComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly addressesApi = inject(AddressesApiService);
+  private readonly addressStore = inject(AddressStore);
   private readonly loader = inject(LoaderService);
-  private readonly toast = inject(ToastService);
-  private readonly translate = inject(TranslateService);
 
   readonly closed = output<void>();
 
@@ -48,7 +47,7 @@ export class ManageAddressesModalComponent implements OnInit {
   readonly Pencil = Pencil;
   readonly Trash2 = Trash2;
 
-  readonly addresses = signal<Address[]>([]);
+  readonly addresses = this.addressStore.addresses;
   readonly pendingDeleteId = signal<string | null>(null);
   readonly view = signal<'list' | 'add' | 'edit'>('list');
   readonly editingAddress = signal<Address | null>(null);
@@ -58,13 +57,10 @@ export class ManageAddressesModalComponent implements OnInit {
   }
 
   loadAddresses(): void {
-    this.addressesApi
-      .getAddresses()
+    this.addressStore
+      .load()
       .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (addresses) => this.addresses.set(addresses),
-        error: () => this.addresses.set([]),
-      });
+      .subscribe();
   }
 
   requestDelete(id: string): void {
@@ -85,18 +81,17 @@ export class ManageAddressesModalComponent implements OnInit {
     const id = this.pendingDeleteId();
     if (!id) return;
     this.pendingDeleteId.set(null);
-    this.addressesApi
-      .deleteAddress(id)
-      .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.toast.show(
-            this.translate.instant('CHECKOUT.MANAGE_ADDRESSES.DELETE_SUCCESS'),
-            'success'
-          );
-          this.loadAddresses();
-        },
-      });
+    this.addressStore.remove(id);
+  }
+
+  setPrimary(id: string): void {
+    this.addressStore.setPrimary(id);
+  }
+
+  onAddressKeydown(event: KeyboardEvent, id: string): void {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    this.setPrimary(id);
   }
 
   startEdit(address: Address): void {

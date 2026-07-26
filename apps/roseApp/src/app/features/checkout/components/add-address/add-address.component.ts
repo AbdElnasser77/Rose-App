@@ -9,6 +9,7 @@ import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { LucideAngularModule, X, ArrowLeft } from 'lucide-angular';
 import { AddressesApiService } from '../../services/addresses-api.service';
+import { AddressStore } from '../../store/address.store';
 import { CreateAddressDto } from '../../models/address.model';
 import { AddressLocationMapComponent } from '../address-location-map/address-location-map.component';
 
@@ -33,6 +34,7 @@ export class AddAddressComponent {
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly addressesApi = inject(AddressesApiService);
+  private readonly addressStore = inject(AddressStore);
   private readonly loader = inject(LoaderService);
   private readonly toast = inject(ToastService);
   private readonly translate = inject(TranslateService);
@@ -76,7 +78,8 @@ export class AddAddressComponent {
       city: value.city,
       street: value.street,
       phone: value.phone,
-      isPrimary: false,
+      // First address a user saves becomes their default, otherwise they'd have none.
+      isPrimary: !this.addressStore.hasAddresses(),
       latitude: this.latitude(),
       longitude: this.longitude(),
     };

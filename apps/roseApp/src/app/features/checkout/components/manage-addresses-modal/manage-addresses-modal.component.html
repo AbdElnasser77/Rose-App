@@ -36,9 +36,26 @@
 
     <div class="px-6 py-5 overflow-y-auto flex flex-col gap-5">
       @if (addresses().length > 0) {
-        @for (address of addresses(); track address.id) {
+        <div
+          role="radiogroup"
+          [attr.aria-label]="
+            'CHECKOUT.MANAGE_ADDRESSES.PRIMARY_GROUP' | translate
+          "
+          class="flex flex-col gap-5"
+        >
+          @for (address of addresses(); track address.id) {
           <div
-            class="relative rounded-2xl border border-zinc-200 dark:border-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 hover:shadow-sm p-4 pe-6 flex items-stretch justify-between gap-4 transition-all duration-200 cursor-pointer"
+            role="radio"
+            tabindex="0"
+            [attr.aria-checked]="!!address.isPrimary"
+            (click)="setPrimary(address.id)"
+            (keydown)="onAddressKeydown($event, address.id)"
+            [ngClass]="
+              address.isPrimary
+                ? 'border-maroon-600 dark:border-soft-pink-300'
+                : 'border-zinc-200 dark:border-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300'
+            "
+            class="relative rounded-2xl border hover:shadow-sm p-4 pe-6 flex items-stretch justify-between gap-4 transition-all duration-200 cursor-pointer"
           >
             <span
               class="absolute -top-4 text-xl bg-white dark:bg-zinc-900 px-2 start-5 font-sarabun text-base font-bold text-maroon-600 dark:text-soft-pink-300"
@@ -67,6 +84,18 @@
               >
                 {{ address.street }}
               </span>
+
+              @if (address.isPrimary) {
+                <span
+                  class="w-fit text-sm font-medium text-maroon-600 dark:text-soft-pink-300"
+                >
+                  {{ 'CHECKOUT.MANAGE_ADDRESSES.DEFAULT' | translate }}
+                </span>
+              } @else {
+                <span class="w-fit text-sm text-zinc-400 dark:text-zinc-500">
+                  {{ 'CHECKOUT.MANAGE_ADDRESSES.SET_AS_DEFAULT' | translate }}
+                </span>
+              }
             </div>
 
             <div
@@ -80,7 +109,7 @@
             <button
               type="button"
               aria-label="Edit address"
-              (click)="startEdit(address)"
+              (click)="startEdit(address); $event.stopPropagation()"
               class="absolute top-4 -end-4.5 w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-300 flex items-center justify-center hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 transition-colors cursor-pointer"
             >
               <lucide-icon [img]="Pencil" class="w-4 h-4"></lucide-icon>
@@ -88,13 +117,14 @@
             <button
               type="button"
               aria-label="Delete address"
-              (click)="requestDelete(address.id)"
+              (click)="requestDelete(address.id); $event.stopPropagation()"
               class="absolute bottom-4 -end-4.5 w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
             >
               <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
             </button>
           </div>
-        }
+          }
+        </div>
       } @else {
         <div
           class="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-8 text-center text-zinc-500 dark:text-zinc-400"

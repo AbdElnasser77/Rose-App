@@ -11,11 +11,19 @@
       (click)="openAddressModal()"
       class="hidden md:block text-xs md:text-sm shrink-0 text-start cursor-pointer"
     >
+      @if (deliveryAddress(); as address) {
       <span class="block text-gray-400 dark:text-zinc-400">{{ 'NAV.DELIVER_TO' | translate }}</span>
       <span class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
-        <lucide-icon [img]="MapPin" class="w-4 h-4" />
-        <span>Cairo</span>
+        <lucide-icon [img]="MapPin" class="w-4 h-4 shrink-0" />
+        <span class="max-w-[140px] truncate">{{ address.city }}</span>
       </span>
+      } @else {
+      <span class="block text-gray-400 dark:text-zinc-400">{{ 'NAV.NO_ADDRESS' | translate }}</span>
+      <span class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
+        <lucide-icon [img]="MapPinPlus" class="w-4 h-4 shrink-0" />
+        <span>{{ 'NAV.ADD_ADDRESS' | translate }}</span>
+      </span>
+      }
     </button>
     }
 
