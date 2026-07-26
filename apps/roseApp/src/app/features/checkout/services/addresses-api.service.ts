@@ -24,25 +24,25 @@ export class AddressesApiService {
   getAddresses(): Observable<Address[]> {
     return this.http
       .get<AddressListResponse>(this.baseUrl)
-      .pipe(map((res) => res.payload.data ?? res.payload.addresses ?? []));
+      .pipe(map((res) => res.payload.addresses ?? []));
   }
 
-  getAddress(id: string): Observable<Address | undefined> {
+  getAddress(id: string): Observable<Address> {
     return this.http
       .get<AddressResponse>(`${this.baseUrl}/${id}`)
-      .pipe(map((res) => res.payload.address ?? res.payload.data));
+      .pipe(map((res) => res.payload.address));
   }
 
-  createAddress(dto: CreateAddressDto): Observable<Address | undefined> {
+  createAddress(dto: CreateAddressDto): Observable<Address> {
     return this.http
       .post<AddressResponse>(this.baseUrl, dto)
-      .pipe(map((res) => res.payload.address ?? res.payload.data));
+      .pipe(map((res) => res.payload.address));
   }
 
-  updateAddress(id: string, dto: UpdateAddressDto): Observable<Address | undefined> {
+  updateAddress(id: string, dto: UpdateAddressDto): Observable<Address> {
     return this.http
       .patch<AddressResponse>(`${this.baseUrl}/${id}`, dto)
-      .pipe(map((res) => res.payload.address ?? res.payload.data));
+      .pipe(map((res) => res.payload.address));
   }
 
   deleteAddress(id: string): Observable<void> {
