@@ -17,8 +17,6 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Phone, ArrowRight } from 'lucide-angular';
 import { AddressModalService } from '../../services/address-modal.service';
 import { AddressStore } from '../../store/address.store';
-import { OrderSummaryComponent } from '../../../../shared/components/order-summary/order-summary.component';
-import { CouponModel } from '../../../../shared/models/coupon.model';
 
 @Component({
   selector: 'app-shipping-address',
@@ -26,7 +24,6 @@ import { CouponModel } from '../../../../shared/models/coupon.model';
     CommonModule,
     ButtonComponent,
     LucideAngularModule,
-    OrderSummaryComponent,
     TranslatePipe,
   ],
   templateUrl: './shipping-address.page.html',
@@ -46,17 +43,6 @@ export class ShippingAddressPage implements OnInit {
 
   readonly addresses = this.addressStore.addresses;
   readonly selectedId = signal<string | null>(null);
-
-  readonly subtotal = signal(250);
-  readonly appliedCoupon = signal<CouponModel | null>(null);
-  readonly total = computed(() => {
-    const coupon = this.appliedCoupon();
-    if (!coupon) return this.subtotal();
-    if (coupon.type === 'PERCENT') {
-      return this.subtotal() - (this.subtotal() * Number(coupon.value)) / 100;
-    }
-    return Math.max(0, this.subtotal() - Number(coupon.value));
-  });
 
   constructor() {
     // Fall back to the default address whenever the current pick is gone - on first
@@ -88,25 +74,6 @@ export class ShippingAddressPage implements OnInit {
 
   openAddressModal(): void {
     this.addressModal.open();
-  }
-
-  onApplyCoupon(code: string): void {
-    this.appliedCoupon.set({
-      id: 'mock',
-      code,
-      type: 'PERCENT',
-      value: '50',
-      minPurchase: '0',
-      maxDiscount: '0',
-      usageLimit: 0,
-      usedCount: 0,
-      validFrom: '',
-      validUntil: '',
-      isActive: true,
-      immutable: false,
-      createdAt: '',
-      updatedAt: '',
-    });
   }
 
   onNext(): void {

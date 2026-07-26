@@ -109,14 +109,12 @@
         </div>
     </div>
     @if (showCheckoutButton()) {
-    <button type="button" (click)="onCheckout()"
-        class="w-full flex h-[49px] min-w-[159px] items-center justify-center gap-2.5 rounded-[10px] cursor-pointer
-              bg-[#A6252A] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal text-white transition-colors hover:bg-[#8f1f23]">
-
+    <lib-button variant="Maroon" size="full" [disabled]="checkoutDisabled() || !cartHasItems()"
+        (clicked)="onCheckout()" customClass="h-[49px] px-4 py-2.5 gap-2.5 font-sarabun text-[20px]">
 
         {{ 'CART.CHECKOUT' | translate }}
-        <lucide-icon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
+        <lucide-icon rightIcon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
 
-    </button>
+    </lib-button>
     }
 </div>
