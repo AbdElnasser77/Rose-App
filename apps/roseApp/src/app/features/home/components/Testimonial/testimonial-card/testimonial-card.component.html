@@ -1,8 +1,8 @@
 <div
-  class="relative bg-white rounded-2xl px-6 shadow-sm flex flex-col items-center text-center gap-3 w-full h-[350px] hover:shadow-lg border-2 border-transparent hover:border-maroon-700 dark:hover:border-soft-pink-300 transition group"
->
+    class="relative   w-[343px] h-[250px]  bg-white rounded-3xl pt-14 px-5 pb-5 shadow-sm flex flex-col items-center text-center gap-3  transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-xl hover:cursor-pointer  ">
+
   <div
-    class="w-24 h-24 rounded-full overflow-hidden shrink-0 absolute top-[-35px] bg-gray-100 dark:bg-gray-700 flex items-center justify-center border-2 border-white group-hover:border-maroon-700 dark:border-white dark:group-hover:border-soft-pink-300 transition"
+     class="w-30 h-30 rounded-full overflow-hidden shrink-0 absolute top-[-75px] left-1/2 -translate-x-1/2  bg-gray-100 dark:bg-gray-700 flex items-center justify-center border-[3px] border-white "
   >
     @if (image()) {
       <!-- <img [src]="image()" [alt]="name()" class="w-full h-full object-cover" /> -->
@@ -18,13 +18,16 @@
   </div>
 
   <p
-    class="font-semibold text-gray-800 dark:text-zinc-800 text-lg pt-17 capitalize"
+    class="font-sarabun font-semibold text-base leading-none text-center text-[#27272A]  "
   >
     {{ name() }}
   </p>
 
   <div class="cursor-default" dir="ltr">
-    <p-rating [ngModel]="rating()" [readonly]="true" [stars]="5" />
+    <p-rating [ngModel]="rating()" [readonly]="true" [stars]="4" 
+    iconOnClass="pi pi-star-fill text-[#FBA707] text-[15px]"
+    iconOffClass="pi pi-star text-[#FBA707] text-[15px] "
+    />
   </div>
 
   <p
@@ -33,7 +36,7 @@
     {{ content() }}
   </p>
 
-  <span class="text-gray-400 dark:text-gray-500 text-xs mt-auto pb-3">
+  <span class="font-sarabun font-medium text-xs leading-none text-center text-[#A1A1AA] mt-auto ">
     {{ formattedDate }}
   </span>
 </div>

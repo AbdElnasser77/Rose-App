@@ -1,20 +1,22 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
-import {OtpInputComponent, WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
+import { WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent} from '@org/ui';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CountdownComponent,CountdownEvent } from 'ngx-countdown';
 import { ThemeService } from '@rose/theme';
+import { InputOtpModule } from 'primeng/inputotp';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-email-verification',
-  imports: [ReactiveFormsModule, TranslatePipe,RouterModule, CountdownComponent, OtpInputComponent,WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent],
+  imports: [FormsModule ,InputOtpModule,CommonModule,ReactiveFormsModule, TranslatePipe,RouterModule, CountdownComponent,WelcomeMessageComponent,DividerComponent,ButtonComponent,CalloutTextComponent],
   templateUrl: './confirm-email-verification.component.html',
   styleUrl: './confirm-email-verification.component.scss',
 })
-export class ConfirmEmailVerificationComponent {
+export class ConfirmEmailVerificationComponent implements OnInit {
    @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
 
     private _fb=inject(FormBuilder);
