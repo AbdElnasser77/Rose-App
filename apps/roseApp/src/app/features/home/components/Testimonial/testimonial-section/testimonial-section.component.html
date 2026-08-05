@@ -5,7 +5,7 @@
   (visibilityChange)="onTestimonialVisible($event)"
   class="pt-8 pb-10 mt-15 transition-opacity duration-700 ease-out"
   [ngClass]="{ 'opacity-100': isTestimonialVisible(), 'opacity-0': !isTestimonialVisible() }">
-<section class="pt-8 pb-10 mt-[139px]">
+
   <app-section-title
     [mainTitle]="'TESTIMONIALS.TITLE' | translate"
     [subTitle]="'TESTIMONIALS.SUBTITLE' | translate"
@@ -13,19 +13,17 @@
   ></app-section-title>
 
   <div class="px-4 bg-soft-pink-50 dark:bg-zinc-700 mt-15">
-    <div class="container mx-auto">
-
-    <p-carousel
-      [value]="testimonials()"
-      [numVisible]="3"
-      [numScroll]="1"
-      [circular]="true"
-      [autoplayInterval]="4000"
-      [showIndicators]="false"
-      [responsiveOptions]="responsiveOptions"
-    >
-      <ng-template #item let-testimonial>
-        <div class="pt-12 pb-4 px-3">
+    <div class="container mx-auto relative">
+          
+    @if (testimonials().length > 0) {
+       <swiper-container
+      libSwiperDirective
+      [config]="swiperConfig"
+      init="false"
+      class="related-products-swiper w-full h-full flex overflow-hidden">
+      @for (testimonial of testimonials(); track testimonial.id) {
+      <swiper-slide class="flex justify-center py-2">
+        <div class="pt-30 pb-16 px-6">
           <app-testimonial-card
             [name]="testimonial.name"
             [content]="testimonial.content"
@@ -34,8 +32,32 @@
             [createdAt]="testimonial.createdAt"
           />
         </div>
-      </ng-template>
-    </p-carousel>
+      </swiper-slide>
+      }
+      </swiper-container>
+    }
+
+    <button  type="button"
+      class="testimonial-prev  absolute left-2 top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
+
+      <lucide-icon
+        [img]="ChevronLeft"
+        class=" w-[23px] h-[23px] text-[#FDF2F2] dark:text-[#27272A] ">
+      </lucide-icon>
+
+    </button>
+
+    <button  type="button"
+      class="testimonial-next  absolute right-2  top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
+
+      <lucide-icon
+        [img]="ChevronRight"
+        class=" w-[23px] h-[23px] text-[#FDF2F2]   dark:text-[#27272A]">
+      </lucide-icon>
+
+    </button>
+    
+      
     </div>
   </div>
 </section>

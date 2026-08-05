@@ -138,7 +138,7 @@ export class PaymentPage implements OnInit{
       name: this._translateService.instant('PAYMENT.CREDIT_CARD.TITLE'),
       description: this._translateService.instant('PAYMENT.CREDIT_CARD.DESCRIPTION'),
       image:'assets/images/payment/credit.svg',
-      disabled: true
+      
       }
 
     ];

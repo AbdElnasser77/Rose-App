@@ -10,6 +10,7 @@ import { CheckoutStateModel } from '../models/checkout-state.model';
 import { CreateOrderRequestModel } from '../models/order/create-order-request.model';
 import { PaymentMethodType } from '../types/payment-method-type';
 import { AddressStore } from './address.store';
+import { SessionStorageService } from '@org/util-storage';
 
 const EMPTY_STATE: CheckoutStateModel = {
   addressId: null,
@@ -23,8 +24,10 @@ const EMPTY_STATE: CheckoutStateModel = {
 })
 export class CheckoutStore {
   private readonly _addressStore = inject(AddressStore);
-
+  private readonly _sessionStorage = inject(SessionStorageService);
+  
   private readonly state = signal<CheckoutStateModel>({ ...EMPTY_STATE });
+  private readonly STORAGE_KEY = 'checkout-state';
 
   readonly addressId = computed(() => this.state().addressId);
   readonly paymentMethod = computed(() => this.state().paymentMethod);
@@ -49,10 +52,11 @@ export class CheckoutStore {
   });
 
   constructor() {
-    // Keep the selection valid against the user's real addresses from anywhere in the
-    // flow. This cannot live on the shipping page: it is unmounted on the payment step,
-    // so a refresh there would leave no address, and deleting the selected address from
-    // the navbar modal would leave a dead id that only shows up when the order fails.
+     const savedState = this._sessionStorage.getItem<CheckoutStateModel>(this.STORAGE_KEY);
+    if (savedState) {
+      this.state.set(savedState);
+    }
+
     effect(() => {
       const loaded = this._addressStore.loaded();
       const addresses = this._addressStore.addresses();
@@ -69,6 +73,13 @@ export class CheckoutStore {
       }
 
       this.setAddress(this._addressStore.deliveryAddress()?.id ?? null);
+    });
+
+    effect(() => {
+     this._sessionStorage.setItem(
+     this.STORAGE_KEY,
+     this.state()
+    );
     });
   }
 
@@ -90,6 +101,8 @@ export class CheckoutStore {
 
   clear(): void {
     this.state.set({ ...EMPTY_STATE });
+    this._sessionStorage.removeItem(this.STORAGE_KEY);
+
   }
 
   private patch(changes: Partial<CheckoutStateModel>): void {

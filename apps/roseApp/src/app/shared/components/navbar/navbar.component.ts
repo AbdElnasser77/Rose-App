@@ -6,7 +6,7 @@ import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
 import { Bell, ChevronDown, ClipboardList, Gift, Headset, Heart, House, Info, LogOut, LucideAngularModule, MapPin, MapPinPlus, Menu, PartyPopper, ShoppingCart, User, X } from 'lucide-angular';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AssetUrlPipe } from '../../../core/pipes/asset-url.pipe';
 import { WishlistStore } from '../../../features/wishlist/store/wishlist.store';
 import { CartStore } from '../../../features/cart/store/cart.store';
@@ -32,6 +32,7 @@ export class NavbarComponent {
   private readonly addressStore = inject(AddressStore);
   private readonly _checkoutStore = inject(CheckoutStore);
   private readonly destroyRef = inject(DestroyRef);
+  private _translateService = inject(TranslateService);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
   readonly cartCount = this._cartStore.cartCount;
@@ -61,7 +62,9 @@ export class NavbarComponent {
 
   isDropdownOpen = false;
   isMobileMenuOpen = false;
-
+  
+   readonly isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
+ 
   constructor() {
     // Reload on login and drop on logout, since the navbar outlives both.
     effect(() => {

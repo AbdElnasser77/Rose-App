@@ -13,9 +13,13 @@
     </p>
 
     <div class="flex justify-center">
-        <lib-otp-input [length]="6" [otpServerError]="otpServerError()" formControlName="otp" [disabled]="loading()"
-            class="mx-auto">
-        </lib-otp-input>
+        <p-inputotp 
+    formControlName="otp"
+    [length]="6"
+    [integerOnly]="true"
+    [disabled]="loading()"
+     ></p-inputotp>
+        
     </div>
 
     <div class="text-sm text-zinc-500 text-center dark:text-zinc-400 h-[20px] transition-all duration-300" 
