@@ -14,6 +14,8 @@ import { CheckoutStore } from '../../store/checkout.store';
 import { PaymentMethodModel } from '../../models/payment-method.model';
 import { OrderService } from '../../services/order.service';
 import { CartStore } from '../../../cart/store/cart.store';
+import { CreateOrderRequestModel } from '../../models/order/create-order-request.model';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -30,8 +32,9 @@ export class PaymentPage implements OnInit{
     private _toastService = inject(ToastService);
     private productService = inject(ProductDataService);
     protected readonly _checkoutStore = inject(CheckoutStore);
-    private readonly _orderService = inject(OrderService)
-     private readonly _cartStore = inject(CartStore);
+    private readonly _orderService = inject(OrderService);
+    private readonly _cartStore = inject(CartStore);
+    private readonly _paymentService = inject(PaymentService)
 
     suggestedProducts = signal<Product[]>([]);
      wishlistedIds = this._wishlistStore.wishlistedIds;
@@ -186,11 +189,23 @@ export class PaymentPage implements OnInit{
       if (!body) {
         return;
       }
+      if (paymentMethod === 'CASH_ON_DELIVERY') {
 
+         this. placeCashOrder(body);
+         return;
+      }
+
+      if (paymentMethod === 'CREDIT_CARD') {
+          this.startStripePayment(body);
+       }
+
+      
+    }
+    // Cash payment
+    private  placeCashOrder(body: CreateOrderRequestModel){
       this._orderService.createOrder(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: () => {
-        if (paymentMethod === 'CASH_ON_DELIVERY') {
-
+        next: (res) => {
+           console.log(res)
             this._toastService.show(
               this._translateService.instant('PAYMENT.ORDER_PLACED'),'success'
             );
@@ -198,10 +213,51 @@ export class PaymentPage implements OnInit{
             this._cartStore.loadCart();
             // Temporary until the orders page exists.
             this._router.navigate(['/home']);
-          }
+          
        },
       });
     }
+    // Stripe payment
+    private startStripePayment(body: CreateOrderRequestModel){
+      this._orderService.createOrder(body).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next : (response) =>{
+          const orderId = response.payload.order.id;
 
-    
+          this._paymentService.createIntent({orderId}).pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next : (intentResponse) =>{
+              // Temporary until Stripe Elements integration is completed.
+               this.confirmStripePayment(
+                intentResponse.payload.paymentIntentId,
+                'pm_card_visa'
+              );
+            }
+          });
+        }
+      });
+    }
+
+    // Confirm stripe payment
+    private confirmStripePayment(paymentIntentId: string,paymentMethodId: string):void{
+      this._paymentService.confirmPayment({paymentIntentId,paymentMethodId}).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next :() =>{
+          this._toastService.show(
+            this._translateService.instant('PAYMENT.ORDER_PLACED'),
+            'success'
+          );
+           this._checkoutStore.clear();
+           this._cartStore.loadCart();
+
+        this._router.navigate(['/home']);
+        },
+         error: () => {
+        this._toastService.show(
+          this._translateService.instant('PAYMENT.PAYMENT_FAILED'),
+          'error'
+        );
+      },
+      });
+    }
 }
