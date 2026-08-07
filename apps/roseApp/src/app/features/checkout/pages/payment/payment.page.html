@@ -35,7 +35,7 @@
                
             </div>
             <div class="flex ">
-                <button type="button" (click)="onCheckoutClicked()" [disabled]="!_checkoutStore.paymentMethod()"
+                <button type="button" (click)="onCheckoutClicked()" [disabled]="!_checkoutStore.paymentMethod() || !_checkoutStore.addressId() "
                 class="ms-auto flex  items-center justify-center gap-2.5 rounded-[10px]
                 cursor-pointer
                 bg-[#A6252A] hover:bg-[#741C21]  dark:bg-[#FFA3B9] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal 
