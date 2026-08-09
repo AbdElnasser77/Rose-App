@@ -93,7 +93,9 @@
     "CATEGORIES": "Categories",
     "OCCASIONS": "Occasions",
     "CONTACT": "Contact",
-    "ABOUT": "About"
+    "ABOUT": "About",
+    "NO_PRODUCTS_FOUND": "No products found",
+    "PRODUCTS_YOU_MAY_LIKE": "Products you may like:"
   },
 
   "FOOTER": {
@@ -249,7 +251,10 @@
     "EGP": "EGP",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
-    "PRODUCTS_YOU_MAY_LIKE": "Products You May Like"
+    "PRODUCTS_YOU_MAY_LIKE": "Products You May Like",
+    "RATING": "rating",
+    "RATINGS": "ratings",
+    "THE_RATING": "Rating"
     
   },
 

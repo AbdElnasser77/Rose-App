@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
+import { Component, computed, DestroyRef, effect, HostListener, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
@@ -13,15 +13,19 @@ import { CartStore } from '../../../features/cart/store/cart.store';
 import { AddressModalService } from '../../../features/checkout/services/address-modal.service';
 import { AddressStore } from '../../../features/checkout/store/address.store';
 import { CheckoutStore } from '../../../features/checkout/store/checkout.store';
+import { Product } from '../../models/product.model';
+import { ProductSearchCardComponent } from '../product-search-card/product-search-card.component';
+import { ProductsService } from '../../../core/services/products.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule, LanguageSwitcherComponent, ThemeToggleComponent, TranslatePipe, AssetUrlPipe],
+  imports: [CommonModule, RouterLink, LucideAngularModule, LanguageSwitcherComponent,
+     ThemeToggleComponent, TranslatePipe, AssetUrlPipe, ProductSearchCardComponent  ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   private readonly authStore = inject(AuthStore);
   private readonly sessionService = inject(SessionService);
   private readonly authFacade = inject(AuthFacade);
@@ -33,6 +37,7 @@ export class NavbarComponent {
   private readonly _checkoutStore = inject(CheckoutStore);
   private readonly destroyRef = inject(DestroyRef);
   private _translateService = inject(TranslateService);
+  private readonly _productsService = inject(ProductsService);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
   readonly cartCount = this._cartStore.cartCount;
@@ -54,7 +59,50 @@ export class NavbarComponent {
   readonly User = User;
   readonly ChevronDown = ChevronDown;
   readonly LogOut = LogOut;
+  
 
+  // Search
+  @HostListener('document:click',['$event'])
+  onDocumentClick(event :MouseEvent):void{
+      const target = event.target as HTMLElement;
+
+      if (!target.closest('.search-container')) {
+       this.closeSearch();
+      }
+  }
+  searchTerm = signal('');
+  isSearchOpen = signal(false);
+  allProducts = signal<Product[]>([]);
+
+  readonly filteredProducts = computed(() => {
+  const term = this.searchTerm().trim().toLowerCase();
+
+  if (!term) {
+    return this.allProducts();
+  }
+
+  return this.allProducts().filter(product =>
+    product.title.toLowerCase().includes(term)
+  );
+  });
+ 
+  onSearch(value: string) {
+  this.searchTerm.set(value);
+
+  }
+
+  openSearch() {
+  this.isSearchOpen.set(true);
+  }
+
+  closeSearch() {
+  this.isSearchOpen.set(false);
+  }
+   
+  openProductDetails(id: string) {
+  this.router.navigate(['/products', id]);
+  this.closeSearch();
+  }
   readonly isLoggedIn = computed(
     () => this.authStore.isAuthenticated() || this.sessionService.isAuthenticated()
   );
@@ -114,4 +162,12 @@ export class NavbarComponent {
   openAddressModal(): void {
     this.addressModal.open();
   }
+
+  ngOnInit() {
+  this._productsService.getProducts().subscribe({
+    next: (res) => {
+      this.allProducts.set(res.payload.data);
+    }
+  });
+}
 }

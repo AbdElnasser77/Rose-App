@@ -93,7 +93,9 @@
     "CATEGORIES": "الفئات",
     "OCCASIONS": "المناسبات",
     "CONTACT": "تواصل معنا",
-    "ABOUT": "من نحن"
+    "ABOUT": "من نحن",
+    "NO_PRODUCTS_FOUND": "لا توجد منتجات مطابقة لبحثك",
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك:"
   },
 
   "FOOTER": {
@@ -251,7 +253,10 @@
     "EGP": "ج.م",
     "CANCEL": "إلغاء",
     "CONFIRM": "تأكيد",
-    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك"
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك",
+    "RATING": "تقييم",
+    "RATINGS":"تقييمات",
+    "THE_RATING": "التقييم"
   },
 
   "PRODUCT": {

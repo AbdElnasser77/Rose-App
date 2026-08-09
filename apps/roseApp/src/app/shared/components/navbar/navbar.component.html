@@ -20,17 +20,50 @@
       } @else {
       <span class="block text-gray-400 dark:text-zinc-400">{{ 'NAV.NO_ADDRESS' | translate }}</span>
       <span class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
-        <lucide-icon [img]="MapPinPlus" class="w-4 h-4 shrink-0" />
+        <lucide-icon [img]="MapPinPlus" class="w-4 h-4 shrink-0"  />
         <span>{{ 'NAV.ADD_ADDRESS' | translate }}</span>
       </span>
       }
     </button>
     }
 
-    <div class="flex-1 min-w-0">
-      <input type="text" [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
-        class="w-full h-[34px] md:h-[38px] px-2 md:px-4 border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none" />
+    <div class="search-container flex-1 min-w-0 relative">
+      <input type="text" 
+      [value]="searchTerm()"
+      (input)="onSearch($any($event.target).value)"
+      (focus)="openSearch()"
+      [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
+        class="w-full h-[34px] md:h-[38px] px-2 md:px-4 border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none " />
+    
+       @if (isSearchOpen()) {
+    <div
+      class="absolute left-0 top-full  z-50 w-full bg-white dark:bg-zinc-700 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+       @if (!searchTerm().trim()) {
+       <div class="w-full flex items-center  p-2.5 gap-2.5 border-b border-[#E4E4E7] dark:border-soft-pink-200 rtl:flex-row-reverse">
+        <p class="font-sarabun text-base flex text-start font-semibold leading-none text-[#741C21] dark:text-soft-pink-200">
+          {{'NAV.PRODUCTS_YOU_MAY_LIKE' | translate}}
+        </p>
+      </div>
+      }@if (filteredProducts().length === 0) {
+
+      <div class="flex min-h-[100px] items-center justify-center p-5">
+        <p class="font-sarabun text-sm text-[#A6252A] dark:text-soft-pink-200">
+          {{'NAV.NO_PRODUCTS_FOUND' | translate}}
+        </p>
+      </div>
+
+    } @else {
+
+      @for (product of filteredProducts(); track product.id) {
+        <app-product-search-card [product]="product" [searchTerm]="searchTerm()"
+        (productClicked)="openProductDetails($event)"/>
+      }
+    }
     </div>
+    }
+    </div>
+
+   
 
     <div class="flex items-center md:gap-2 shrink-0">
       @if (!isLoggedIn()) {
