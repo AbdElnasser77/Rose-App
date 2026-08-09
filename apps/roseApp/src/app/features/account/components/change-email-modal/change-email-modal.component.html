@@ -1,0 +1,92 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="onVisibleChange($event)"
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '474px' }"
+>
+  @if (step() === 'email') {
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <h3
+          class="font-sarabun font-semibold text-[20px] leading-tight text-[#27272A] dark:text-white"
+        >
+          {{ 'ACCOUNT.CHANGE_EMAIL.TITLE' | translate }}
+        </h3>
+        <p class="font-inter text-[14px] text-zinc-500 dark:text-zinc-400">
+          {{ 'ACCOUNT.CHANGE_EMAIL.SUBTITLE' | translate }}
+        </p>
+      </div>
+
+      <form [formGroup]="emailForm" class="flex flex-col gap-7">
+        <lib-reusable-input
+          id="newEmail"
+          formControlName="newEmail"
+          type="email"
+          [label]="'ACCOUNT.CHANGE_EMAIL.NEW_EMAIL' | translate"
+          [placeholder]="
+            'ACCOUNT.CHANGE_EMAIL.NEW_EMAIL_PLACEHOLDER' | translate
+          "
+        />
+
+        <lib-button
+          variant="Primary"
+          size="full"
+          [disabled]="emailForm.invalid"
+          (clicked)="sendCode()"
+          customClass="px-4 py-3.5 text-[16px]"
+        >
+          {{ 'ACCOUNT.CHANGE_EMAIL.SEND_CODE' | translate }}
+        </lib-button>
+      </form>
+    </div>
+  } @else {
+    <div class="flex flex-col gap-6">
+      <div class="flex items-start gap-3">
+        <button
+          type="button"
+          [attr.aria-label]="'ACCOUNT.CHANGE_EMAIL.BACK' | translate"
+          (click)="goBack()"
+          class="w-9 h-9 shrink-0 rounded-full bg-maroon-600 dark:bg-soft-pink-300 text-white dark:text-zinc-900 flex items-center justify-center hover:bg-maroon-700 dark:hover:bg-soft-pink-400 transition-colors cursor-pointer"
+        >
+          <lucide-icon [img]="ArrowLeft" class="w-5 h-5"></lucide-icon>
+        </button>
+
+        <div class="flex flex-col gap-2 min-w-0">
+          <h3
+            class="font-sarabun font-semibold text-[20px] leading-tight text-[#27272A] dark:text-white"
+          >
+            {{ 'ACCOUNT.CHANGE_EMAIL.VERIFY_TITLE' | translate }}
+          </h3>
+          <p
+            class="font-inter text-[14px] text-zinc-500 dark:text-zinc-400 break-words"
+          >
+            {{
+              'ACCOUNT.CHANGE_EMAIL.SENT_CODE_TO'
+                | translate: { email: pendingEmail() }
+            }}
+          </p>
+        </div>
+      </div>
+
+      <form [formGroup]="codeForm" class="flex flex-col gap-6">
+        <div class="flex justify-center">
+          <p-inputotp formControlName="code" [length]="6" [integerOnly]="true" />
+        </div>
+
+        <lib-button
+          variant="Primary"
+          size="full"
+          [disabled]="codeForm.invalid"
+          (clicked)="confirm()"
+          customClass="px-4 py-3.5 text-[16px]"
+        >
+          {{ 'ACCOUNT.CHANGE_EMAIL.CONFIRM' | translate }}
+        </lib-button>
+      </form>
+    </div>
+  }
+</p-dialog>

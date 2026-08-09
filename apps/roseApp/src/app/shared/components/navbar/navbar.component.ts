@@ -111,6 +111,11 @@ export class NavbarComponent {
     this.router.navigate(['/wishlist']);
   }
 
+  goToAccount(): void {
+    this.isDropdownOpen = false;
+    this.router.navigate(['/account']);
+  }
+
   openAddressModal(): void {
     this.addressModal.open();
   }

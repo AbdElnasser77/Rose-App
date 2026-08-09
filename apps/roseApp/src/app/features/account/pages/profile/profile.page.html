@@ -1,0 +1,84 @@
+<div class="flex flex-col gap-8">
+  <div class="flex items-center gap-5">
+    <div
+      class="w-[110px] h-[110px] rounded-full bg-zinc-100 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 flex items-center justify-center shrink-0"
+      [attr.aria-label]="'ACCOUNT.PROFILE.AVATAR_ALT' | translate"
+    >
+      <lucide-icon
+        [img]="User"
+        class="w-12 h-12 text-zinc-400 dark:text-zinc-300"
+      ></lucide-icon>
+    </div>
+  </div>
+
+  <form [formGroup]="profileForm" class="flex flex-col gap-y-7">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-7">
+      <lib-reusable-input
+        id="firstName"
+        formControlName="firstName"
+        type="text"
+        [label]="'AUTH.FIRST_NAME' | translate"
+        [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | translate"
+      />
+      <lib-reusable-input
+        id="lastName"
+        formControlName="lastName"
+        type="text"
+        [label]="'AUTH.LAST_NAME' | translate"
+        [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | translate"
+      />
+    </div>
+
+    <app-readonly-field
+      [label]="'AUTH.EMAIL' | translate"
+      [value]="user()?.email ?? ''"
+      [actionLabel]="'ACCOUNT.CHANGE_EMAIL.EDIT' | translate"
+      (action)="emailModalOpen.set(true)"
+    />
+
+    <lib-reusable-input
+      id="phone"
+      formControlName="phone"
+      type="tel"
+      [label]="'ACCOUNT.PROFILE.PHONE' | translate"
+      [placeholder]="'ACCOUNT.PROFILE.PHONE_PLACEHOLDER' | translate"
+    />
+
+    <app-readonly-field
+      [label]="'AUTH.GENDER' | translate"
+      [value]="user() ? ('AUTH.' + user()!.gender | translate) : ''"
+    />
+  </form>
+
+  <div class="flex items-center justify-between gap-4 pt-4">
+    <button
+      type="button"
+      (click)="deleteModalOpen.set(true)"
+      class="font-inter text-[15px] font-medium text-red-600 dark:text-red-400 hover:underline cursor-pointer transition"
+    >
+      {{ 'ACCOUNT.PROFILE.DELETE_MY_ACCOUNT' | translate }}
+    </button>
+
+    <lib-button
+      variant="Primary"
+      size="auto"
+      [disabled]="profileForm.pristine || profileForm.invalid"
+      (clicked)="save()"
+      customClass="px-8 py-3.5 text-[16px]"
+    >
+      {{ 'ACCOUNT.PROFILE.SAVE_CHANGES' | translate }}
+    </lib-button>
+  </div>
+</div>
+
+<app-delete-account-modal
+  [visible]="deleteModalOpen()"
+  (cancelled)="deleteModalOpen.set(false)"
+  (confirmed)="confirmDelete()"
+/>
+
+<app-change-email-modal
+  [visible]="emailModalOpen()"
+  (closed)="emailModalOpen.set(false)"
+  (changed)="emailModalOpen.set(false)"
+/>

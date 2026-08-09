@@ -78,6 +78,7 @@
     "MIN_LENGTH": "Minimum {{length}} characters required.",
     "MAX_LENGTH": "Maximum {{length}} characters allowed.",
     "PATTERN": "Invalid format.",
+    "SAME_EMAIL": "This is already your email address.",
     "INVALID": "Invalid value."
   },
 
@@ -391,6 +392,47 @@
       "TITLE": "Update Address Info",
       "UPDATE_ADDRESS_BTN": "Update Address",
       "SUCCESS": "Address updated successfully"
+    }
+  },
+
+  "ACCOUNT": {
+    "TITLE": "Account Settings",
+    "NAV": {
+      "PROFILE": "Profile",
+      "CHANGE_PASSWORD": "Change Password",
+      "LOGOUT": "Logout"
+    },
+    "PROFILE": {
+      "AVATAR_ALT": "Profile photo",
+      "PHONE": "Phone",
+      "PHONE_PLACEHOLDER": "Enter your phone number",
+      "SAVE_CHANGES": "Save Changes",
+      "DELETE_MY_ACCOUNT": "Delete My Account",
+      "UPDATE_SUCCESS": "Your profile has been updated"
+    },
+    "DELETE_ACCOUNT": {
+      "TITLE": "Are you sure you want to delete your account?",
+      "WARNING": "This action is permanent and cannot be undone.",
+      "CANCEL": "Nope, not doing it",
+      "CONFIRM": "Yes, delete",
+      "SUCCESS": "Your account has been deleted"
+    },
+    "CHANGE_EMAIL": {
+      "EDIT": "Edit",
+      "TITLE": "Change your email",
+      "SUBTITLE": "We'll send a 6-digit verification code to your new address.",
+      "NEW_EMAIL": "New email",
+      "NEW_EMAIL_PLACEHOLDER": "Enter your new email",
+      "SEND_CODE": "Send code",
+      "CODE_SENT": "Verification code sent",
+      "VERIFY_TITLE": "Enter the code",
+      "SENT_CODE_TO": "We have sent a 6-digit code to {{email}}",
+      "BACK": "Back",
+      "CONFIRM": "Confirm",
+      "SUCCESS": "Your email has been updated"
+    },
+    "CHANGE_PASSWORD": {
+      "COMING_SOON": "Coming soon"
     }
   }
 
