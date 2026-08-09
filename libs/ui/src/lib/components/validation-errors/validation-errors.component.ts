@@ -25,6 +25,7 @@ export class ValidationErrorsComponent {
     if (errors['pattern']) return this.translate.instant('VALIDATION.PATTERN');
     if (errors['minlength']) return this.translate.instant('VALIDATION.MIN_LENGTH', { length: errors['minlength'].requiredLength });
     if (errors['maxlength']) return this.translate.instant('VALIDATION.MAX_LENGTH', { length: errors['maxlength'].requiredLength });
+    if (errors['sameEmail']) return this.translate.instant('VALIDATION.SAME_EMAIL');
 
     return this.translate.instant('VALIDATION.INVALID');
   }
