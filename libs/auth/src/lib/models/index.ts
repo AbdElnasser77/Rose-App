@@ -6,8 +6,11 @@ export * from './requests/email-request.model';
 export * from './requests/login-request.model';
 export * from './requests/register-request.model';
 export * from './requests/reset-password-request.model';
+export * from './requests/update-profile-request.model';
+export * from './requests/email-change-request.model';
 
 
 export * from './responses/auth-response.model';
 export * from './responses/message-response.model';
+export * from './responses/user-response.model';
 
