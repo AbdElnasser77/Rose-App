@@ -1,0 +1,53 @@
+<div class="flex items-center gap-5">
+  <div class="relative shrink-0">
+    <div
+      class="w-[110px] h-[110px] rounded-full overflow-hidden bg-zinc-100 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 flex items-center justify-center"
+    >
+      @if (previewUrl()) {
+        <img
+          [src]="previewUrl()"
+          [alt]="'ACCOUNT.PROFILE.AVATAR_ALT' | translate"
+          class="w-full h-full object-cover"
+        />
+      } @else {
+        <lucide-icon
+          [img]="User"
+          class="w-12 h-12 text-zinc-400 dark:text-zinc-300"
+        ></lucide-icon>
+      }
+    </div>
+
+    <button
+      type="button"
+      [disabled]="uploading()"
+      [attr.aria-label]="'ACCOUNT.PROFILE.UPLOAD_PHOTO' | translate"
+      (click)="openPicker()"
+      class="absolute bottom-0 end-1 w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 text-zinc-700 dark:text-zinc-200 flex items-center justify-center shadow-sm hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-maroon-600 dark:hover:border-soft-pink-300 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      <lucide-icon
+        [img]="CloudUpload"
+        class="w-[18px] h-[18px]"
+        [class.animate-pulse]="uploading()"
+      ></lucide-icon>
+    </button>
+
+    <input
+      #fileInput
+      type="file"
+      class="hidden"
+      [accept]="accept"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1 min-w-0">
+    <span
+      class="font-sarabun text-[18px] font-bold text-zinc-900 dark:text-zinc-100"
+    >
+      {{ 'ACCOUNT.PROFILE.UPLOAD_PHOTO' | translate }}
+    </span>
+    <span class="font-inter text-[14px] text-zinc-500 dark:text-zinc-400">
+      {{ 'ACCOUNT.PROFILE.UPLOAD_HINT' | translate }}
+    </span>
+  </div>
+</div>

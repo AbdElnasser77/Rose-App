@@ -13,7 +13,7 @@ import { ButtonComponent, ReusableInputComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { AuthFacade, AuthStore, UpdateProfileRequestModel, UserModel } from '@org/auth';
-import { LucideAngularModule, User } from 'lucide-angular';
+import { AvatarUploadComponent } from '../../components/avatar-upload/avatar-upload.component';
 import { ReadonlyFieldComponent } from '../../components/readonly-field/readonly-field.component';
 import { DeleteAccountModalComponent } from '../../components/delete-account-modal/delete-account-modal.component';
 import { ChangeEmailModalComponent } from '../../components/change-email-modal/change-email-modal.component';
@@ -25,7 +25,7 @@ import { ChangeEmailModalComponent } from '../../components/change-email-modal/c
     TranslatePipe,
     ButtonComponent,
     ReusableInputComponent,
-    LucideAngularModule,
+    AvatarUploadComponent,
     ReadonlyFieldComponent,
     DeleteAccountModalComponent,
     ChangeEmailModalComponent,
@@ -43,11 +43,10 @@ export class ProfilePage implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
 
-  readonly User = User;
-
   readonly user = this.authStore.user;
   readonly deleteModalOpen = signal(false);
   readonly emailModalOpen = signal(false);
+  readonly pendingPhoto = signal<string | null>(null);
 
   readonly profileForm = this.fb.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -72,25 +71,30 @@ export class ProfilePage implements OnInit {
     }
     const { firstName, lastName, phone } = this.profileForm.getRawValue();
     const trimmedPhone = phone.trim();
+    const photo = this.pendingPhoto();
     const data: UpdateProfileRequestModel = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      // Omitted when blank - the field is nullable server side, and '' is more
-      // likely to fail validation than to clear it. `photo` is never sent:
-      // there is no picker yet, and null could wipe an existing avatar.
       ...(trimmedPhone ? { phone: trimmedPhone } : {}),
+      ...(photo ? { photo } : {}),
     };
     this.authFacade
       .updateProfile(data)
       .pipe(this.loader.track(), takeUntilDestroyed(this.destroyRef))
       .subscribe((user) => {
         this.profileForm.markAsPristine();
+        this.pendingPhoto.set(null);
         this.patchFrom(user);
         this.toast.show(
           this.translate.instant('ACCOUNT.PROFILE.UPDATE_SUCCESS'),
           'success'
         );
       });
+  }
+
+  onPhotoUploaded(url: string): void {
+    this.pendingPhoto.set(url);
+    this.profileForm.markAsDirty();
   }
 
   confirmDelete(): void {
