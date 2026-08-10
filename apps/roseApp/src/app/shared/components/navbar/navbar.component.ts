@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
@@ -20,6 +28,10 @@ import { CheckoutStore } from '../../../features/checkout/store/checkout.store';
   imports: [CommonModule, RouterLink, LucideAngularModule, LanguageSwitcherComponent, ThemeToggleComponent, TranslatePipe, AssetUrlPipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+    '(document:keydown.escape)': 'closeDropdown()',
+  },
 })
 export class NavbarComponent {
   private readonly authStore = inject(AuthStore);
@@ -62,6 +74,9 @@ export class NavbarComponent {
 
   isDropdownOpen = false;
   isMobileMenuOpen = false;
+
+  private readonly accountMenu =
+    viewChild<ElementRef<HTMLElement>>('accountMenu');
   
    readonly isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
  
@@ -97,6 +112,18 @@ export class NavbarComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  closeDropdown(): void {
+    this.isDropdownOpen = false;
+  }
+
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.isDropdownOpen) return;
+    const menu = this.accountMenu()?.nativeElement;
+    if (menu && !menu.contains(event.target as Node)) {
+      this.isDropdownOpen = false;
+    }
+  }
+
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
@@ -117,6 +144,11 @@ export class NavbarComponent {
   }
 
   openAddressModal(): void {
+    this.addressModal.open();
+  }
+
+  openAddressesFromMenu(): void {
+    this.isDropdownOpen = false;
     this.addressModal.open();
   }
 }

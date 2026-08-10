@@ -40,27 +40,53 @@
         <span class="inline text-sm">{{ 'NAV.LOGIN' | translate }}</span>
       </button>
       } @else {
-      <div class="relative">
-        <button (click)="toggleDropdown()" class="flex items-center gap-2 cursor-pointer">
-          <div class="text-left">
+      <div class="relative" #accountMenu>
+        <button
+          type="button"
+          (click)="toggleDropdown()"
+          [attr.aria-expanded]="isDropdownOpen"
+          aria-haspopup="menu"
+          class="flex items-center gap-1 md:gap-2 cursor-pointer max-w-[140px] sm:max-w-none"
+        >
+          <div class="text-start min-w-0">
             <p class="hidden md:block text-xs text-gray-400 dark:text-zinc-400">
               {{ 'NAV.HELLO' | translate }}
             </p>
-            <p class="text-sm text-maroon-700 dark:text-soft-pink-300 font-medium">{{ currentUser ?? 'Account' }}</p>
+            <p class="text-sm text-maroon-700 dark:text-soft-pink-300 font-medium truncate">
+              {{ currentUser ?? ('NAV.ACCOUNT' | translate) }}
+            </p>
           </div>
-          <lucide-icon [img]="ChevronDown" class="w-4 h-4 dark:text-zinc-50" />
+          <lucide-icon [img]="ChevronDown" class="w-4 h-4 shrink-0 text-zinc-700 dark:text-zinc-50 transition-transform"
+            [class.rotate-180]="isDropdownOpen" />
         </button>
 
         @if (isDropdownOpen) {
-        <div class="absolute right-0 top-12 bg-white dark:bg-zinc-700 rounded-lg shadow-lg w-56 z-50 overflow-hidden">
-          <div class="p-4 font-semibold text-[#8B1E24] border-b dark:border-zinc-600">
-            {{ currentUser ?? 'Account' }}
+        <div role="menu"
+          class="absolute end-0 top-full mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-lg shadow-lg z-50 overflow-hidden bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+          <div
+            class="px-4 py-3 font-semibold truncate text-maroon-700 dark:text-soft-pink-300 border-b border-zinc-200 dark:border-zinc-700">
+            {{ currentUser ?? ('NAV.ACCOUNT' | translate) }}
           </div>
-          <button (click)="goToAccount()" class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Account</button>
-          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Addresses</button>
-          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Orders</button>
-          <button class="w-full cursor-pointer text-left px-4 py-3 text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-600">Dashboard</button>
-          <button (click)="logout()" class="w-full cursor-pointer text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-zinc-600 text-red-600">Log out</button>
+          <button role="menuitem" (click)="goToAccount()"
+            class="w-full cursor-pointer text-start px-4 py-3 text-sm text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
+            {{ 'NAV.ACCOUNT' | translate }}
+          </button>
+          <button role="menuitem" (click)="openAddressesFromMenu()"
+            class="w-full cursor-pointer text-start px-4 py-3 text-sm text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
+            {{ 'NAV.ADDRESSES' | translate }}
+          </button>
+          <button role="menuitem"
+            class="w-full cursor-pointer text-start px-4 py-3 text-sm text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
+            {{ 'NAV.ORDERS' | translate }}
+          </button>
+          <button role="menuitem"
+            class="w-full cursor-pointer text-start px-4 py-3 text-sm text-zinc-800 dark:text-zinc-50 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
+            {{ 'NAV.DASHBOARD' | translate }}
+          </button>
+          <button role="menuitem" (click)="logout()"
+            class="w-full cursor-pointer text-start px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
+            {{ 'NAV.LOGOUT' | translate }}
+          </button>
         </div>
         }
       </div>
