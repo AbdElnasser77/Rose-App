@@ -393,6 +393,37 @@
     "UPDATE_ADDRESS_BTN": "تحديث العنوان",
     "SUCCESS": "تم تحديث العنوان بنجاح"
   }
-}
+},
+  "ORDERS": {
+    "TITLE": "الطلبات",
+    "LOADING": "جاري تحميل الطلبات...",
+    "NO_ORDERS": "لا توجد طلبات متاحة.",
+    "ORDER_NUMBER": "طلب رقم #",
+    "CREATED_IN": "تم الإنشاء في:",
+    "TOTAL_PRICE": "الإجمالي:",
+    "STATUS": "الحالة:",
+    "PAYMENT_METHOD": "طريقة الدفع:",
+    "DELIVERY_STATUS": "حالة التوصيل:",
+    "ORDER_ITEMS": "عناصر الطلب:",
+    "RATING": "التقييم:",
+    "RATINGS": "تقييمات",
+    "SHOW_ALL": "عرض الكل",
+    "SHOW_LESS": "عرض أقل",
+    "BADGES": {
+      "PAID": "مدفوع",
+      "IN_PROGRESS": "قيد التنفيذ",
+      "CANCELED": "ملغي",
+      "DONE": "مكتمل"
+    },
+    "METHODS": {
+      "CASH": "كاش",
+      "CREDIT_CARD": "بطاقة ائتمان"
+    },
+    "DELIVERY": {
+      "PENDING": "قيد الانتظار",
+      "DELIVERED": "تم التوصيل",
+      "CANCELED": "ملغي"
+    }
+  }
 }
 
