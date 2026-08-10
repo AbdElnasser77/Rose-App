@@ -13,6 +13,7 @@ import {
   UserModel,
   RequestEmailChangeRequestModel,
   ConfirmEmailChangeRequestModel,
+  ChangePasswordRequestModel,
 } from './models';
 import { finalize, Observable, switchMap, tap } from 'rxjs';
 
@@ -148,5 +149,10 @@ export class AuthFacade {
     return this._userApiService
       .confirmEmailChange(data)
       .pipe(switchMap(() => this.loadProfile()));
+  }
+
+  // 14-changePassword
+  changePassword(data: ChangePasswordRequestModel): Observable<void> {
+    return this._userApiService.changePassword(data);
   }
 }
