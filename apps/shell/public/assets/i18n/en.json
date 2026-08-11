@@ -405,6 +405,36 @@
       "UPDATE_ADDRESS_BTN": "Update Address",
       "SUCCESS": "Address updated successfully"
     }
+  },
+  "ORDERS": {
+    "TITLE": "Orders",
+    "LOADING": "Loading orders...",
+    "NO_ORDERS": "No orders available.",
+    "ORDER_NUMBER": "Order #",
+    "CREATED_IN": "Created in:",
+    "TOTAL_PRICE": "Total Price:",
+    "STATUS": "Status:",
+    "PAYMENT_METHOD": "Payment Method:",
+    "DELIVERY_STATUS": "Delivery Status:",
+    "ORDER_ITEMS": "Order Items:",
+    "RATING": "Rating:",
+    "RATINGS": "ratings",
+    "SHOW_ALL": "Show All",
+    "SHOW_LESS": "Show Less",
+    "BADGES": {
+      "PAID": "Paid",
+      "IN_PROGRESS": "In Progress",
+      "CANCELED": "Canceled",
+      "DONE": "Done"
+    },
+    "METHODS": {
+      "CASH": "Cash",
+      "CREDIT_CARD": "Credit Card"
+    },
+    "DELIVERY": {
+      "PENDING": "Pending",
+      "DELIVERED": "Delivered",
+      "CANCELED": "Canceled"
+    }
   }
-
 }
