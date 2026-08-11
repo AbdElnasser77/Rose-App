@@ -1,0 +1,114 @@
+<nav class="sticky top-0 z-50 bg-white dark:bg-zinc-800">
+  <div class="h-[58px] px-2 sm:px-3 md:px-6 flex items-center gap-2 md:gap-3">
+
+    <!-- Logo -->
+    <a routerLink="/home" class="shrink-0 cursor-pointer">
+      <img [src]="'assets/logo.png' | assetUrl" alt="Rose Logo"
+        class="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
+    </a>
+
+    <!-- Address -->
+    <app-delivery-address (addressClicked)="openAddressModal()" class="hidden md:block" />
+
+    <!-- Search -->
+    <app-product-search class="block flex-1 min-w-0 " />
+
+    <!-- Desktop right side -->
+    <div class="hidden md:flex items-center md:gap-2 shrink-0">
+
+      <!-- User menu -->
+      <app-user-menu />
+
+      
+      <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+
+      <button [routerLink]="isLoggedIn() ? '/wishlist' : '/auth' "
+        class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+        <lucide-icon [img]="Heart" class="w-5 h-5" />
+        @if (isLoggedIn()) {
+        @if (wishlistCount() > 0 ){
+        <span
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+          {{ wishlistCount() > 99 ? '99+' : wishlistCount() }}
+        </span>
+        }
+      }
+      </button>
+
+      <button [routerLink]="isLoggedIn() ? '/cart' : '/auth' "
+        class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+        <lucide-icon [img]="ShoppingCart" class="w-5 h-5" />
+        @if (isLoggedIn()) {
+        @if (cartCount() > 0 ){
+        <span
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">{{cartCount()}}</span>
+        }
+      } 
+      </button>
+
+      <button
+        class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
+        <lucide-icon [img]="Bell" class="w-5 h-5" />
+        @if (isLoggedIn()) {
+        <span
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+          2</span>
+        }
+      </button>
+
+      <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+      
+
+      <div class="hidden xl:flex items-center gap-2">
+        <lib-theme-toggle />
+        <div class="w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
+        <div class="text-xs md:text-sm text-gray-700 dark:text-zinc-50">
+          <lib-language-switcher />
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="md:hidden  flex justify-end">
+      <app-mobile-header (menuToggle)="mobileMenu.openMenu()" />
+    </div>
+
+  </div>
+  <!-- Main nav links -->
+  <div class="hidden dark:bg-pink-300 md:flex bg-[#8B1E24] h-[34px] items-end justify-center">
+    <app-main-nav-links />
+  </div>
+
+
+
+
+
+
+
+  <!-- Mobile Drawer -->
+  <app-mobile-menu #mobileMenu />
+
+  <!-- Mobile Theme ,language controls -->
+  <div class="fixed right-0 top-1/2 translate-y-[-70%]
+         z-50 flex xl:hidden flex-col
+         bg-white dark:bg-zinc-800
+         border border-[#A6252A] dark:border-[#FFC2D0]
+         rounded-l-lg shadow-md">
+    <div class="p-2 flex items-center justify-center">
+      <lib-theme-toggle />
+    </div>
+
+    <div class="w-full h-px bg-gray-200 dark:bg-zinc-700"></div>
+
+    <div class="p-2 flex items-center justify-center">
+      <lib-language-switcher />
+    </div>
+  </div>
+
+  <!-- Address -->
+  <app-delivery-address (addressClicked)="openAddressModal()"  class="block md:hidden px-4 sm:px-6" />
+</nav>
+
+
+<!-- Mobile Bottom Navigation -->
+<app-mobile-bottom-nav [wishlistCount]="wishlistCount()" [cartCount]="cartCount()" />
