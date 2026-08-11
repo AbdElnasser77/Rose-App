@@ -95,7 +95,15 @@
     "CONTACT": "تواصل معنا",
     "ABOUT": "من نحن",
     "NO_PRODUCTS_FOUND": "لا توجد منتجات مطابقة لبحثك",
-    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك:"
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك:",
+    "ACCOUNT": "الحساب",
+    "ADDRESSES": "العناوين",
+    "ORDERS": "الطلبات",
+    "DASHBOARD": "لوحة التحكم",
+    "LOGOUT": "تسجيل الخروج",
+    "NOTIFICATIONS": "الإشعارات",
+    "CART": "السلة",
+    "WISHLIST": "المفضلة"
   },
 
   "FOOTER": {

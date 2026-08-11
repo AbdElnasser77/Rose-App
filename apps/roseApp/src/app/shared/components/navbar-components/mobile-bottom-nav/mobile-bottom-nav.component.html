@@ -1,0 +1,54 @@
+<nav class="fixed bottom-0 left-0 right-0 z-50 w-full
+        flex items-center justify-around
+        border-t border-gray-200
+        bg-white dark:bg-zinc-800
+         dark:border-zinc-700
+         md:hidden">
+
+    <div class="grid grid-cols-5 w-full min-w-0 border-t border-gray-200 dark:border-zinc-700">
+        @for (item of mobileBottomItems; track item.route) {
+        <a [routerLink]="item.route" class="min-w-0 relative flex flex-col items-center justify-center gap-1 py-3
+             text-xs text-zinc-700 dark:text-zinc-50
+             hover:text-maroon-700 dark:hover:text-soft-pink-300
+             transition-colors">
+            
+           
+
+            <div class="relative  w-5 h-5">
+                <lucide-icon [img]="item.icon" class="w-5 h-5" />
+                 @if (isLoggedIn()) {
+                <!-- Wishlist badge -->
+                @if(item.type === 'wishlist' && wishlistCount() > 0) {
+                    
+                <span
+                    class="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+                    {{ wishlistCount() > 99 ? '99+' : wishlistCount() }}
+                </span>
+                }
+
+                <!-- Cart badge -->
+                @if (item.type === 'cart' && cartCount() > 0) {
+                <span
+                    class="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+                    {{ cartCount() > 99 ? '99+' : cartCount() }}
+                </span>
+                }
+
+                <!-- Notifications badge -->
+                @if (item.type === 'notifications' && notificationsCount() > 0) {
+                <span
+                    class="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans leading-none">
+                    {{ notificationsCount() > 99 ? '99+' : notificationsCount() }}
+                </span>
+                }
+            }   
+             </div>
+              <span>{{ item.label | translate }}</span>   
+        </a>
+        }
+
+
+
+    </div>
+
+</nav>

@@ -95,7 +95,15 @@
     "CONTACT": "Contact",
     "ABOUT": "About",
     "NO_PRODUCTS_FOUND": "No products found",
-    "PRODUCTS_YOU_MAY_LIKE": "Products you may like:"
+    "PRODUCTS_YOU_MAY_LIKE": "Products you may like:",
+    "ACCOUNT": "Account",
+    "ADDRESSES": "Addresses",
+    "ORDERS": "Orders",
+    "DASHBOARD": "Dashboard",
+    "LOGOUT": "Log out",
+    "NOTIFICATIONS": "Notifications",
+    "CART": "Cart",
+    "WISHLIST": "Wishlist"
   },
 
   "FOOTER": {
