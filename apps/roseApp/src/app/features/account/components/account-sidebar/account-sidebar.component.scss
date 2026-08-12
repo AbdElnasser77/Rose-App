@@ -1,0 +1,9 @@
+// The tab row scrolls horizontally on narrow screens; the scrollbar itself
+// would sit on top of the pill container, so keep it out of the layout.
+nav {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -35,31 +35,19 @@ export class TestimonialSectionComponent implements OnInit {
       const rtl=this.isRtl();
       return{
 
+        slidesPerView: 'auto',
         spaceBetween: 24,
         centerInsufficientSlides: true,
         watchSlidesProgress: true,
-        
 
-        
+
+
       navigation: {
        nextEl: rtl ? '.testimonial-prev' : '.testimonial-next',
        prevEl: rtl ? '.testimonial-next' : '.testimonial-prev',
-      
+
       },
-      breakpoints: {
-        0: {
-          slidesPerView: 1, 
-        } ,
-        768: {
-        slidesPerView: 2,
-        spaceBetween: 18,
-        },
-        1280: {
-          slidesPerView: 3, 
-          spaceBetween: 24,     
-        },
-      },
-  
+
       }
       
     }

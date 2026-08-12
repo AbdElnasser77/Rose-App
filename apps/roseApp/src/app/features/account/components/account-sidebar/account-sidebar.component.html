@@ -1,18 +1,12 @@
 <nav
-  class="w-full flex flex-col gap-2"
-  [ngClass]="
-    embedded()
-      ? 'h-full'
-      : 'lg:min-h-[520px] rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-3'
-  "
+  class="w-full flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-2 lg:p-3 lg:min-h-[520px]"
 >
   <a
     routerLink="/account/profile"
     routerLinkActive
     #profileLink="routerLinkActive"
-    (click)="navigated.emit()"
     [ngClass]="profileLink.isActive ? activeItemClass : idleItemClass"
-    class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
+    class="shrink-0 rounded-lg px-4 py-2.5 lg:py-3 flex items-center gap-2 lg:gap-3 text-start font-inter text-sm lg:text-[15px] font-medium whitespace-nowrap transition-colors"
   >
     <lucide-icon [img]="UserPen" class="w-5 h-5 shrink-0"></lucide-icon>
     <span>{{ 'ACCOUNT.NAV.PROFILE' | translate }}</span>
@@ -22,20 +16,19 @@
     routerLink="/account/password"
     routerLinkActive
     #passwordLink="routerLinkActive"
-    (click)="navigated.emit()"
     [ngClass]="passwordLink.isActive ? activeItemClass : idleItemClass"
-    class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
+    class="shrink-0 rounded-lg px-4 py-2.5 lg:py-3 flex items-center gap-2 lg:gap-3 text-start font-inter text-sm lg:text-[15px] font-medium whitespace-nowrap transition-colors"
   >
     <lucide-icon [img]="Lock" class="w-5 h-5 shrink-0"></lucide-icon>
     <span>{{ 'ACCOUNT.NAV.CHANGE_PASSWORD' | translate }}</span>
   </a>
 
   <lib-button
-    class="mt-auto"
+    class="shrink-0 ms-auto lg:ms-0 lg:mt-auto"
     variant="Ghost"
     size="full"
     (clicked)="logout()"
-    customClass="justify-start! rounded-lg px-4 py-3 gap-3 font-inter text-[15px] font-medium text-red-600! dark:text-red-400!"
+    customClass="justify-start! rounded-lg px-4 py-2.5 lg:py-3 gap-2 lg:gap-3 font-inter text-sm lg:text-[15px] font-medium text-red-600! dark:text-red-400!"
   >
     <span
       leftIcon

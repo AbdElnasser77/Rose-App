@@ -23,7 +23,7 @@
       class="related-products-swiper w-full h-full flex overflow-hidden">
       @for (testimonial of testimonials(); track testimonial.id) {
       <swiper-slide class="flex justify-center py-2">
-        <div class="pt-30 pb-16 px-6">
+        <div class="pt-30 pb-16">
           <app-testimonial-card
             [name]="testimonial.name"
             [content]="testimonial.content"

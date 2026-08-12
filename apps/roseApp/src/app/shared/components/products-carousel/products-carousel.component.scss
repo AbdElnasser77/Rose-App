@@ -1,0 +1,7 @@
+/* Fixed-width slides so the gap between cards stays constant (24px) instead of
+   growing with the viewport. Swiper only reads this when slidesPerView is 'auto';
+   with a numeric slidesPerView it sets the slide width inline and this is ignored. */
+swiper-slide {
+  width: 302px;
+  max-width: 100%;
+}
