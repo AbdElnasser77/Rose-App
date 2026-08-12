@@ -4,7 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { StepperModule } from 'primeng/stepper';
-import { ButtonComponent, ReusableInputComponent } from '@org/ui';
+import {
+  ButtonComponent,
+  PhoneInputComponent,
+  ReusableInputComponent,
+} from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { LucideAngularModule, X, ArrowLeft } from 'lucide-angular';
@@ -24,6 +28,7 @@ const DEFAULT_CENTER: [number, number] = [30.0444, 31.2357];
     StepperModule,
     ButtonComponent,
     ReusableInputComponent,
+    PhoneInputComponent,
     LucideAngularModule,
     AddressLocationMapComponent,
   ],

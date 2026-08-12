@@ -9,7 +9,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ButtonComponent, ReusableInputComponent } from '@org/ui';
+import {
+  ButtonComponent,
+  PhoneInputComponent,
+  ReusableInputComponent,
+} from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { AuthFacade, AuthStore, UpdateProfileRequestModel, UserModel } from '@org/auth';
@@ -25,6 +29,7 @@ import { ChangeEmailModalComponent } from '../../components/change-email-modal/c
     TranslatePipe,
     ButtonComponent,
     ReusableInputComponent,
+    PhoneInputComponent,
     AvatarUploadComponent,
     ReadonlyFieldComponent,
     DeleteAccountModalComponent,
