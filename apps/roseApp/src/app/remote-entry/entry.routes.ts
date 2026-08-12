@@ -62,6 +62,14 @@ export const remoteRoutes: Route[] = [
           (m) => m.checkoutRoutes
         ),
       },
+      {
+        path: 'account',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('../features/account/account.routes').then(
+            (m) => m.accountRoutes
+          ),
+      },
       // add products,cart,checkout all here.
     ],
   },

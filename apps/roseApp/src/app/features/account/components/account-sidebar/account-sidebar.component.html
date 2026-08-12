@@ -1,0 +1,42 @@
+<nav
+  class="w-full lg:min-h-[520px] rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-3 flex flex-col gap-2"
+>
+  <a
+    routerLink="/account/profile"
+    routerLinkActive
+    #profileLink="routerLinkActive"
+    [ngClass]="profileLink.isActive ? activeItemClass : idleItemClass"
+    class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
+  >
+    <lucide-icon [img]="UserPen" class="w-5 h-5 shrink-0"></lucide-icon>
+    <span>{{ 'ACCOUNT.NAV.PROFILE' | translate }}</span>
+  </a>
+
+  <a
+    routerLink="/account/password"
+    routerLinkActive
+    #passwordLink="routerLinkActive"
+    [ngClass]="passwordLink.isActive ? activeItemClass : idleItemClass"
+    class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
+  >
+    <lucide-icon [img]="Lock" class="w-5 h-5 shrink-0"></lucide-icon>
+    <span>{{ 'ACCOUNT.NAV.CHANGE_PASSWORD' | translate }}</span>
+  </a>
+
+  <lib-button
+    class="mt-auto"
+    variant="Ghost"
+    size="full"
+    (clicked)="logout()"
+    customClass="justify-start! rounded-lg px-4 py-3 gap-3 font-inter text-[15px] font-medium text-red-600! dark:text-red-400!"
+  >
+    <span
+      leftIcon
+      class="inline-flex shrink-0"
+      [class.-scale-x-100]="isRtl()"
+    >
+      <lucide-icon [img]="LogOut" class="w-5 h-5 rotate-90"></lucide-icon>
+    </span>
+    {{ 'ACCOUNT.NAV.LOGOUT' | translate }}
+  </lib-button>
+</nav>

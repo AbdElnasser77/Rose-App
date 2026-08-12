@@ -1,0 +1,57 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="onVisibleChange($event)"
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '474px' }"
+>
+  <div class="flex flex-col items-center text-center gap-6">
+    <div class="w-[110px] h-[110px] flex items-center justify-center relative">
+      <div
+        class="absolute w-[105px] h-[105px] bg-[#F4F4F5] dark:bg-zinc-800 rounded-full"
+      ></div>
+      <div
+        class="absolute w-[70px] h-[70px] bg-[#E4E4E7] dark:bg-zinc-700 rounded-full"
+      ></div>
+      <lucide-icon
+        [img]="Trash2"
+        class="relative z-10 w-[29px] h-[29px] text-[#27272A] dark:text-white stroke-2"
+      ></lucide-icon>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h3
+        class="font-sarabun font-semibold text-[20px] leading-tight text-[#27272A] dark:text-white"
+      >
+        {{ 'ACCOUNT.DELETE_ACCOUNT.TITLE' | translate }}
+      </h3>
+      <p class="font-inter text-[15px] text-red-600 dark:text-red-400">
+        {{ 'ACCOUNT.DELETE_ACCOUNT.WARNING' | translate }}
+      </p>
+    </div>
+
+    <div class="flex w-full gap-[10px]">
+      <lib-button
+        class="flex-1"
+        variant="Subtle"
+        size="full"
+        (clicked)="cancelled.emit()"
+        customClass="px-4 py-3.5 text-[16px]"
+      >
+        {{ 'ACCOUNT.DELETE_ACCOUNT.CANCEL' | translate }}
+      </lib-button>
+      <lib-button
+        class="flex-1"
+        variant="Destructive"
+        size="full"
+        (clicked)="confirmed.emit()"
+        customClass="px-4 py-3.5 text-[16px]"
+      >
+        {{ 'ACCOUNT.DELETE_ACCOUNT.CONFIRM' | translate }}
+      </lib-button>
+    </div>
+  </div>
+</p-dialog>

@@ -1,0 +1,25 @@
+<div class="flex flex-col gap-[6px] w-full">
+  <div class="flex items-center justify-between gap-3">
+    <span
+      class="font-inter text-[14px] font-medium leading-none text-zinc-400 dark:text-zinc-500"
+    >
+      {{ label() }}
+    </span>
+
+    @if (actionLabel()) {
+      <button
+        type="button"
+        (click)="action.emit()"
+        class="font-inter text-[13px] font-medium leading-none text-maroon-600 dark:text-soft-pink-300 hover:underline cursor-pointer"
+      >
+        {{ actionLabel() }}
+      </button>
+    }
+  </div>
+
+  <div
+    class="w-full h-[49px] rounded-[10px] border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 px-4 flex items-center text-[14px] font-inter font-normal text-zinc-500 dark:text-zinc-400 cursor-not-allowed"
+  >
+    {{ value() }}
+  </div>
+</div>

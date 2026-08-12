@@ -27,7 +27,9 @@ export class ReusableInputComponent <T> extends ControlValueAccessorDirective<T>
   @Input() placeholder = '';
   @Input({ required: true }) type!: InputType;
 
-  @Input() id = crypto.randomUUID();
+  // Annotated as string: without it TS infers randomUUID()'s literal template
+  // type, which rejects any caller-supplied id.
+  @Input() id: string = crypto.randomUUID();
   @Input() required = false;
   @Input() readonly = false;
   @Input() maxlength?: number;

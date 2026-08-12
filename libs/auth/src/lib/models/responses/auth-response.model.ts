@@ -23,5 +23,9 @@ export interface UserModel {
   phoneVerified: boolean;
   role: Role;
   createdAt: string;
+  // Optional: the login/register payloads are not documented to return these,
+  // only GET/PATCH /users/profile is.
+  photo?: string | null;
+  updatedAt?: string;
 }
 
