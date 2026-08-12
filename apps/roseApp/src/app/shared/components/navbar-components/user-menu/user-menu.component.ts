@@ -58,7 +58,7 @@ export class UserMenuComponent {
   },
   {
     label: 'NAV.ORDERS',
-    route: '/orders',
+    route: '/order',
     icon : ScrollText
   },
   {

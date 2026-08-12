@@ -1,17 +1,12 @@
-export interface Product {
-  id: string;
-  title: string;
-  cover: string;
+export interface OrderResponse {
+ status: boolean;
+  code: number;
+  payload: Payload;
 }
 
-export interface OrderItem {
-  id: string;
-  orderId: string;
-  productId: string;
-  quantity: number;
-  price: string;
-  createdAt: string;
-  product: Product;
+export interface Payload {
+  data: Order[];
+  metadata: Metadata;
 }
 
 export interface Order {
@@ -31,19 +26,68 @@ export interface Order {
   notes: string | null;
   createdAt: string;
   updatedAt: string;
+  user: User;
+  address: Address;
+  coupon: Coupon | null;
   orderItems: OrderItem[];
 }
 
-export interface ApiResponse<T> {
-  status: boolean;
-  code: number;
-  payload: {
-    data: T;
-    metadata: {
-      page: number;
-      limit: number;
-      total: number;
-      totalPages: number;
-    };
-  };
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export interface Address {
+  id: string;
+  userId: string;
+  title: string;
+  isPrimary: boolean;
+  city: string;
+  street: string;
+  phone: string;
+  latitude: string;
+  longitude: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Coupon {
+  id: string;
+  code: string;
+  type: string;
+  value: string;
+  minPurchase: string;
+  maxDiscount: string;
+  usageLimit: number;
+  usedCount: number;
+  validFrom: string;
+  validUntil: string;
+  isActive: boolean;
+  immutable: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: string;
+  createdAt: string;
+  product: Product;
+}
+
+export interface Product {
+  id: string;
+  title: string;
+  cover: string;
+}
+
+export interface Metadata {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
 }

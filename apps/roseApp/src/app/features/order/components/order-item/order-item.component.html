@@ -1,4 +1,4 @@
-<div class="w-full max-w-[577px] min-h-[142px] rounded-lg bg-[#FAFAFA] flex gap-2.5 overflow-hidden">
+<div class="w-full  h-[142px] rounded-lg bg-[#FAFAFA]  dark:bg-[#3F3F46] flex gap-2.5 overflow-hidden">
     <!-- Order img -->
     <div class="w-[90px] sm:w-[117px] h-full min-h-[142px] shrink-0 "> <img [src]="orderItem().product.cover"
             [alt]="orderItem().product.title" class="w-full h-full object-cover rounded-md" /> </div>
@@ -8,7 +8,7 @@
 
         <div class="w-full flex flex-col gap-1.5">
 
-            <h2 class="font-sarabun text-[18px] font-semibold leading-none text-[#741C21]">
+            <h2 class="font-sarabun text-[18px] font-semibold leading-none text-[#741C21] dark:text-[#FFC2D0]">
                 {{orderItem().product.title}} </h2> <!-- Rating -->
             <div class="flex gap-1 sm:gap-1.5 min-h-[21px] items-center "> <lucide-icon [img]="Star"
                     class="w-5 h-5  text-[#FFA508] fill-current"></lucide-icon>
@@ -22,7 +22,7 @@
         <!-- Price -->
         <div>
             <p class="flex items-baseline gap-1 font-sarabun leading-none text-[#27272A] dark:text-white mt-2.5">
-                <span class=" text-sm font-medium  align-middle"> ×{{orderItem().quantity}} </span>
+                <span class=" text-sm font-medium  align-middle text-[#A6252A] dark:text-[#FFC2D0]"> ×{{orderItem().quantity}} </span>
                 <span class=" text-xl md:text-2xl font-bold align-middle "> {{orderItem().price}} </span>
                 <span class=" text-xs md:text-base font-medium  leading-none align-middle"> {{ 'COMMON.EGP' | translate}}</span>
             </p>

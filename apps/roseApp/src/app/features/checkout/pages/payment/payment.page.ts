@@ -212,7 +212,7 @@ export class PaymentPage implements OnInit{
             this._checkoutStore.clear();
             this._cartStore.loadCart();
             // Temporary until the orders page exists.
-            this._router.navigate(['/home']);
+            this._router.navigate(['/order']);
           
        },
       });
@@ -250,7 +250,7 @@ export class PaymentPage implements OnInit{
            this._checkoutStore.clear();
            this._cartStore.loadCart();
 
-        this._router.navigate(['/home']);
+        this._router.navigate(['/order']);
         },
          error: () => {
         this._toastService.show(
