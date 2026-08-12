@@ -89,17 +89,22 @@
     "DELIVER_TO": "التوصيل إلى:",
     "NO_ADDRESS": "لا يوجد عنوان محفوظ",
     "ADD_ADDRESS": "أضف عنواناً",
-    "ACCOUNT": "حسابي",
-    "ADDRESSES": "العناوين",
-    "ORDERS": "الطلبات",
-    "DASHBOARD": "لوحة التحكم",
-    "LOGOUT": "تسجيل الخروج",
     "HOME": "الرئيسية",
     "PRODUCTS": "المنتجات",
     "CATEGORIES": "الفئات",
     "OCCASIONS": "المناسبات",
     "CONTACT": "تواصل معنا",
-    "ABOUT": "من نحن"
+    "ABOUT": "من نحن",
+    "NO_PRODUCTS_FOUND": "لا توجد منتجات مطابقة لبحثك",
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك:",
+    "ACCOUNT": "الحساب",
+    "ADDRESSES": "العناوين",
+    "ORDERS": "الطلبات",
+    "DASHBOARD": "لوحة التحكم",
+    "LOGOUT": "تسجيل الخروج",
+    "NOTIFICATIONS": "الإشعارات",
+    "CART": "السلة",
+    "WISHLIST": "المفضلة"
   },
 
   "FOOTER": {
@@ -257,7 +262,10 @@
     "EGP": "ج.م",
     "CANCEL": "إلغاء",
     "CONFIRM": "تأكيد",
-    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك"
+    "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك",
+    "RATING": "تقييم",
+    "RATINGS":"تقييمات",
+    "THE_RATING": "التقييم"
   },
 
   "PRODUCT": {
@@ -447,6 +455,38 @@
       "PASSWORD_PLACEHOLDER": "********",
       "SAME_AS_OLD": "يجب أن تختلف كلمة المرور الجديدة عن القديمة.",
       "SUCCESS": "تم تغيير كلمة المرور بنجاح"
+    }
+  },
+
+  "ORDERS": {
+    "TITLE": "الطلبات",
+    "LOADING": "جاري تحميل الطلبات...",
+    "NO_ORDERS": "لا توجد طلبات متاحة.",
+    "ORDER_NUMBER": "طلب رقم #",
+    "CREATED_IN": "تم الإنشاء في:",
+    "TOTAL_PRICE": "الإجمالي:",
+    "STATUS": "الحالة:",
+    "PAYMENT_METHOD": "طريقة الدفع:",
+    "DELIVERY_STATUS": "حالة التوصيل:",
+    "ORDER_ITEMS": "عناصر الطلب:",
+    "RATING": "التقييم:",
+    "RATINGS": "تقييمات",
+    "SHOW_ALL": "عرض الكل",
+    "SHOW_LESS": "عرض أقل",
+    "BADGES": {
+      "PAID": "مدفوع",
+      "IN_PROGRESS": "قيد التنفيذ",
+      "CANCELED": "ملغي",
+      "DONE": "مكتمل"
+    },
+    "METHODS": {
+      "CASH": "كاش",
+      "CREDIT_CARD": "بطاقة ائتمان"
+    },
+    "DELIVERY": {
+      "PENDING": "قيد الانتظار",
+      "DELIVERED": "تم التوصيل",
+      "CANCELED": "ملغي"
     }
   }
 }

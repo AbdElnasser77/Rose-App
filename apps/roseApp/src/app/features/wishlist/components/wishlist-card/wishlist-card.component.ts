@@ -1,5 +1,4 @@
 import { Component, EventEmitter, input, Output, output } from '@angular/core';
-import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
 import { LucideAngularModule, Star ,Trash2 ,ShoppingCart  } from 'lucide-angular';
 import { WishlistItemModel } from '../../models/wishlist-item.model';
 import { DecimalPipe } from '@angular/common';

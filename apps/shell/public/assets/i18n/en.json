@@ -89,17 +89,22 @@
     "DELIVER_TO": "Deliver to:",
     "NO_ADDRESS": "No saved address",
     "ADD_ADDRESS": "Add an address",
-    "ACCOUNT": "Account",
-    "ADDRESSES": "Addresses",
-    "ORDERS": "Orders",
-    "DASHBOARD": "Dashboard",
-    "LOGOUT": "Log out",
     "HOME": "Home",
     "PRODUCTS": "Products",
     "CATEGORIES": "Categories",
     "OCCASIONS": "Occasions",
     "CONTACT": "Contact",
-    "ABOUT": "About"
+    "ABOUT": "About",
+    "NO_PRODUCTS_FOUND": "No products found",
+    "PRODUCTS_YOU_MAY_LIKE": "Products you may like:",
+    "ACCOUNT": "Account",
+    "ADDRESSES": "Addresses",
+    "ORDERS": "Orders",
+    "DASHBOARD": "Dashboard",
+    "LOGOUT": "Log out",
+    "NOTIFICATIONS": "Notifications",
+    "CART": "Cart",
+    "WISHLIST": "Wishlist"
   },
 
   "FOOTER": {
@@ -255,7 +260,10 @@
     "EGP": "EGP",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
-    "PRODUCTS_YOU_MAY_LIKE": "Products You May Like"
+    "PRODUCTS_YOU_MAY_LIKE": "Products You May Like",
+    "RATING": "rating",
+    "RATINGS": "ratings",
+    "THE_RATING": "Rating"
     
   },
 
@@ -447,6 +455,37 @@
       "SAME_AS_OLD": "Your new password must be different from the old one.",
       "SUCCESS": "Your password has been changed"
     }
-  }
+  },
 
+  "ORDERS": {
+    "TITLE": "Orders",
+    "LOADING": "Loading orders...",
+    "NO_ORDERS": "No orders available.",
+    "ORDER_NUMBER": "Order #",
+    "CREATED_IN": "Created in:",
+    "TOTAL_PRICE": "Total Price:",
+    "STATUS": "Status:",
+    "PAYMENT_METHOD": "Payment Method:",
+    "DELIVERY_STATUS": "Delivery Status:",
+    "ORDER_ITEMS": "Order Items:",
+    "RATING": "Rating:",
+    "RATINGS": "ratings",
+    "SHOW_ALL": "Show All",
+    "SHOW_LESS": "Show Less",
+    "BADGES": {
+      "PAID": "Paid",
+      "IN_PROGRESS": "In Progress",
+      "CANCELED": "Canceled",
+      "DONE": "Done"
+    },
+    "METHODS": {
+      "CASH": "Cash",
+      "CREDIT_CARD": "Credit Card"
+    },
+    "DELIVERY": {
+      "PENDING": "Pending",
+      "DELIVERED": "Delivered",
+      "CANCELED": "Canceled"
+    }
+  }
 }

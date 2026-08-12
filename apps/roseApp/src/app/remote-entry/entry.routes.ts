@@ -1,3 +1,4 @@
+import { OrderRoutes } from './../features/order/order.routes';
 import { Route } from '@angular/router';
 import { MainLayoutComponent } from '../layouts/main-layout/main-layout.component';
 import { authGuard } from '@org/auth';
@@ -42,6 +43,14 @@ export const remoteRoutes: Route[] = [
         loadChildren: () =>
           import('../features/cart/cart.routes').then(
             (m) => m.CartRoutes,
+
+          ),
+      },
+      {
+        path: 'order',
+        loadChildren: () =>
+          import('../features/order/order.routes').then(
+            (m) => m.OrderRoutes,
 
           ),
       },
