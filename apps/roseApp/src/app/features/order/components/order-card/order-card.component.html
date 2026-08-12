@@ -1,0 +1,139 @@
+<header class="flex w-full flex-col gap-3 rounded-t-md bg-[#A6252A] dark:bg-[#FFC2D0] p-4 text-white dark:text-[#27272A]
+         sm:flex-row sm:items-center sm:justify-between">
+    <h2 class="font-sarabun text-xl sm:text-2xl font-semibold leading-none ">
+        {{'ORDERS.ORDER_NUMBER' | translate }} #{{order().id.slice(0,5) }}
+    </h2>
+
+    <div class="flex flex-wrap items-center gap-1  font-sarabun text-base leading-none">
+        <span class="font-normal ">
+            {{ 'ORDERS.CREATED_IN' | translate }}
+        </span>
+
+        <span class="font-semibold ">
+            {{order().createdAt | date : "d MMM , y 'at' h:mma " }}
+        </span>
+    </div>
+</header>
+
+<!-- Content -->
+<div class="w-full  flex flex-col gap-4 p-4
+         border-x border-b border-[#E4E4E7] dark:border-[#52525B] bg-[#F4F4F5] dark:bg-[#3F3F46]
+         rounded-b-xl">
+    <!-- Summary -->
+    <div class="flex flex-col gap-2.5">
+
+        <div class="flex flex-col gap-4 border-b border-[#E4E4E7] dark:border-[#52525B] pb-4
+         sm:flex-row sm:items-center sm:justify-between">
+            <!-- Total price -->
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                <span
+                    class="font-sarabun font-medium text-xl leading-none tracking-normal text-[#27272A] dark:text-white">
+                    {{ 'ORDERS.TOTAL_PRICE' | translate }}
+                </span>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-2xl leading-none tracking-normal text-[#27272A] dark:text-white">
+                        {{order().total }} {{ 'COMMON.EGP' | translate }}
+
+                    </span>
+                    @let paymentBadge = {
+                    paymentStatus: order().paymentStatus,
+                    paymentMethod: order().paymentMethod
+                    } | paymentStatus;
+
+                    <app-badge [text]="paymentBadge.text | translate " [variant]="paymentBadge.variant" />
+                </div>
+
+
+            </div>
+            <!-- Status badge -->
+            <div class="flex items-center gap-2.5">
+                <span class="font-sarabun text-base font-semibold leading-none text-black dark:text-white">
+                    {{ 'ORDERS.STATUS' |translate}} </span>
+
+                @let orderBadge = order().status | orderStatus;
+                <app-badge [text]="orderBadge.text | translate" [variant]="orderBadge.variant" />
+            </div>
+        </div>
+
+        <!-- Payment / Status -->
+        <div class="flex flex-wrap items-center justify-between gap-2.5 px-4">
+
+            <div class="flex flex-col gap-2.5">
+                <p
+                    class="flex items-center gap-1 font-sarabun text-base font-semibold leading-none text-[#27272A] dark:text-white">
+                    {{ 'ORDERS.PAYMENT_METHOD' |translate}}
+                    <span
+                        class=" flex items-center gap-1 font-medium text-base  tracking-normal text-[#71717A] dark:text-white">
+                        <lucide-icon [img]="order().paymentMethod === 'CREDIT_CARD' ? CreditCard : Banknote"
+                            class="w-5 h-5">
+                        </lucide-icon>
+                        {{order().paymentMethod | paymentMethod | translate}}
+
+                    </span>
+                </p>
+
+
+                @let delivery = order().status | deliveryStatus;
+
+                <div class="flex items-center gap-2">
+                    <span class="font-sarabun text-base font-semibold leading-none text-[#27272A] dark:text-white">
+                        {{ 'ORDERS.DELIVERY_STATUS' |translate}}
+                    </span>
+
+                    <div class="flex items-center gap-1 font-sarabun text-[16px] font-medium leading-none tracking-normal"
+                        [ngClass]="delivery.color">
+                        <lucide-icon [img]="delivery.icon" class="w-5 h-5" />
+
+                        <span>{{ delivery.text | translate }}</span>
+                    </div>
+                </div>
+
+
+                <p
+                    class="flex items-center gap-1 font-sarabun text-base font-semibold leading-none text-[#27272A] dark:text-white">
+                    {{'ORDERS.ORDER_ITEMS' | translate }}
+
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Order Items -->
+
+
+      <div class="relative">
+        <div class="grid grid-cols-1 gap-2.5 p-2.5  rounded-lg lg:grid-cols-2 bg-white dark:bg-[#27272A] transition-all duration-300"
+        [class.max-h-[220px]]="!expanded() && order().orderItems.length > 2"
+        [class.overflow-hidden]="!expanded() && order().orderItems.length > 2"
+        >
+
+            @for (item of getVisibleItems(); track item.id) {
+            <app-order-item [orderItem]="item" />
+            }
+
+
+        </div>
+         
+         <!-- Blur Overlay with Show More Button -->
+          @if (order().orderItems.length > 2 && !expanded()) {
+        <div  class="absolute inset-x-0 bottom-0 flex items-end justify-center pb-3 pointer-events-none
+         h-[250px] gap-1 bg-[linear-gradient(191.75deg,rgba(255,255,255,0)_41.79%,#FFFFFF_91.39%)]
+         px-[10px] py-[6px] dark:bg-[linear-gradient(191.75deg,rgba(39,39,42,0)_41.79%,#27272A_91.39%)]">
+            <button type="button" (click)="toggleExpand()"
+                class="pointer-events-auto flex flex-col  items-center gap-1 font-sarabun text-sm font-semibold bg-transparent text-[#A6252A] 
+           hover:text-[#741C21] dark:text-[#FFC2D0] dark:hover:text-[#F8A8B8] cursor-pointer  px-4 py-1.5 rounded-full  ">
+                {{ 'ORDERS.SHOW_ALL' | translate }}
+                <lucide-icon [img]="ChevronDown" class="w-4 h-4"></lucide-icon>
+            </button>
+        </div>
+        }
+     </div>
+
+     @if (order().orderItems.length > 2 && expanded()) {
+    <button type="button" (click)="toggleExpand()"
+        class="mx-auto flex flex-col items-center gap-1 font-sarabun text-sm font-semibold cursor-pointer  text-[#A6252A] hover:text-[#741C21] dark:text-[#FFC2D0] dark:hover:text-[#F8A8B8] bg-transparent pt-2">
+        {{ 'ORDERS.SHOW_LESS' | translate }}
+        <lucide-icon [img]="ChevronUp" class="w-4 h-4"></lucide-icon>
+    </button>
+    }
+    </div>

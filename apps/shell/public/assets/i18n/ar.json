@@ -462,7 +462,7 @@
     "TITLE": "الطلبات",
     "LOADING": "جاري تحميل الطلبات...",
     "NO_ORDERS": "لا توجد طلبات متاحة.",
-    "ORDER_NUMBER": "طلب رقم #",
+    "ORDER_NUMBER": "طلب رقم ",
     "CREATED_IN": "تم الإنشاء في:",
     "TOTAL_PRICE": "الإجمالي:",
     "STATUS": "الحالة:",
@@ -477,7 +477,8 @@
       "PAID": "مدفوع",
       "IN_PROGRESS": "قيد التنفيذ",
       "CANCELED": "ملغي",
-      "DONE": "مكتمل"
+      "DONE": "مكتمل",
+      "PENDING": "قيد الانتظار"
     },
     "METHODS": {
       "CASH": "كاش",

@@ -461,7 +461,7 @@
     "TITLE": "Orders",
     "LOADING": "Loading orders...",
     "NO_ORDERS": "No orders available.",
-    "ORDER_NUMBER": "Order #",
+    "ORDER_NUMBER": "Order ",
     "CREATED_IN": "Created in:",
     "TOTAL_PRICE": "Total Price:",
     "STATUS": "Status:",
@@ -476,7 +476,8 @@
       "PAID": "Paid",
       "IN_PROGRESS": "In Progress",
       "CANCELED": "Canceled",
-      "DONE": "Done"
+      "DONE": "Done",
+      "PENDING": "Pending"
     },
     "METHODS": {
       "CASH": "Cash",
