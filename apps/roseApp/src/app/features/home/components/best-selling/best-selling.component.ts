@@ -77,25 +77,13 @@ export class BestSellingComponent implements OnInit {
   get swiperConfig(): SwiperOptions {
     const rtl=this.isRtl();
     return{
+      slidesPerView: 'auto',
       spaceBetween: 24,
       centerInsufficientSlides: true,
     watchSlidesProgress: true,
     navigation: {
       nextEl: rtl ? '.best-selling-prev' : '.best-selling-next',
       prevEl: rtl ? '.best-selling-next' : '.best-selling-prev',
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 1, 
-      } ,
-      768: {
-      slidesPerView: 2,
-      spaceBetween: 18,
-      },
-      1280: {
-        slidesPerView: 3, 
-        spaceBetween: 24,     
-      },
     },
 
     }

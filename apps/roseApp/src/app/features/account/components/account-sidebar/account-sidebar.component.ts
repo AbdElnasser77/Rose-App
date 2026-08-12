@@ -1,12 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-  booleanAttribute,
-  Component,
-  computed,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthFacade } from '@org/auth';
@@ -30,10 +23,6 @@ export class AccountSidebarComponent {
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
   private readonly translate = inject(TranslateService);
-
-  readonly embedded = input(false, { transform: booleanAttribute });
-
-  readonly navigated = output<void>();
 
   readonly UserPen = UserPen;
   readonly Lock = Lock;
