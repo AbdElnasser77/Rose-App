@@ -1,0 +1,76 @@
+<header class="w-full rounded-t-md bg-[#A6252A] p-4 text-white flex items-center justify-between">
+    <h2 class="font-sarabun text-xl sm:text-2xl font-semibold leading-none text-white">
+        Order #12345
+    </h2>
+
+    <div class="flex flex-wrap items-center gap-1 text-zinc-100 font-sarabun text-base leading-none">
+        <span class="font-normal ">
+            {{ 'ORDERS.CREATED_IN' | translate }}
+        </span>
+
+        <span class="font-semibold ">
+            14 July, 2025 at 10:05AM
+        </span>
+    </div>
+</header>
+
+<!-- Content -->
+<div class="w-full min-h-[430px] flex flex-col gap-4 p-4
+         border-x border-b border-[#E4E4E7] bg-[#F4F4F5]
+         rounded-b-xl">
+    <!-- Summary -->
+    <div class="flex flex-col gap-2.5">
+
+        <div class="flex justify-between items-center border-b pb-4">
+            <!-- Total price -->
+            <div class="flex items-center gap-3">
+                <span class="font-sarabun font-medium text-2xl leading-none tracking-normal text-[#27272A]">
+                    {{ 'ORDERS.TOTAL_PRICE' | translate }} 
+                </span>
+                <span class="font-bold text-[30px] leading-none tracking-normal text-[#27272A]">
+                    {{order().total }}
+                </span>
+                
+
+
+            </div>
+            <!-- Status badge -->
+            <div class="flex items-center gap-2.5">
+                <span class="font-sarabun text-base font-semibold leading-none text-black">
+                    {{ 'ORDERS.STATUS' |translate}} {{order().status }}</span>
+
+            </div>
+        </div>
+
+        <!-- Payment / Status -->
+        <div class="flex flex-wrap items-center justify-between gap-2.5">
+
+            <div class="flex  gap-1">
+                <p class="font-sarabun text-base font-semibold leading-none text-[#27272A]">
+                    Payment Method:
+                    <span>
+                        'Cash'
+                    </span>
+                </p>
+
+                <p class="font-sarabun text-base font-semibold leading-none text-[#27272A]">
+                    Payment Status:
+                    <span>
+                        Pending
+                    </span>
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="mt-4 border-t border-[#E4E4E7] px-0 pt-4">
+            <div class="grid grid-cols-1 gap-2.5 lg:grid-cols-2 bg-white">
+
+                @for (item of order().orderItems; track item.id) {
+                <app-order-item [orderItem]="item" />
+                }
+
+            </div>
+        </div>
+    </div>

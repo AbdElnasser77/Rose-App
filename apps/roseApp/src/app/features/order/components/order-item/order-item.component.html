@@ -1,0 +1,31 @@
+<div class="w-full max-w-[577px] min-h-[142px] rounded-lg bg-[#FAFAFA] flex gap-2.5 overflow-hidden">
+    <!-- Order img -->
+    <div class="w-[90px] sm:w-[117px] h-full min-h-[142px] shrink-0 "> <img [src]="orderItem().product.cover"
+            [alt]="orderItem().product.title" class="w-full h-full object-cover rounded-md" /> </div>
+
+    <!-- Content -->
+    <div class="flex flex-col justify-between flex-1 p-2.5 gap-2.5">
+
+        <div class="w-full flex flex-col gap-1.5">
+
+            <h2 class="font-sarabun text-[18px] font-semibold leading-none text-[#741C21]">
+                {{orderItem().product.title}} </h2> <!-- Rating -->
+            <div class="flex gap-1 sm:gap-1.5 min-h-[21px] items-center "> <lucide-icon [img]="Star"
+                    class="w-5 h-5  text-[#FFA508] fill-current"></lucide-icon>
+                <p class="font-sarabun leading-none text-black flex items-baseline dark:text-white"> <span
+                        class=" text-base  font-normal pe-1"> {{'COMMON.THE_RATING' | translate }}: </span> <span
+                        class="text-base font-medium "> 5/5 </span> </p> <span
+                    class="font-sarabun  text-sm font-medium leading-none text-[#155DFC] dark:text-sky-400"> (4 {{
+                    'COMMON.RATINGS' | translate}}) </span>
+            </div>
+        </div>
+        <!-- Price -->
+        <div>
+            <p class="flex items-baseline gap-1 font-sarabun leading-none text-[#27272A] dark:text-white mt-2.5">
+                <span class=" text-sm font-medium  align-middle"> ×{{orderItem().quantity}} </span>
+                <span class=" text-xl md:text-2xl font-bold align-middle "> {{orderItem().price}} </span>
+                <span class=" text-xs md:text-base font-medium  leading-none align-middle"> {{ 'COMMON.EGP' | translate}}</span>
+            </p>
+        </div>
+    </div>
+</div>

@@ -5,11 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { OrderService } from '../../services/order.service';
 import { Order, OrderItem } from '../../models/order.model';
 import { TranslatePipe } from '@ngx-translate/core';
+import { OrderCardComponent } from '../../components/order-card/order-card.component';
 
 @Component({
   selector: 'app-order',
-  imports: [CommonModule, TagModule, ButtonModule, DatePipe, CurrencyPipe, TranslatePipe],
-  templateUrl: './order.page.html'
+  imports: [CommonModule, TagModule, ButtonModule, DatePipe, CurrencyPipe, TranslatePipe , OrderCardComponent],
+  templateUrl: './order.page.html'  
 })
 export class OrderComponent implements OnInit {
   private orderService = inject(OrderService);

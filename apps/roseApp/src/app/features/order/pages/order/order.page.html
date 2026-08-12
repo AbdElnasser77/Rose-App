@@ -2,117 +2,17 @@
   <h1 class="text-3xl font-bold text-gray-800 mb-6">{{ 'ORDERS.TITLE' | translate }}</h1>
 
   @if (loading()) {
-    <div class="text-center py-10 text-gray-500">{{ 'ORDERS.LOADING' | translate }}</div>
+  <div class="text-center py-10 text-gray-500">{{ 'ORDERS.LOADING' | translate }}</div>
   } @else {
-    @for (order of orders(); track order.id) {
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+  @for (order of orders(); track order.id) {
+
+
+          <app-order-card [order]="order"  />
         
-        <div class="bg-[#8B2626] text-white px-5 py-3 flex justify-between items-center text-sm font-medium">
-          <span class="font-bold tracking-wide">{{ 'ORDERS.ORDER_NUMBER' | translate }}{{ order.id.substring(0, 8) }}</span>
-          <span class="text-gray-200">
-            {{ 'ORDERS.CREATED_IN' | translate }} {{ order.createdAt | date:'d MMMM, yyyy \at h:mm a' }}
-          </span>
-        </div>
-
-        <div class="p-5 space-y-4">
-          
-          <div class="flex justify-between items-center border-b pb-4">
-            <div class="flex items-center gap-3">
-              <span class="text-xl font-extrabold text-gray-900">
-                {{ 'ORDERS.TOTAL_PRICE' | translate }} {{ order.total | currency:'EGP ':'symbol':'1.0-0' }}
-              </span>
-              <p-tag 
-                [value]="order.paymentStatus === 'SUCCEEDED' ? ('ORDERS.PAYMENT_STATUS.PAID' | translate) : order.paymentStatus" 
-                [severity]="getPaymentBadgeSeverity(order.paymentStatus)"
-                [rounded]="true">
-              </p-tag>
-            </div>
-            
-            <div class="flex items-center gap-2">
-              <span class="text-gray-500 font-semibold">{{ 'ORDERS.STATUS' | translate }}</span>
-              <p-tag 
-                [value]="'ORDERS.DELIVERY.' + order.status | translate" 
-                [severity]="getStatusBadgeSeverity(order.status)"
-                [rounded]="true">
-              </p-tag>
-            </div>
-          </div>
-
-          <div class="text-gray-600 space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="font-medium text-gray-500">{{ 'ORDERS.PAYMENT_METHOD' | translate }}</span>
-              <span class="font-semibold text-gray-700">
-                {{ (order.paymentMethod === 'CASH_ON_DELIVERY' ? 'ORDERS.METHODS.CASH' : 'ORDERS.METHODS.CREDIT_CARD') | translate }}
-              </span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="font-medium text-gray-500">{{ 'ORDERS.DELIVERY_STATUS' | translate }}</span>
-              <span class="font-semibold" 
-                    [class.text-amber-500]="order.status === 'PENDING'"
-                    [class.text-green-600]="order.status === 'DELIVERED'"
-                    [class.text-red-500]="order.status === 'CANCELED'">
-                {{ 'ORDERS.DELIVERY.' + order.status | translate }}
-              </span>
-            </div>
-          </div>
-
-          <div class="relative mt-4">
-            <p class="font-semibold text-gray-700 mb-3">{{ 'ORDERS.ORDER_ITEMS' | translate }}</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 transition-all">
-              @for (item of getVisibleItems(order); track item.id; let idx = $index) {
-                <div 
-                  class="flex items-stretch gap-3 bg-gray-50/70 p-0 rounded-lg border border-gray-100 transition-opacity duration-300 overflow-hidden"
-                  [ngClass]="{
-                    'opacity-30 pointer-events-none': !isExpanded(order.id) && order.orderItems.length > 2 && idx >= 2
-                  }">
-                  
-                  <img [src]="item.product.cover" 
-                       [alt]="item.product.title" 
-                       class="h-full self-stretch object-cover bg-gray-200 flex-shrink-0 rounded-none w-20 md:w-24" />
-                  
-                  <div class="space-y-1 overflow-hidden py-3 px-3 flex-grow">
-                    <p class="font-semibold text-gray-800 truncate" [title]="item.product.title">
-                      {{ item.product.title }}
-                    </p>
-                    
-                    <div class="flex items-center gap-1 text-amber-500 mb-5 text-sm">
-                      <span>★</span>
-                      <span class="font-medium text-gray-700">{{ 'ORDERS.RATING' | translate }} 5/5</span>
-                      <span class="text-blue-500 hover:underline cursor-pointer">(4 {{ 'ORDERS.RATINGS' | translate }})</span>
-                    </div>
-
-                    <p class="text-gray-900 font-bold">
-                      <span class="text-red-500 font-normal me-1">(x{{ item.quantity }})</span>
-                      {{ item.price }} <span class="text-[10px] font-normal">EGP</span>
-                    </p>
-                  </div>
-
-                </div>
-              }
-            </div>
-
-            @if (order.orderItems.length > 2) {
-              <div class="flex justify-center items-center pt-2 transition-all"
-                  [ngClass]="{
-                    '-mt-6 relative z-10': !isExpanded(order.id)
-                  }">
-                
-                <button 
-                  (click)="toggleExpand(order.id)" 
-                  type="button"
-                  class="text-red-800 hover:text-red-900 font-bold inline-flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200 shadow-sm transition-all">
-                  {{ (isExpanded(order.id) ? 'ORDERS.SHOW_LESS' : 'ORDERS.SHOW_ALL') | translate }}
-                  <i [class]="isExpanded(order.id) ? 'pi pi-chevron-up' : 'pi pi-chevron-down'" class="text-[10px]"></i>
-                </button>
-              </div>
-            }
-
-          </div>
-        </div>
-      </div>
-    } @empty {
-      <div class="text-center py-10 text-gray-500">{{ 'ORDERS.NO_ORDERS' | translate }}</div>
-    }
+      
+  
+  } @empty {
+  <div class="text-center py-10 text-gray-500">{{ 'ORDERS.NO_ORDERS' | translate }}</div>
+  }
   }
 </div>
