@@ -17,6 +17,12 @@
   width: 100%;
 }
 
+:host ::ng-deep .iti__selected-country-primary {
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+  transition: background-color 150ms ease;
+}
+
 :host ::ng-deep .iti__selected-dial-code {
   font-family: var(--font-inter);
   font-size: 14px;
