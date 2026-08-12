@@ -9,7 +9,7 @@ export function passwordMatchValidator(
             const password=form.get(passwordKey)?.value;
             const confirmPassword=form.get(confirmPasswordKey)?.value;
 
-            if(!password || confirmPassword) return null;
+            if(!password || !confirmPassword) return null;
             return password === confirmPassword ?null :{ passwordMismatch: true };
 
         }

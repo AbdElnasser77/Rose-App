@@ -8,6 +8,7 @@ export * from './requests/register-request.model';
 export * from './requests/reset-password-request.model';
 export * from './requests/update-profile-request.model';
 export * from './requests/email-change-request.model';
+export * from './requests/change-password-request.model';
 
 
 export * from './responses/auth-response.model';

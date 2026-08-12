@@ -1,10 +1,16 @@
 <nav
-  class="w-full lg:min-h-[520px] rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-3 flex flex-col gap-2"
+  class="w-full flex flex-col gap-2"
+  [ngClass]="
+    embedded()
+      ? 'h-full'
+      : 'lg:min-h-[520px] rounded-2xl bg-zinc-100 dark:bg-zinc-800 p-3'
+  "
 >
   <a
     routerLink="/account/profile"
     routerLinkActive
     #profileLink="routerLinkActive"
+    (click)="navigated.emit()"
     [ngClass]="profileLink.isActive ? activeItemClass : idleItemClass"
     class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
   >
@@ -16,6 +22,7 @@
     routerLink="/account/password"
     routerLinkActive
     #passwordLink="routerLinkActive"
+    (click)="navigated.emit()"
     [ngClass]="passwordLink.isActive ? activeItemClass : idleItemClass"
     class="rounded-lg px-4 py-3 flex items-center gap-3 text-start font-inter text-[15px] font-medium transition-colors"
   >

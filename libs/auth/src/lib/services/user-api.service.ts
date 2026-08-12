@@ -9,6 +9,7 @@ import {
   ConfirmEmailChangeRequestModel,
   RequestEmailChangeRequestModel,
 } from '../models/requests/email-change-request.model';
+import { ChangePasswordRequestModel } from '../models/requests/change-password-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +46,9 @@ export class UserApiService {
 
   confirmEmailChange(data: ConfirmEmailChangeRequestModel): Observable<void> {
     return this._httpClient.post<void>(`${this.baseUrl}/email/confirm`, data);
+  }
+
+  changePassword(data: ChangePasswordRequestModel): Observable<void> {
+    return this._httpClient.post<void>(`${this.baseUrl}/change-password`, data);
   }
 }
