@@ -1,0 +1,51 @@
+<div role="button"
+    tabindex="0"
+    (click)="onProductClick()"
+    (keydown.enter)="onProductClick()"
+    (keydown.space)="onProductClick()"
+    class="w-full border-b border-[#F4F4F5] p-2.5 dark:border-soft-pink-200 gap-4 flex cursor-pointer"
+   [attr.dir]="isRtl() ? 'rtl' : 'ltr'">
+    <!-- Image -->
+    <div class="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-lg overflow-hidden">
+        <img [src]="product().cover" [alt]="product().title" class="w-full h-full shrink-0 object-cover " />
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-1 flex-col sm:flex-row sm:items-center justify-between min-w-0 ">
+        <!-- Header -->
+        <div class="flex flex-col ">
+            <h4 class="font-sarabun text-sm font-semibold leading-none text-[#27272A] dark:text-white"
+            [innerHTML]="product().title | highlight: searchTerm()"></h4>
+
+            <p class="flex items-baseline gap-1 font-sarabun leading-none text-[#27272A] dark:text-white mt-2.5">
+                <span class=" text-xl font-bold  ">
+                    {{product().price}}
+                </span>
+
+                <span class=" text-xs font-medium  leading-none">
+                    {{ 'COMMON.EGP' | translate }}
+                </span>
+            </p>
+        </div>
+
+        <!-- Rating -->
+        <div class="flex gap-1 sm:gap-1.5 min-h-[21px] items-center ">
+            <lucide-icon [img]="Star" class="w-5 h-5  text-[#FFA508] fill-current"></lucide-icon>
+            <p class="font-sarabun leading-none text-black flex items-baseline dark:text-white">
+                <span class=" text-sm font-normal pe-1">
+                    {{'COMMON.THE_RATING' | translate }}: 
+                </span>
+
+                <span class="text-base font-medium ">
+                    {{product().rating | number:'1.0-1' }}<span >/5</span>
+                </span>
+            </p>
+
+            <span class="font-sarabun  text-sm font-medium leading-none text-[#155DFC] dark:text-sky-400">
+                ({{product().ratings}}  <span >{{product().ratings === 1? ('COMMON.RATING' | translate)  : ('COMMON.RATINGS' | translate) }}</span>)
+            </span>
+
+
+        </div>
+    </div>
+</div>
