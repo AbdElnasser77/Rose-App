@@ -26,7 +26,11 @@
     "output": "assets"
   }
 ],
-        "styles": ["node_modules/leaflet/dist/leaflet.css", "apps/roseApp/src/styles.scss"],
+        "styles": [
+          "node_modules/leaflet/dist/leaflet.css",
+          "node_modules/intl-tel-input/dist/css/intlTelInput.css",
+          "apps/roseApp/src/styles.scss"
+        ],
         "customWebpackConfig": {
           "path": "apps/roseApp/webpack.config.ts"
         }

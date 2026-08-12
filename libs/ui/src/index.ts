@@ -6,6 +6,8 @@ export * from './lib/components/callout-text/callout-text.component';
 
 export * from './lib/components/reusable-input/reusable-input.component';
 
+export * from './lib/components/phone-input/phone-input.component';
+
 export * from './lib/components/select-input/select-input.component';
 
 export * from './lib/components/validation-errors/validation-errors.component';

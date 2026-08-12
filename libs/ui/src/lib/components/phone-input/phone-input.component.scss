@@ -1,0 +1,46 @@
+:host {
+  --iti-border-color: var(--color-zinc-300);
+  --iti-country-selector-bg: var(--color-white);
+  --iti-icon-color: var(--color-zinc-500);
+  --iti-hover-color: var(--color-zinc-100);
+}
+
+:host-context(.dark) {
+  --iti-border-color: var(--color-zinc-600);
+  --iti-country-selector-bg: var(--color-zinc-700);
+  --iti-icon-color: var(--color-zinc-300);
+  --iti-hover-color: var(--color-zinc-600);
+}
+
+:host ::ng-deep .iti {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .iti__selected-dial-code {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: var(--color-zinc-800);
+}
+
+:host ::ng-deep .iti__country-list,
+:host ::ng-deep .iti__search-input {
+  background-color: var(--color-white);
+  color: var(--color-zinc-800);
+}
+
+:host-context(.dark) ::ng-deep {
+  .iti__selected-dial-code {
+    color: var(--color-zinc-50);
+  }
+
+  .iti__country-list,
+  .iti__search-input {
+    background-color: var(--color-zinc-700);
+    color: var(--color-zinc-50);
+  }
+
+  .iti__country.iti__highlight {
+    background-color: var(--color-zinc-600);
+  }
+}

@@ -1,0 +1,28 @@
+<div class="flex flex-col gap-[6px] w-full relative">
+  @if (label) {
+    <label
+      [for]="id"
+      class="font-inter text-[14px] font-medium leading-none text-zinc-800 dark:text-zinc-50"
+    >
+      {{ label }}
+    </label>
+  }
+
+  <input
+    #phoneEl
+    type="tel"
+    [id]="id"
+    [disabled]="isDisabled()"
+    class="w-full h-[49px] rounded-[10px] border text-[14px] font-inter font-normal text-zinc-800 dark:text-zinc-50 placeholder:text-zinc-400 leading-none outline-none dark:bg-zinc-700 transition"
+    [class.border-red-600]="hasError"
+    [class.dark:border-red-500]="hasError"
+    [class.border-zinc-300]="!hasError"
+    [class.dark:border-zinc-600]="!hasError"
+    [class.focus:border-zinc-500]="!hasError"
+    [class.dark:focus:border-soft-pink-200]="!hasError"
+  />
+
+  <div class="absolute top-full start-0 mt-1 z-20">
+    <lib-validation-errors [control]="control"></lib-validation-errors>
+  </div>
+</div>
