@@ -7,6 +7,7 @@ import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
 import { AuthFacade } from '@org/auth';
 import {
+  hasDirtyError,
   passwordDifferentValidator,
   passwordMatchValidator,
 } from '@org/util-validation';
@@ -45,17 +46,15 @@ export class ChangePasswordPage {
   );
 
   get mismatch(): boolean {
-    return (
-      this.passwordForm.hasError('passwordMismatch') &&
-      this.passwordForm.controls.confirmPassword.dirty
+    return hasDirtyError(
+      this.passwordForm,
+      'passwordMismatch',
+      'confirmPassword'
     );
   }
 
   get sameAsOld(): boolean {
-    return (
-      this.passwordForm.hasError('samePassword') &&
-      this.passwordForm.controls.newPassword.dirty
-    );
+    return hasDirtyError(this.passwordForm, 'samePassword', 'newPassword');
   }
 
   submit(): void {
