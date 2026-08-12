@@ -2,6 +2,7 @@ import { Component, computed, HostListener, inject, input, signal } from '@angul
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
+import { AddressModalService } from '../../../../features/checkout/services/address-modal.service';
 import { ChevronDown, LogOut, LucideAngularModule, MapPinHouse, ScrollText, Settings, User } from 'lucide-angular';
 
 @Component({
@@ -16,6 +17,7 @@ export class UserMenuComponent {
   private readonly sessionService = inject(SessionService);
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
+  private readonly addressModal = inject(AddressModalService);
 
   readonly User = User;
   readonly ChevronDown = ChevronDown;
@@ -48,17 +50,17 @@ export class UserMenuComponent {
   readonly menuItems = [
   {
     label: 'NAV.ACCOUNT',
-    route: '/account',
+    route: '/account' as string | null,
     icon: User,
   },
   {
     label: 'NAV.ADDRESSES',
-    route: '/addresses',
+    route: null,
     icon : MapPinHouse
   },
   {
     label: 'NAV.ORDERS',
-    route: '/orders',
+    route: '/order',
     icon : ScrollText
   },
   {
@@ -70,6 +72,11 @@ export class UserMenuComponent {
 
   closeDropdown(): void {
   this.isDropdownOpen.set(false);
+  }
+
+  openAddresses(): void {
+    this.closeDropdown();
+    this.addressModal.open();
   }
 
   toggleDropdown(): void {
