@@ -361,7 +361,18 @@
     "CREDIT_CARD": {
       "TITLE": "Credit Card",
       "DESCRIPTION": "You'll be securely redirected to Stripe to complete your payment."
-    }
+    }, 
+    "SUCCESS": {
+      "TITLE": "Payment Successful!",
+      "DESCRIPTION": "Your payment has been completed successfully. What would you like to do next?",
+      "CONTINUE_SHOPPING": "Continue Shopping",
+      "VIEW_ORDERS": "View Orders"
+    },
+  "FAILED": {
+  "TITLE": "Payment Failed",
+  "DESCRIPTION": "We couldn't complete your payment. Please try again or go back to checkout.",
+  "TRY_AGAIN": "Try Again"
+   }
     
   }, 
 

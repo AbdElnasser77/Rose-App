@@ -16,11 +16,17 @@ import { OrderService } from '../../services/order.service';
 import { CartStore } from '../../../cart/store/cart.store';
 import { CreateOrderRequestModel } from '../../models/order/create-order-request.model';
 import { PaymentService } from '../../services/payment.service';
+import { finalize, switchMap } from 'rxjs';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PaymentSuccessModalComponent } from '../../components/payment-success-modal/payment-success-modal.component';
+import { PaymentFailedModalComponent } from '../../components/payment-failed-modal/payment-failed-modal.component';
 
 @Component({
   selector: 'app-payment',
   imports: [ TranslatePipe
-    ,PaymentMethodCardComponent,CheckoutStepperComponent,LucideAngularModule,],
+    ,PaymentMethodCardComponent,CheckoutStepperComponent,
+    LucideAngularModule,ProgressSpinnerModule 
+    ,PaymentSuccessModalComponent ,PaymentFailedModalComponent],
   templateUrl: './payment.page.html',
   styleUrl: './payment.page.scss',
 })
@@ -37,7 +43,11 @@ export class PaymentPage implements OnInit{
     private readonly _paymentService = inject(PaymentService)
 
     suggestedProducts = signal<Product[]>([]);
-     wishlistedIds = this._wishlistStore.wishlistedIds;
+    isProcessingPayment = signal(false);
+    showPaymentSuccess = signal(false);
+    showPaymentFailed = signal(false);
+
+    wishlistedIds = this._wishlistStore.wishlistedIds;
     isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
     readonly MoveRight = MoveRight;
     readonly ArrowLeft = ArrowLeft;
@@ -167,6 +177,9 @@ export class PaymentPage implements OnInit{
     }
 
     onCheckoutClicked(){
+      if (this.isProcessingPayment()) {
+        return;
+      }
       if (!this._checkoutStore.addressId()) {
         this._toastService.show(
           this._translateService.instant('PAYMENT.ADDRESS_REQUIRED'),'error'
@@ -211,53 +224,72 @@ export class PaymentPage implements OnInit{
             );
             this._checkoutStore.clear();
             this._cartStore.loadCart();
-            // Temporary until the orders page exists.
-            this._router.navigate(['/order']);
+             this._router.navigate(['/order']);
+             
           
        },
       });
     }
     // Stripe payment
     private startStripePayment(body: CreateOrderRequestModel){
-      this._orderService.createOrder(body).pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next : (response) =>{
-          const orderId = response.payload.order.id;
+      this.isProcessingPayment.set(true);
 
-          this._paymentService.createIntent({orderId}).pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next : (intentResponse) =>{
-              // Temporary until Stripe Elements integration is completed.
-               this.confirmStripePayment(
-                intentResponse.payload.paymentIntentId,
-                'pm_card_visa'
-              );
-            }
-          });
-        }
-      });
-    }
+      this._orderService.createOrder(body).pipe(
+       switchMap(response =>{
+        const orderId = response.payload.order.id;
+        return this._paymentService.createIntent({ orderId });
+       }),
 
-    // Confirm stripe payment
-    private confirmStripePayment(paymentIntentId: string,paymentMethodId: string):void{
-      this._paymentService.confirmPayment({paymentIntentId,paymentMethodId}).pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
+        // Confirm stripe payment
+       switchMap(intentResponse => {
+        return this._paymentService.confirmPayment({
+        paymentIntentId: intentResponse.payload.paymentIntentId,
+        paymentMethodId: 'pm_card_visa'
+        });
+
+       }),
+         takeUntilDestroyed(this.destroyRef),
+
+         // Stop loading whether payment succeeds or fails
+        finalize(() => {
+          this.isProcessingPayment.set(false);
+        })
+      
+      ) .subscribe({
         next :() =>{
-          this._toastService.show(
-            this._translateService.instant('PAYMENT.ORDER_PLACED'),
-            'success'
-          );
+          
            this._checkoutStore.clear();
            this._cartStore.loadCart();
-
-        this._router.navigate(['/order']);
+           this.showPaymentSuccess.set(true);
+       
         },
          error: () => {
-        this._toastService.show(
-          this._translateService.instant('PAYMENT.PAYMENT_FAILED'),
-          'error'
-        );
+          this.showPaymentFailed.set(true);
+        
       },
       });
+      
+          
     }
+
+  // Actions payment success modal
+
+   onContinueShopping() {
+  this.showPaymentSuccess.set(false);
+  this._router.navigate(['/products']);
+  }
+
+  onViewOrders() {
+  this.showPaymentSuccess.set(false);
+  this._router.navigate(['/order']);
+  }
+
+  // Actions payment failed modal
+  onTryAgain() {
+  this.showPaymentFailed.set(false);
+  }
+
+
+     
+    
 }

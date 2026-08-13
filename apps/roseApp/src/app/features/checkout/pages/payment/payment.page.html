@@ -1,41 +1,37 @@
+<!-- Payment Method -->
+<div class="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:flex-row">
+    <div class="flex-1 flex flex-col  h-full gap-4">
+        <app-checkout-stepper [activeIndex]="2"></app-checkout-stepper>
 
-    <!-- Payment Method -->
-    <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:flex-row">
-        <div class="flex-1 flex flex-col  h-full gap-4">
-            <app-checkout-stepper [activeIndex]="2"></app-checkout-stepper>
+        <!-- Title -->
 
-            <!-- Title -->
-
-            <div class="flex gap-4">
-                 <button type="button" (click)="onBackClicked()"
-                class=" flex items-center justify-center gap-[4px] rounded-[10px]
+        <div class="flex gap-4">
+            <button type="button" (click)="onBackClicked()" class=" flex items-center justify-center gap-[4px] rounded-[10px]
                 cursor-pointer
                 bg-[#F4F4F5] dark:bg-zinc-700 hover:bg-[#E4E4E7] dark:hover:bg-zinc-600   dark:text-white p-2.5 font-mulish text-sm font-semibold leading-[150%] tracking-normal text-[#27272A]
                 transition-colors ">
 
                 <lucide-icon [img]="ArrowLeft" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
                 {{ 'PAYMENT.BACK' | translate }}
-                </button>
-                <h1 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black dark:text-white">
-                     {{ 'PAYMENT.TITLE' | translate }}
-                </h1>
-            </div>
-            <div class="flex flex-1  flex-col xl:flex-row gap-3 items-stretch ">
+            </button>
+            <h1 class="font-sarabun text-[30px] font-semibold leading-none tracking-normal text-black dark:text-white">
+                {{ 'PAYMENT.TITLE' | translate }}
+            </h1>
+        </div>
+        <div class="flex flex-1  flex-col xl:flex-row gap-3 items-stretch ">
 
-                <!-- Payment -->
-                @for(method of paymentMethods; track method.id){
-                <app-payment-method-card
-                [paymentMethod]="method"
-                [paymentSelected]="selectedPayment === method.id"
-                [disabled]="method.disabled === true"
-                (selectedChange)="onPaymentSelected($event)">
-                </app-payment-method-card>
-                }
+            <!-- Payment -->
+            @for(method of paymentMethods; track method.id){
+            <app-payment-method-card [paymentMethod]="method" [paymentSelected]="selectedPayment === method.id"
+                [disabled]="method.disabled === true" (selectedChange)="onPaymentSelected($event)">
+            </app-payment-method-card>
+            }
 
-               
-            </div>
-            <div class="flex ">
-                <button type="button" (click)="onCheckoutClicked()" [disabled]="!_checkoutStore.paymentMethod() || !_checkoutStore.addressId() "
+
+        </div>
+        <div class="flex ">
+            <button type="button" (click)="onCheckoutClicked()"
+                [disabled]="!_checkoutStore.paymentMethod() || !_checkoutStore.addressId() || isProcessingPayment() "
                 class="ms-auto flex  items-center justify-center gap-2.5 rounded-[10px]
                 cursor-pointer
                 bg-[#A6252A] hover:bg-[#741C21]  dark:bg-[#FFA3B9] px-4 py-2.5 font-sarabun text-[20px] font-medium leading-[150%] tracking-normal 
@@ -44,9 +40,49 @@
                 <lucide-icon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>
 
             </button>
-            </div>
-             
         </div>
 
-       
     </div>
+
+
+</div>
+
+<!-- Overlay loading -->
+@if (isProcessingPayment()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center 
+      bg-black/40 px-4 backdrop-blur-sm">
+
+    <div class="flex w-full max-w-xs flex-col items-center gap-4
+          rounded-2xl bg-white p-6 shadow-xl
+             sm:max-w-sm sm:p-8
+             dark:bg-[#27272A]">
+
+        <p-progress-spinner strokeWidth="5" 
+        animationDuration="1s" 
+         />
+
+        <p
+        class="text-center font-sarabun text-base font-semibold
+               text-maroon-600 sm:text-lg
+               dark:text-soft-pink-200"
+      >
+        {{ 'PAYMENT.PROCESSING' | translate }}
+      </p>
+
+    </div>
+
+</div>
+}
+
+<!-- payment-success-modal -->
+<app-payment-success-modal
+    [visible]="showPaymentSuccess()"
+    (continueShoppingClicked)="onContinueShopping()"
+    (viewOrdersClicked)="onViewOrders()"
+/>
+<!-- payment-failed-modal -->
+<app-payment-failed-modal
+  [visible]="showPaymentFailed()"
+  (tryAgainClicked)="onTryAgain()"
+
+/>
