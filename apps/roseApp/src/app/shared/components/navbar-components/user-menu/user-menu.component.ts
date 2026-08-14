@@ -4,10 +4,13 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { AddressModalService } from '../../../../features/checkout/services/address-modal.service';
 import { ChevronDown, LogOut, LucideAngularModule, MapPinHouse, ScrollText, Settings, User } from 'lucide-angular';
+import { ThemeToggleComponent } from '@rose/theme';
+import { LanguageSwitcherComponent } from '@rose/i18n';
 
 @Component({
   selector: 'app-user-menu',
-  imports: [ LucideAngularModule , TranslatePipe , RouterLink],
+  imports: [ LucideAngularModule , TranslatePipe ,
+     RouterLink  , ThemeToggleComponent , LanguageSwitcherComponent],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss',
 })

@@ -2,19 +2,19 @@
     [modal]="false" [dismissible]="true" [showCloseIcon]="true" styleClass="w-[85%] max-w-[360px]">
     <div class="flex flex-col h-full">
         @if (isLoggedIn()) {
-            <div class="flex items-center gap-3 px-4 py-3">
-                <lucide-icon [img]="User" class="w-5 h-5 text-maroon-700 dark:text-soft-pink-300" />
+        <div class="flex items-center gap-3 px-4 py-3">
+            <lucide-icon [img]="User" class="w-5 h-5 text-maroon-700 dark:text-soft-pink-300" />
 
-                <div>
-                    <p class="text-xs text-gray-400 dark:text-zinc-400">
-                        {{ 'NAV.HELLO' | translate }}
-                    </p>
+            <div>
+                <p class="text-xs text-gray-400 dark:text-zinc-400">
+                    {{ 'NAV.HELLO' | translate }}
+                </p>
 
-                    <p class="text-sm font-medium text-maroon-700 dark:text-soft-pink-300">
-                        {{ currentUser ?? 'Account' }}
-                    </p>
-                </div>
+                <p class="text-sm font-medium text-maroon-700 dark:text-soft-pink-300">
+                    {{ currentUser ?? 'Account' }}
+                </p>
             </div>
+        </div>
         }
 
         <app-main-nav-links [mobile]="true" />

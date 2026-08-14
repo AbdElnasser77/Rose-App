@@ -88,22 +88,7 @@
   <!-- Mobile Drawer -->
   <app-mobile-menu #mobileMenu />
 
-  <!-- Mobile Theme ,language controls -->
-  <div class="fixed right-0 top-1/2 translate-y-[-70%]
-         z-50 flex xl:hidden flex-col
-         bg-white dark:bg-zinc-800
-         border border-[#A6252A] dark:border-[#FFC2D0]
-         rounded-l-lg shadow-md">
-    <div class="p-2 flex items-center justify-center">
-      <lib-theme-toggle />
-    </div>
-
-    <div class="w-full h-px bg-gray-200 dark:bg-zinc-700"></div>
-
-    <div class="p-2 flex items-center justify-center">
-      <lib-language-switcher />
-    </div>
-  </div>
+  
 
   <!-- Address -->
   <app-delivery-address (addressClicked)="openAddressModal()"  class="block md:hidden px-4 sm:px-6" />
