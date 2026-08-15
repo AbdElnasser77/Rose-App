@@ -1,145 +1,117 @@
 @if (!isLoggedIn()) {
 
-  <button
-    routerLink="/auth"
-    class="flex items-center gap-2 w-full px-4 py-3
+<button routerLink="/auth" class="flex items-center gap-2 w-full px-4 py-3
            text-sm text-zinc-800 dark:text-zinc-50
-           cursor-pointer"
-  >
-    <lucide-icon [img]="User" class="w-5 h-5" />
-    {{ 'NAV.LOGIN' | translate }}
-  </button>
+           cursor-pointer">
+  <lucide-icon [img]="User" class="w-5 h-5" />
+  {{ 'NAV.LOGIN' | translate }}
+</button>
 
 } @else {
 
-  @if (mobile()) {
+@if (mobile()) {
 
-    <!-- Mobile User Section -->
-    <div>
+<!-- Mobile User Section -->
+<div>
 
-      
 
-      @for (item of menuItems; track item.label) {
 
-        @if (item.route) {
-          <a
-            [routerLink]="item.route"
-            class="w-full flex items-center gap-3  px-4 py-3
+  @for (item of menuItems; track item.label) {
+
+  @if (item.route) {
+  <a [routerLink]="item.route" class="w-full flex items-center gap-3  px-4 py-3 cursor-pointer
                    text-sm text-zinc-800 dark:text-zinc-50
-                   hover:bg-gray-100 dark:hover:bg-zinc-700"
-          >
-            <lucide-icon [img]="item.icon" class="w-5 h-5" />
-            {{ item.label | translate }}
-          </a>
-        } @else {
-          <button
-            type="button"
-            (click)="openAddresses()"
-            class="w-full flex items-center gap-3  px-4 py-3 text-start
+                   hover:bg-gray-100 dark:hover:bg-zinc-700">
+    <lucide-icon [img]="item.icon" class="w-5 h-5" />
+    {{ item.label | translate }}
+  </a>
+  } @else {
+  <button type="button" (click)="openAddresses()" class="w-full flex items-center gap-3  px-4 py-3 text-start
                    text-sm text-zinc-800 dark:text-zinc-50
-                   hover:bg-gray-100 dark:hover:bg-zinc-700"
-          >
-            <lucide-icon [img]="item.icon" class="w-5 h-5" />
-            {{ item.label | translate }}
-          </button>
-        }
+                   hover:bg-gray-100 dark:hover:bg-zinc-700">
+    <lucide-icon [img]="item.icon" class="w-5 h-5" />
+    {{ item.label | translate }}
+  </button>
+  }
 
-      }
+  }
+  <!-- Mobile Theme -->
+  <lib-theme-toggle />
 
-      <button
-        (click)="logout()"
-        class="w-full flex  items-center gap-3 
+
+  <!-- Mobile Language -->
+  <lib-language-switcher />
+
+  <button (click)="logout()" class="w-full flex  items-center gap-3 
                px-4 py-3 text-start text-sm
                text-maroon-700 border-t border-gray-200 dark:border-zinc-700
-               hover:bg-gray-100 dark:hover:bg-zinc-700"
-      >
-       <lucide-icon [img]="LogOut" class="w-5 h-5" />
-        {{ 'NAV.LOGOUT' | translate }}
-      </button>
+               hover:bg-gray-100 dark:hover:bg-zinc-700">
+    <lucide-icon [img]="LogOut" class="w-5 h-5" />
+    {{ 'NAV.LOGOUT' | translate }}
+  </button>
 
+</div>
+
+} @else {
+
+<!-- Desktop User Menu -->
+<div class="user-menu-container relative">
+  <button (click)="toggleDropdown()" class="flex items-center gap-2 cursor-pointer">
+    <div class="text-start">
+      <p class="hidden md:block text-xs text-gray-400 dark:text-zinc-400">
+        {{ 'NAV.HELLO' | translate }}
+      </p>
+
+      <p class="text-sm text-maroon-700 dark:text-soft-pink-300 font-medium">
+        {{  currentUser()?. username  ?? 'Account' }}
+      </p>
     </div>
 
-  } @else {
+    <lucide-icon [img]="ChevronDown" class="w-4 h-4 dark:text-zinc-50" />
+  </button>
 
-    <!-- Desktop User Menu -->
-<div class="user-menu-container relative">
-    <button
-      (click)="toggleDropdown()"
-      class="flex items-center gap-2 cursor-pointer"
-    >
-      <div class="text-start">
-        <p class="hidden md:block text-xs text-gray-400 dark:text-zinc-400">
-          {{ 'NAV.HELLO' | translate }}
-        </p>
+  @if (isDropdownOpen()) {
 
-        <p class="text-sm text-maroon-700 dark:text-soft-pink-300 font-medium">
-          {{ currentUser ?? 'Account' }}
-        </p>
-      </div>
+  <div class="absolute right-0 top-12 bg-white dark:bg-zinc-700
+               rounded-lg shadow-lg w-56 z-50 overflow-hidden">
 
-      <lucide-icon
-        [img]="ChevronDown"
-        class="w-4 h-4 dark:text-zinc-50"
-      />
+    <div class="p-4 font-semibold text-[#8B1E24]
+                 dark:text-soft-pink-200
+                 border-b dark:border-zinc-600">
+      {{ currentUser()?. username ?? 'Account' }}
+    </div>
+
+    @for (item of menuItems; track item.label) {
+
+    @if (item.route) {
+    <a [routerLink]="item.route" (click)="closeDropdown()" class="w-full flex  items-center gap-3
+                     cursor-pointer px-4 py-3
+                     text-zinc-700 dark:text-zinc-100
+                     hover:bg-gray-100 dark:hover:bg-zinc-600">
+      <lucide-icon [img]="item.icon" class="w-5 h-5" />
+      {{ item.label | translate }}
+    </a>
+    } @else {
+    <button type="button" (click)="openAddresses()" class="w-full flex  items-center gap-3 text-start
+                     cursor-pointer px-4 py-3
+                     text-zinc-700 dark:text-zinc-100
+                     hover:bg-gray-100 dark:hover:bg-zinc-600">
+      <lucide-icon [img]="item.icon" class="w-5 h-5" />
+      {{ item.label | translate }}
+    </button>
+    }
+
+    }
+
+    <button (click)="logout()" class="w-full flex  items-center gap-3  cursor-pointer text-start px-4 py-3
+                 text-zinc-700 dark:text-zinc-100 border-t border-gray-200 dark:border-zinc-700
+                 hover:bg-gray-100 dark:hover:bg-zinc-600">
+      <lucide-icon [img]="LogOut" class="w-5 h-5" />
+      {{ 'NAV.LOGOUT' | translate }}
     </button>
 
-    @if (isDropdownOpen()) {
-
-      <div
-        class="absolute right-0 top-12 bg-white dark:bg-zinc-700
-               rounded-lg shadow-lg w-56 z-50 overflow-hidden"
-      >
-
-        <div
-          class="p-4 font-semibold text-[#8B1E24]
-                 dark:text-soft-pink-200
-                 border-b dark:border-zinc-600"
-        >
-          {{ currentUser ?? 'Account' }}
-        </div>
-
-        @for (item of menuItems; track item.label) {
-
-          @if (item.route) {
-            <a
-              [routerLink]="item.route"
-              (click)="closeDropdown()"
-              class="w-full flex  items-center gap-3
-                     cursor-pointer px-4 py-3
-                     text-zinc-700 dark:text-zinc-100
-                     hover:bg-gray-100 dark:hover:bg-zinc-600"
-            >
-              <lucide-icon [img]="item.icon" class="w-5 h-5" />
-              {{ item.label | translate }}
-            </a>
-          } @else {
-            <button
-              type="button"
-              (click)="openAddresses()"
-              class="w-full flex  items-center gap-3 text-start
-                     cursor-pointer px-4 py-3
-                     text-zinc-700 dark:text-zinc-100
-                     hover:bg-gray-100 dark:hover:bg-zinc-600"
-            >
-              <lucide-icon [img]="item.icon" class="w-5 h-5" />
-              {{ item.label | translate }}
-            </button>
-          }
-
-        }
-
-        <button
-          (click)="logout()"
-          class="w-full flex  items-center gap-3  cursor-pointer text-start px-4 py-3
-                 text-zinc-700 dark:text-zinc-100 border-t border-gray-200 dark:border-zinc-700
-                 hover:bg-gray-100 dark:hover:bg-zinc-600"
-        >
-         <lucide-icon [img]="LogOut" class="w-5 h-5" />
-          {{ 'NAV.LOGOUT' | translate }}
-        </button>
-
-      </div>
-    }
-</div>
+  </div>
   }
+</div>
+}
 }

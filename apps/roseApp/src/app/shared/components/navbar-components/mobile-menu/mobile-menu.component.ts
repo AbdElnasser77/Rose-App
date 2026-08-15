@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef,  inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef,  inject, input, output } from '@angular/core';
 import { LucideAngularModule, User } from 'lucide-angular';
 import { MainNavLinksComponent } from '../main-nav-links/main-nav-links.component';
 import { AuthStore, SessionService } from '@org/auth';
@@ -30,13 +30,15 @@ export class MobileMenuComponent {
       takeUntilDestroyed(this.destroyRef)
     )
     .subscribe(() => {
-      this.isVisible.set(false);
+      this.visibleChange.emit(false);
     });
   }
    readonly User =User;
-   readonly currentUser = localStorage.getItem('username'); // temporary for navbar **will be removed**
+  readonly currentUser = this.authStore.user;
 
-   readonly isVisible = signal(false);
+   readonly isVisible = input(false);
+   readonly visibleChange = output<boolean>();
+   
    readonly isRtl = computed(() => (this.translateService.currentLang()) === 'ar');
    readonly isLoggedIn = computed(
     () =>
@@ -46,13 +48,6 @@ export class MobileMenuComponent {
 
   
  
-  openMenu(): void {
-  this.isVisible.set(true);
-  }
-
-  closeMenu(): void {
-  this.isVisible.set(false);
-  }
 
  
 }

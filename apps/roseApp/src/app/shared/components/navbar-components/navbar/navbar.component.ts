@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {  RouterLink } from '@angular/router';
 import { AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
-import { Bell, Heart, LucideAngularModule,  ShoppingCart} from 'lucide-angular';
+import { Bell, Heart, LucideAngularModule,  ShoppingCart ,Menu ,X ,Search} from 'lucide-angular';
 import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
 import { WishlistStore } from '../../../../features/wishlist/store/wishlist.store';
 import { CartStore } from '../../../../features/cart/store/cart.store';
@@ -15,7 +15,6 @@ import { CheckoutStore } from '../../../../features/checkout/store/checkout.stor
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { MainNavLinksComponent } from '../main-nav-links/main-nav-links.component';
-import { MobileHeaderComponent } from '../mobile-header/mobile-header.component';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { MobileBottomNavComponent } from '../mobile-bottom-nav/mobile-bottom-nav.component';
 import { DeliveryAddressComponent } from '../delivery-address/delivery-address.component';
@@ -25,7 +24,7 @@ import { DeliveryAddressComponent } from '../delivery-address/delivery-address.c
   standalone: true,
   imports: [CommonModule, RouterLink, LucideAngularModule,LanguageSwitcherComponent,
      ThemeToggleComponent, AssetUrlPipe, ProductSearchComponent 
-     ,UserMenuComponent ,MainNavLinksComponent ,MobileHeaderComponent ,
+     ,UserMenuComponent ,MainNavLinksComponent ,
      MobileMenuComponent ,MobileBottomNavComponent ,DeliveryAddressComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
@@ -47,8 +46,18 @@ export class NavbarComponent {
   readonly ShoppingCart = ShoppingCart;
   readonly Bell = Bell;
   readonly Heart = Heart;
+  readonly  X =  X;
+  readonly Menu = Menu;
+  readonly Search = Search;
   
-  
+  readonly isMobileMenuOpen = signal(false);
+  toggleMobileMenu(): void {
+
+   this.isMobileMenuOpen.update(value => !value);
+  }
+
+ 
+
  
   readonly isLoggedIn = computed(
     () => this.authStore.isAuthenticated() || this.sessionService.isAuthenticated()

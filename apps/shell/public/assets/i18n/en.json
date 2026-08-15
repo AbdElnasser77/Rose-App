@@ -104,7 +104,9 @@
     "LOGOUT": "Log out",
     "NOTIFICATIONS": "Notifications",
     "CART": "Cart",
-    "WISHLIST": "Wishlist"
+    "WISHLIST": "Wishlist",
+    "THEME": "Theme",
+    "LANGUAGE": "Language"
   },
 
   "FOOTER": {

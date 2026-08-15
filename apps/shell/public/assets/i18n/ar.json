@@ -104,7 +104,9 @@
     "LOGOUT": "تسجيل الخروج",
     "NOTIFICATIONS": "الإشعارات",
     "CART": "السلة",
-    "WISHLIST": "المفضلة"
+    "WISHLIST": "المفضلة",
+    "THEME": "المظهر",
+    "LANGUAGE": "اللغة"
   },
 
   "FOOTER": {

@@ -1,63 +1,68 @@
-<div class="search-container relative w-full">
-  
-    <input type="text"  (focus)="openSearch()"
-      [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
-      class="w-full   text-left rtl:text-right rounded-[10px] flex items-center gap-2 p-2 border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none " />
+<!--  Mobile Search Icon  -->
+<div class="md:hidden flex items-center gap-2 search-container">
 
-  
+  <button type="button" (click)="openSearch()"
+    class="p-2 me-3 rounded-full text-zinc-700 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-700/60 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+    aria-label="Open search">
+    <lucide-icon [img]="Search" class="w-6 h-6" />
+  </button>
+</div>
+<!-- Desktop search -->
+<div class="hidden md:block search-container relative w-full">
+
+  <input type="text" (focus)="openSearch()" [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
+    class="w-full   text-left rtl:text-right rounded-[10px] flex items-center gap-2 p-2 border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none " />
+
+</div>
 
 
 
-  @if (isSearchOpen()) {
-  <div class="search-container fixed inset-0 z-100 bg-black/20"
-  (click)="closeSearch()" role="button" tabindex="0" (keyup.enter)="closeSearch()">
+@if (isSearchOpen()) {
+<div class="search-container fixed inset-0 z-100 bg-black/20" (click)="closeSearch()" role="button" tabindex="0"
+  (keyup.enter)="closeSearch()">
 
-    <div class="fixed top-1 left-1/2 -translate-x-1/2 
+  <div class="fixed top-1 left-1/2 -translate-x-1/2 
             w-[100%] md:w-[90%] h-auto max-h-[90vh] 
            overflow-y-auto
            rounded-xl
            bg-white dark:bg-zinc-700
-           shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
-           
-            (click)="$event.stopPropagation()"  
-            role="button" tabindex="0">
+           shadow-[0_8px_40px_rgba(0,0,0,0.08)]" (click)="$event.stopPropagation()" role="button" tabindex="0">
 
-      <div class="flex items-center gap-2 p-3 border-b border-[#A6252A] dark:border-soft-pink-200">
+    <div class="flex items-center gap-2 p-3 border-b border-[#A6252A] dark:border-soft-pink-200">
 
-        <input  #panelSearchInput  type="text" [value]="searchTerm()" (input)="onSearch($event)"
-          [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate" class=" flex items-center w-full rounded-lg border border-zinc-300
+      <input #panelSearchInput type="text" [value]="searchTerm()" (input)="onSearch($event)"
+        [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate" class=" flex items-center w-full rounded-lg border border-zinc-300
            dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:placeholder-zinc-400
            outline-none text-left rtl:text-right  gap-2 p-2 text-xs md:text-sm " />
 
-        <button type="button" (click)="closeSearch()" class="shrink-0 cursor-pointer text-zinc-500
+      <button type="button" (click)="closeSearch()" class="shrink-0 cursor-pointer text-zinc-500
                dark:text-zinc-300">
-          <lucide-icon [img]="X" class="w-6 h-6" />
-        </button>
-      </div>
-
-      @if (!searchTerm().trim()) {
-      <div class="w-full flex items-center  p-2.5 gap-2.5 border-b border-[#E4E4E7] dark:border-soft-pink-200 ">
-        <p
-          class="font-sarabun text-base flex text-start font-semibold leading-none text-[#741C21] dark:text-soft-pink-200">
-          {{'NAV.PRODUCTS_YOU_MAY_LIKE' | translate}}
-        </p>
-      </div>
-      }@if (filteredProducts().length === 0) {
-
-      <div class="flex min-h-[100px] items-center justify-center p-5">
-        <p class="font-sarabun text-sm text-[#A6252A] dark:text-soft-pink-200">
-          {{'NAV.NO_PRODUCTS_FOUND' | translate}}
-        </p>
-      </div>
-
-      } @else {
-
-      @for (product of filteredProducts(); track product.id) {
-      <app-product-search-card [product]="product" [searchTerm]="searchTerm()"
-        (productClicked)="openProductDetails($event)" />
-      }
-      }
+        <lucide-icon [img]="X" class="w-6 h-6" />
+      </button>
     </div>
+
+    @if (!searchTerm().trim()) {
+    <div class="w-full flex items-center  p-2.5 gap-2.5 border-b border-[#E4E4E7] dark:border-soft-pink-200 ">
+      <p
+        class="font-sarabun text-base flex text-start font-semibold leading-none text-[#741C21] dark:text-soft-pink-200">
+        {{'NAV.PRODUCTS_YOU_MAY_LIKE' | translate}}
+      </p>
+    </div>
+    }@if (filteredProducts().length === 0) {
+
+    <div class="flex min-h-[100px] items-center justify-center p-5">
+      <p class="font-sarabun text-sm text-[#A6252A] dark:text-soft-pink-200">
+        {{'NAV.NO_PRODUCTS_FOUND' | translate}}
+      </p>
+    </div>
+
+    } @else {
+
+    @for (product of filteredProducts(); track product.id) {
+    <app-product-search-card [product]="product" [searchTerm]="searchTerm()"
+      (productClicked)="openProductDetails($event)" />
+    }
+    }
   </div>
-  }
 </div>
+}
