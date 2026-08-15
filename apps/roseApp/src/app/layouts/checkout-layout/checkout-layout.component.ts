@@ -128,8 +128,8 @@ export class CheckoutLayoutComponent implements OnInit{
       spaceBetween: 16,
       watchSlidesProgress: true,
       navigation: {
-        nextEl: rtl ? '.payment-products-prev' : '.payment-products-next',
-        prevEl: rtl ? '.payment-products-next' : '.payment-products-prev',
+        nextEl: rtl ? '.checkout-products-prev' : '.checkout-products-next',
+        prevEl: rtl ? '.checkout-products-next' : '.checkout-products-prev',
       },
       breakpoints: {
         0: {

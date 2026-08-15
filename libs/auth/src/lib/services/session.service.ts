@@ -4,12 +4,14 @@ import { JwtPayloadModel } from '../models/jwt-payload.model';
 import { TokenService } from './token.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Buffer } from 'buffer';
+import { AuthFacade } from '../auth-facade';
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
   private readonly _tokenService = inject(TokenService);
   private readonly _authStore = inject(AuthStore);
+  private readonly _authFacade = inject(AuthFacade);
   private readonly _platformId = inject(PLATFORM_ID); 
 
     initSession(): void {
@@ -21,6 +23,12 @@ export class SessionService {
     }
 
     // Get user from api/users/profile
+     
+  this._authFacade.loadProfile().subscribe({
+    error: () => {
+      this.clearSession();
+    },
+  });
     
     }
 

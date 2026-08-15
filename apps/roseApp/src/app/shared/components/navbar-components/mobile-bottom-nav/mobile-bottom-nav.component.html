@@ -1,16 +1,19 @@
-<nav class="fixed bottom-0 left-0 right-0 z-50 w-full
+<nav class="fixed bottom-0 left-0 right-0 z-40 w-full
         flex items-center justify-around
-        border-t border-gray-200
+        border-t border-gray-300
         bg-white dark:bg-zinc-800
          dark:border-zinc-700
-         md:hidden">
+         md:hidden shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
 
-    <div class="grid grid-cols-5 w-full min-w-0 border-t border-gray-200 dark:border-zinc-700">
+    <div class="grid grid-cols-5 w-full min-w-0  dark:border-zinc-700">
         @for (item of mobileBottomItems; track item.route) {
-        <a [routerLink]="item.route" class="min-w-0 relative flex flex-col items-center justify-center gap-1 py-3
-             text-xs text-zinc-700 dark:text-zinc-50
-             hover:text-maroon-700 dark:hover:text-soft-pink-300
-             transition-colors">
+        <a [routerLink]="item.route" 
+         routerLinkActive="!text-[#8B1E24] dark:!text-soft-pink-300 font-bold after:scale-x-100 "
+         [routerLinkActiveOptions]="{ exact: true }"
+        class=" relative min-w-0  flex flex-col items-center justify-center gap-1 py-3
+             text-xs transition-colors hover:text-maroon-700 dark:hover:text-soft-pink-300
+             after:absolute after:bottom-2 after:h-[3px] after:w-8 after:rounded-t-full after:bg-[#8B1E24] dark:after:bg-soft-pink-300 after:scale-x-0 
+             after:transition-transform after:duration-200">
             
            
 

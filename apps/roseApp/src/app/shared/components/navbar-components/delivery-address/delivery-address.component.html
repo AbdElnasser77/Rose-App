@@ -1,18 +1,21 @@
 @if (isLoggedIn()) {
-<button type="button" (click)="onAddressClick()" class=" text-sm shrink-0 text-start cursor-pointer">
+<button type="button" (click)="onAddressClick()" 
+class="pb-1 md:pb-0 text-sm shrink-0 text-start flex items-center gap-3 cursor-pointer">
     @if (deliveryAddress(); as address) {
     <span class="flex flex-row md:flex-col items-center md:items-start gap-1">
-        <span class="text-gray-400 dark:text-zinc-400">
+        <span class="hidden md:block text-gray-400 dark:text-zinc-400">
             {{ 'NAV.DELIVER_TO' | translate }}
         </span>
 
         <span class="flex items-center gap-1 text-maroon-700 dark:text-soft-pink-300">
             <lucide-icon [img]="MapPin" class="w-4 h-4 shrink-0" />
-            <span class="max-w-[140px] truncate">{{ address.city }}</span>
+            <span class="hidden md:block max-w-[140px] truncate">{{ address.city }}</span>
+            <span class="block md:hidden max-w-[140px] truncate">{{ 'NAV.DELIVER_TO' | translate }}</span>
         </span>
     </span>
     } @else {
-    <span class="text-gray-400 dark:text-zinc-400">
+    <span class="flex flex-row md:flex-col items-center md:items-start gap-1">
+    <span class="hidden md:block text-gray-400 dark:text-zinc-400">
         {{ 'NAV.NO_ADDRESS' | translate }}
     </span>
 
@@ -20,6 +23,11 @@
         <lucide-icon [img]="MapPinPlus" class="w-4 h-4 shrink-0" />
         <span>{{ 'NAV.ADD_ADDRESS' | translate }}</span>
     </span>
+    </span>
     }
+    <lucide-icon
+    [img]="ChevronDown"
+    class="w-4 h-4 shrink-0  text-maroon-700 dark:text-soft-pink-300"
+  />
 </button>
 }

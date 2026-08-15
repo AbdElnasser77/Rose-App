@@ -3,7 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthFacade, AuthStore, SessionService } from '@org/auth';
 import { AddressModalService } from '../../../../features/checkout/services/address-modal.service';
-import { ChevronDown, LogOut, LucideAngularModule, MapPinHouse, ScrollText, Settings, User } from 'lucide-angular';
+import { ChevronDown, LogOut, LucideAngularModule, MapPinHouse, 
+  ScrollText, Settings, User ,Moon ,Globe} from 'lucide-angular';
 import { ThemeToggleComponent } from '@rose/theme';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 
@@ -25,11 +26,13 @@ export class UserMenuComponent {
   readonly User = User;
   readonly ChevronDown = ChevronDown;
   readonly LogOut = LogOut;
+  readonly Moon = Moon;
+  readonly Globe = Globe;
 
+  readonly currentUser = this.authStore.user;
   readonly mobile = input(false);
   readonly isDropdownOpen = signal(false) ;
 
-  readonly currentUser = localStorage.getItem('username'); // temporary for navbar **will be removed**
 
 
    readonly isLoggedIn = computed(

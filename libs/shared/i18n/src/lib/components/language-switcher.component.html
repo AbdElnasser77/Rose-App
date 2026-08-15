@@ -1,1 +1,23 @@
-<button (click)="toggle()" class="font-zain cursor-pointer">{{ label }}</button>
+<button (click)="toggle()" class="hidden md:flex font-zain cursor-pointer">{{ label }}</button>
+
+@if(isLoggedIn()){
+<!-- Mobile menu-->
+
+<button type="button" (click)="toggle()" class="md:hidden w-full flex items-center justify-between p-3  px-4 py-3 cursor-pointer
+                   text-sm text-zinc-800 dark:text-zinc-50
+                   hover:bg-gray-100 dark:hover:bg-zinc-700
+                  ">
+    <span class="flex items-center gap-3" >
+
+        <lucide-icon [img]="Globe" class="w-5 h-5" />
+        {{ 'NAV.LANGUAGE' | translate }}
+    </span>
+
+    <span >
+        {{ label }}
+    </span>
+</button>
+}@else {
+    <button (click)="toggle()" class=" md:hidden flex font-zain cursor-pointer">{{ label }}</button>
+
+}

@@ -2,7 +2,7 @@ import { Component, computed, inject, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthStore, SessionService } from '@org/auth';
 import { AddressStore } from '../../../../features/checkout/store/address.store';
-import { LucideAngularModule, MapPin, MapPinPlus } from 'lucide-angular';
+import { LucideAngularModule, MapPin, MapPinPlus ,ChevronDown } from 'lucide-angular';
 
 @Component({
   selector: 'app-delivery-address',
@@ -18,6 +18,7 @@ export class DeliveryAddressComponent {
   readonly addressClicked = output<void>();
   readonly MapPin = MapPin;
   readonly MapPinPlus = MapPinPlus;
+  readonly ChevronDown = ChevronDown;
 
   readonly deliveryAddress = this.addressStore.deliveryAddress;
   readonly isLoggedIn = computed(
