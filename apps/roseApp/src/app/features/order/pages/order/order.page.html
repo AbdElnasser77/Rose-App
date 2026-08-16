@@ -16,5 +16,13 @@
   } @empty {
   <div class="text-center py-10 text-gray-500">{{ 'ORDERS.NO_ORDERS' | translate }}</div>
   }
+
+   @if (totalPages() > 1) {
+      <lib-pagination
+        [page]="page()"
+        [totalPages]="totalPages()"
+        (pageChange)="onPageChange($event)"
+      />
+    }
   }
 </div>

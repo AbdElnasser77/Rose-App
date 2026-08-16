@@ -1,0 +1,38 @@
+@if (totalPages() > 1) {
+  <nav class="flex items-center justify-center gap-2 py-8">
+    <button
+      type="button"
+      class="px-3 py-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+      dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
+      [disabled]="page() === 1"
+      (click)="prev()"
+    >
+      {{ 'PAGINATION.PREVIOUS' | translate }}
+    </button>
+
+    @for (p of pages(); track p) {
+      <button
+        type="button"
+        class="min-w-10 px-3 py-2 rounded-md border text-sm cursor-pointer"
+        [ngClass]="
+          p === page()  
+            ? 'bg-[#DC2626] text-white border-[#DC2626] dark:bg-[#FFC2D0] dark:text-[#27272A] dark:border-[#FFC2D0]'
+            : 'border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46]'
+        "
+        (click)="goTo(p)"
+      >
+        {{ p }}
+      </button>
+    }
+
+    <button
+      type="button"
+      class="px-3 py-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+      dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
+      [disabled]="page() === totalPages()"
+      (click)="next()"
+    >
+     {{ 'PAGINATION.NEXT' | translate }}
+    </button>
+  </nav>
+}

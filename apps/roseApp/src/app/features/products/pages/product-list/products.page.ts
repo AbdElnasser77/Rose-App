@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
 import { ProductsService } from '../../../../core/services/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
-import { ProductsPaginationComponent } from '../../components/product-list/products-pagination/products-pagination.component';
 import { ProductsFilterComponent } from '../../components/product-list/products-filter/products-filter.component';
 import { Router } from '@angular/router';
 import { ToastService } from '@org/shared-util-notification';
@@ -13,13 +12,14 @@ import { ProductFilterService } from '../../services/product-list/product-filter
 import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CartStore } from '../../../cart/store/cart.store';
+import { PaginationComponent } from '@org/ui';
 
 
 @Component({
   selector: 'app-products',
   imports: [
     ProductsGridComponent,
-    ProductsPaginationComponent,
+    PaginationComponent,
     ProductsFilterComponent,LucideAngularModule,TranslatePipe
   ],
   templateUrl: './products.page.html',
