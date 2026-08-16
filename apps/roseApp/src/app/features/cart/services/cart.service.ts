@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { CartItem } from '../models/cart.model';
 import { map, Observable } from 'rxjs';
-import { BASE_URL_CONFIG } from '@org/auth';
+import { BASE_URL_CONFIG, SKIP_ERROR_TOAST } from '@org/auth';
 import { CartResponseModel } from '../models/cart-response.model';
 import { CouponModel } from '../../../shared/models/coupon.model';
 
@@ -19,8 +19,14 @@ export class CartService {
     .pipe(map((res) => res.payload.cartItems));
   }
 
-  addToCart(data: {}): Observable<any> {
-    return this.http.post<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`, data);
+  addToCart(data: {  productId: string; quantity: number}): Observable<any> { 
+    return this.http.post<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart`, 
+      data
+      ,
+    {
+      context: new HttpContext().set(SKIP_ERROR_TOAST, true)
+    }
+    );
   }
 
   // `search` is a substring filter on the code, so the exact match still has to be
@@ -36,7 +42,7 @@ export class CartService {
     .pipe(map((res) => res.payload.data));
   }
 
-  updateCartQuantity(cartItemId: string, quantity: {}): Observable<CartItem[]> {
+  updateCartQuantity(cartItemId: string, quantity: {quantity: number}): Observable<CartItem[]> {
     return this.http.patch<CartResponseModel>(`${this.baseUrlConfig.apiUrl}/cart/${cartItemId}`, quantity)
     .pipe(map((res) => res.payload.cartItems));
   }

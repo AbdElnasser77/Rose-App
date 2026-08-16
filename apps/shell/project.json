@@ -24,6 +24,11 @@
         "styles": ["node_modules/primeicons/primeicons.css",
           "node_modules/leaflet/dist/leaflet.css",
           "node_modules/intl-tel-input/dist/css/intlTelInput.css",
+          "node_modules/swiper/swiper.css",
+           "node_modules/swiper/modules/navigation.css",
+           "node_modules/swiper/modules/pagination.css",
+           "node_modules/swiper/modules/effect-fade.css",
+           "node_modules/swiper/modules/thumbs.css",
           "apps/shell/src/styles.scss"],
         "customWebpackConfig": {
           "path": "apps/shell/webpack.config.ts"

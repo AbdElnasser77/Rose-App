@@ -52,7 +52,7 @@ export class BestSellingComponent implements OnInit {
 
 
   isBestSellingVisible = signal(false);
-  products :Product[]=[];
+  readonly products = signal<Product[]>([]);
   isRtl = computed(() => (this._translateService.currentLang()) === 'ar');
 
 
@@ -67,7 +67,7 @@ export class BestSellingComponent implements OnInit {
   getProducts(): void {
     this.productService.getProduct().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
-        this.products = res.payload.data;
+         this.products.set(res.payload.data);
     
       }
     });

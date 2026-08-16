@@ -103,23 +103,33 @@ export class ProductDataComponent implements OnInit {
     });
   }
 
-  addToCard() {
-    this.route.paramMap
-      .pipe(
-        map((params) => params.get('id') || ''),
-        filter((id) => !!id),
-        tap((id) => this.productId.set(id)),
-        switchMap((id) => this._cartStore.addToCart(id)),
-        takeUntilDestroyed(this.destroyRef)
-      )    
-      .subscribe({
-        next: (res: any) => {
-          if (res.message == "Insufficient stock.") {
-            this.toastService.show('out of the stock', 'success');
-          } else {
-            this.toastService.show('product added to cart', 'success');
-          }
-        },
-      });
-  }
+  
+   addToCard(productId: string): void {
+        if (this._cartStore.isProductInCart(productId)) {
+        this.toastService.show(
+        this._translateService.instant('CART.ALREADY_IN_CART'),
+        'default'
+        );
+        return;
+        }
+  
+       this._cartStore
+       .addToCart(productId)
+       .pipe(takeUntilDestroyed(this.destroyRef))
+       .subscribe({
+       next: (res) => {
+        if (res.message === "Insufficient stock.") {
+          this.toastService.show(
+            this._translateService.instant('CART.OUT_OF_STOCK'),
+            'error'
+          );
+        } else {
+          this.toastService.show(
+            this._translateService.instant('CART.PRODUCT_ADDED'),
+            'success'
+          );
+        }
+      },
+    });
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '@org/ui';
 import { AssetUrlPipe } from '../../../../../core/pipes/asset-url.pipe';
@@ -8,19 +8,22 @@ import {IntersectionObserverDirective } from '@org/util-directives';
 import { CommonModule } from '@angular/common';
 import { SwiperDirective } from '@org/util-directives';
 import { SwiperOptions } from 'swiper/types';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-hero',
   imports: [AssetUrlPipe, BadgeComponent,ButtonComponent,CommonModule,
     IntersectionObserverDirective,LucideAngularModule,
-    TranslatePipe,SwiperDirective],
+    TranslatePipe,SwiperDirective ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
 export class HeroComponent {
   public _translateService = inject(TranslateService);
+  private readonly router = inject(Router);
+
   @ViewChild('bannerSwiper')
   bannerSwiper!: ElementRef;
   
@@ -86,6 +89,9 @@ export class HeroComponent {
   ];
   
   
- 
+ goToProducts(): void {
+  
+  this.router.navigate(['/products']);
+}
 
 }

@@ -93,7 +93,7 @@
             </lib-button>
 
             <lib-button
-            (clicked)="addToCard()"
+            (clicked)="addToCard(product.id)"
             class="flex-1 text-white"
               [attr.aria-label]="'PRODUCT.ADD_TO_CART' | translate">
               <lucide-icon [img]="ShoppingCart" class="w-[24px] h-[24px]" leftIcon></lucide-icon>
