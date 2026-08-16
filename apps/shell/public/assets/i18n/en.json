@@ -502,5 +502,10 @@
       "DELIVERED": "Delivered",
       "CANCELED": "Canceled"
     }
+  },
+  "PAGINATION": {
+    "PREVIOUS": "Previous",
+    "NEXT": "Next"
   }
+
 }

@@ -504,6 +504,10 @@
       "DELIVERED": "تم التوصيل",
       "CANCELED": "ملغي"
     }
+  },
+  "PAGINATION": {
+    "PREVIOUS": "السابق",
+    "NEXT": "التالي"
   }
 }
 

@@ -1,24 +1,26 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, ElementRef, inject, input, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { OrderItemComponent } from '../order-item/order-item.component';
 import { Order, OrderItem } from '../../models/order.model';
 import { Banknote, CreditCard, LucideAngularModule ,ChevronDown ,ChevronUp} from 'lucide-angular';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BadgeComponent } from '../../../../shared/components/badge/badge.component';
 import { OrderStatusPipe } from '../../pipes/order-status-pipe';
 import { DeliveryStatusPipe } from '../../pipes/delivery-status-pipe';
 import { PaymentStatusPipe } from '../../pipes/payment-status-pipe';
 import { PaymentMethodPipe } from '../../pipes/payment-method-pipe';
+import { LocalizedDatePipe } from '../../pipes/localized-date-pipe';
 
 @Component({
   selector: 'app-order-card',
-  imports: [TranslatePipe , OrderItemComponent ,LucideAngularModule ,DatePipe
+  imports: [TranslatePipe , OrderItemComponent ,LucideAngularModule 
      ,BadgeComponent ,OrderStatusPipe ,DeliveryStatusPipe ,PaymentStatusPipe 
-     ,PaymentMethodPipe ,CommonModule],  
+     ,PaymentMethodPipe ,CommonModule ,LocalizedDatePipe ],  
   templateUrl: './order-card.component.html', 
   styleUrl: './order-card.component.scss',
 })
 export class OrderCardComponent {
+  private elementRef = inject(ElementRef);
   order = input.required<Order>();
 
   readonly  Banknote = Banknote;
@@ -29,7 +31,19 @@ export class OrderCardComponent {
   expanded = signal(false);
 
   toggleExpand(): void {
-  this.expanded.update(value => !value);
+    const wasExpanded = this.expanded();
+    
+     this.expanded.update(value => !value);
+
+      if (wasExpanded) {
+        setTimeout(() => {
+      this.elementRef.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+       });
+      }
+  
  }
 
  getVisibleItems(): OrderItem[] {
