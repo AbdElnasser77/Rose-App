@@ -1,5 +1,5 @@
-import { Component, ElementRef, inject, input, signal } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, computed, ElementRef, inject, input, signal } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { OrderItemComponent } from '../order-item/order-item.component';
 import { Order, OrderItem } from '../../models/order.model';
 import { Banknote, CreditCard, LucideAngularModule ,ChevronDown ,ChevronUp} from 'lucide-angular';
@@ -21,6 +21,8 @@ import { LocalizedDatePipe } from '../../pipes/localized-date-pipe';
 })
 export class OrderCardComponent {
   private elementRef = inject(ElementRef);
+  private readonly translateService = inject(TranslateService);
+  
   order = input.required<Order>();
 
   readonly  Banknote = Banknote;
@@ -29,6 +31,12 @@ export class OrderCardComponent {
   readonly ChevronUp = ChevronUp ;
 
   expanded = signal(false);
+
+  readonly currentLang = computed<'ar' | 'en'>(() =>{
+     const lang = this.translateService.currentLang();
+     return lang === 'ar' ? 'ar' : 'en';
+    }
+   );
 
   toggleExpand(): void {
     const wasExpanded = this.expanded();

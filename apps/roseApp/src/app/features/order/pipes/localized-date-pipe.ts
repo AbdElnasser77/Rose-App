@@ -1,16 +1,14 @@
-import { inject, Pipe, PipeTransform } from '@angular/core';
-import { LanguageService } from '@rose/i18n';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'localizedDate',
 })
 export class LocalizedDatePipe implements PipeTransform {
-   private languageService = inject(LanguageService);
    
-  transform(value: string | Date ): string {
+  transform(value: string | Date , lang: 'ar' | 'en' ): string {
     if(!value) return '';
     
-    const lang = this.languageService.getCurrentLanguage();
+   
     return  new Intl.DateTimeFormat(
       lang === 'ar' ? 'ar-EG' : 'en-US',
       {
