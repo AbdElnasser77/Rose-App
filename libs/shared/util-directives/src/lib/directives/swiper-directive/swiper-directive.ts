@@ -54,9 +54,9 @@ export class SwiperDirective implements AfterViewInit {
     if (swiperEl.swiper) {
       swiperEl.swiper.destroy(true, true);
       
-      setTimeout(() => {
-        this._buildSwiper(rtl);
-      }, 0);
+      requestAnimationFrame(() => {
+      this._buildSwiper(rtl);
+    });
     }
   }
 }

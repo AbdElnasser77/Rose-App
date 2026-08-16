@@ -117,7 +117,7 @@
     </div>
     @if (showCheckoutButton()) {
     <lib-button variant="Primary" size="full" [disabled]="checkoutDisabled() || !cartHasItems()"
-        (clicked)="onCheckout()" customClass="h-[49px] px-4 py-2.5 gap-2.5 font-sarabun text-[20px]">
+        (clicked)="onCheckout()" customClass="h-[49px] px-4 py-2.5 gap-2.5 font-sarabun text-[20px] text-[#FFFFFF]">
 
         {{ 'CART.CHECKOUT' | translate }}
         <lucide-icon rightIcon [img]="MoveRight" [class.rotate-180]="isRtl()" class="h-5 w-5"></lucide-icon>

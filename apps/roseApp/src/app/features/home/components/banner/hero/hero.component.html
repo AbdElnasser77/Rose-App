@@ -1,18 +1,18 @@
 <section libIntersectionObserverDirective [observeOnce]="true" (visibilityChange)="onBannerVisible($event)"
     class="w-full px-4 md:px-8 lg:px-[81px] mt-[41px]">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-[24px] w-full justify-items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-[24px] w-full justify-items-center ">
 
         <div class="relative w-full overflow-hidden lg:col-span-1 h-[440px] rounded-[16px] 
-            p-[24px] flex flex-col justify-between transition-all duration-700 ease-out" [ngClass]="{
+            p-[24px] flex flex-col justify-between transition-all duration-700 ease-out " [ngClass]="{
     'opacity-100 translate-x-0': isBannerVisible(),
     'opacity-0 -translate-x-8': !isBannerVisible()
   }">
 
 
             <img [src]="'assets/images/banner/specialGifts.webp' | assetUrl"
-                [alt]="'HERO.SIDE_BANNER.TITLE' | translate" class="absolute inset-0 w-full h-full object-cover" />
+                [alt]="'HERO.SIDE_BANNER.TITLE' | translate" class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
 
-            <div class="absolute inset-0 bg-black/10 "></div>
+            <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
             <div class=" mt-auto  relative z-10 p-[24px] flex flex-col gap-[10px]">
                 <app-badge [text]="'HERO.SIDE_BANNER.BADGE' | translate" variant="secondary">
@@ -22,8 +22,8 @@
                     class="font-sarabun font-semibold  text-[18px] sm:text-[20px] xl:text-[24px]  leading-none tracking-normal text-white mb-[8px]">
                     {{ 'HERO.SIDE_BANNER.TITLE' | translate }}</h3>
 
-                <lib-button size="auto"
-                    customClass="text-maroon-700  w-[129px]  px-4 py-[10px] gap-[10px] mt-[30px] rtl:flex-row-reverse"
+                <lib-button size="auto" (clicked)="goToProducts()"
+                    customClass="text-maroon-700  w-[129px]  px-4 py-[10px] gap-[10px] mt-[30px] rtl:flex-row-reverse cursor-pointer"
                     variant="Secondary">
                     {{ 'HERO.SIDE_BANNER.BUTTON' | translate }}
                      @if (isRtl()) {
@@ -57,8 +57,8 @@
                 <swiper-slide>
                     <div class="relative w-full h-[440px] p-[24px] flex flex-col justify-end">
                         <img [src]="slide.image | assetUrl" [alt]="slide.title"
-                            class="absolute inset-0 w-full h-full object-cover" />
-                        <div class="absolute inset-0  bg-linear-to-r  from-black/80 to-transparent"></div>
+                            class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                        <div class="absolute inset-0  bg-linear-to-r  from-black/80 to-transparent pointer-events-none"></div>
 
                         <div class="relative z-10 max-w-[500px] flex flex-col gap-[6px] mb-[40px] ml-[24px]">
                             <h2
@@ -67,8 +67,8 @@
                             <p class="font-sarabun text-white text-[16px] font-normal m-0 leading-none tracking-normal">
                                 {{ slide.subTitle | translate }}</p>
 
-                            <lib-button size="auto"
-                                customClass=" w-[129px] py-[10px] px-[16px] gap-[10px] text-[16px] text-maroon-700 mt-[36px]"
+                            <lib-button size="auto" (clicked)="goToProducts()"
+                                customClass=" w-[129px] py-[10px] px-[16px] gap-[10px] text-[16px] text-maroon-700 mt-[36px] cursor-pointer"
                                 variant="Secondary">
                                 {{ 'HERO.SLIDES.BUY_BUTTON' | translate }}
                             </lib-button>
