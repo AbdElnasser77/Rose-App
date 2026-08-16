@@ -24,7 +24,9 @@
     "glob": "**/*",
     "input": "libs/shared/assets",
     "output": "assets"
-  }
+  },
+  
+  "apps/roseApp/src/vercel.json"
 ],
         "styles": [
           "node_modules/leaflet/dist/leaflet.css",
