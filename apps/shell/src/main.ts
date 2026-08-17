@@ -4,13 +4,9 @@ fetch('/module-federation.manifest.json')
   .then((res) => res.json())
   .then((remotes: Record<string, string>) => {
 
-    const processEnv = (window as any).process?.env || {};
-    const productionRemoteUrl = processEnv['NX_ROSE_APP_URL'];
-
-    if (productionRemoteUrl && remotes['roseApp']) {
-      remotes['roseApp'] = productionRemoteUrl;
+    if (remotes['roseApp']) {
+      remotes['roseApp'] = 'https://rose-app-sand.vercel.app';
     }
-
     return Object.entries(remotes).map(([name, entry]) => ({ name, entry }));
   })
   .then((remotes) => registerRemotes(remotes))
