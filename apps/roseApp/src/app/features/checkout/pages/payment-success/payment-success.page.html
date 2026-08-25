@@ -1,0 +1,39 @@
+<section class="flex w-full justify-center  mt-[45px]">
+  <div
+    class="flex w-full max-w-xl flex-col items-center rounded-2xl bg-white px-6 py-12 text-center shadow-sm dark:bg-zinc-800 sm:px-10">
+    <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50 dark:bg-green-500/10">
+      <div class="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20">
+        <lucide-icon [img]="CircleCheck" class="h-9 w-9 text-green-600 dark:text-green-400" />
+      </div>
+    </div>
+
+
+    <h1 class="font-sarabun text-3xl font-bold text-[#27272A] dark:text-white">
+      {{ 'PAYMENT.SUCCESS.TITLE' | translate }}
+    </h1>
+    <p class="mt-3 max-w-md font-sarabun text-base md:text-xl leading-relaxed text-[#52525B] dark:text-[#A1A1AA]">
+      {{ 'PAYMENT.SUCCESS.DESCRIPTION' | translate }}
+    </p>
+
+    <div class="mt-6 rounded-xl bg-zinc-50 px-8 py-4 dark:bg-zinc-700/50">
+      <p class="font-sarabun text-sm text-[#71717A] dark:text-[#A1A1AA]">
+        {{ 'PAYMENT.SUCCESS.AMOUNT_PAID' | translate }}
+      </p>
+
+      <p class="mt-1 font-sarabun text-2xl font-bold text-[#27272A] dark:text-white">
+        {{ amountTotal }} {{ 'COMMON.EGP' | translate }}
+      </p>
+    </div>
+
+    <div class="mt-8 flex w-full flex-col gap-3 sm:flex-row">
+      <button type="button" (click)="viewOrders()"
+        class="flex h-11 flex-1 items-center justify-center rounded-[10px] bg-[#A6252A] px-4 font-sarabun text-base font-semibold text-white transition-colors hover:bg-[#741C21] dark:bg-[#FFA3B9] dark:text-[#27272A] dark:hover:bg-[#FF89A6] cursor-pointer">
+        {{ 'PAYMENT.SUCCESS.VIEW_ORDERS' | translate }}
+      </button>
+      <button type="button" (click)="continueShopping()"
+        class="flex h-11 flex-1 items-center justify-center rounded-[10px] border border-[#A6252A] bg-transparent px-4 font-sarabun text-base font-semibold text-[#A6252A] transition-colors hover:bg-[#A6252A]/5 dark:border-[#FFC2D0] dark:text-[#FFC2D0] dark:hover:bg-[#FFC2D0]/10 cursor-pointer">
+        {{ 'PAYMENT.SUCCESS.CONTINUE_SHOPPING' | translate }}
+      </button>
+    </div>
+  </div>
+</section>

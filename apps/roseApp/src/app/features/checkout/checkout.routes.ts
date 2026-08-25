@@ -19,7 +19,25 @@ export const checkoutRoutes: Routes = [
         loadComponent: () =>
           import('./pages/payment/payment.page').then((m) => m.PaymentPage),
         title: 'payment',
-      },
+      }
     ],
   },
+  {
+        path: 'success',
+        data: { showSummaryCheckout: false },
+        loadComponent: () =>
+          import('./pages/payment-success/payment-success.page').then(
+            (m) => m.PaymentSuccessPage,
+          ),
+        title: 'payment-success',
+    },
+  {
+        path: 'cancel',
+        data: { showSummaryCheckout: false },
+        loadComponent: () =>
+          import('./pages/payment-cancel/payment-cancel.page').then(
+            (m) => m.PaymentCancelPage,
+          ),
+        title: 'payment-cancel',
+      },
 ];

@@ -369,7 +369,8 @@
       "TITLE": "Payment Successful!",
       "DESCRIPTION": "Your payment has been completed successfully. What would you like to do next?",
       "CONTINUE_SHOPPING": "Continue Shopping",
-      "VIEW_ORDERS": "View Orders"
+      "VIEW_ORDERS": "View Orders",
+      "AMOUNT_PAID": "Amount Paid"
     },
   "FAILED": {
   "TITLE": "Payment Failed",
