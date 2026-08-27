@@ -1,0 +1,35 @@
+<div 
+      class="relative p-4 transition-colors flex items-start justify-between gap-3 group border-b border-gray-100"
+      [class.bg-gray-100/70]="!item().isRead"
+      [class.bg-white]="item().isRead">
+      
+      
+      <div class="flex-1 space-y-1">
+        <h4 class="text-xs font-bold text-gray-900 leading-snug">
+          {{ item().title }}
+        </h4>
+        <p class="text-[11px] text-gray-500 leading-relaxed">
+          {{ item().message }}
+        </p>
+      </div>
+
+      <!-- PrimeNG Menu Toggle Button -->
+      <div class="relative">
+        <button 
+          type="button"
+          (click)="menu.toggle($event)"
+          class="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-200/50 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+        </button>
+
+        <!-- PrimeNG Menu Component -->
+        <p-menu 
+          #menu 
+          [model]="items" 
+          [popup]="true" 
+          styleClass="!w-44 !text-xs !shadow-xl !rounded-xl !border-gray-100">
+        </p-menu>
+      </div>
+    </div>

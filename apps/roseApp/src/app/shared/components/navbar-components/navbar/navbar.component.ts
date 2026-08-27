@@ -12,12 +12,14 @@ import { CartStore } from '../../../../features/cart/store/cart.store';
 import { AddressModalService } from '../../../../features/checkout/services/address-modal.service';
 import { AddressStore } from '../../../../features/checkout/store/address.store';
 import { CheckoutStore } from '../../../../features/checkout/store/checkout.store';
+import { NotificationStore } from '../../../../features/notifications/store/notification.store';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { MainNavLinksComponent } from '../main-nav-links/main-nav-links.component';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { MobileBottomNavComponent } from '../mobile-bottom-nav/mobile-bottom-nav.component';
 import { DeliveryAddressComponent } from '../delivery-address/delivery-address.component';
+import { NotificationsService } from '../../../../features/notifications/services/notifications.service';
 
 @Component({
   selector: 'app-navbar',
@@ -37,10 +39,13 @@ export class NavbarComponent {
   private readonly addressModal = inject(AddressModalService);
   private readonly addressStore = inject(AddressStore);
   private readonly _checkoutStore = inject(CheckoutStore);
+  private readonly _notificationStore = inject(NotificationStore);
   private readonly destroyRef = inject(DestroyRef);
-
+  private readonly _notificationsService = inject(NotificationsService);
+  
   readonly wishlistCount = this._wishlistStore.wishlistCount;
   readonly cartCount = this._cartStore.cartCount;
+  readonly notificationsCount = this._notificationStore.unreadCount;
 
  
   readonly ShoppingCart = ShoppingCart;
@@ -72,6 +77,7 @@ export class NavbarComponent {
         this._wishlistStore.reset();
         // Persisted now, so it would otherwise outlive the session it belongs to.
         this._checkoutStore.clear();
+        this._notificationStore.clear();
         return;
       }
       this.addressStore
@@ -80,6 +86,11 @@ export class NavbarComponent {
         .subscribe();
       this._cartStore.loadCart();
       this._wishlistStore.loadWishlist();
+
+    this._notificationsService
+    .getUnreadCount()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe();
     });
   }
  
