@@ -63,7 +63,10 @@
         }
       </button>
 
-      <button
+      <div class="relative  notification-container">
+      <button 
+        type="button"
+        (click)="toggleNotifications()"
         class="hidden md:block cursor-pointer text-zinc-800 dark:text-zinc-50 hover:text-[#8B1E24] dark:hover:text-soft-pink-300 relative">
         <lucide-icon [img]="Bell" class="w-5 h-5" />
         @if (isLoggedIn()) {
@@ -74,6 +77,15 @@
         }
         }
       </button>
+       
+      @if (isLoggedIn() && isNotificationsOpen()) {
+        <div class="absolute end-0 top-full mt-3 ...">
+          <app-notification-list />
+        </div>
+       
+      }
+      
+      </div>
 
       <div class="hidden md:block w-px h-6 bg-gray-300 dark:bg-zinc-600"></div>
 
