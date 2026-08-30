@@ -1,4 +1,4 @@
 {
-  "dashboard": "https://dashboard-remote.vercel.app/remoteEntry.mjs",
-  "roseApp": "https://rose-app-remote.vercel.app/remoteEntry.mjs"
+  "dashboard": "https://dashboard-remote.vercel.app/mf-manifest.json",
+  "roseApp": "https://rose-app-remote.vercel.app/mf-manifest.json"
 }
