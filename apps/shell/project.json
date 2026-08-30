@@ -36,14 +36,7 @@
       },
       "configurations": {
         "production": {
-          "fileReplacements": [
-          {
-        "replace": "apps/shell/public/module-federation.manifest.json",
-        "with": "apps/shell/public/module-federation.manifest.production.json"
-          }
-          ]  ,
           "budgets": [
-            
             {
               "type": "initial",
               "maximumWarning": "500kb",
