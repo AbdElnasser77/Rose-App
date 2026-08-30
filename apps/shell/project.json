@@ -19,6 +19,11 @@
           {
             "glob": "**/*",
             "input": "apps/shell/public"
+          },
+          {
+           "glob": "module-federation.manifest.json",
+           "input": "apps/shell/src/assets",
+            "output": "/"
           }
         ],
         "styles": ["node_modules/primeicons/primeicons.css",
