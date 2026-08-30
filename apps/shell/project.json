@@ -19,6 +19,11 @@
           {
             "glob": "**/*",
             "input": "apps/shell/public"
+          },
+          {
+            "glob": "module-federation.manifest.json",
+            "input": "apps/shell/src/assets",
+            "output": "/"
           }
         ],
         "styles": ["node_modules/primeicons/primeicons.css",
@@ -37,11 +42,11 @@
       "configurations": {
         "production": {
           "fileReplacements": [
-          {
-        "replace": "apps/shell/public/module-federation.manifest.json",
-        "with": "apps/shell/public/module-federation.manifest.production.json"
-          }
-          ]  ,
+            {
+              "replace": "apps/shell/src/assets/module-federation.manifest.json",
+              "with": "apps/shell/src/assets/module-federation.manifest.production.json"
+            }
+          ],
           "budgets": [
             
             {
