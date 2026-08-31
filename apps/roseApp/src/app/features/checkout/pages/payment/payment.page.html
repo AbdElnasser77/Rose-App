@@ -73,16 +73,3 @@
 
 </div>
 }
-
-<!-- payment-success-modal -->
-<app-payment-success-modal
-    [visible]="showPaymentSuccess()"
-    (continueShoppingClicked)="onContinueShopping()"
-    (viewOrdersClicked)="onViewOrders()"
-/>
-<!-- payment-failed-modal -->
-<app-payment-failed-modal
-  [visible]="showPaymentFailed()"
-  (tryAgainClicked)="onTryAgain()"
-
-/>
