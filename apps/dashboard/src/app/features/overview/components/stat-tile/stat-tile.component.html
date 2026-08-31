@@ -1,0 +1,30 @@
+<div
+  class="flex h-full flex-col gap-4 rounded-2xl p-4 sm:p-5"
+  [class]="surfaceClass()"
+>
+  <lucide-angular
+    [img]="icon()"
+    [class]="iconClass()"
+    class="size-6"
+    aria-hidden="true"
+  />
+
+  @if (loading()) {
+    <div class="flex flex-col gap-2">
+      <div class="h-7 w-24 animate-pulse rounded-md bg-black/10 dark:bg-white/10"></div>
+      <div class="h-4 w-20 animate-pulse rounded-md bg-black/10 dark:bg-white/10"></div>
+    </div>
+  } @else {
+    <div class="flex flex-col gap-1">
+      <p class="flex items-baseline gap-1.5 text-2xl leading-none font-semibold" [class]="valueClass()">
+        <span>{{ value() | number }}</span>
+        @if (suffix()) {
+          <span class="text-xs font-medium">{{ suffix() }}</span>
+        }
+      </p>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">
+        {{ labelKey() | translate }}
+      </p>
+    </div>
+  }
+</div>

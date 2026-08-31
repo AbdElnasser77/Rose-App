@@ -1,0 +1,7 @@
+/*
+ * The host, not the <aside>, is the flex item of the layout row. Without this
+ * the aside only ever gets its content height, so the divider stops short.
+ */
+:host {
+  display: contents;
+}

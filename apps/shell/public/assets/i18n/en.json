@@ -506,6 +506,50 @@
   "PAGINATION": {
     "PREVIOUS": "Previous",
     "NEXT": "Next"
+  },
+  "DASHBOARD": {
+    "LAYOUT": {
+      "BRAND": "Rose Dashboard",
+      "TOGGLE_MENU": "Toggle navigation menu",
+      "COPYRIGHT": "© {{year}} Rose. All rights reserved.",
+      "NAV": {
+        "OVERVIEW": "Overview",
+        "PRODUCTS": "Products",
+        "ORDERS": "Orders",
+        "NOTIFICATIONS": "Notifications",
+        "SETTINGS": "Settings"
+      }
+    },
+    "OVERVIEW": {
+      "BREADCRUMB": "Dashboard",
+      "TITLE": "Dashboard overview",
+      "TOTAL_PRODUCTS": "Total products",
+      "TOTAL_ORDERS": "Total orders",
+      "TOTAL_CATEGORIES": "Total categories",
+      "TOTAL_REVENUE": "Total revenue",
+      "ALL_CATEGORIES": "All Categories",
+      "PRODUCTS_COUNT": "{{count}} Products",
+      "ORDERS_STATUS": "Orders Status",
+      "STATUS": {
+        "COMPLETED": "Completed",
+        "IN_PROGRESS": "In progress",
+        "CANCELED": "Canceled"
+      },
+      "REVENUE": "Revenue",
+      "RANGE": {
+        "MONTHLY": "Monthly",
+        "LAST_WEEK": "Last Week"
+      },
+      "TOP_SELLING": "Top Selling Products",
+      "SALES_COUNT": "{{count}} Sales",
+      "LOW_STOCK": "Low Stock Products",
+      "EMPTY_CATEGORIES": "No categories yet",
+      "EMPTY_ORDERS": "No orders yet",
+      "EMPTY_REVENUE": "No revenue data for this period",
+      "EMPTY_TOP_SELLING": "No sales recorded yet",
+      "EMPTY_LOW_STOCK": "All products are well stocked",
+      "LOAD_FAILED": "Couldn't load the dashboard statistics.",
+      "RETRY": "Try again"
+    }
   }
-
 }

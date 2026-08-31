@@ -1,0 +1,44 @@
+<app-overview-card titleKey="DASHBOARD.OVERVIEW.TOP_SELLING">
+  <div class="scroll-fade max-h-80 overflow-y-auto pe-1">
+    @if (loading()) {
+      <ul class="flex flex-col gap-1">
+        @for (row of skeletonRows; track $index) {
+          <li class="flex items-center justify-between rounded-lg px-3 py-2.5">
+            <span class="h-4 w-48 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700"></span>
+            <span class="h-4 w-16 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700"></span>
+          </li>
+        }
+      </ul>
+    } @else if (products().length === 0) {
+      <p class="py-10 text-center text-sm text-zinc-500 dark:text-zinc-400">
+        {{ 'DASHBOARD.OVERVIEW.EMPTY_TOP_SELLING' | translate }}
+      </p>
+    } @else {
+      <ul class="flex flex-col gap-1">
+        @for (product of products(); track product.productId; let i = $index) {
+          <li
+            class="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5"
+            [class]="rowClass(i)"
+          >
+            <span class="flex min-w-0 items-baseline gap-1.5">
+              <span class="truncate text-sm text-zinc-800 dark:text-zinc-100">
+                {{ product.title }}
+              </span>
+              <span class="shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                ({{ product.unitPrice | number: '1.0-2' }} {{ currency() }})
+              </span>
+            </span>
+            <span
+              class="shrink-0 text-sm font-semibold text-zinc-900 tabular-nums dark:text-zinc-50"
+            >
+              {{
+                'DASHBOARD.OVERVIEW.SALES_COUNT'
+                  | translate: { count: product.totalSales }
+              }}
+            </span>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</app-overview-card>
