@@ -224,7 +224,7 @@ export class PaymentPage implements OnInit{
             );
             this._checkoutStore.clear();
             this._cartStore.loadCart();
-             this._router.navigate(['/order']);
+             this._router.navigate(['/orders']);
              
           
        },
@@ -281,9 +281,8 @@ export class PaymentPage implements OnInit{
 
   onViewOrders() {
   this.showPaymentSuccess.set(false);
-  this._router.navigate(['/order']);
+  this._router.navigate(['/orders']);
   }
-
   // Actions payment failed modal
   onTryAgain() {
   this.showPaymentFailed.set(false);

@@ -80,7 +80,7 @@
        
       @if (isLoggedIn() && isNotificationsOpen()) {
         <div class="absolute end-0 top-full mt-3 ...">
-          <app-notification-list />
+          <app-notification-list  (closeRequested)="isNotificationsOpen.set(false)" />
         </div>
        
       }

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BrushCleaning, CheckCheck, LucideAngularModule ,BellOff } from 'lucide-angular';
 
@@ -20,9 +20,11 @@ export class NotificationListComponent implements OnInit{
   private readonly _notificationsService = inject(NotificationsService);
   private readonly _notificationStore = inject(NotificationStore);
 
-  readonly notifications = signal<NotificationItemModel[]>([]);
-  readonly totalNotifications = computed(() => this.notifications().length);
+  readonly notifications = signal<NotificationItemModel[]| null>(null);
+  readonly totalNotifications = computed(() => this.notifications()?.length ?? 0);
   readonly unreadCount = this._notificationStore.unreadCount;
+  readonly isLoading = signal(false);
+  readonly closeRequested = output<void>();
 
   readonly BrushCleaning = BrushCleaning;
   readonly CheckCheck = CheckCheck;
@@ -34,39 +36,56 @@ export class NotificationListComponent implements OnInit{
   
 
   loadNotifications(): void {
+    
     this._notificationsService
       .getNotifications()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response) => {
+      .subscribe({
+      next: (response) => {
         this.notifications.set(response.payload.data);
-      });
+        
+        
+      },
+      error: () => {
+        this.notifications.set([]);
+      }
+    });
   }
 
   markAllAsRead(): void {
     this._notificationsService
       .markAllAsRead()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+      next: () => this.loadNotifications()
+    });
   }
 
   clearAll(): void {
     this._notificationsService
       .clearAllNotifications()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+      next: () => this.loadNotifications()
+    });
   }
 
   handleMarkAsRead(id: string): void {
     this._notificationsService
       .markNotificationAsRead(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+      next: () => this.loadNotifications()
+      
+    });
   }
 
   handleDelete(id: string): void {
     this._notificationsService
       .deleteNotification(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+      next: () => this.loadNotifications()
+    });
   }
 }

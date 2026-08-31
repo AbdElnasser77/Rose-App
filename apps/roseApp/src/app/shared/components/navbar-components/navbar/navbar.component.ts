@@ -64,8 +64,12 @@ export class NavbarComponent {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
   const target = event.target as HTMLElement;
+  
+  const clickedInsideNotification =
+    target.closest('.notification-container') ||
+    target.closest('.p-menu');
 
-  if (!target.closest('.notification-container')) {
+  if (!clickedInsideNotification) {
     this.isNotificationsOpen.set(false);
   }
   }

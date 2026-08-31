@@ -1,14 +1,16 @@
+ @if (notifications() !== null) {
 <div class="w-full md:w-[336px] rounded-xl overflow-hidden bg-white shadow-none md:shadow-[0px_4px_9px_0px_#00000026] dark:bg-zinc-700 dark:shadow-none dark:border dark:border-zinc-700">
   <!-- Header -->
   <div class="bg-maroon-700 text-white px-5 py-4 dark:bg-soft-pink-200">
     <h3 class="font-sarabun font-bold text-base sm:text-lg md:text-xl leading-none text-white dark:text-zinc-800">
-      {{ 'NOTIFICATIONS.TITLE' | translate }} ({{ totalNotifications() }})
+      {{ 'NOTIFICATIONS.TITLE' | translate }} @if(totalNotifications()>0){({{ totalNotifications() }})} 
     </h3>
   </div>
 
+    
   <!-- Sub-Header Actions (Clear all & Mark all as read) -->
   @if (totalNotifications() > 0 || unreadCount() > 0) {
-    <div class="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200 text-xs font-sarabun font-semibold text-zinc-700 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-200">
+    <div class="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200 text-xs font-sarabun font-semibold text-zinc-700 dark:bg-zinc-700 dark:border-zinc-700 dark:text-zinc-200">
       @if (totalNotifications() > 0) {
         <button
           type="button"
@@ -33,18 +35,23 @@
   }
 
   <!-- Notification Items List -->
-  <div class="max-h-[480px] overflow-y-auto divide-y divide-gray-100 dark:divide-zinc-700">
+  <div class="max-h-[480px] bg-white dark:bg-zinc-700 overflow-y-auto divide-y divide-gray-100 dark:divide-zinc-700">
+     
     @for (item of notifications(); track item.id) {
       <app-notification-item
         [item]="item"
         (markAsReadClicked)="handleMarkAsRead($event)"
         (deleteClicked)="handleDelete($event)"
+        (notificationClicked)="closeRequested.emit()"
       />
     } @empty {
       <div class="h-[224px] flex flex-col items-center justify-center gap-2.5 border-t border-[#D9D9D9] text-zinc-500 font-sarabun dark:border-zinc-600 dark:text-zinc-400">
-        <lucide-angular [img]="BellOff" class="w-[42px] h-[42px] sm:w-[48px] sm:h-[48px] mx-auto mb-2"></lucide-angular>
+        <lucide-angular [img]="BellOff" [strokeWidth]="1" class="w-[42px] h-[42px] sm:w-[48px] sm:h-[48px] mx-auto mb-2"></lucide-angular>
         <span class=" font-medium text-xs sm:text-sm leading-none tracking-normal ">{{ 'NOTIFICATIONS.EMPTY' | translate }}</span>
       </div>
     }
+  
   </div>
+
 </div>
+ }

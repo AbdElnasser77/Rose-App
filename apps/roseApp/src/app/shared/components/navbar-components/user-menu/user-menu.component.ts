@@ -66,7 +66,7 @@ export class UserMenuComponent {
   },
   {
     label: 'NAV.ORDERS',
-    route: '/order',
+    route: '/orders',
     icon : ScrollText
   },
   {

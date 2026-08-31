@@ -1,5 +1,5 @@
 <!--  Mobile Search Icon  -->
-<div class="md:hidden flex items-center gap-2 search-container">
+<div class="md:hidden flex items-center gap-2 ">
 
   <button type="button" (click)="openSearch()"
     class="p-2 me-3 rounded-full text-zinc-700 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-700/60 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
@@ -8,7 +8,7 @@
   </button>
 </div>
 <!-- Desktop search -->
-<div class="hidden md:block search-container relative w-full">
+<div class="hidden md:block  relative w-full">
 
   <input type="text" (focus)="openSearch()" [placeholder]="'NAV.SEARCH_PLACEHOLDER' | translate"
     class="w-full   text-left rtl:text-right rounded-[10px] flex items-center gap-2 p-2 border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder-zinc-400 rounded-md text-xs md:text-sm outline-none " />
@@ -18,7 +18,7 @@
 
 
 @if (isSearchOpen()) {
-<div class="search-container fixed inset-0 z-100 bg-black/20" (click)="closeSearch()" role="button" tabindex="0"
+<div class=" fixed inset-0 z-100 bg-black/20" (click)="closeSearch()" role="button" tabindex="0"
   (keyup.enter)="closeSearch()">
 
   <div class="fixed top-1 left-1/2 -translate-x-1/2 

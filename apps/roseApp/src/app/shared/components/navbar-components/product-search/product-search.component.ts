@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -40,15 +40,6 @@ export class ProductSearchComponent implements OnInit{
     );
     });
 
-     // Close the search dropdown when clicking outside the search container
-    @HostListener('document:click',['$event'])
-    onDocumentClick(event :MouseEvent):void{
-        const target = event.target as HTMLElement;
-  
-        if (!target.closest('.search-container')) {
-         this.closeSearch();
-        }
-    }
    
     
    
@@ -63,7 +54,7 @@ export class ProductSearchComponent implements OnInit{
 
     setTimeout(() => {
     this.panelSearchInput?.nativeElement.focus();
-    });
+    },0);
     }
   
     closeSearch() {

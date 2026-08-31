@@ -47,7 +47,7 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
-        path: 'order',
+        path: 'orders',
         loadChildren: () =>
           import('../features/order/order.routes').then(
             (m) => m.OrderRoutes,
