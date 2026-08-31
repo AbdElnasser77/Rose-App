@@ -508,6 +508,14 @@
   "PAGINATION": {
     "PREVIOUS": "السابق",
     "NEXT": "التالي"
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "الإشعارات",
+    "CLEAR_ALL": "مسح جميع الإشعارات",
+    "MARK_ALL_AS_READ": "تحديد الكل كمقروء",
+    "MARK_AS_READ": "تحديد كمقروء",
+    "DELETE": "حذف الإشعار",
+    "EMPTY": "لا توجد إشعارات"
   }
 }
 

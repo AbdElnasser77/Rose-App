@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, HostListener, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {  RouterLink } from '@angular/router';
+import {  Router, RouterLink } from '@angular/router';
 import { AuthStore, SessionService } from '@org/auth';
 import { LanguageSwitcherComponent } from '@rose/i18n';
 import { ThemeToggleComponent } from '@rose/theme';
@@ -12,12 +12,15 @@ import { CartStore } from '../../../../features/cart/store/cart.store';
 import { AddressModalService } from '../../../../features/checkout/services/address-modal.service';
 import { AddressStore } from '../../../../features/checkout/store/address.store';
 import { CheckoutStore } from '../../../../features/checkout/store/checkout.store';
+import { NotificationStore } from '../../../../features/notifications/store/notification.store';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { UserMenuComponent } from '../user-menu/user-menu.component';
 import { MainNavLinksComponent } from '../main-nav-links/main-nav-links.component';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { MobileBottomNavComponent } from '../mobile-bottom-nav/mobile-bottom-nav.component';
 import { DeliveryAddressComponent } from '../delivery-address/delivery-address.component';
+import { NotificationsService } from '../../../../features/notifications/services/notifications.service';
+import { NotificationListComponent } from '../../../../features/notifications/components/notification-list/notification-list.component';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +28,8 @@ import { DeliveryAddressComponent } from '../delivery-address/delivery-address.c
   imports: [CommonModule, RouterLink, LucideAngularModule,LanguageSwitcherComponent,
      ThemeToggleComponent, AssetUrlPipe, ProductSearchComponent 
      ,UserMenuComponent ,MainNavLinksComponent ,
-     MobileMenuComponent ,MobileBottomNavComponent ,DeliveryAddressComponent],
+     MobileMenuComponent ,MobileBottomNavComponent ,DeliveryAddressComponent
+    ,NotificationListComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
@@ -37,10 +41,14 @@ export class NavbarComponent {
   private readonly addressModal = inject(AddressModalService);
   private readonly addressStore = inject(AddressStore);
   private readonly _checkoutStore = inject(CheckoutStore);
+  private readonly _notificationStore = inject(NotificationStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly _notificationsService = inject(NotificationsService);
+  private readonly _router = inject(Router);
 
   readonly wishlistCount = this._wishlistStore.wishlistCount;
   readonly cartCount = this._cartStore.cartCount;
+  readonly notificationsCount = this._notificationStore.unreadCount;
 
  
   readonly ShoppingCart = ShoppingCart;
@@ -50,9 +58,33 @@ export class NavbarComponent {
   readonly Menu = Menu;
   readonly Search = Search;
   
+  readonly isNotificationsOpen = signal(false);
   readonly isMobileMenuOpen = signal(false);
-  toggleMobileMenu(): void {
+   
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+  const target = event.target as HTMLElement;
+  
+  const clickedInsideNotification =
+    target.closest('.notification-container') ||
+    target.closest('.p-menu');
 
+  if (!clickedInsideNotification) {
+    this.isNotificationsOpen.set(false);
+  }
+  }
+  
+   toggleNotifications(): void {
+    if (this.isLoggedIn()) {
+        this.isNotificationsOpen.update(isOpen => !isOpen);
+    }else {
+      
+      this._router.navigate(['auth/login']);
+    }
+  }
+  
+  
+  toggleMobileMenu(): void {
    this.isMobileMenuOpen.update(value => !value);
   }
 
@@ -72,6 +104,7 @@ export class NavbarComponent {
         this._wishlistStore.reset();
         // Persisted now, so it would otherwise outlive the session it belongs to.
         this._checkoutStore.clear();
+        this._notificationStore.clear();
         return;
       }
       this.addressStore
@@ -80,6 +113,11 @@ export class NavbarComponent {
         .subscribe();
       this._cartStore.loadCart();
       this._wishlistStore.loadWishlist();
+
+    this._notificationsService
+    .getUnreadCount()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe();
     });
   }
  

@@ -506,6 +506,14 @@
   "PAGINATION": {
     "PREVIOUS": "Previous",
     "NEXT": "Next"
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "Notifications",
+    "CLEAR_ALL": "Clear all notifications",
+    "MARK_ALL_AS_READ": "Mark all as read",
+    "MARK_AS_READ": "Mark as read",
+    "DELETE": "Delete notification",
+    "EMPTY": "No notifications to display."
   }
 
 }
