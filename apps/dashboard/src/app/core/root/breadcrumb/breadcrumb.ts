@@ -7,6 +7,7 @@ import { MenuItem } from 'primeng/api';
 import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { AssetUrlPipe } from '../../pipes/asset-url.pipe';
 
 export interface IBreadcrumb {
   label: string;
@@ -16,7 +17,7 @@ export interface IBreadcrumb {
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule],
+  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe],
   templateUrl: './breadcrumb.html'
 })
 export class Breadcrumb {
