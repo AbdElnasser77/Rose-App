@@ -8,6 +8,8 @@ import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { AssetUrlPipe } from '../../pipes/asset-url.pipe';
+import { LanguageSwitcherComponent } from '@rose/i18n';
+import { ThemeToggleComponent } from '@rose/theme';
 
 export interface IBreadcrumb {
   label: string;
@@ -17,7 +19,7 @@ export interface IBreadcrumb {
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe],
+  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe, LanguageSwitcherComponent, ThemeToggleComponent],
   templateUrl: './breadcrumb.html'
 })
 export class Breadcrumb {
@@ -45,7 +47,7 @@ export class Breadcrumb {
   private buildBreadcrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
     if (breadcrumbs.length === 0) {
       breadcrumbs.push({
-        label: 'Dashboard',
+        label: this.translate.instant('NAV.DASHBOARD'),
         url: '/dashboard' 
       });
     }
