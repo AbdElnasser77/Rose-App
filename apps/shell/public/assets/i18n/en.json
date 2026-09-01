@@ -108,6 +108,13 @@
     "THEME": "Theme",
     "LANGUAGE": "Language"
   },
+  "nav": {
+    "overview": "Overview",
+    "categories": "Categories",
+    "occasions": "Occasions",
+    "products": "Products",
+    "preview":"Preview Website"
+  },
 
   "FOOTER": {
     "APP_NAME": "Rose E-Commerce App",

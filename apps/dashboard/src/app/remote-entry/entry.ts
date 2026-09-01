@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterOutlet],
   selector: 'app-dashboard-entry',
-  template: `Dashboard App`,
+  template: `<router-outlet />`,
 })
 export class RemoteEntry {}
