@@ -108,6 +108,13 @@
     "THEME": "المظهر",
     "LANGUAGE": "اللغة"
   },
+  "nav": {
+    "overview": "نظرة عامة",
+    "categories": "الأقسام",
+    "occasions": "المناسبات",
+    "products": "المنتجات",
+    "preview":"نظرة عامة"
+  },
 
   "FOOTER": {
     "APP_NAME": "Rose E-Commerce App",
