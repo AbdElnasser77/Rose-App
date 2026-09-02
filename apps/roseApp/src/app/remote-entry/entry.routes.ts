@@ -47,7 +47,7 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
-        path: 'order',
+        path: 'orders',
         loadChildren: () =>
           import('../features/order/order.routes').then(
             (m) => m.OrderRoutes,
@@ -61,6 +61,14 @@ export const remoteRoutes: Route[] = [
         import('../features/checkout/checkout.routes').then(
           (m) => m.checkoutRoutes
         ),
+      },
+      {
+        path: 'notifications',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('../features/notifications/notifications.routes').then(
+            (m) => m.notificationsRoutes,
+          ),
       },
       {
         path: 'account',

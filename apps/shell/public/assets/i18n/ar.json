@@ -48,9 +48,11 @@
     "SENDING": "جارٍ الإرسال...",
     "RESEND_AVAILABLE": "إعادة الإرسال متاحة خلال",
     "VERIFY_OTP": "تحقق من الرمز",
+    "ENTER_OTP_CODE": "أدخل رمز التحقق",
 
     "REGISTER_TITLE": "أنشئ حسابك",
     "REGISTER_SUBTITLE": "أخبرنا قليلاً عن نفسك.",
+    "A_FEW_DETAILS_TO_GET_STARTED": "تفاصيل قليلة للبدء",
     "FIRST_NAME": "الاسم الأول",
     "FIRST_NAME_PLACEHOLDER": "أحمد",
     "LAST_NAME": "اسم العائلة",
@@ -107,6 +109,13 @@
     "WISHLIST": "المفضلة",
     "THEME": "المظهر",
     "LANGUAGE": "اللغة"
+  },
+  "nav": {
+    "overview": "نظرة عامة",
+    "categories": "الأقسام",
+    "occasions": "المناسبات",
+    "products": "المنتجات",
+    "preview":"نظرة عامة"
   },
 
   "FOOTER": {
@@ -369,9 +378,10 @@
     },
     "SUCCESS": {
       "TITLE": "تم الدفع بنجاح!",
-      "DESCRIPTION": "تم إتمام عملية الدفع بنجاح. ماذا تريد أن تفعل الآن؟",
+      "DESCRIPTION": "تمت عملية الدفع بنجاح. ماذا تريد أن تفعل الآن؟",
       "CONTINUE_SHOPPING": "متابعة التسوق",
-      "VIEW_ORDERS": "عرض الطلبات"
+      "VIEW_ORDERS": "عرض الطلبات",
+      "AMOUNT_PAID": "المبلغ المدفوع"
     },
     "FAILED": {
   "TITLE": "فشلت عملية الدفع",
@@ -510,18 +520,6 @@
     "NEXT": "التالي"
   },
   "DASHBOARD": {
-    "LAYOUT": {
-      "BRAND": "لوحة تحكم روز",
-      "TOGGLE_MENU": "فتح قائمة التنقل",
-      "COPYRIGHT": "© {{year}} روز. جميع الحقوق محفوظة.",
-      "NAV": {
-        "OVERVIEW": "نظرة عامة",
-        "PRODUCTS": "المنتجات",
-        "ORDERS": "الطلبات",
-        "NOTIFICATIONS": "الإشعارات",
-        "SETTINGS": "الإعدادات"
-      }
-    },
     "OVERVIEW": {
       "BREADCRUMB": "لوحة التحكم",
       "TITLE": "نظرة عامة على لوحة التحكم",
@@ -553,5 +551,13 @@
       "LOAD_FAILED": "تعذر تحميل إحصائيات لوحة التحكم.",
       "RETRY": "إعادة المحاولة"
     }
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "الإشعارات",
+    "CLEAR_ALL": "مسح جميع الإشعارات",
+    "MARK_ALL_AS_READ": "تحديد الكل كمقروء",
+    "MARK_AS_READ": "تحديد كمقروء",
+    "DELETE": "حذف الإشعار",
+    "EMPTY": "لا توجد إشعارات"
   }
 }

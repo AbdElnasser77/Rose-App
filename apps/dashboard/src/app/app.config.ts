@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
@@ -12,6 +14,7 @@ import {
   authInterceptor,
   BASE_URL_CONFIG,
   httpErrorInterceptor,
+  SessionService,
 } from '@org/auth';
 import { provideI18n } from '@rose/i18n';
 import { appRoutes } from './app.routes';
@@ -24,6 +27,10 @@ import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideAppInitializer(() => {
+      const sessionService = inject(SessionService);
+      return sessionService.initSession();
+    }),
     provideRouter(
       appRoutes,
       withInMemoryScrolling({

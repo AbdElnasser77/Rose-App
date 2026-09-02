@@ -29,7 +29,7 @@ export class ResetPasswordPage implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     },
-        { validators: passwordMatchValidator('password','confirmPassword') }
+        { validators: passwordMatchValidator('newPassword','confirmPassword') }
     
   );
 

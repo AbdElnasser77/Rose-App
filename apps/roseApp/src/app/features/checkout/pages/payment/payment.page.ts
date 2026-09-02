@@ -18,15 +18,12 @@ import { CreateOrderRequestModel } from '../../models/order/create-order-request
 import { PaymentService } from '../../services/payment.service';
 import { finalize, switchMap } from 'rxjs';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { PaymentSuccessModalComponent } from '../../components/payment-success-modal/payment-success-modal.component';
-import { PaymentFailedModalComponent } from '../../components/payment-failed-modal/payment-failed-modal.component';
 
 @Component({
   selector: 'app-payment',
   imports: [ TranslatePipe
     ,PaymentMethodCardComponent,CheckoutStepperComponent,
-    LucideAngularModule,ProgressSpinnerModule 
-    ,PaymentSuccessModalComponent ,PaymentFailedModalComponent],
+    LucideAngularModule,ProgressSpinnerModule ],
   templateUrl: './payment.page.html',
   styleUrl: './payment.page.scss',
 })
@@ -224,7 +221,7 @@ export class PaymentPage implements OnInit{
             );
             this._checkoutStore.clear();
             this._cartStore.loadCart();
-             this._router.navigate(['/order']);
+             this._router.navigate(['/orders']);
              
           
        },
@@ -237,17 +234,9 @@ export class PaymentPage implements OnInit{
       this._orderService.createOrder(body).pipe(
        switchMap(response =>{
         const orderId = response.payload.order.id;
-        return this._paymentService.createIntent({ orderId });
+        return this._paymentService.createCheckoutSession(orderId);
        }),
 
-        // Confirm stripe payment
-       switchMap(intentResponse => {
-        return this._paymentService.confirmPayment({
-        paymentIntentId: intentResponse.payload.paymentIntentId,
-        paymentMethodId: 'pm_card_visa'
-        });
-
-       }),
          takeUntilDestroyed(this.destroyRef),
 
          // Stop loading whether payment succeeds or fails
@@ -256,11 +245,9 @@ export class PaymentPage implements OnInit{
         })
       
       ) .subscribe({
-        next :() =>{
-          
-           this._checkoutStore.clear();
-           this._cartStore.loadCart();
-           this.showPaymentSuccess.set(true);
+        next :(response) =>{
+           const checkoutUrl = response.payload.checkoutUrl;
+            window.location.href = checkoutUrl;
        
         },
          error: () => {
@@ -281,9 +268,8 @@ export class PaymentPage implements OnInit{
 
   onViewOrders() {
   this.showPaymentSuccess.set(false);
-  this._router.navigate(['/order']);
+  this._router.navigate(['/orders']);
   }
-
   // Actions payment failed modal
   onTryAgain() {
   this.showPaymentFailed.set(false);

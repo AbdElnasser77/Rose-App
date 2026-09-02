@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
-import { DashboardLayoutComponent } from '../layouts/dashboard-layout/dashboard-layout.component';
+import { Root } from '../core/root/root';
 
 export const remoteRoutes: Route[] = [
   {
     path: '',
-    component: DashboardLayoutComponent,
+    component: Root,
     children: [
       {
         path: '',

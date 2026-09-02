@@ -48,9 +48,10 @@
     "SENDING": "Sending...",
     "RESEND_AVAILABLE": "Resend available in",
     "VERIFY_OTP": "Verify OTP",
-
-    "REGISTER_TITLE": "Create your account",
+    "ENTER_OTP_CODE": "Enter the OTP Code",
+    "REGISTER_TITLE": "Create Account",
     "REGISTER_SUBTITLE": "Tell us a little about yourself.",
+    "A_FEW_DETAILS_TO_GET_STARTED": "A few details to get started",
     "FIRST_NAME": "First Name",
     "FIRST_NAME_PLACEHOLDER": "John",
     "LAST_NAME": "Last Name",
@@ -60,7 +61,7 @@
     "MALE": "Male",
     "FEMALE": "Female",
     "SIGN_IN": "Sign in",
-    "SET_PASSWORD_TITLE": "Set your password",
+    "SET_PASSWORD_TITLE": "Create a strong password",
     "SET_PASSWORD_SUBTITLE": "Choose a strong password for your account.",
     "REGISTER_PASSWORD_PLACEHOLDER": "Min. 8 characters",
     "REPEAT_PASSWORD_PLACEHOLDER": "Repeat your password",
@@ -107,6 +108,13 @@
     "WISHLIST": "Wishlist",
     "THEME": "Theme",
     "LANGUAGE": "Language"
+  },
+  "nav": {
+    "overview": "Overview",
+    "categories": "Categories",
+    "occasions": "Occasions",
+    "products": "Products",
+    "preview":"Preview Website"
   },
 
   "FOOTER": {
@@ -369,7 +377,8 @@
       "TITLE": "Payment Successful!",
       "DESCRIPTION": "Your payment has been completed successfully. What would you like to do next?",
       "CONTINUE_SHOPPING": "Continue Shopping",
-      "VIEW_ORDERS": "View Orders"
+      "VIEW_ORDERS": "View Orders",
+      "AMOUNT_PAID": "Amount Paid"
     },
   "FAILED": {
   "TITLE": "Payment Failed",
@@ -508,18 +517,6 @@
     "NEXT": "Next"
   },
   "DASHBOARD": {
-    "LAYOUT": {
-      "BRAND": "Rose Dashboard",
-      "TOGGLE_MENU": "Toggle navigation menu",
-      "COPYRIGHT": "© {{year}} Rose. All rights reserved.",
-      "NAV": {
-        "OVERVIEW": "Overview",
-        "PRODUCTS": "Products",
-        "ORDERS": "Orders",
-        "NOTIFICATIONS": "Notifications",
-        "SETTINGS": "Settings"
-      }
-    },
     "OVERVIEW": {
       "BREADCRUMB": "Dashboard",
       "TITLE": "Dashboard overview",
@@ -551,5 +548,13 @@
       "LOAD_FAILED": "Couldn't load the dashboard statistics.",
       "RETRY": "Try again"
     }
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "Notifications",
+    "CLEAR_ALL": "Clear all notifications",
+    "MARK_ALL_AS_READ": "Mark all as read",
+    "MARK_AS_READ": "Mark as read",
+    "DELETE": "Delete notification",
+    "EMPTY": "No notifications to display."
   }
 }
