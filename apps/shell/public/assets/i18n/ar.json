@@ -48,9 +48,11 @@
     "SENDING": "جارٍ الإرسال...",
     "RESEND_AVAILABLE": "إعادة الإرسال متاحة خلال",
     "VERIFY_OTP": "تحقق من الرمز",
+    "ENTER_OTP_CODE": "أدخل رمز التحقق",
 
     "REGISTER_TITLE": "أنشئ حسابك",
     "REGISTER_SUBTITLE": "أخبرنا قليلاً عن نفسك.",
+    "A_FEW_DETAILS_TO_GET_STARTED": "تفاصيل قليلة للبدء",
     "FIRST_NAME": "الاسم الأول",
     "FIRST_NAME_PLACEHOLDER": "أحمد",
     "LAST_NAME": "اسم العائلة",

@@ -3,14 +3,16 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthFacade, AuthStore, RegisterStore } from '@org/auth';
-import { ButtonComponent, CalloutTextComponent, DividerComponent, ReusableInputComponent, SelectInputComponent } from '@org/ui';
+import { ButtonComponent, CalloutTextComponent, DividerComponent, ReusableInputComponent, SelectInputComponent, WelcomeMessageComponent } from '@org/ui';
 import { ToastService } from '@org/shared-util-notification';
 import { passwordMatchValidator } from '@org/util-validation';
 
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterModule, TranslatePipe, ReusableInputComponent, ButtonComponent, CalloutTextComponent, DividerComponent, SelectInputComponent],
+  imports: [ReactiveFormsModule, RouterModule, TranslatePipe, ReusableInputComponent,
+     ButtonComponent, CalloutTextComponent, DividerComponent, SelectInputComponent ,
+    WelcomeMessageComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
