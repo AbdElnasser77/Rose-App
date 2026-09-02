@@ -1,11 +1,11 @@
 <form [formGroup]="sendEmailVerificationForm" (ngSubmit)="onSendEmailVerificationSubmit()"
-class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
-    <lib-welcome-message
-    [title]="'AUTH.BECOME_FAMILY' | translate"
-    class="font-edwardian">
-    </lib-welcome-message>
+class="w-full  mx-auto flex flex-col gap-4 md:gap-6">
 
+    <div class="flex flex-col gap-4 pb-2.5">
+    <lib-welcome-message [title]="'AUTH.BECOME_FAMILY' | translate" class="font-edwardian mt-3 md:mt-5">
+    </lib-welcome-message>
     <lib-divider></lib-divider>
+    </div>
 
     <lib-reusable-input
       [label]="'AUTH.EMAIL' | translate"
@@ -15,10 +15,11 @@ class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
     </lib-reusable-input>
 
     <lib-button type="submit"
-      [disabled]="sendEmailVerificationForm.invalid || loading()"
+      [disabled]="loading()"
       [loading]="loading()"
       size="full"
-      variant="Primary">
+      variant="Primary"
+      class="text-white cursor-pointer">
       {{ 'AUTH.NEXT' | translate }}
     </lib-button>
 
@@ -27,6 +28,7 @@ class="w-full max-w-[406px] mx-auto flex flex-col gap-[24px]">
     <lib-callout-text
       [text]="'AUTH.HAVE_ACCOUNT' | translate"
       [linkText]="'AUTH.LOGIN' | translate"
-      linkUrl="/auth/login">
+      linkUrl="/auth/login"
+      class="mb-4 md:mb-6">
     </lib-callout-text>
 </form>
