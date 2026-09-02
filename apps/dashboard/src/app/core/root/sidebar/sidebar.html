@@ -1,5 +1,5 @@
-<div class="h-screen w-full flex overflow-hidden bg-gray-50">
-  <aside class="hidden md:flex w-64 bg-white min-h-screen border-r border-gray-100  flex-col justify-between p-4 dark:bg-zinc-800 dark:text-[#27272A]">
+<div class="hidden md:block sticky top-0 h-screen shrink-0 bg-gray-50 dark:bg-zinc-950">
+  <aside class="flex h-full w-64 overflow-y-auto bg-white border-r border-gray-100 flex-col justify-between p-4 dark:bg-zinc-800 dark:border-zinc-700 dark:text-[#27272A]">
     <div class="space-y-6">
       <div class="flex items-center justify-center py-4">
         <div class="text-center">
@@ -19,7 +19,10 @@
         </div>
       </div>
 
-      <button
+      <a
+        href="/"
+        target="_blank"
+        rel="noopener"
         class="w-full bg-[#9E2A2B] hover:bg-[#852324] text-white font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors">
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -27,7 +30,7 @@
             stroke="white" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         {{'nav.preview' | translate}}
-      </button>
+      </a>
 
       <nav class="flex-1 space-y-1">
         @for (item of navItems(); track item.route) {

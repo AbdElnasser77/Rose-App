@@ -56,6 +56,8 @@ export class OverviewPage implements OnInit {
 
   readonly statistics = signal<AdminStatistics | null>(null);
   readonly loading = signal(true);
+  /** Scoped to the revenue card so a range switch never blanks the page. */
+  readonly revenueLoading = signal(false);
   readonly failed = signal(false);
   readonly revenuePeriod = signal<RevenuePeriod>('monthly');
 
@@ -74,10 +76,9 @@ export class OverviewPage implements OnInit {
   }
 
   onRevenuePeriodChange(period: RevenuePeriod): void {
+    if (period === this.revenuePeriod()) return;
     this.revenuePeriod.set(period);
-    // One endpoint serves every panel, so switching granularity refetches all
-    // of it. Cheap enough at this size, and keeps the page consistent.
-    this.load();
+    this.loadRevenue(period);
   }
 
   retry(): void {
@@ -102,6 +103,33 @@ export class OverviewPage implements OnInit {
         error: () => {
           this.failed.set(true);
           this.loading.set(false);
+        },
+      });
+  }
+
+  private loadRevenue(period: RevenuePeriod): void {
+    this.revenueLoading.set(true);
+
+    this.overviewService
+      .getStatistics({
+        revenuePeriod: period,
+        topProductsLimit: this.topProductsLimit,
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (statistics) => {
+          // A slow earlier response must not clobber a newer selection.
+          if (this.revenuePeriod() !== period) return;
+          this.statistics.update((current) =>
+            current ? { ...current, revenue: statistics.revenue } : statistics,
+          );
+          this.revenueLoading.set(false);
+        },
+        error: () => {
+          if (this.revenuePeriod() !== period) return;
+          // Keep the chart already on screen rather than blanking the page the
+          // way the initial loads `failed` flag would.
+          this.revenueLoading.set(false);
         },
       });
   }

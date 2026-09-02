@@ -82,7 +82,7 @@
           [series]="revenue()"
           [activePeriod]="revenuePeriod()"
           [currency]="currency()"
-          [loading]="loading()"
+          [loading]="loading() || revenueLoading()"
           (periodChange)="onRevenuePeriodChange($event)"
         />
       </div>
