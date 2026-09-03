@@ -104,16 +104,17 @@ export class CheckoutLayoutComponent implements OnInit{
      .addToCart(productId)
      .pipe(takeUntilDestroyed(this.destroyRef))
      .subscribe({
-     next: (res) => {
-      if (res.message === 'Insufficient stock.') {
-        this._toastService.show(
-          this._translateService.instant('CART.OUT_OF_STOCK'),
-          'error'
-        );
-      } else {
+     next: () => {
         this._toastService.show(
           this._translateService.instant('CART.PRODUCT_ADDED'),
           'success'
+        );
+    },
+    error: (error) => {
+      if (error === 'Insufficient stock.') {
+        this._toastService.show(
+          this._translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
         );
       }
     },

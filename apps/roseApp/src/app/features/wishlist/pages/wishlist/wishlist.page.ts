@@ -75,18 +75,19 @@ export class WishlistPage {
       .addToCart(productId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (res) => {
-          if (res.message === 'Insufficient stock.') {
+        next: () => {
+          this._toastService.show(
+            this._translateService.instant('CART.PRODUCT_ADDED'),
+            'success'
+          );
+        },
+        error: (error) => {
+          if (error === 'Insufficient stock.') {
             this._toastService.show(
               this._translateService.instant('CART.OUT_OF_STOCK'),
               'error'
             );
-          } else {
-            this._toastService.show(
-              this._translateService.instant('CART.PRODUCT_ADDED'),
-              'success'
-            );
-          }
+          } 
         },
       });
 
