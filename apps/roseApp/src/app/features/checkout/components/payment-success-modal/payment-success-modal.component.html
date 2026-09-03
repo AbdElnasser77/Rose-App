@@ -1,0 +1,27 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+  <div class="flex w-full max-w-xl flex-col items-center rounded-2xl bg-white px-6 py-10 text-center shadow-xl dark:bg-zinc-800 sm:px-10">
+    <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50 dark:bg-green-500/10">
+      <div class="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/20">
+        <lucide-icon [img]="CircleCheck" class="h-9 w-9 text-green-600 dark:text-green-400" />
+      </div>
+    </div>
+
+    <h2 class="font-sarabun text-3xl font-bold text-[#27272A] dark:text-white">
+      {{ 'PAYMENT.SUCCESS.TITLE' | translate }}
+    </h2>
+    <p class="mt-3 max-w-md font-sarabun text-base leading-relaxed text-[#52525B] dark:text-[#A1A1AA] sm:text-xl">
+      {{ 'PAYMENT.SUCCESS.DESCRIPTION' | translate }}
+    </p>
+
+    
+
+    <div class="mt-8 flex w-full flex-col gap-3 sm:flex-row">
+      <button type="button" (click)="viewOrders.emit()" class="flex h-11 flex-1 items-center justify-center rounded-[10px] bg-[#A6252A] px-4 font-sarabun text-base font-semibold text-white transition-colors hover:bg-[#741C21] dark:bg-[#FFA3B9] dark:text-[#27272A] dark:hover:bg-[#FF89A6] cursor-pointer">
+        {{ 'PAYMENT.SUCCESS.VIEW_ORDERS' | translate }}
+      </button>
+      <button type="button" (click)="continueShopping.emit()" class="flex h-11 flex-1 items-center justify-center rounded-[10px] border border-[#A6252A] bg-transparent px-4 font-sarabun text-base font-semibold text-[#A6252A] transition-colors hover:bg-[#A6252A]/5 dark:border-[#FFC2D0] dark:text-[#FFC2D0] dark:hover:bg-[#FFC2D0]/10 cursor-pointer">
+        {{ 'PAYMENT.SUCCESS.CONTINUE_SHOPPING' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

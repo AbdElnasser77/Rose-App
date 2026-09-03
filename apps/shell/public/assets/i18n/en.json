@@ -191,7 +191,10 @@
     },
     "VIEW_MORE": "View More",
     "TRY_AGAIN": "Try Again",
-    "ERROR": "Something went wrong while loading products."
+    "ERROR": "Something went wrong while loading products.",
+    "EMPTY_TITLE": "No Products Available Currently",
+    "EMPTY": "It looks like this collection is temporarily out of stock. You can explore other occasions or browse all available products in our shop.",
+    "EXPLORE_ALL": "Explore All Products"
   },
 
   "PRODUCT_CARD": {

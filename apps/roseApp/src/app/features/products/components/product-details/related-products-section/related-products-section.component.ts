@@ -177,29 +177,13 @@ export class RelatedProductsSectionComponent implements OnInit {
    get swiperConfig(): SwiperOptions {
     const rtl=this.isRtl();
     return{
+       slidesPerView: 'auto',
       spaceBetween: 16,
     watchSlidesProgress: true,
     navigation: {
       nextEl: rtl ? '.related-products-prev' : '.related-products-next',
       prevEl: rtl ? '.related-products-next' : '.related-products-prev',
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 1, 
-      } ,
-      640: {
-      slidesPerView: 2,
-      spaceBetween: 16,
-      },
-      1024: {
-        slidesPerView: 3, 
-        spaceBetween: 16,     
-      },
-       1280: {
-        slidesPerView: 4, 
-        spaceBetween: 16,     
-      },
-    },
+    }
 
     }
     

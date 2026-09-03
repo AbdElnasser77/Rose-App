@@ -36,7 +36,7 @@ export class TestimonialSectionComponent implements OnInit {
       return{
 
         slidesPerView: 'auto',
-        spaceBetween: 24,
+        spaceBetween: 31,
         centerInsufficientSlides: true,
         watchSlidesProgress: true,
 

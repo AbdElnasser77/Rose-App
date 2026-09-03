@@ -18,12 +18,16 @@ import { CreateOrderRequestModel } from '../../models/order/create-order-request
 import { PaymentService } from '../../services/payment.service';
 import { finalize, switchMap } from 'rxjs';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NotificationsService } from '../../../notifications/services/notifications.service';
+import { PaymentSuccessModalComponent } from '../../components/payment-success-modal/payment-success-modal.component';
+import { PaymentFailedModalComponent } from '../../components/payment-failed-modal/payment-failed-modal.component';
 
 @Component({
   selector: 'app-payment',
   imports: [ TranslatePipe
     ,PaymentMethodCardComponent,CheckoutStepperComponent,
-    LucideAngularModule,ProgressSpinnerModule ],
+    LucideAngularModule,ProgressSpinnerModule,
+    PaymentSuccessModalComponent, PaymentFailedModalComponent ],
   templateUrl: './payment.page.html',
   styleUrl: './payment.page.scss',
 })
@@ -38,7 +42,8 @@ export class PaymentPage implements OnInit{
     private readonly _orderService = inject(OrderService);
     private readonly _cartStore = inject(CartStore);
     private readonly _paymentService = inject(PaymentService)
-
+    private readonly _notificationsService = inject(NotificationsService);
+    
     suggestedProducts = signal<Product[]>([]);
     isProcessingPayment = signal(false);
     showPaymentSuccess = signal(false);
@@ -104,30 +109,13 @@ export class PaymentPage implements OnInit{
     get swiperConfig(): SwiperOptions {
       const rtl=this.isRtl();
       return{
+      slidesPerView: 'auto',
       spaceBetween: 16,
       watchSlidesProgress: true,
       navigation: {
         nextEl: rtl ? '.payment-products-prev' : '.payment-products-next',
         prevEl: rtl ? '.payment-products-next' : '.payment-products-prev',
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1, 
-        } ,
-        640: {
-        slidesPerView: 2,
-        spaceBetween: 16,
-        },
-        1024: {
-          slidesPerView: 3, 
-          spaceBetween: 16,     
-        },
-         1280: {
-          slidesPerView: 4, 
-          spaceBetween: 16,     
-        },
-      },
-  
+      }
       }
       
     }
@@ -213,18 +201,24 @@ export class PaymentPage implements OnInit{
     }
     // Cash payment
     private  placeCashOrder(body: CreateOrderRequestModel){
-      this._orderService.createOrder(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: (res) => {
-           console.log(res)
+      this._orderService.createOrder(body).pipe(
+        switchMap(() => this._notificationsService.getUnreadCount()),
+        takeUntilDestroyed(this.destroyRef)).
+        subscribe({
+        next: () => {
+           
             this._toastService.show(
               this._translateService.instant('PAYMENT.ORDER_PLACED'),'success'
             );
+       
             this._checkoutStore.clear();
             this._cartStore.loadCart();
-             this._router.navigate(['/orders']);
+            this.showPaymentSuccess.set(true);
              
-          
        },
+        error: () => {
+          this.showPaymentFailed.set(true);
+        },
       });
     }
     // Stripe payment

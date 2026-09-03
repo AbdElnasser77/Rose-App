@@ -42,7 +42,7 @@
         [item]="item"
         (markAsReadClicked)="handleMarkAsRead($event)"
         (deleteClicked)="handleDelete($event)"
-        (notificationClicked)="closeRequested.emit()"
+        (notificationClicked)="handleNotificationClick($event)"
       />
     } @empty {
       <div class="h-[224px] flex flex-col items-center justify-center gap-2.5 border-t border-[#D9D9D9] text-zinc-500 font-sarabun dark:border-zinc-600 dark:text-zinc-400">

@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   Subject,
   catchError,
@@ -29,6 +29,7 @@ import { WishlistStore } from '../../../wishlist/store/wishlist.store';
 import { CartStore } from '../../../cart/store/cart.store';
 import { OccasionsService } from '../../../products/services/product-list/occasions.service';
 import type { Occasion } from '../../../products/models/occasion.model';
+import { AssetUrlPipe } from '../../../../core/pipes/asset-url.pipe';
 
 const TABS = [
   { value: 'Wedding', labelKey: 'MOST_POPULAR.TABS.WEDDING' },
@@ -44,7 +45,7 @@ const SKELETON_MIN_DURATION_MS = 400;
 @Component({
   selector: 'app-most-popular-section',
   standalone: true,
-  imports: [ProductCardComponent, TranslatePipe, SectionTitleComponent],
+  imports: [ProductCardComponent, TranslatePipe, SectionTitleComponent, RouterLink ,AssetUrlPipe],
   templateUrl: './most-popular-section.component.html',
   styleUrl: './most-popular-section.component.scss',
 })

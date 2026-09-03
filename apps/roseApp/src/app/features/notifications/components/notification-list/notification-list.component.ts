@@ -7,6 +7,7 @@ import { NotificationsService } from '../../services/notifications.service';
 import { NotificationStore } from '../../store/notification.store';
 import { NotificationItemComponent } from '../notification-item/notification-item.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification-list',
@@ -19,6 +20,7 @@ export class NotificationListComponent implements OnInit{
   private readonly destroyRef = inject(DestroyRef);
   private readonly _notificationsService = inject(NotificationsService);
   private readonly _notificationStore = inject(NotificationStore);
+  private readonly _router = inject(Router);
 
   readonly notifications = signal<NotificationItemModel[]| null>(null);
   readonly totalNotifications = computed(() => this.notifications()?.length ?? 0);
@@ -88,4 +90,22 @@ export class NotificationListComponent implements OnInit{
       next: () => this.loadNotifications()
     });
   }
+
+  handleNotificationClick(item: NotificationItemModel): void {
+  if (item.isRead) {
+    this.closeRequested.emit();
+    this._router.navigateByUrl(item.link);
+    return;
+  }
+
+  this._notificationsService
+    .markNotificationAsRead(item.id)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: () => {
+        this.closeRequested.emit();
+        this._router.navigateByUrl(item.link);
+      }
+    });
+}
 }

@@ -3,7 +3,7 @@
   [class.bg-zinc-200]="!item().isRead"
   [class.dark:bg-zinc-900]="!item().isRead">
 
-  <a [routerLink]="item().link" class="flex-1 space-y-1"  (click)="handleNotificationClicked()">
+  <a   href="#"  class="flex-1 space-y-1"  (click)="handleNotificationClicked($event)">
     <h4 class="font-sarabun text-start font-semibold text-sm sm:text-base leading-relaxed tracking-normal text-zinc-800 dark:text-zinc-100 line-clamp-1">
       {{ item().title }}
     </h4>

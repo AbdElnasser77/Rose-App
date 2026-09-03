@@ -1,8 +1,8 @@
 @if (totalPages() > 1) {
-  <nav class="flex items-center justify-center gap-2 py-8">
+  <nav class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 py-6 sm:py-8 px-3">
     <button
       type="button"
-      class="px-3 py-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+      class="px-3 py-2 rounded-md border border-gray-300 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
       dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
       [disabled]="page() === 1"
       (click)="prev()"
@@ -13,7 +13,7 @@
     @for (p of pages(); track p) {
       <button
         type="button"
-        class="min-w-10 px-3 py-2 rounded-md border text-sm cursor-pointer"
+        class="min-w-10 px-3 py-2 rounded-md border text-xs sm:text-sm cursor-pointer"
         [ngClass]="
           p === page()  
             ? 'bg-[#DC2626] text-white border-[#DC2626] dark:bg-[#FFC2D0] dark:text-[#27272A] dark:border-[#FFC2D0]'
@@ -27,7 +27,8 @@
 
     <button
       type="button"
-      class="px-3 py-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+      class="min-w-8 h-8 sm:min-w-10 sm:h-10
+       px-2 sm:px-3 py-1.5 sm:py-2 rounded-md border border-gray-300 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
       dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
       [disabled]="page() === totalPages()"
       (click)="next()"
