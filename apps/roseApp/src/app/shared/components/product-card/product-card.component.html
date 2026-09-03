@@ -1,5 +1,5 @@
 @if (product) {
-<div class="product-card  w-full max-w-[302px]  rounded-2xl flex flex-col gap-4">
+<div class="product-card   w-[302px]   rounded-2xl flex flex-col gap-4">
     <!-- img -->
     <div class="image-wrapper group relative w-full h-[272px] overflow-hidden" role="button" tabindex="0" (click)="cardDetailsClicked.emit(product.id)" (keyup.enter)="cardDetailsClicked.emit(product.id)">
         <img [src]="product.cover" [alt]="product.title" class="w-full h-full object-cover rounded-[12px]" />

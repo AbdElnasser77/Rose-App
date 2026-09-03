@@ -1,4 +1,14 @@
-<div class="flex justify-between items-center mb-6">
+<!-- Mobile Cart Header -->
+<div class="block md:hidden bg-maroon-700 text-white px-5 py-4 mb-6 dark:bg-soft-pink-200">
+  <h3 class="font-sarabun font-bold text-base leading-none text-white dark:text-zinc-800">
+    {{ 'CART.TITLE' | translate }}
+    @if (cartCount() > 0) {
+      ({{ cartCount() }})
+    }
+  </h3>
+</div>
+<!-- Cart Header - Desktop -->
+<div class="hidden md:flex justify-between items-center mb-6 px-4">
     <div>
         <h1 class="text-4xl font-bold">
             {{ 'CART.TITLE' | translate }}

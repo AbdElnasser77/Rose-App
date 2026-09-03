@@ -20,9 +20,9 @@
       libSwiperDirective
       [config]="swiperConfig"
       init="false"
-      class="related-products-swiper w-full h-full flex overflow-hidden">
+      class="testimonial-swiper w-full h-full flex overflow-hidden ">
       @for (testimonial of testimonials(); track testimonial.id) {
-      <swiper-slide class="flex justify-center py-2">
+      <swiper-slide class="w-[404px]! flex justify-center py-2">
         <div class="pt-30 pb-16">
           <app-testimonial-card
             [name]="testimonial.name"
@@ -38,7 +38,7 @@
     }
 
     <button  type="button"
-      class="testimonial-prev  absolute left-2 top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
+      class="testimonial-prev  absolute left-0 md:left-2  top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
 
       <lucide-icon
         [img]="ChevronLeft"
@@ -48,7 +48,7 @@
     </button>
 
     <button  type="button"
-      class="testimonial-next  absolute right-2  top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
+      class="testimonial-next  absolute right-0 md:right-2  top-[60%]  -translate-y-1/2 z-10 w-[38px] h-[38px] rounded-[19px] bg-[#A6252A] shadow-[0_0_40px_5px_rgba(0,0,0,0.05)] flex items-center justify-center transition-all duration-300 hover:opacity-90 cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#FFC2D0]  ">
 
       <lucide-icon
         [img]="ChevronRight"

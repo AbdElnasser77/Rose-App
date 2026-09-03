@@ -2,58 +2,73 @@
   <!-- 1280px = 4 cards (302px) + 3 gaps (24px), so the header and the grid share one box -->
   <div class="w-full max-w-[1280px] mx-auto">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-[40px]">
-      <app-section-title
-        [mainTitle]="'MOST_POPULAR.TITLE' | translate"
-        [alignment]="'left'"
-        class="w-full md:w-auto"
-      ></app-section-title>
+      <app-section-title [mainTitle]="'MOST_POPULAR.TITLE' | translate" [alignment]="'left'"
+        class="w-full md:w-auto"></app-section-title>
 
       <div class="flex flex-wrap items-center gap-6  text-zinc-700 dark:text-zinc-400">
         @for (tab of tabs; track tab.value) {
-          <button
-            type="button"
-            class="tab-btn"
-            [class.active]="activeTab() === tab.value"
-            (click)="selectTab(tab.value)"
-          >
-            {{ tab.labelKey | translate }}
-          </button>
+        <button type="button" class="tab-btn" [class.active]="activeTab() === tab.value" (click)="selectTab(tab.value)">
+          {{ tab.labelKey | translate }}
+        </button>
         }
       </div>
     </div>
 
     @if (isLoading()) {
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(290px,302px))] justify-center gap-x-[24px] gap-y-[34px] w-full">
-        @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
-          <div class="skeleton-card rounded-2xl"></div>
-        }
-      </div>
-    } @else if (!displayedProducts().length) {
-      <p class="font-sarabun text-sm text-[#71717A] dark:text-[#A1A1AA] py-10">
-        {{ 'PRODUCTS.EMPTY' | translate }}
-      </p>
-    } @else {
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(290px,302px))] justify-center gap-x-[24px] gap-y-[34px] w-full">
-        @for (product of displayedProducts(); track product.id) {
-          <app-product-card
-            [product]="product"
-            [isWishlisted]="wishlistedIds().has(product.id)"
-            (cardDetailsClicked)="goToProductDetails($event)"
-            (quickViewClicked)="goToProductDetails($event)"
-            (wishListClicked)="onWishlistClick($event)"            
-            (addToCartClicked)="addToCartClicked($event)"
-          ></app-product-card>
-        }
-      </div>
-
-      @if (displayedProducts().length < products().length) {
-        <div class="view-more-wrapper">
-          <button type="button" class="view-more-btn" (click)="viewMore()">
-            {{ 'MOST_POPULAR.VIEW_MORE' | translate }}
-            <span aria-hidden="true">↗</span>
-          </button>
-        </div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(290px,302px))] justify-center gap-x-[24px] gap-y-[34px] w-full">
+      @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
+      <div class="skeleton-card rounded-2xl"></div>
       }
-    }
+    </div>
+    } @else if (!displayedProducts().length) {
+    <div
+  class="w-full py-16 px-4 flex flex-col items-center justify-center text-center bg-[#FDF8F8] dark:bg-zinc-900/60 rounded-3xl border border-dashed border-[#A6252A]/20 dark:border-rose-900/30 shadow-sm transition-colors duration-300">
+
+  <!-- Logo Container -->
+  <div
+    class="w-24 h-24 mb-4 rounded-full bg-white dark:bg-zinc-800/80 p-4 shadow-sm flex items-center justify-center border border-[#A6252A]/10 dark:border-rose-900/30 transition-colors">
+    <img 
+      [src]="'assets/logo.png' | assetUrl" 
+      alt="Rose" 
+      class="w-full h-full object-contain opacity-80 dark:opacity-90" 
+    />
+  </div>
+
+  <!-- Title -->
+  <h3 class="text-xl font-bold text-zinc-800 dark:text-rose-50 mb-2 font-sarabun">
+    {{ 'MOST_POPULAR.EMPTY_TITLE' | translate }}
+  </h3>
+
+  <!-- Subtitle -->
+  <p class="text-sm text-zinc-500 dark:text-rose-200/70 max-w-md mb-6 leading-relaxed font-sarabun">
+    {{ 'MOST_POPULAR.EMPTY' | translate }}
+  </p>
+
+  <!-- Button with Soft Pink Dark Mode -->
+  <a 
+    routerLink="/products"
+    class="inline-flex items-center gap-2 px-6 py-3 bg-[#A6252A] hover:bg-[#851d21] text-white dark:bg-soft-pink-200 dark:hover:bg-soft-pink-300 dark:text-[#501419] text-sm font-medium rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer">
+    <span>{{ 'MOST_POPULAR.EXPLORE_ALL' | translate }}</span>
+    <span class="rtl:rotate-180">↗</span>
+  </a>
+
+</div>
+    } @else {
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(290px,302px))] justify-center gap-x-[24px] gap-y-[34px] w-full">
+      @for (product of displayedProducts(); track product.id) {
+      <app-product-card [product]="product" [isWishlisted]="wishlistedIds().has(product.id)"
+        (cardDetailsClicked)="goToProductDetails($event)" (quickViewClicked)="goToProductDetails($event)"
+        (wishListClicked)="onWishlistClick($event)" (addToCartClicked)="addToCartClicked($event)"></app-product-card>
+      }
+    </div>
+
+    @if (displayedProducts().length < products().length) { <div class="view-more-wrapper">
+      <button type="button" class="view-more-btn" (click)="viewMore()">
+        {{ 'MOST_POPULAR.VIEW_MORE' | translate }}
+        <span aria-hidden="true">↗</span>
+      </button>
+  </div>
+  }
+  }
   </div>
 </section>

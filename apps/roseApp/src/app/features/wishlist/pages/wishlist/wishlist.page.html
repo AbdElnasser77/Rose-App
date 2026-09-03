@@ -1,6 +1,22 @@
-<section class="w-full flex flex-col gap-[16px] px-4 sm:px-8 md:px-12 lg:px-[80px] mt-[62px]">
+<section class="w-full flex flex-col gap-[16px] px-0 md:px-4 sm:px-8 md:px-12 lg:px-[80px] mt-0 md:mt-[62px]">
     @if(wishlistItems().length){
-    <header class="flex flex-col sm:flex-row  justify-between">
+        <!-- Mobile Wishlist Header -->
+    <div class="block md:hidden
+             bg-maroon-700 text-white
+             px-5 py-4 dark:bg-soft-pink-200">
+      <h3
+        class="font-sarabun font-bold text-base leading-none
+               text-white dark:text-zinc-800" >
+        {{ 'WISHLIST.TITLE' | translate }}
+
+        @if (wishlistItems().length > 0) {
+          ({{ wishlistItems().length }})
+        }
+      </h3>
+    </div>
+
+    <!-- Desktop Wishlist Header -->
+    <header class="hidden md:flex flex-col sm:flex-row  justify-between">
         <div class="flex flex-col sm:flex-row gap-[10px] justify-start sm:items-end">
             <lucide-icon [img]="FolderHeart " class="w-[60px] h-[60px] text-[#27272A] dark:text-white"></lucide-icon>
             <h1 class="font-sarabun font-bold text-5xl leading-none tracking-normal text-[#27272A]  dark:text-white">

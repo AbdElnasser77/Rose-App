@@ -5,12 +5,11 @@ import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { EllipsisVertical, LucideAngularModule } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-notification-item',
   standalone: true,
-  imports: [MenuModule, LucideAngularModule, TranslatePipe ,CommonModule ,RouterLink],
+  imports: [MenuModule, LucideAngularModule, TranslatePipe ,CommonModule ],
   templateUrl: './notification-item.component.html',
   styleUrl: './notification-item.component.scss',
 })
@@ -18,7 +17,7 @@ export class NotificationItemComponent {
     item = input.required<NotificationItemModel>();
     markAsReadClicked = output<string>();
     deleteClicked = output<string>();
-    notificationClicked = output<void>();
+    notificationClicked = output<NotificationItemModel>();
 
     readonly EllipsisVertical = EllipsisVertical;
     items=computed<MenuItem[]>(()=>
@@ -56,12 +55,10 @@ export class NotificationItemComponent {
     
   }
   
-  handleNotificationClicked(){
-     if (!this.item().isRead) {
-    this.markAsReadClicked.emit(this.item().id);
-  }
+  handleNotificationClicked(event: Event): void {
+    event.preventDefault();
 
-  this.notificationClicked.emit();
+  this.notificationClicked.emit(this.item());
   }
 
   onMenuItemClick(item: MenuItem): void {
