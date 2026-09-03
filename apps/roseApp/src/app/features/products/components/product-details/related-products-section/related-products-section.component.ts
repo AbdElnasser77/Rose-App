@@ -158,16 +158,17 @@ export class RelatedProductsSectionComponent implements OnInit {
      .addToCart(productId)
      .pipe(takeUntilDestroyed(this.destroyRef))
      .subscribe({
-     next: (res) => {
-      if (res.message === 'Insufficient stock.') {
-        this.toastService.show(
-          this.translateService.instant('CART.OUT_OF_STOCK'),
-          'error'
-        );
-      } else {
+     next: () => {
         this.toastService.show(
           this.translateService.instant('CART.PRODUCT_ADDED'),
           'success'
+        );
+    },
+    error: (error) => {
+      if (error === 'Insufficient stock.') {
+        this.toastService.show(
+          this.translateService.instant('CART.OUT_OF_STOCK'),
+          'error'
         );
       }
     },
