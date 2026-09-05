@@ -115,7 +115,7 @@
     "categories": "الأقسام",
     "occasions": "المناسبات",
     "products": "المنتجات",
-    "preview":"نظرة عامة"
+    "preview":"معاينة الموقع"
   },
 
   "FOOTER": {
@@ -522,6 +522,39 @@
     "PREVIOUS": "السابق",
     "NEXT": "التالي"
   },
+  "DASHBOARD": {
+    "OVERVIEW": {
+      "BREADCRUMB": "لوحة التحكم",
+      "TITLE": "نظرة عامة على لوحة التحكم",
+      "TOTAL_PRODUCTS": "إجمالي المنتجات",
+      "TOTAL_ORDERS": "إجمالي الطلبات",
+      "TOTAL_CATEGORIES": "إجمالي الفئات",
+      "TOTAL_REVENUE": "إجمالي الإيرادات",
+      "ALL_CATEGORIES": "جميع الفئات",
+      "PRODUCTS_COUNT": "{{count}} منتج",
+      "ORDERS_STATUS": "حالة الطلبات",
+      "STATUS": {
+        "COMPLETED": "مكتمل",
+        "IN_PROGRESS": "قيد التنفيذ",
+        "CANCELED": "ملغي"
+      },
+      "REVENUE": "الإيرادات",
+      "RANGE": {
+        "MONTHLY": "شهري",
+        "LAST_WEEK": "الأسبوع الماضي"
+      },
+      "TOP_SELLING": "المنتجات الأكثر مبيعًا",
+      "SALES_COUNT": "{{count}} مبيعة",
+      "LOW_STOCK": "منتجات قاربت على النفاد",
+      "EMPTY_CATEGORIES": "لا توجد فئات بعد",
+      "EMPTY_ORDERS": "لا توجد طلبات بعد",
+      "EMPTY_REVENUE": "لا توجد بيانات إيرادات لهذه الفترة",
+      "EMPTY_TOP_SELLING": "لم تُسجل أي مبيعات بعد",
+      "EMPTY_LOW_STOCK": "جميع المنتجات متوفرة بكميات جيدة",
+      "LOAD_FAILED": "تعذر تحميل إحصائيات لوحة التحكم.",
+      "RETRY": "إعادة المحاولة"
+    }
+  },
   "NOTIFICATIONS": {
     "TITLE": "الإشعارات",
     "CLEAR_ALL": "مسح جميع الإشعارات",
@@ -531,4 +564,3 @@
     "EMPTY": "لا توجد إشعارات"
   }
 }
-

@@ -4,30 +4,51 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
+import {
+  authInterceptor,
+  BASE_URL_CONFIG,
+  httpErrorInterceptor,
+  SessionService,
+} from '@org/auth';
+import { provideI18n } from '@rose/i18n';
 import { appRoutes } from './app.routes';
 
-import { provideTranslateService } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SessionService } from '@org/auth';
-
+/**
+ * Only applied when the dashboard is served standalone on :4201. Loaded
+ * through the shell, the remote inherits the shell's root providers instead
+ * and none of this runs — mirrors how roseApp is set up.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
- provideAppInitializer(() => {
+    provideAppInitializer(() => {
       const sessionService = inject(SessionService);
       return sessionService.initSession();
     }),
-    provideRouter(appRoutes),
-
-    provideTranslateService({
-      loader: provideTranslateHttpLoader({
-        prefix: '/assets/i18n/',
-        suffix: '.json'
+    provideRouter(
+      appRoutes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
       }),
-      lang: 'en',
-      fallbackLang: 'en'
-    })
+    ),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor, httpErrorInterceptor]),
+    ),
+    provideI18n(),
+    {
+      provide: BASE_URL_CONFIG,
+      useValue: {
+        apiUrl: 'https://rose-app.elevate-bootcamp.cloud/api',
+        production: false,
+      },
+    },
   ],
 };
