@@ -1,8 +1,8 @@
-<div class="flex  bg-[#F9FAFB] font-sans overflow-x-hidden">
-  <app-sidebar />
-  <main class="flex-1">
+<div class="flex min-h-screen bg-[#F9FAFB] font-sans dark:bg-zinc-950">
+  <app-sidebar class="shrink-0" />
+  <main class="flex-1 min-w-0">
     <app-breadcrumb />
-    <div class="p-8 pt-10 max-w-6xl mx-auto rounded-full">
+    <div class="p-8 pt-10 max-w-6xl mx-auto">
       <router-outlet />
     </div>
   </main>

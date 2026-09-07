@@ -1,0 +1,9 @@
+/* Softens the cut-off row at the scroll boundary so the list reads as scrollable. */
+.scroll-fade {
+  mask-image: linear-gradient(to bottom, black calc(100% - 1.5rem), transparent);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black calc(100% - 1.5rem),
+    transparent
+  );
+}

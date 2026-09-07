@@ -1,0 +1,38 @@
+<app-overview-card titleKey="DASHBOARD.OVERVIEW.ALL_CATEGORIES">
+  <div class="scroll-fade h-full max-h-64 overflow-y-auto pe-1">
+    @if (loading()) {
+      <ul class="flex flex-col">
+        @for (row of skeletonRows; track $index) {
+          <li class="flex items-center justify-between border-b border-zinc-100 py-3 dark:border-zinc-800">
+            <span class="h-4 w-28 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700"></span>
+            <span class="h-6 w-20 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700"></span>
+          </li>
+        }
+      </ul>
+    } @else if (categories().length === 0) {
+      <p class="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+        {{ 'DASHBOARD.OVERVIEW.EMPTY_CATEGORIES' | translate }}
+      </p>
+    } @else {
+      <ul class="flex flex-col">
+        @for (category of categories(); track category.id) {
+          <li
+            class="flex items-center justify-between gap-3 border-b border-zinc-100 py-3 last:border-b-0 dark:border-zinc-800"
+          >
+            <span class="truncate text-sm text-zinc-700 dark:text-zinc-200">
+              {{ category.title }}
+            </span>
+            <span
+              class="shrink-0 rounded-md bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600 tabular-nums dark:bg-zinc-800 dark:text-zinc-300"
+            >
+              {{
+                'DASHBOARD.OVERVIEW.PRODUCTS_COUNT'
+                  | translate: { count: category.productCount }
+              }}
+            </span>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</app-overview-card>
