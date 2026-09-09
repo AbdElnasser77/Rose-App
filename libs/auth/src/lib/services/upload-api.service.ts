@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { BASE_URL_CONFIG } from '@org/auth';
+import { BASE_URL_CONFIG } from '../config/auth-config.token';
 import { UploadResponse } from '../models/upload.model';
 
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;

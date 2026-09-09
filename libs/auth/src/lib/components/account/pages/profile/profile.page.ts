@@ -16,14 +16,17 @@ import {
 } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
-import { AuthFacade, AuthStore, UpdateProfileRequestModel, UserModel } from '@org/auth';
 import { AvatarUploadComponent } from '../../components/avatar-upload/avatar-upload.component';
-import { ReadonlyFieldComponent } from '../../components/readonly-field/readonly-field.component';
 import { DeleteAccountModalComponent } from '../../components/delete-account-modal/delete-account-modal.component';
 import { ChangeEmailModalComponent } from '../../components/change-email-modal/change-email-modal.component';
+import { ReadonlyFieldComponent } from '../../components/readonly-field/readonly-field.component';
+import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
+import { AuthStore } from 'libs/auth/src/lib/store/auth.store';
+import { UpdateProfileRequestModel } from 'libs/auth/src/lib/models/requests/update-profile-request.model';
+import { UserModel } from 'libs/auth/src/lib/models/responses/auth-response.model';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'lib-profile',
   imports: [
     ReactiveFormsModule,
     TranslatePipe,

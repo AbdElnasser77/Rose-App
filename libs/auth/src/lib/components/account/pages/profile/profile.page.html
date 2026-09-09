@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-8">
-  <app-avatar-upload
+  <lib-avatar-upload
     [photo]="user()?.photo ?? null"
     (uploaded)="onPhotoUploaded($event)"
   />
@@ -22,7 +22,7 @@
       />
     </div>
 
-    <app-readonly-field
+    <lib-readonly-field
       [label]="'AUTH.EMAIL' | translate"
       [value]="user()?.email ?? ''"
       [actionLabel]="'ACCOUNT.CHANGE_EMAIL.EDIT' | translate"
@@ -35,7 +35,7 @@
       [label]="'ACCOUNT.PROFILE.PHONE' | translate"
     />
 
-    <app-readonly-field
+    <lib-readonly-field
       [label]="'AUTH.GENDER' | translate"
       [value]="user() ? ('AUTH.' + user()!.gender | translate) : ''"
     />
@@ -62,13 +62,13 @@
   </div>
 </div>
 
-<app-delete-account-modal
+<lib-delete-account-modal
   [visible]="deleteModalOpen()"
   (cancelled)="deleteModalOpen.set(false)"
   (confirmed)="confirmDelete()"
 />
 
-<app-change-email-modal
+<lib-change-email-modal
   [visible]="emailModalOpen()"
   (closed)="emailModalOpen.set(false)"
   (changed)="emailModalOpen.set(false)"
