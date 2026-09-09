@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   ButtonComponent,
@@ -37,6 +37,7 @@ import { UserModel } from 'libs/auth/src/lib/models/responses/auth-response.mode
     ReadonlyFieldComponent,
     DeleteAccountModalComponent,
     ChangeEmailModalComponent,
+    RouterLink
   ],
   templateUrl: './profile.page.html',
   styleUrl: './profile.page.scss',

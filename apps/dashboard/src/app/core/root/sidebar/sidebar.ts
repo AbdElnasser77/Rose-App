@@ -110,6 +110,6 @@ export class Sidebar {
 
    goToAccount(): void {
     this.activeMenuId.set(null);
-    this.router.navigate(['/account/profile']);
+    this.router.navigate(['/dashboard/account/profile']);
   }
 }
