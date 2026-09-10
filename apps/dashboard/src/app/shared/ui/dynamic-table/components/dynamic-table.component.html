@@ -1,0 +1,115 @@
+<div class="overflow-x-auto">
+  <div class="relative w-full max-w-[1053px]">
+    <lucide-icon [img]="Search" class="w-[18px] h-[18px] absolute start-4 top-1/2 -translate-y-1/2
+    font-[Inter] text-[14px] font-normal leading-none tracking-normal text-[#A1A1AA] dark:text-[#A1A1AA]" />
+
+    <input type="text" [value]="search()" (input)="onSearch($event)" [placeholder]="'TABLE.SEARCH' | translate"
+      class="w-full  rounded-[10px] border border-[#D9D9D9] bg-white px-3 sm:px-4 ps-9 sm:ps-11 text-[14px] outline-none 
+     placeholder:font-[Inter] placeholder:text-[14px] placeholder:font-normal placeholder:text-[#A1A1AA] dark:border-[#3A3A3A] dark:bg-[#262626] dark:text-white dark:placeholder:text-[#A1A1AA]" />
+  </div>
+  <table class="w-full">
+    <thead>
+      <tr
+        class="w-full min-h-[40px] px-3 sm:px-5 flex items-center gap-3 sm:gap-5 border-y border-[#00000014] dark:border-[#FFFFFF14]">
+        @for (column of columns(); track column.key){
+        <th [class.cursor-pointer]="column.sortable" (click)="column.sortable && sort(column)"
+          class="font-[Inter] text-[13px] font-medium leading-[19px] tracking-[0px] text-[#18181B] dark:text-white">
+
+          <div class="flex items-center gap-1">
+
+            <span>
+              {{ column.header }}
+            </span>
+
+
+            @if (column.sortable) {
+            @if(getSortDirection(column) === 'asc') {
+            <lucide-icon [img]="ArrowUp" class="w-4 h-4 text-[#A6252A] dark:text-[#FFC2D0]" />
+            } @else if(getSortDirection(column) === 'desc') {
+            <lucide-icon [img]="ArrowDown" class="w-4 h-4 text-[#A6252A] dark:text-[#FFC2D0]" />
+            }
+            }
+          </div>
+        </th>
+        }
+        @if (actions().length) {
+        <th></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data(); track $index){
+      <tr class="w-full min-h-[40px] px-3 sm:px-5 flex items-center gap-3 sm:gap-5 
+      border-y border-[#00000014] dark:border-[#FFFFFF14] background-[#FBEAEA]">
+        @for (column of columns(); track column.key){
+        <td>
+          @if(column.template) {
+          <ng-container [ngTemplateOutlet]="column.template"
+            [ngTemplateOutletContext]="{ $implicit: row[column.key], row: row }">
+          </ng-container>
+          } @else {
+          {{ row[column.key] }}
+          }
+        </td>
+        }
+
+        @if(actions().length) {
+        <!-- Desktop Actions -->
+        <td class="hidden md:table-cell">
+          <div class="flex items-center justify-end gap-2">
+            @for (action of actions();track action.label){
+            <!-- Call the action handler and pass the current row   -->
+            <button type="button" (click)="action.action(row)"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border border-transparent"
+              [ngClass]="{
+                        'bg-[#E0EDFF] text-[#2563EB] hover:bg-[#D0E2FF]': action.label.toLowerCase().includes('edit'),
+                        'bg-[#FEE2E2] text-[#DC2626] hover:bg-[#FCA5A5]': action.label.toLowerCase().includes('delete'),
+                        'bg-gray-100 text-gray-700 hover:bg-gray-200': !action.label.toLowerCase().includes('edit') && !action.label.toLowerCase().includes('delete')
+                      }">
+              @if (action.icon) {
+              <lucide-icon [img]="action.icon" [size]="14" />
+              }
+              {{ action.label }}
+            </button>
+            }
+          </div>
+        </td>
+
+        <!-- Mobile Actions Dropdown -->
+        <td class="md:hidden">
+          <button type="button" (click)="openMobileMenu($event, menu, row)">
+            <lucide-icon [img]="EllipsisVertical" [size]="20" />
+          </button>
+        </td>
+        }
+      </tr>
+      <!-- Empty state when no data is available -->
+      @if (data().length === 0) {
+      <tr>
+        <td [attr.colspan]="columns().length + (actions().length ? 1 : 0)">
+          {{ 'TABLE.NO_DATA' | translate }}
+        </td>
+      </tr>
+      }
+
+      }
+    </tbody>
+  </table>
+  <!-- Menu -->
+  <p-menu #menu [model]="activeMenuItems()" [popup]="true" appendTo="body">
+    <ng-template #item let-item>
+      <div class="flex items-center gap-2">
+        @if (item.data?.icon) {
+        <lucide-icon [img]="item.data.icon" [size]="18" />
+        }
+
+        <span>{{ item.label }}</span>
+      </div>
+    </ng-template>
+  </p-menu>
+  <!-- Pagination -->
+  @if (totalPages() > 1) {
+  <lib-pagination [page]="page()" [totalPages]="totalPages()" (pageChange)="pageChange.emit($event)">
+  </lib-pagination>
+  }
+</div>
