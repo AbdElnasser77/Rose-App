@@ -42,13 +42,16 @@ export class DynamicTableComponent<T> {
      menu.toggle(event);
 
   }
+  getCellValue(row:T, column: TableColumn<T>): unknown {
+    return column.getValue ? column.getValue(row) : row[column.key];
+  } 
     // pagination
    page = input<number>(1);
    totalPages = input<number>(1);
    pageChange = output<number>();
 
   //  search
-  search = input<string>('');
+  
   searchChange = output<string>();
 
   onSearch(event: Event): void {

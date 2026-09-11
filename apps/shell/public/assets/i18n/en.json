@@ -550,6 +550,13 @@
       "EMPTY_LOW_STOCK": "All products are well stocked",
       "LOAD_FAILED": "Couldn't load the dashboard statistics.",
       "RETRY": "Try again"
+    },
+    "PRODUCTS": {
+    "DELETE_SUCCESS": "Product deleted successfully"
+    },
+    "TABLE": {
+    "SEARCH": "Search...",
+     "NO_DATA": "No data found"
     }
   },
   "NOTIFICATIONS": {
@@ -559,9 +566,7 @@
     "MARK_AS_READ": "Mark as read",
     "DELETE": "Delete notification",
     "EMPTY": "No notifications to display."
-  },
-  "TABLE": {
-    "SEARCH": "Search...",
-     "NO_DATA": "No data found"
   }
+ 
+
 }

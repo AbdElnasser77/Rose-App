@@ -13,8 +13,13 @@ export const remoteRoutes: Route[] = [
             (m) => m.OverviewRoutes,
           ),
       },
-      // Products, orders, notifications and settings hang off here as the
-      // sprint's other dashboard tickets land.
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('../features/products/products.routes').then(
+            (m) => m.ProductsRoutes,
+          ),
+      },
     ],
   },
 ];

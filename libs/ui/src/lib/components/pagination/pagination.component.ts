@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LucideAngularModule, ChevronsRight, ChevronLeft } from 'lucide-angular';
 
 @Component({
   selector: 'lib-pagination',
-  imports: [CommonModule ,TranslatePipe],
+  imports: [CommonModule ,TranslatePipe ,LucideAngularModule],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })
 export class PaginationComponent {
+  readonly ChevronsRight = ChevronsRight;
+  readonly ChevronLeft = ChevronLeft;
   page = input<number>(1);
     totalPages = input<number>(1);
   
