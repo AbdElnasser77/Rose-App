@@ -559,5 +559,9 @@
     "MARK_AS_READ": "Mark as read",
     "DELETE": "Delete notification",
     "EMPTY": "No notifications to display."
+  },
+  "TABLE": {
+    "SEARCH": "Search...",
+     "NO_DATA": "No data found"
   }
 }
