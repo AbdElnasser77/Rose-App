@@ -1,29 +1,32 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ProductQueryParams } from '../../models/product-query.model';
 import { ProductModel } from '../../models/product.model';
 import { DynamicTableComponent } from '../../../../shared/ui/dynamic-table/components/dynamic-table.component';
 import { TableColumn } from '../../../../shared/ui/dynamic-table/models/table-column.model';
 import { TableAction } from '../../../../shared/ui/dynamic-table/models/table-action.model';
-import { LucideAngularModule, Pencil ,Trash } from 'lucide-angular';
-import { TranslateService } from '@ngx-translate/core';
+import { LucideAngularModule, Pencil ,Trash ,Plus } from 'lucide-angular';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ButtonComponent } from '@org/ui';
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [DynamicTableComponent ,LucideAngularModule ,],
+  imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent],
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
 })
-export class ProductsPage implements OnInit{
+export class ProductsPage implements OnInit , AfterViewInit{
+  @ViewChild('stockTemplate') stockTemplate!: TemplateRef<unknown>;
+  
   private readonly _productsService = inject(ProductsService);
   private readonly _toastService = inject(ToastService);
   private readonly _translateService = inject(TranslateService);
   private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
 
+  readonly Plus  = Plus ;
   products = signal<ProductModel[]>([]);
   page = signal(1);
   totalPages = signal(1);
@@ -94,5 +97,22 @@ export class ProductsPage implements OnInit{
 
   this.loadProducts();
    }
+
+   onAddClicked(){
+    this._router.navigate(
+    [ 'add'],
+    { relativeTo: this._route }
+  );
+   }
    
+   ngAfterViewInit(): void {
+  this.columns = this.columns.map((column) =>
+    column.key === 'stock'
+      ? {
+          ...column,
+          template: this.stockTemplate,
+        }
+      : column
+  );
+  }
 }

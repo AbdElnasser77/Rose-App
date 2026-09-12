@@ -552,11 +552,15 @@
       "RETRY": "Try again"
     },
     "PRODUCTS": {
-    "DELETE_SUCCESS": "Product deleted successfully"
+    "DELETE_SUCCESS": "Product deleted successfully",
+    "TITLE": "Products",
+    "ADD_NEW": "Add a new product"
     },
     "TABLE": {
     "SEARCH": "Search...",
-     "NO_DATA": "No data found"
+     "NO_DATA": "No data found",
+     "NO_DATA_DESCRIPTION": "There are no products to display at the moment."
+     
     }
   },
   "NOTIFICATIONS": {

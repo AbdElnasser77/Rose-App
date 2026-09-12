@@ -41,7 +41,8 @@
     <tbody>
       @for (row of data(); track $index){
       <tr class="w-full min-h-[40px]  
-      border-y border-[#00000014] dark:border-[#FFFFFF14] background-[#FBEAEA]">
+      border-y border-[#00000014] dark:border-[#FFFFFF14]  hover:bg-[#FBEAEA]
+      dark:hover:bg-[#3A2929]">
         @for (column of columns(); track column.key){
         <td class="py-4 px-2  max-w-0 align-middle">
           @if(column.template) {
@@ -92,11 +93,28 @@
       }
           <!-- Empty state when no data is available -->
       @if (data().length === 0) {
-      <tr>
-        <td [attr.colspan]="columns().length + (actions().length ? 1 : 0)">
+       <tr>
+    <td
+      [attr.colspan]="columns().length + (actions().length ? 1 : 0)"
+      class="py-16">
+      <div class="flex flex-col items-center justify-center gap-3 text-center">
+
+        <h3
+          class="font-inter text-[16px] font-semibold leading-5
+                 text-[#27272A] dark:text-white">
           {{ 'DASHBOARD.TABLE.NO_DATA' | translate }}
-        </td>
-      </tr>
+        </h3>
+
+        <p
+          class="font-inter text-[13px] font-normal leading-5
+                 text-[#71717A] dark:text-[#A1A1AA]"
+        >
+          {{ 'DASHBOARD.TABLE.NO_DATA_DESCRIPTION' | translate }}
+        </p>
+
+      </div>
+    </td>
+  </tr>
       }
     </tbody>
   </table>

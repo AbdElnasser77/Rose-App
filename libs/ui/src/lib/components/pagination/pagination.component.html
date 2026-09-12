@@ -1,41 +1,54 @@
 @if (totalPages() > 1) {
-  <nav class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 py-6 sm:py-8 px-3">
-    <button
-      type="button"
-      class="px-3 py-2 rounded-md border border-gray-300 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
-      dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
-      [disabled]="page() === 1"
-      (click)="prev()"
-    >
-      <lucide-icon [img]="ChevronLeft"></lucide-icon>
+<nav class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 py-6 sm:py-8 px-3">
 
-    </button>
+  <!-- First Page -->
+  <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA]  hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+     bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer" [disabled]="page() === 1"
+    (click)="fisrt()">
+    <lucide-icon [img]="ChevronsLeft"class="w-4 h-4"></lucide-icon>
 
-    @for (p of pages(); track p) {
-      <button
-        type="button"
-        class="min-w-10 px-3 py-2 rounded-md border text-xs sm:text-sm cursor-pointer"
-        [ngClass]="
+  </button>
+
+  <!-- Previous Page  -->
+  <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+     bg-white dark:bg-[#262626] dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer" [disabled]="page() === 1"
+    (click)="prev()">
+    <lucide-icon [img]="ChevronLeft" class="w-4 h-4"></lucide-icon>
+
+  </button>
+
+  @for (p of pages(); track $index) {
+    @if (isPageNumber(p)) {
+
+    <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border font-inter text-[13px] font-semibold leading-none tracking-normal  cursor-pointer" [ngClass]="
           p === page()  
-            ? 'bg-[#DC2626] text-white border-[#DC2626] dark:bg-[#FFC2D0] dark:text-[#27272A] dark:border-[#FFC2D0]'
-            : 'border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46]'
-        "
-        (click)="goTo(p)"
-      >
-        {{ p }}
-      </button>
-    }
-
-    <button
-      type="button"
-      class="min-w-8 h-8 sm:min-w-10 sm:h-10
-       px-2 sm:px-3 py-1.5 sm:py-2 rounded-md border border-gray-300 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
-      dark:border-[#52525B] dark:text-[#E4E4E7] dark:hover:bg-[#3F3F46] cursor-pointer"
-      [disabled]="page() === totalPages()"
-      (click)="next()"
+            ? 'bg-[#DC2626] text-white dark:text-zinc-800 border-[#DC2626] dark:bg-[#FFC2D0]  dark:border-[#FFC2D0]'
+            : 'border-[#FAFAFA] bg-white text-[#27272A] dark:text-[#FAFAFA] hover:bg-gray-100 dark:border-[#52525B]  dark:hover:bg-[#3F3F46] dark:bg-[#262626]'
+        " (click)="goTo(p)">
+    {{ p }}
+  </button>
+  }@else {
+    <span
+      class="w-8 h-8 p-[10px] text-center font-inter text-[13px] font-semibold leading-none tracking-normal text-[#27272A] dark:text-[#FAFAFA]  bg-white dark:bg-[#262626]"
     >
-     <lucide-icon [img]="ChevronsRight"></lucide-icon>
+      ...
+    </span>
+  }
+  
+  }
+  <!-- Next Page -->
+  <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+     bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer"
+    [disabled]="page() === totalPages()" (click)="next()">
+    <lucide-icon [img]="ChevronRight" class="w-4 h-4"></lucide-icon>
 
-    </button>
-  </nav>
+  </button>
+  <!-- Last Page -->
+  <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
+    bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer"
+    [disabled]="page() === totalPages()" (click)="last()">
+    <lucide-icon [img]="ChevronsRight" class="w-4 h-4"></lucide-icon>
+
+  </button>
+</nav>
 }

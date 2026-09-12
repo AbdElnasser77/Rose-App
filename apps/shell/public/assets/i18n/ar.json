@@ -555,12 +555,15 @@
       "RETRY": "إعادة المحاولة"
     },
     "PRODUCTS": {
-    "DELETE_SUCCESS": "تم حذف المنتج بنجاح"
+    "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
+    "TITLE": "المنتجات",
+      "ADD_NEW": "إضافة منتج جديد"
     },
   
    "TABLE": {
     "SEARCH": "بحث...",
-    "NO_DATA": "لا توجد بيانات"
+    "NO_DATA": "لا توجد بيانات",
+    "NO_DATA_DESCRIPTION": "لا توجد منتجات لعرضها في الوقت الحالي."
     }
   },
   "NOTIFICATIONS": {
