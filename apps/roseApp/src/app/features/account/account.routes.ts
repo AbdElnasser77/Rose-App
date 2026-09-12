@@ -14,13 +14,13 @@ export const accountRoutes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+          import('@org/auth').then((m) => m.ProfilePage),
         title: 'profile',
       },
       {
         path: 'password',
         loadComponent: () =>
-          import('./pages/change-password/change-password.page').then(
+          import('@org/auth').then(
             (m) => m.ChangePasswordPage
           ),
         title: 'change-password',

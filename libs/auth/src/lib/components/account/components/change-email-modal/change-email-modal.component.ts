@@ -19,13 +19,14 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent, ReusableInputComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
-import { AuthFacade, AuthStore } from '@org/auth';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
 import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
+import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
+import { AuthStore } from 'libs/auth/src/lib/store/auth.store';
 
 @Component({
-  selector: 'app-change-email-modal',
+  selector: 'lib-change-email-modal',
   imports: [
     ReactiveFormsModule,
     TranslatePipe,

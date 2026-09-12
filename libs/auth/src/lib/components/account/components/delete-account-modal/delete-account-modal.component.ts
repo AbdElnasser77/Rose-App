@@ -5,7 +5,7 @@ import { DialogModule } from 'primeng/dialog';
 import { LucideAngularModule, Trash2 } from 'lucide-angular';
 
 @Component({
-  selector: 'app-delete-account-modal',
+  selector: 'lib-delete-account-modal',
   imports: [ButtonComponent, TranslatePipe, DialogModule, LucideAngularModule],
   templateUrl: './delete-account-modal.component.html',
   styleUrl: './delete-account-modal.component.scss',

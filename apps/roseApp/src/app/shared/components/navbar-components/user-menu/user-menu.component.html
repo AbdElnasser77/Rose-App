@@ -16,24 +16,24 @@
 
 
 
-  @for (item of menuItems; track item.label) {
-
-  @if (item.route) {
-  <a [routerLink]="item.route" class="w-full flex items-center gap-3  px-4 py-3 cursor-pointer
-                   text-sm text-zinc-800 dark:text-zinc-50
-                   hover:bg-gray-100 dark:hover:bg-zinc-700">
-    <lucide-icon [img]="item.icon" class="w-5 h-5" />
-    {{ item.label | translate }}
-  </a>
-  } @else {
-  <button type="button" (click)="openAddresses()" class="w-full flex items-center gap-3  px-4 py-3 text-start
-                   text-sm text-zinc-800 dark:text-zinc-50
-                   hover:bg-gray-100 dark:hover:bg-zinc-700">
-    <lucide-icon [img]="item.icon" class="w-5 h-5" />
-    {{ item.label | translate }}
-  </button>
-  }
-
+  @for (item of menuItems(); track item.label) {
+    @if (!item.adminOnly) {
+      @if (item.route) {
+      <a [routerLink]="item.route" class="w-full flex items-center gap-3  px-4 py-3 cursor-pointer
+                      text-sm text-zinc-800 dark:text-zinc-50
+                      hover:bg-gray-100 dark:hover:bg-zinc-700">
+        <lucide-icon [img]="item.icon" class="w-5 h-5" />
+        {{ item.label | translate }}
+      </a>
+      } @else {
+      <button type="button" (click)="openAddresses()" class="w-full flex items-center gap-3  px-4 py-3 text-start
+                      text-sm text-zinc-800 dark:text-zinc-50
+                      hover:bg-gray-100 dark:hover:bg-zinc-700">
+        <lucide-icon [img]="item.icon" class="w-5 h-5" />
+        {{ item.label | translate }}
+      </button>
+      }
+    }
   }
   <!-- Mobile Theme -->
   <lib-theme-toggle />
@@ -81,26 +81,26 @@
       {{ currentUser()?. username ?? 'Account' }}
     </div>
 
-    @for (item of menuItems; track item.label) {
-
-    @if (item.route) {
-    <a [routerLink]="item.route" (click)="closeDropdown()" class="w-full flex  items-center gap-3
-                     cursor-pointer px-4 py-3
-                     text-zinc-700 dark:text-zinc-100
-                     hover:bg-gray-100 dark:hover:bg-zinc-600">
-      <lucide-icon [img]="item.icon" class="w-5 h-5" />
-      {{ item.label | translate }}
-    </a>
-    } @else {
-    <button type="button" (click)="openAddresses()" class="w-full flex  items-center gap-3 text-start
-                     cursor-pointer px-4 py-3
-                     text-zinc-700 dark:text-zinc-100
-                     hover:bg-gray-100 dark:hover:bg-zinc-600">
-      <lucide-icon [img]="item.icon" class="w-5 h-5" />
-      {{ item.label | translate }}
-    </button>
+    @for (item of menuItems(); track item.label) {
+    @if (!item.adminOnly) {
+      @if (item.route) {
+      <a [routerLink]="item.route" (click)="closeDropdown()" class="w-full flex  items-center gap-3
+                      cursor-pointer px-4 py-3
+                      text-zinc-700 dark:text-zinc-100
+                      hover:bg-gray-100 dark:hover:bg-zinc-600">
+        <lucide-icon [img]="item.icon" class="w-5 h-5" />
+        {{ item.label | translate }}
+      </a>
+      } @else {
+      <button type="button" (click)="openAddresses()" class="w-full flex  items-center gap-3 text-start
+                      cursor-pointer px-4 py-3
+                      text-zinc-700 dark:text-zinc-100
+                      hover:bg-gray-100 dark:hover:bg-zinc-600">
+        <lucide-icon [img]="item.icon" class="w-5 h-5" />
+        {{ item.label | translate }}
+      </button>
+      }
     }
-
     }
 
     <button (click)="logout()" class="w-full flex  items-center gap-3  cursor-pointer text-start px-4 py-3

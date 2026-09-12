@@ -8,3 +8,5 @@ export * from './lib/types/index';
 export * from './lib/auth-facade';
 export * from './lib/guards/index';
 export * from './lib/store/index';
+export * from './lib/store/index';
+export * from './lib/components/index';
