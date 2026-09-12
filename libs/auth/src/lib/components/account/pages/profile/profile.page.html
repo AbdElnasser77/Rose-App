@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-8">
-  <app-avatar-upload
+  <lib-avatar-upload
     [photo]="user()?.photo ?? null"
     (uploaded)="onPhotoUploaded($event)"
   />
@@ -22,7 +22,7 @@
       />
     </div>
 
-    <app-readonly-field
+    <lib-readonly-field
       [label]="'AUTH.EMAIL' | translate"
       [value]="user()?.email ?? ''"
       [actionLabel]="'ACCOUNT.CHANGE_EMAIL.EDIT' | translate"
@@ -35,20 +35,31 @@
       [label]="'ACCOUNT.PROFILE.PHONE' | translate"
     />
 
-    <app-readonly-field
+    <lib-readonly-field
       [label]="'AUTH.GENDER' | translate"
-      [value]="user() ? ('AUTH.' + user()!.gender | translate) : ''"
+      [value]="user()&&user()!.gender ? ('AUTH.' + user()!.gender | translate) : ''"
     />
   </form>
 
   <div class="flex items-center justify-between gap-4 pt-4">
-    <button
-      type="button"
-      (click)="deleteModalOpen.set(true)"
-      class="font-inter text-[15px] font-medium text-red-600 dark:text-red-400 hover:underline cursor-pointer transition"
-    >
-      {{ 'ACCOUNT.PROFILE.DELETE_MY_ACCOUNT' | translate }}
-    </button>
+    <div>
+      <button
+        type="button"
+        (click)="deleteModalOpen.set(true)"
+        class="font-inter text-[15px] font-medium text-red-600 dark:text-red-400 hover:underline cursor-pointer transition"
+      >
+        {{ 'ACCOUNT.PROFILE.DELETE_MY_ACCOUNT' | translate }}
+      </button>
+      @if(user()!.role === "ADMIN"){
+        <button
+          type="button"
+          routerLink="/dashboard/account/password"
+          class="font-inter text-[15px] font-medium px-4 hover:underline cursor-pointer transition"
+        >
+          {{ 'ACCOUNT.NAV.CHANGE_PASSWORD' | translate }}
+        </button>
+      }
+    </div>
 
     <lib-button
       variant="Primary"
@@ -62,13 +73,13 @@
   </div>
 </div>
 
-<app-delete-account-modal
+<lib-delete-account-modal
   [visible]="deleteModalOpen()"
   (cancelled)="deleteModalOpen.set(false)"
   (confirmed)="confirmDelete()"
 />
 
-<app-change-email-modal
+<lib-change-email-modal
   [visible]="emailModalOpen()"
   (closed)="emailModalOpen.set(false)"
   (changed)="emailModalOpen.set(false)"
