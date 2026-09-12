@@ -15,6 +15,13 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
+        path: 'products',
+        loadChildren: () =>
+          import('../features/products/products.routes').then(
+            (m) => m.ProductsRoutes,
+          ),
+      },
+      {
         path: 'account',
         component: AccountComponent,
         data: { breadcrumb: "ACCOUNT.TITLE"},

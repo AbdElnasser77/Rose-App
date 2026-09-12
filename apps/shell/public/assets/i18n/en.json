@@ -550,6 +550,17 @@
       "EMPTY_LOW_STOCK": "All products are well stocked",
       "LOAD_FAILED": "Couldn't load the dashboard statistics.",
       "RETRY": "Try again"
+    },
+    "PRODUCTS": {
+    "DELETE_SUCCESS": "Product deleted successfully",
+    "TITLE": "Products",
+    "ADD_NEW": "Add a new product"
+    },
+    "TABLE": {
+    "SEARCH": "Search...",
+     "NO_DATA": "No data found",
+     "NO_DATA_DESCRIPTION": "There are no products to display at the moment."
+     
     }
   },
   "NOTIFICATIONS": {
@@ -559,9 +570,7 @@
     "MARK_AS_READ": "Mark as read",
     "DELETE": "Delete notification",
     "EMPTY": "No notifications to display."
-  },
-  "TABLE": {
-    "SEARCH": "Search...",
-     "NO_DATA": "No data found"
   }
+ 
+
 }

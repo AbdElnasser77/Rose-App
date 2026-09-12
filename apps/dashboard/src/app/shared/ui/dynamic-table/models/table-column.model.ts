@@ -4,5 +4,7 @@ export interface TableColumn<T> {
   key: keyof T;
   header: string;
   sortable?: boolean;
-  template?:TemplateRef<unknown>
+  template?:TemplateRef<unknown>;
+
+  getValue?:(row:T)=>unknown;
 }
