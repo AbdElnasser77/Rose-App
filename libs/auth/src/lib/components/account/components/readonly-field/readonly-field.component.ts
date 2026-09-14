@@ -5,7 +5,7 @@ import { Component, input, output } from '@angular/core';
 // them out of the form makes it impossible for them to reach the PATCH body.
 // Pass actionLabel to surface an inline action beside the label (e.g. "Edit").
 @Component({
-  selector: 'app-readonly-field',
+  selector: 'lib-readonly-field',
   imports: [],
   templateUrl: './readonly-field.component.html',
   styleUrl: './readonly-field.component.scss',

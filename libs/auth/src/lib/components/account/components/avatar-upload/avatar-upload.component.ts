@@ -16,10 +16,10 @@ import {
   ACCEPTED_IMAGE_TYPES,
   MAX_UPLOAD_BYTES,
   UploadApiService,
-} from '../../../../core/services/upload-api.service';
+} from '../../../../services/upload-api.service';
 
 @Component({
-  selector: 'app-avatar-upload',
+  selector: 'lib-avatar-upload',
   imports: [TranslatePipe, LucideAngularModule],
   templateUrl: './avatar-upload.component.html',
   styleUrl: './avatar-upload.component.scss',

@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { Root } from '../core/root/root';
 import { adminGuard } from '../core/guards/admin-guard';
+import { AccountComponent } from '../features/overview/pages/account/account.component';
 
 export const remoteRoutes: Route[] = [
   {
@@ -23,6 +24,41 @@ export const remoteRoutes: Route[] = [
           import('../features/overview/overview.routes').then(
             (m) => m.OverviewRoutes,
           ),
+      },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('../features/products/products.routes').then(
+            (m) => m.ProductsRoutes,
+          ),
+      },
+      {
+        path: 'account',
+        component: AccountComponent,
+        data: { breadcrumb: "ACCOUNT.TITLE"},
+        children: [
+          {
+            path: '',
+            redirectTo: 'profile',
+            pathMatch: 'full',
+          },
+          {
+            path: 'profile',
+            data: { breadcrumb: "ACCOUNT.NAV.PROFILE"},
+            loadComponent: () =>
+              import('@org/auth').then((m) => m.ProfilePage),
+            title: 'profile',
+          },
+          {
+            path: 'password',
+            data: { breadcrumb: "ACCOUNT.NAV.CHANGE_PASSWORD"},
+            loadComponent: () =>
+              import('@org/auth').then(
+                (m) => m.ChangePasswordPage
+              ),
+            title: 'change-password',
+          },
+        ],
       },
       // Products, orders, notifications and settings hang off here as the
       // sprint's other dashboard tickets land.

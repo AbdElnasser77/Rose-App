@@ -1,5 +1,5 @@
-import { Component, effect, HostListener, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component,  HostListener, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthFacade, AuthStore } from '@org/auth';
 import { MenuItem } from 'primeng/api';
@@ -17,7 +17,7 @@ export interface NavItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslatePipe, RouterOutlet, MenuModule, ButtonModule],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe, MenuModule, ButtonModule],
   templateUrl: './sidebar.html'
 })
 export class Sidebar {
@@ -31,7 +31,7 @@ export class Sidebar {
   readonly navItems = signal<NavItem[]>([
     {
       label: 'nav.overview',
-      route: '/overview',
+      route: '/dashboard',
       type: 'custom',
       customPaths: [
         'M9.375 3.125H4.16667C3.59137 3.125 3.125 3.59137 3.125 4.16667V11.4583C3.125 12.0336 3.59137 12.5 4.16667 12.5H9.375C9.9503 12.5 10.4167 12.0336 10.4167 11.4583V4.16667C10.4167 3.59137 9.9503 3.125 9.375 3.125Z',
@@ -58,7 +58,7 @@ export class Sidebar {
     },
     {
       label: 'nav.products',
-      route: '/products',
+      route: '/dashboard/products',
       type: 'custom',
       customPaths: [
         'M12.5 22.9167V12.5M12.5 12.5L3.42708 7.29167M12.5 12.5L21.5729 7.29167M7.8125 4.44792L17.1875 9.8125M11.4583 22.6354C11.775 22.8183 12.1343 22.9145 12.5 22.9145C12.8657 22.9145 13.225 22.9145 13.5417 22.6354L20.8333 18.4687C21.1497 18.2861 21.4125 18.0234 21.5954 17.7071C21.7782 17.3908 21.8746 17.032 21.875 16.6667V8.33333C21.8746 7.96799 21.7782 7.60918 21.5954 7.29288C21.4125 6.97658 21.1497 6.71392 20.8333 6.53125L13.5417 2.36458C13.225 2.18173 12.8657 2.08547 12.5 2.08547C12.1343 2.08547 11.775 2.18173 11.4583 2.36458L4.16667 6.53125C3.85027 6.71392 3.58748 6.97658 3.40465 7.29288C3.22182 7.60918 3.12537 7.96799 3.125 8.33333V16.6667C3.12537 17.032 3.22182 17.3908 3.40465 17.7071C3.58748 18.0234 3.85027 18.2861 4.16667 18.4687L11.4583 22.6354Z'
@@ -110,6 +110,6 @@ export class Sidebar {
 
    goToAccount(): void {
     this.activeMenuId.set(null);
-    this.router.navigate(['/account/profile']);
+    this.router.navigate(['/dashboard/account/profile']);
   }
 }

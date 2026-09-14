@@ -5,15 +5,15 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent, ReusableInputComponent } from '@org/ui';
 import { LoaderService } from '@org/shared-util-loader';
 import { ToastService } from '@org/shared-util-notification';
-import { AuthFacade } from '@org/auth';
 import {
   hasDirtyError,
   passwordDifferentValidator,
   passwordMatchValidator,
 } from '@org/util-validation';
+import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
 
 @Component({
-  selector: 'app-change-password',
+  selector: 'lib-change-password',
   imports: [
     ReactiveFormsModule,
     TranslatePipe,

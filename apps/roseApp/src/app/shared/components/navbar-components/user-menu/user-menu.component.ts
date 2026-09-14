@@ -53,7 +53,8 @@ export class UserMenuComponent {
         }
     }
    
-  readonly menuItems = [
+  
+  readonly menuItems = computed(() => [
   {
     label: 'NAV.ACCOUNT',
     route: '/account' as string | null,
@@ -72,9 +73,10 @@ export class UserMenuComponent {
   {
     label: 'NAV.DASHBOARD',
     route: '/dashboard',
-    icon : Settings  
+    icon : Settings,
+    adminOnly: this.currentUser()?.role !== "ADMIN"
   },
-  ];
+  ]);
 
   closeDropdown(): void {
   this.isDropdownOpen.set(false);
