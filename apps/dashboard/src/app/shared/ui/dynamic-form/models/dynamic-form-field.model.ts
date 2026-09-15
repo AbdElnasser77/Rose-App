@@ -12,6 +12,10 @@ export interface DynamicFormOption<T = string> {
   label: string;
   value: T;
 }
+export interface DynamicFormCalculated {
+  dependsOn: string[];
+  calculate: (values: Record<string, unknown>) => unknown;
+}
 
 export interface DynamicFormField<T = string> {
   name: string;
@@ -32,6 +36,9 @@ export interface DynamicFormField<T = string> {
   max?: number;
   pattern?: string;
   validators?: ValidatorFn[];
+
+  //  calculated
+  calculated?: DynamicFormCalculated;
 
   // Textarea
   rows?: number;
