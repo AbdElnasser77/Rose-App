@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -19,7 +20,7 @@ export interface IBreadcrumb {
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe, LanguageSwitcherComponent, ThemeToggleComponent],
+  imports: [NgClass, RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe, LanguageSwitcherComponent, ThemeToggleComponent],
   templateUrl: './breadcrumb.html'
 })
 export class Breadcrumb {
@@ -48,7 +49,7 @@ export class Breadcrumb {
     if (breadcrumbs.length === 0) {
       breadcrumbs.push({
         label: this.translate.instant('NAV.DASHBOARD'),
-        url: '/dashboard' 
+        url: '/dashboard/overview' 
       });
     }
 
@@ -125,6 +126,6 @@ export class Breadcrumb {
   
      goToAccount(): void {
       this.activeMenuId.set(null);
-      this.router.navigate(['/account/profile']);
+      this.router.navigate(['/dashboard/account/profile']);
     }
 }
