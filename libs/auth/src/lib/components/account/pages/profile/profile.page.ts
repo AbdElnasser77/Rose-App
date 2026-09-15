@@ -20,10 +20,10 @@ import { AvatarUploadComponent } from '../../components/avatar-upload/avatar-upl
 import { DeleteAccountModalComponent } from '../../components/delete-account-modal/delete-account-modal.component';
 import { ChangeEmailModalComponent } from '../../components/change-email-modal/change-email-modal.component';
 import { ReadonlyFieldComponent } from '../../components/readonly-field/readonly-field.component';
-import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
-import { AuthStore } from 'libs/auth/src/lib/store/auth.store';
-import { UpdateProfileRequestModel } from 'libs/auth/src/lib/models/requests/update-profile-request.model';
-import { UserModel } from 'libs/auth/src/lib/models/responses/auth-response.model';
+import { AuthFacade } from '../../../../auth-facade';
+import { AuthStore } from '../../../../store/auth.store';
+import { UpdateProfileRequestModel } from '../../../../models/requests/update-profile-request.model';
+import { UserModel } from '../../../../models/responses/auth-response.model';
 
 @Component({
   selector: 'lib-profile',
