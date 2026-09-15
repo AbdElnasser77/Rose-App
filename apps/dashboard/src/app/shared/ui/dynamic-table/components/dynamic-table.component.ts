@@ -1,6 +1,8 @@
 import { Component, input, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { TableColumn } from '../models/table-column.model';
-import { TableAction } from '../models/table-action.model';
+import { TableAction, TableActionVariant } from '../models/table-action.model';
 import { PaginationComponent } from '@org/ui';
 import { ArrowDown, ArrowUp, EllipsisVertical, LucideAngularModule, Search } from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,6 +18,7 @@ import { MenuItem } from 'primeng/api';
   imports: [PaginationComponent, LucideAngularModule ,TranslatePipe
     , NgTemplateOutlet , MenuModule ,CommonModule
   ],
+  host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './dynamic-table.component.html',
   styleUrl: './dynamic-table.component.scss',
 })
@@ -30,12 +33,36 @@ export class DynamicTableComponent<T> {
   actions = input<TableAction<T>[]>([]);
 
   activeMenuItems = signal<MenuItem[]>([]);
+
+  /**
+   * Explicit variant wins; otherwise fall back to sniffing the label so
+   * existing callers that pass plain 'Edit' / 'Delete' keep their colours.
+   */
+  resolveVariant(action: TableAction<T>): TableActionVariant {
+    if (action.variant) {
+      return action.variant;
+    }
+
+    const label = action.label.toLowerCase();
+
+    if (label.includes('edit')) {
+      return 'edit';
+    }
+
+    if (label.includes('delete')) {
+      return 'delete';
+    }
+
+    return 'default';
+  }
+
   openMobileMenu(event: Event, menu: Menu, row: T): void {
     const items : MenuItem[] = this.actions().map((action) => ({
       label: action.label,
       command: () => action.action(row),
        data: {
       icon: action.icon,
+      variant: this.resolveVariant(action),
       },
     }));
      this.activeMenuItems.set(items);
@@ -54,10 +81,27 @@ export class DynamicTableComponent<T> {
   
   searchChange = output<string>();
 
+  /** Milliseconds of quiet before a search is actually issued. */
+  static readonly SEARCH_DEBOUNCE_MS = 300;
+
+  private readonly searchTerm = new Subject<string>();
+
+  constructor() {
+    // Typing used to fire one request per keystroke. Waiting for a pause, and
+    // ignoring repeats, collapses "flowers" from 7 requests down to 1.
+    this.searchTerm
+      .pipe(
+        debounceTime(DynamicTableComponent.SEARCH_DEBOUNCE_MS),
+        distinctUntilChanged(),
+        takeUntilDestroyed()
+      )
+      .subscribe((value) => this.searchChange.emit(value));
+  }
+
   onSearch(event: Event): void {
   const value = (event.target as HTMLInputElement).value;
 
-  this.searchChange.emit(value);
+  this.searchTerm.next(value);
   }
   // sort
   sortChange = output<TableSort<T>>();
