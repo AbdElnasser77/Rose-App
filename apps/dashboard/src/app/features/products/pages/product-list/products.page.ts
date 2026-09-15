@@ -14,6 +14,7 @@ import { ButtonComponent } from '@org/ui';
   selector: 'app-products-page',
   standalone: true,
   imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent],
+  host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
 })
