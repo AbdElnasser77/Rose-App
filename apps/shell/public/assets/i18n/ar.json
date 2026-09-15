@@ -279,7 +279,11 @@
     "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك",
     "RATING": "تقييم",
     "RATINGS":"تقييمات",
-    "THE_RATING": "التقييم"
+    "THE_RATING": "التقييم",
+    "UPLOAD_FILE": "رفع ملف",
+    "SELECT": "اختر",
+    "SUBMIT": "إرسال"
+  
   },
 
   "PRODUCT": {
@@ -556,8 +560,32 @@
     },
     "PRODUCTS": {
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
+    "CREATE_SUCCESS": "تم إنشاء المنتج بنجاح",
     "TITLE": "المنتجات",
-      "ADD_NEW": "إضافة منتج جديد"
+    "ADD_NEW": "إضافة منتج جديد",
+     "ADD_PRODUCT": "إضافة منتج",
+     "FIELDS": {
+      "TITLE": "اسم المنتج",
+      "DESCRIPTION": "الوصف",
+      "PRICE": "السعر",
+      "DISCOUNT": "الخصم",
+      "PRICE_AFTER_DISCOUNT": "السعر بعد الخصم",
+      "QUANTITY": "الكمية",
+      "COVER_IMAGE": "الصورة الرئيسية للمنتج",
+      "GALLERY": "صور المنتج",
+      "CATEGORY": "التصنيف",
+      "OCCASION": "المناسبة"
+    },
+    "PLACEHOLDERS": {
+      "TITLE": "أدخل اسم المنتج",
+      "DESCRIPTION": "أدخل وصف المنتج",
+      "PRICE": "مثال: 5000",
+      "DISCOUNT": "مثال: 5",
+      "QUANTITY": "مثال: 30",
+      "CATEGORY": "اختر التصنيف",
+      "OCCASION": "اختر المناسبة"
+    }
+
     },
   
    "TABLE": {

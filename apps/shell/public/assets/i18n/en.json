@@ -276,7 +276,10 @@
     "PRODUCTS_YOU_MAY_LIKE": "Products You May Like",
     "RATING": "rating",
     "RATINGS": "ratings",
-    "THE_RATING": "Rating"
+    "THE_RATING": "Rating",
+    "UPLOAD_FILE": "Upload File",
+    "SELECT": "Select ...",
+    "SUBMIT": "Submit"
     
   },
 
@@ -553,8 +556,33 @@
     },
     "PRODUCTS": {
     "DELETE_SUCCESS": "Product deleted successfully",
+    "CREATE_SUCCESS": "Product created successfully",
     "TITLE": "Products",
-    "ADD_NEW": "Add a new product"
+    "ADD_NEW": "Add a new product",
+    "ADD_PRODUCT": "Add Product",
+    "UPDATE_PRODUCT": "Update Product",
+    "FIELDS": {
+      "TITLE": "Title",
+      "DESCRIPTION": "Description",
+      "PRICE": "Price",
+      "DISCOUNT": "Discount",
+      "PRICE_AFTER_DISCOUNT": "Price After Discount",
+      "QUANTITY": "Quantity",
+      "COVER_IMAGE": "Product Cover Image",
+      "GALLERY": "Product Gallery",
+      "CATEGORY": "Category",
+      "OCCASION": "Occasion"
+    },
+    "PLACEHOLDERS": {
+      "TITLE": "Enter product title",
+      "DESCRIPTION": "Enter product description",
+      "PRICE": "Example: 5000",
+      "DISCOUNT": "Example: 5",
+      "QUANTITY": "Example: 30",
+      "CATEGORY": "Select category",
+      "OCCASION": "Select occasion"
+    }
+
     },
     "TABLE": {
     "SEARCH": "Search...",
