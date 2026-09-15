@@ -96,6 +96,11 @@
 
                 </div>
 
+                } @else if (getExistingFileUrl(field); as existingUrl) {
+
+                <img [src]="existingUrl" [alt]="field.label"
+                    class="h-24 w-auto max-w-full rounded-lg object-cover" />
+
                 } @else {
 
                 <div class="flex items-center justify-center gap-2">
@@ -110,6 +115,13 @@
 
                 }
             </div>
+
+            @if (field.hintHref && field.hintLabel) {
+            <a [href]="field.hintHref" target="_blank" rel="noopener noreferrer"
+                class="w-fit font-inter text-[13px] font-medium text-[#155DFC] hover:underline dark:text-[#FFC2D0]">
+                {{ field.hintLabel }}
+            </a>
+            }
 
             <div class="absolute top-full start-0 z-20 mt-1">
                 <lib-validation-errors [control]="getControl(field.name)" />

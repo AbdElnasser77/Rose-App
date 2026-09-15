@@ -41,7 +41,7 @@ export class DynamicFormComponent {
 
   for (const field of this.fields()) {
     controls[field.name] = new FormControl( {
-        value: '',
+        value: field.value ?? '',
         disabled: field.disabled ?? false,
       } ,this.getValidators(field));
   }
@@ -152,6 +152,20 @@ export class DynamicFormComponent {
 
   getFilePreviews(fieldName: string): string[] {
      return this.filePreviews()[fieldName] ?? [];
+  }
+
+  /**
+   * A file control still holding its seeded string value means nothing has been
+   * picked yet, so the existing file is what should be shown.
+   */
+  getExistingFileUrl(field: DynamicFormField): string | null {
+    if (this.getFilePreviews(field.name).length) {
+      return null;
+    }
+
+    const value = this.getControl(field.name)?.value;
+
+    return typeof value === 'string' && value !== '' ? value : null;
   }
 
 
