@@ -10,7 +10,7 @@ import {
   passwordDifferentValidator,
   passwordMatchValidator,
 } from '@org/util-validation';
-import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
+import { AuthFacade } from '../../../../auth-facade';
 
 @Component({
   selector: 'lib-change-password',
