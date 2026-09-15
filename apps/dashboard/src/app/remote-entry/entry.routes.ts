@@ -8,10 +8,26 @@ export const remoteRoutes: Route[] = [
     component: Root,
     children: [
       {
+        // /dashboard is not a page of its own - it lands on the overview.
         path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
+      {
+        path: 'overview',
         loadChildren: () =>
           import('../features/overview/overview.routes').then(
             (m) => m.OverviewRoutes,
+          ),
+      },
+      {
+        // Carries the "Categories" crumb for every page underneath, so add and
+        // edit read Dashboard > Categories > ... instead of skipping a level.
+        path: 'categories',
+        data: { breadcrumb: 'DASHBOARD.CATEGORIES.BREADCRUMB' },
+        loadChildren: () =>
+          import('../features/categories/categories.routes').then(
+            (m) => m.CategoriesRoutes,
           ),
       },
       {

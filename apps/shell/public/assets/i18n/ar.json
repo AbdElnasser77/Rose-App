@@ -554,6 +554,33 @@
       "LOAD_FAILED": "تعذر تحميل إحصائيات لوحة التحكم.",
       "RETRY": "إعادة المحاولة"
     },
+    "CATEGORIES": {
+      "BREADCRUMB": "الفئات",
+      "TITLE": "كل الفئات",
+      "ADD_NEW": "إضافة فئة جديدة",
+      "NAME": "الاسم",
+      "NAME_PLACEHOLDER": "أدخل اسم الفئة",
+      "PRODUCTS": "المنتجات",
+      "PRODUCTS_COUNT": "{{count}} منتج",
+      "IMAGE": "صورة الفئة",
+      "VIEW_IMAGE": "عرض صورة الفئة",
+      "ADD_TITLE": "إضافة فئة جديدة",
+      "ADD_BREADCRUMB": "إضافة فئة",
+      "ADD_SUBMIT": "إضافة الفئة",
+      "ADD_SUCCESS": "تمت إضافة الفئة بنجاح",
+      "UPDATE_TITLE": "تعديل الفئة: {{name}}",
+      "UPDATE_BREADCRUMB": "تعديل الفئة",
+      "UPDATE_SUBMIT": "تعديل الفئة",
+      "UPDATE_SUCCESS": "تم تعديل الفئة بنجاح",
+      "DELETE_TITLE": "حذف الفئة",
+      "DELETE_WARNING": "لا يمكن التراجع عن حذف “{{name}}”.",
+      "DELETE_SUCCESS": "تم حذف الفئة بنجاح"
+    },
+    "COMMON": {
+      "EDIT": "تعديل",
+      "DELETE": "حذف",
+      "CANCEL": "إلغاء"
+    },
     "PRODUCTS": {
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
     "TITLE": "المنتجات",

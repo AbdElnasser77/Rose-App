@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-6 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[71px]">
+  <h1
+    class="font-inter text-[24px] font-semibold leading-none tracking-normal text-[#27272A] dark:text-white">
+    {{ 'DASHBOARD.CATEGORIES.UPDATE_TITLE' | translate: { name: category()?.title ?? '' } }}
+  </h1>
+
+  @if (fields().length) {
+  <app-dynamic-form
+    [fields]="fields()"
+    [submitLabel]="'DASHBOARD.CATEGORIES.UPDATE_SUBMIT' | translate"
+    (submitted)="onSubmit($event)" />
+  }
+</div>

@@ -551,6 +551,33 @@
       "LOAD_FAILED": "Couldn't load the dashboard statistics.",
       "RETRY": "Try again"
     },
+    "CATEGORIES": {
+      "BREADCRUMB": "Categories",
+      "TITLE": "All Categories",
+      "ADD_NEW": "Add a new category",
+      "NAME": "Name",
+      "NAME_PLACEHOLDER": "Enter category name",
+      "PRODUCTS": "Products",
+      "PRODUCTS_COUNT": "{{count}} products",
+      "IMAGE": "Category image",
+      "VIEW_IMAGE": "View category image",
+      "ADD_TITLE": "Add a New Category",
+      "ADD_BREADCRUMB": "Add Category",
+      "ADD_SUBMIT": "Add Category",
+      "ADD_SUCCESS": "Category added successfully",
+      "UPDATE_TITLE": "Update Category: {{name}}",
+      "UPDATE_BREADCRUMB": "Update Category",
+      "UPDATE_SUBMIT": "Update Category",
+      "UPDATE_SUCCESS": "Category updated successfully",
+      "DELETE_TITLE": "Delete category",
+      "DELETE_WARNING": "Deleting “{{name}}” cannot be undone.",
+      "DELETE_SUCCESS": "Category deleted successfully"
+    },
+    "COMMON": {
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "CANCEL": "Cancel"
+    },
     "PRODUCTS": {
     "DELETE_SUCCESS": "Product deleted successfully",
     "TITLE": "Products",
