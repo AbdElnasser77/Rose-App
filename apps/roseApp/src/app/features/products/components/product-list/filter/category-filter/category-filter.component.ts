@@ -28,19 +28,19 @@ export class CategoryFilterComponent {
 
    
 
-    readonly visibleCategories = computed (() =>{
-      const ids = new Set(
-        this._productFilterService.allProducts().map(product => product.categoryId)
-      );
-
-      return this.categories().filter(category => ids.has(category.id))
+    // Every category the store has, newly created and empty ones included.
+    // This used to match against `allProducts()`, but that only ever holds one
+    // page of 20 products, so categories whose products sat on a later page
+    // disappeared and the list shifted as the user paginated.
+    readonly visibleCategories = computed (() =>
+      this.categories()
+      .slice()
       .sort((a,b) => a.title.localeCompare(b.title))
-
-    });
+    );
     
   ngOnInit(): void {
     
-      this.categoriesService.getCategories().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      this.categoriesService.getAllCategories().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (data) => {
           this.categories.set(data);
           this.categoriesLoading.set(false);
