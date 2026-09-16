@@ -7,7 +7,7 @@
       class="w-full  rounded-[10px] border border-[#D9D9D9] bg-white ps-[42px] py-4  text-[14px] outline-none 
      placeholder:font-[Inter] placeholder:text-[14px] placeholder:font-normal placeholder:text-[#A1A1AA] dark:border-[#3A3A3A] dark:bg-[#262626] dark:text-white dark:placeholder:text-[#A1A1AA]" />
   </div>
-  <div class="flex-1 min-h-0 overflow-y-auto overflow-x-auto">
+  <div class="w-full flex-1 min-h-0 overflow-y-auto overflow-x-auto custom-scrollbar">
   <table class="w-full table-fixed ">
     <thead>
       <tr
@@ -19,7 +19,7 @@
           <div class="flex items-center gap-1">
 
             <span>
-              {{ column.header }}
+              {{ column.header | translate }}
             </span>
 
 
@@ -44,13 +44,13 @@
       border-y border-[#00000014] dark:border-[#FFFFFF14]  hover:bg-[#FBEAEA]
       dark:hover:bg-[#3A2929]">
         @for (column of columns(); track column.key){
-        <td class="py-4 px-2  max-w-0 align-middle">
+        <td class="py-4 px-2   align-middle max-w-[200px]">
           @if(column.template) {
           <ng-container [ngTemplateOutlet]="column.template"
             [ngTemplateOutletContext]="{ $implicit: getCellValue(row, column), row: row }">
           </ng-container>
           } @else {
-            <span class="block line-clamp-2 break-words overflow-hidden leading-snug" [title]="getCellValue(row, column)">
+            <span class="block truncate" [title]="getCellValue(row, column)">
               {{ getCellValue(row, column) }}
             </span>
           
@@ -74,7 +74,7 @@
               @if (action.icon) {
               <lucide-icon [img]="action.icon" [size]="14" />
               }
-              {{ action.label }}
+              {{ action.label | translate }}
             </button>
             }
           </div>
@@ -142,7 +142,7 @@
         <lucide-icon [img]="item.data.icon" [size]="18" />
         }
 
-        <span>{{ item.label }}</span>
+        <span>{{ item.label | translate }}</span>
         
       </div>
     </ng-template>

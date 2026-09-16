@@ -279,7 +279,11 @@
     "PRODUCTS_YOU_MAY_LIKE": "منتجات قد تعجبك",
     "RATING": "تقييم",
     "RATINGS":"تقييمات",
-    "THE_RATING": "التقييم"
+    "THE_RATING": "التقييم",
+    "UPLOAD_FILE": "رفع ملف",
+    "SELECT": "اختر",
+    "SUBMIT": "إرسال"
+  
   },
 
   "PRODUCT": {
@@ -523,6 +527,13 @@
     "NEXT": "التالي"
   },
   "DASHBOARD": {
+    "DELETE_MODAL": {
+      "TITLE": "حذف المنتج",
+      "MESSAGE": "هل أنت متأكد من حذف هذا المنتج؟ لا يمكن التراجع عن هذا الإجراء.",
+      "CLOSE": "إغلاق تأكيد الحذف",
+      "CANCEL": "إلغاء",
+      "CONFIRM": "حذف"
+    },
     "OVERVIEW": {
       "BREADCRUMB": "لوحة التحكم",
       "TITLE": "نظرة عامة على لوحة التحكم",
@@ -581,10 +592,57 @@
       "DELETE": "حذف",
       "CANCEL": "إلغاء"
     },
+    "IMAGE_PREVIEW": {
+      "CLOSE": "إغلاق معاينة الصورة",
+      "PREVIOUS": "الصورة السابقة",
+      "NEXT": "الصورة التالية",
+      "COUNTER": "صورة",
+      "NO_IMAGE": "لا توجد صورة متاحة",
+      "SLIDE": "الصورة {{current}}"
+    },
     "PRODUCTS": {
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
+    "CREATE_SUCCESS": "تم إنشاء المنتج بنجاح",
+    "UPDATE_SUCCESS" :"تم تحديث المنتج بنجاح",
     "TITLE": "المنتجات",
-      "ADD_NEW": "إضافة منتج جديد"
+    "ADD_NEW": "إضافة منتج جديد",
+     "ADD_PRODUCT": "إضافة منتج",
+     "UPDATE_PRODUCT": "تعديل المنتج",
+    "VIEW_PRODUCT_COVER": "عرض صورة المنتج الرئيسية",
+    "VIEW_PRODUCT_GALLERY": "عرض صور المنتج",
+    "ACTIONS": {
+      "EDIT": "تعديل",
+      "DELETE": "حذف"
+    },
+    "TABLE": {
+      "NAME": "الاسم",
+      "PRICE": "السعر",
+      "STOCK": "المخزون",
+      "SALES": "المبيعات",
+      "RATINGS": "التقييمات"
+    },
+     "FIELDS": {
+      "TITLE": "اسم المنتج",
+      "DESCRIPTION": "الوصف",
+      "PRICE": "السعر",
+      "DISCOUNT": "الخصم",
+      "PRICE_AFTER_DISCOUNT": "السعر بعد الخصم",
+      "QUANTITY": "الكمية",
+      "COVER_IMAGE": "الصورة الرئيسية للمنتج",
+      "GALLERY": "صور المنتج",
+      "CATEGORY": "التصنيف",
+      "OCCASION": "المناسبة"
+    },
+    "PLACEHOLDERS": {
+      "TITLE": "أدخل اسم المنتج",
+      "DESCRIPTION": "أدخل وصف المنتج",
+      "PRICE": "مثال: 5000",
+      "DISCOUNT": "مثال: 5",
+      "QUANTITY": "مثال: 30",
+      "CATEGORY": "اختر التصنيف",
+      "OCCASION": "اختر المناسبة"
+    }
+
     },
   
    "TABLE": {

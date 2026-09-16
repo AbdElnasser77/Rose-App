@@ -1,0 +1,58 @@
+<div class="w-full flex flex-col gap-6  p-6 pb-[121px] md:pb-0 rounded-[16px] ">
+    <h1 class="font-inter text-[24px] truncate font-semibold leading-none tracking-normal text-[#27272A] dark:text-white py-2">
+        {{ 'DASHBOARD.PRODUCTS.UPDATE_PRODUCT' | translate }} : {{productName()}}
+    </h1>
+    <div class="w-full bg-white dark:bg-[#1C1C1E] rounded-2xl p-6  ">
+        <div class="w-full xl:w-[746px] min-h-[714px]  flex flex-col gap-[18px] pb-4">
+        <app-dynamic-form [fields]="fields()" 
+        [initialValues]="initialValues()"
+        submitLabel="DASHBOARD.PRODUCTS.UPDATE_PRODUCT"
+        (submitted)="onProductUpdate($event)" >
+
+         <!-- Extra content -->
+        <div class=" flex w-full flex-wrap justify-end gap-3">
+        <button type="button" class="flex h-[38px] w-fit items-center gap-[6px]
+         rounded-[10px] border border-[#00000014]
+         bg-white dark:bg-[#262626] px-[10px]
+         font-inter text-[14px] font-normal leading-none text-[#155DFC] dark:text-[#60A5FA]
+         transition hover:opacity-90"
+         (click)="openCoverPreview()">
+                <lucide-icon [img]="Image" class="h-[18px] w-[18px]" />
+
+                <span>
+                      {{ 'DASHBOARD.PRODUCTS.VIEW_PRODUCT_COVER' | translate }}
+                </span>
+            </button>
+
+
+        <button type="button" class="flex h-[38px] w-fit items-center gap-[6px]
+         rounded-[10px] border border-[#00000014]
+         bg-white dark:bg-[#262626] px-[10px]
+         font-inter text-[14px] font-normal leading-none text-[#155DFC] dark:text-[#60A5FA]
+         transition hover:opacity-90"
+         (click)="openGalleryPreview()">
+                <lucide-icon [img]="Image" class="h-[18px] w-[18px]" />
+
+                <span>
+                    {{ 'DASHBOARD.PRODUCTS.VIEW_PRODUCT_GALLERY' | translate }}
+                </span>
+            </button>
+
+
+        </div>
+    </app-dynamic-form>
+    </div>
+    </div>
+
+    <app-image-preview-modal
+        [images]="coverImages()"
+        [isOpen]="showCover()"
+        [title]="'DASHBOARD.PRODUCTS.VIEW_PRODUCT_COVER' | translate"
+        (closed)="closeCoverPreview()" />
+
+    <app-image-preview-modal
+        [images]="productGallery()"
+        [isOpen]="showGallery()"
+        [title]="'DASHBOARD.PRODUCTS.VIEW_PRODUCT_GALLERY' | translate"
+        (closed)="closeGalleryPreview()" />
+</div>

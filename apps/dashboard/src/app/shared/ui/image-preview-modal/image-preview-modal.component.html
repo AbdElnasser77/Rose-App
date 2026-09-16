@@ -1,0 +1,89 @@
+@if (isOpen()) {
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+		role="dialog"
+		aria-modal="true"
+		[attr.aria-label]="title()"
+		(click)="onBackdropClick($event)"
+		(keydown.escape)="close()"
+	>
+		<div class="image-preview-dialog relative flex max-h-[90vh] w-full max-w-5xl flex-col gap-4 rounded-2xl bg-white p-4 shadow-2xl dark:bg-[#1C1C1E] sm:p-6">
+			<div class="flex items-center justify-between gap-4">
+				<h2 class="truncate font-inter text-lg font-semibold text-maroon-600 dark:text-soft-pink-200">
+					{{ title() }}
+				</h2>
+				<button
+					type="button"
+					class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-maroon-600 text-white transition hover:bg-maroon-700 dark:bg-soft-pink-200 dark:text-zinc-900 dark:hover:bg-soft-pink-300"
+					[attr.aria-label]="'DASHBOARD.IMAGE_PREVIEW.CLOSE' | translate"
+					(click)="close()"
+				>
+					<lucide-icon [img]="X" class="h-5 w-5" />
+				</button>
+			</div>
+
+			@if (images().length) {
+				<div class="relative min-h-0 flex-1 overflow-hidden rounded-xl bg-zinc-100 p-2 dark:bg-zinc-900">
+					<swiper-container
+						#imageSwiper
+						libSwiperDirective
+						init="false"
+						[config]="swiperConfig"
+						(swiperslidechange)="onSlideChange($event)"
+						class="block h-[min(70vh,42rem)] w-full"
+					>
+						@for (image of images(); track image) {
+							<swiper-slide class="flex h-full items-center justify-center">
+								<img
+									[src]="image"
+									[alt]="title()"
+									class="max-h-full max-w-full rounded-lg object-contain"
+								/>
+							</swiper-slide>
+						}
+					</swiper-container>
+
+					@if (images().length > 1) {
+						<button
+							type="button"
+							class="image-preview-prev absolute start-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-maroon-600 text-white transition hover:bg-maroon-700 disabled:pointer-events-none disabled:opacity-40 dark:bg-soft-pink-200 dark:text-zinc-900 dark:hover:bg-soft-pink-300"
+							[disabled]="isRtl() ? activeIndex() === images().length - 1 : activeIndex() === 0"
+							[attr.aria-label]="'DASHBOARD.IMAGE_PREVIEW.PREVIOUS' | translate"
+						>
+							<lucide-icon [img]="ChevronLeft" class="h-5 w-5 rtl:rotate-180" />
+						</button>
+						<button
+							type="button"
+							class="image-preview-next absolute end-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-maroon-600 text-white transition hover:bg-maroon-700 disabled:pointer-events-none disabled:opacity-40 dark:bg-soft-pink-200 dark:text-zinc-900 dark:hover:bg-soft-pink-300"
+							[disabled]="isRtl() ? activeIndex() === 0 : activeIndex() === images().length - 1"
+							[attr.aria-label]="'DASHBOARD.IMAGE_PREVIEW.NEXT' | translate"
+						>
+							<lucide-icon [img]="ChevronRight" class="h-5 w-5 rtl:rotate-180" />
+						</button>
+					}
+
+					
+				</div>
+
+				@if (images().length > 1) {
+					<div class="flex items-center justify-center gap-2" aria-live="polite">
+						@for (image of images(); track image; let index = $index) {
+							<span
+								class="h-2 rounded-full bg-maroon-600/40 transition-all dark:bg-soft-pink-200/40"
+								[class.w-6]="index === activeIndex()"
+								[class.w-2]="index !== activeIndex()"
+								[class.bg-maroon-600]="index === activeIndex()"
+								[class.dark:bg-soft-pink-200]="index === activeIndex()"
+								[attr.aria-label]="('DASHBOARD.IMAGE_PREVIEW.SLIDE' | translate: { current: index + 1 })"
+							></span>
+						}
+					</div>
+				}
+			} @else {
+				<div class="flex min-h-48 items-center justify-center rounded-xl bg-zinc-100 font-inter text-sm text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
+					{{ 'DASHBOARD.IMAGE_PREVIEW.NO_IMAGE' | translate }}
+				</div>
+			}
+		</div>
+	</div>
+}

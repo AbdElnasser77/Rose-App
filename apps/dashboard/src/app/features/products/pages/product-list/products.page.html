@@ -36,4 +36,9 @@
     {{ stock }}
   </span>
 </ng-template>
+<app-delete-confirmation-modal
+  [isOpen]="productToDelete() !== null"
+  (closed)="closeDeleteModal()"
+  (confirmed)="confirmDelete()"
+/> 
 </div>

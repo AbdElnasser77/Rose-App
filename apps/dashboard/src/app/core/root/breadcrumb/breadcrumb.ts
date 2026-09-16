@@ -41,6 +41,13 @@ export class Breadcrumb {
     ).subscribe(() => {
       this.breadcrumbs.set(this.buildBreadcrumb(this.activatedRoute.root));
     });
+    this.translate.onLangChange
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      this.breadcrumbs.set(
+        this.buildBreadcrumb(this.activatedRoute.root)
+      );
+    });
 
     this.breadcrumbs.set(this.buildBreadcrumb(this.activatedRoute.root));
   }
