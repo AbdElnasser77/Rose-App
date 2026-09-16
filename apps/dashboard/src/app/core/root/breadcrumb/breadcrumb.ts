@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -20,7 +19,7 @@ export interface IBreadcrumb {
 @Component({
   selector: 'app-breadcrumb',
   standalone: true,
-  imports: [NgClass, RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe, LanguageSwitcherComponent, ThemeToggleComponent],
+  imports: [RouterLink , TranslatePipe, MenuModule, ButtonModule, AssetUrlPipe, LanguageSwitcherComponent, ThemeToggleComponent],
   templateUrl: './breadcrumb.html'
 })
 export class Breadcrumb {
