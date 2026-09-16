@@ -16,6 +16,7 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'products',
+        data: { breadcrumb: 'DASHBOARD.PRODUCTS.TITLE' },
         loadChildren: () =>
           import('../features/products/products.routes').then(
             (m) => m.ProductsRoutes,

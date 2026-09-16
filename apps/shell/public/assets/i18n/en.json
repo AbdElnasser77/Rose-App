@@ -522,7 +522,15 @@
     "PREVIOUS": "Previous",
     "NEXT": "Next"
   },
+  
   "DASHBOARD": {
+    "DELETE_MODAL": {
+      "TITLE": "Delete product",
+      "MESSAGE": "Are you sure you want to delete this product? This action cannot be undone.",
+      "CLOSE": "Close delete confirmation",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Delete"
+    },
     "OVERVIEW": {
       "BREADCRUMB": "Dashboard",
       "TITLE": "Dashboard overview",
@@ -554,13 +562,35 @@
       "LOAD_FAILED": "Couldn't load the dashboard statistics.",
       "RETRY": "Try again"
     },
+    "IMAGE_PREVIEW": {
+      "CLOSE": "Close image preview",
+      "PREVIOUS": "Previous image",
+      "NEXT": "Next image",
+      "COUNTER": "Image",
+      "NO_IMAGE": "No image available",
+      "SLIDE": "Image {{current}}"
+    },
     "PRODUCTS": {
     "DELETE_SUCCESS": "Product deleted successfully",
     "CREATE_SUCCESS": "Product created successfully",
+    "UPDATE_SUCCESS" :"Product updated successfully",
     "TITLE": "Products",
     "ADD_NEW": "Add a new product",
     "ADD_PRODUCT": "Add Product",
     "UPDATE_PRODUCT": "Update Product",
+    "VIEW_PRODUCT_COVER": "View Product Cover",
+    "VIEW_PRODUCT_GALLERY": "View Product Gallery",
+    "ACTIONS": {
+      "EDIT": "Edit",
+      "DELETE": "Delete"
+    },
+    "TABLE": {
+      "NAME": "Name",
+      "PRICE": "Price",
+      "STOCK": "Stock",
+      "SALES": "Sales",
+      "RATINGS": "Ratings"
+    },
     "FIELDS": {
       "TITLE": "Title",
       "DESCRIPTION": "Description",

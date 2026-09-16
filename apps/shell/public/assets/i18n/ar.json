@@ -527,6 +527,13 @@
     "NEXT": "التالي"
   },
   "DASHBOARD": {
+    "DELETE_MODAL": {
+      "TITLE": "حذف المنتج",
+      "MESSAGE": "هل أنت متأكد من حذف هذا المنتج؟ لا يمكن التراجع عن هذا الإجراء.",
+      "CLOSE": "إغلاق تأكيد الحذف",
+      "CANCEL": "إلغاء",
+      "CONFIRM": "حذف"
+    },
     "OVERVIEW": {
       "BREADCRUMB": "لوحة التحكم",
       "TITLE": "نظرة عامة على لوحة التحكم",
@@ -558,12 +565,35 @@
       "LOAD_FAILED": "تعذر تحميل إحصائيات لوحة التحكم.",
       "RETRY": "إعادة المحاولة"
     },
+    "IMAGE_PREVIEW": {
+      "CLOSE": "إغلاق معاينة الصورة",
+      "PREVIOUS": "الصورة السابقة",
+      "NEXT": "الصورة التالية",
+      "COUNTER": "صورة",
+      "NO_IMAGE": "لا توجد صورة متاحة",
+      "SLIDE": "الصورة {{current}}"
+    },
     "PRODUCTS": {
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
     "CREATE_SUCCESS": "تم إنشاء المنتج بنجاح",
+    "UPDATE_SUCCESS" :"تم تحديث المنتج بنجاح",
     "TITLE": "المنتجات",
     "ADD_NEW": "إضافة منتج جديد",
      "ADD_PRODUCT": "إضافة منتج",
+     "UPDATE_PRODUCT": "تعديل المنتج",
+    "VIEW_PRODUCT_COVER": "عرض صورة المنتج الرئيسية",
+    "VIEW_PRODUCT_GALLERY": "عرض صور المنتج",
+    "ACTIONS": {
+      "EDIT": "تعديل",
+      "DELETE": "حذف"
+    },
+    "TABLE": {
+      "NAME": "الاسم",
+      "PRICE": "السعر",
+      "STOCK": "المخزون",
+      "SALES": "المبيعات",
+      "RATINGS": "التقييمات"
+    },
      "FIELDS": {
       "TITLE": "اسم المنتج",
       "DESCRIPTION": "الوصف",

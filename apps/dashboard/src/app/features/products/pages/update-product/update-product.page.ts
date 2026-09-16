@@ -8,12 +8,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UploadService } from '../../../../shared/services/upload.service';
 import { LucideAngularModule, Image } from 'lucide-angular';
 import { UpdateProductRequest } from '../../models/update-product-request.model';
+import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-modal/image-preview-modal.component';
 
 
 @Component({
   selector: 'app-update-product-page',
   standalone: true,
-  imports: [DynamicFormComponent, TranslatePipe ,LucideAngularModule],
+  imports: [DynamicFormComponent, TranslatePipe, LucideAngularModule, ImagePreviewModalComponent],
   templateUrl: './update-product.page.html',
   styleUrl: './update-product.page.scss',
 })
@@ -27,7 +28,7 @@ export class UpdateProductPage implements OnInit  {
   readonly Image = Image;
   readonly productId = this._route.snapshot.paramMap.get('id');
 
-
+  readonly productName = signal<string>('');
   readonly categoryOptions = signal<DynamicFormOption[]>([]);
   readonly occasionOptions = signal<DynamicFormOption[]>([]);
   readonly initialValues = signal<Record<string, unknown>>({});
@@ -36,6 +37,11 @@ export class UpdateProductPage implements OnInit  {
   readonly productGallery = signal<string[]>([]);
   readonly showCover = signal(false);
   readonly showGallery = signal(false);
+
+  readonly coverImages = computed(() => {
+    const cover = this.productCover();
+    return cover ? [cover] : [];
+  });
 
      ngOnInit(): void {
        const productId = this.productId;
@@ -129,7 +135,6 @@ export class UpdateProductPage implements OnInit  {
       name: 'occasion',
       label: 'DASHBOARD.PRODUCTS.FIELDS.OCCASION',
       type: 'select',
-      required: true,
       placeholder: 'DASHBOARD.PRODUCTS.PLACEHOLDERS.OCCASION',
       options:  this.occasionOptions(),
     },
@@ -155,13 +160,31 @@ export class UpdateProductPage implements OnInit  {
     .subscribe({
       next: () => {
         this._toastService.show(
-      this._translateService.instant('DASHBOARD.PRODUCTS.CREATE_SUCCESS'),
+      this._translateService.instant('DASHBOARD.PRODUCTS.UPDATE_SUCCESS'),
       'success'
       );
        this._router.navigate(['/dashboard/products']);
       }
       
     });
+  }
+
+  openCoverPreview(): void {
+    this.showGallery.set(false);
+    this.showCover.set(true);
+  }
+
+  openGalleryPreview(): void {
+    this.showCover.set(false);
+    this.showGallery.set(true);
+  }
+
+  closeCoverPreview(): void {
+    this.showCover.set(false);
+  }
+
+  closeGalleryPreview(): void {
+    this.showGallery.set(false);
   }
 
   private loadCategories(): void {
@@ -190,7 +213,7 @@ private loadProduct(id: string): void {
     this._productsService.getProduct(id).subscribe({
       next: (response) => {
         const product = response.payload.product;
-
+         this.productName.set(product.title);
          this.productCover.set(product.cover);
 
         this.productGallery.set(
@@ -204,7 +227,9 @@ private loadProduct(id: string): void {
         discount:product.discountValue,
         quantity: product.stock,
         category: product.categoryId,
+        occasion: product.occasions[0]?.occasionId
       });
+      
     },
     });
   }
