@@ -587,7 +587,18 @@
     }
 
     },
-  
+    "OCCASIONS": {
+      "TITLE": "المناسبات",
+      "DELETE_SUCCESS": "تم حذف المناسبة بنجاح",
+      "CREATE_SUCCESS": "تم إنشاء المناسبة بنجاح",
+      "UPDATE_SUCCESS": "تم تعديل المناسبة بنجاح",
+      "ADD_NEW_OCCASION": "إضافة مناسبة جديدة",
+      "ADD_OCCASION": "إضافة مناسبه",
+      "ENTER_TITLE": "أدخل اسم المناسبة",
+      "IMAGE": "الصورة المناسبه",
+      "UPDATE_OCCASION": "تعديل المناسبه",
+      "VIEW_OCCASION": "عرض صوره المناسبه"
+    },
    "TABLE": {
     "SEARCH": "بحث...",
     "NO_DATA": "لا توجد بيانات",

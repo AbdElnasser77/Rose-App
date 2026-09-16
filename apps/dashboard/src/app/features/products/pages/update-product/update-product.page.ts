@@ -205,6 +205,8 @@ private loadProduct(id: string): void {
         quantity: product.stock,
         category: product.categoryId,
       });
+        console.log("this.initialValues", this.initialValues())
+
     },
     });
   }

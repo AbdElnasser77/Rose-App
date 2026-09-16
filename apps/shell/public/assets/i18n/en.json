@@ -589,6 +589,20 @@
      "NO_DATA": "No data found",
      "NO_DATA_DESCRIPTION": "There are no products to display at the moment."
      
+    },
+    
+    "OCCASIONS": {
+      "TITLE_FIELD": "Title",
+      "TITLE": "Occasions",
+      "DELETE_SUCCESS": "Occasion deleted successfully",
+      "CREATE_SUCCESS": "Occasion created successfully",
+      "UPDATE_SUCCESS": "Occasion updated successfully",
+      "ADD_NEW_OCCASION": "Add New Occasion",
+      "ADD_OCCASION": "Add Occasion",
+      "ENTER_TITLE": "Enter occasion title",
+      "IMAGE": "Occasions Image",
+      "UPDATE_OCCASION": "Update occasion",
+      "VIEW_OCCASION": "View occasion image"
     }
   },
   "NOTIFICATIONS": {
