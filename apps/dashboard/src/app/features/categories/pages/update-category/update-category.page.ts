@@ -15,6 +15,7 @@ import { CategoriesService } from '../../services/categories.service';
   selector: 'app-update-category-page',
   standalone: true,
   imports: [DynamicFormComponent, TranslatePipe],
+  host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './update-category.page.html',
 })
 export class UpdateCategoryPage implements OnInit {

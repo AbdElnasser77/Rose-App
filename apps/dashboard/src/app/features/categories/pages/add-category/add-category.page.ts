@@ -13,6 +13,7 @@ import { CategoriesService } from '../../services/categories.service';
   selector: 'app-add-category-page',
   standalone: true,
   imports: [DynamicFormComponent, TranslatePipe],
+  host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './add-category.page.html',
 })
 export class AddCategoryPage {
