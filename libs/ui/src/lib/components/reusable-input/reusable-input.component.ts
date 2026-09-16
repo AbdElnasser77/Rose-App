@@ -33,7 +33,8 @@ export class ReusableInputComponent <T> extends ControlValueAccessorDirective<T>
   @Input() required = false;
   @Input() readonly = false;
   @Input() maxlength?: number;
-
+  @Input() showRequiredIndicator = false;
+  
   showPassword = signal(false);
   
 updateValue(event: Event) {
