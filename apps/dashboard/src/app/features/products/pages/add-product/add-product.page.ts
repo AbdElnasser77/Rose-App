@@ -130,7 +130,6 @@ fields = computed<DynamicFormField[]>(() => [
     name: 'occasion',
     label: 'DASHBOARD.PRODUCTS.FIELDS.OCCASION',
     type: 'select',
-    required: true,
     placeholder: 'DASHBOARD.PRODUCTS.PLACEHOLDERS.OCCASION',
     options: this.occasionOptions(),
   },

@@ -32,6 +32,9 @@ export class DynamicFormComponent {
   // Initialization & Cleanup
   constructor() {
     effect(() => {
+     this.fields();
+     this.initialValues();
+
      this.form = this.createForm();
      this.setupCalculatedFields();
     });
@@ -240,6 +243,9 @@ export class DynamicFormComponent {
       .subscribe(() => {
         this.updateCalculatedField(field);
       }); 
+
+       // Calculate initial value
+    this.updateCalculatedField(field);
    }
 
   }
@@ -249,9 +255,12 @@ export class DynamicFormComponent {
 
   const calculatedValue = field.calculated?.calculate(values);
 
-  this.form
-    .get(field.name)
-    ?.setValue(calculatedValue, { emitEvent: false });
+  const control = this.form.get(field.name);
+
+   control?.setValue(calculatedValue, {
+  emitEvent: false,
+   });
+
   }
   
 }
