@@ -1,6 +1,6 @@
 import { Component, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { LucideAngularModule, Upload } from 'lucide-angular';
+import { Image, LucideAngularModule, Upload } from 'lucide-angular';
 
 import {ButtonComponent,ReusableInputComponent,SelectInputComponent,ValidationErrorsComponent,} from '@org/ui';
 import {DynamicFormField,DynamicFormFieldType,DynamicFormInputType,} from '../models/dynamic-form-field.model';
@@ -23,6 +23,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class DynamicFormComponent {
     private readonly destroyRef = inject(DestroyRef);
     readonly Upload =Upload;
+    readonly Image = Image;
   form = new FormGroup({});
   fields = input<DynamicFormField[]>([]);
   submitLabel = input('COMMON.SUBMIT');
@@ -163,20 +164,6 @@ export class DynamicFormComponent {
 
   getFilePreviews(fieldName: string): string[] {
      return this.filePreviews()[fieldName] ?? [];
-  }
-
-  /**
-   * A file control still holding its seeded string value means nothing has been
-   * picked yet, so the existing file is what should be shown.
-   */
-  getExistingFileUrl(field: DynamicFormField): string | null {
-    if (this.getFilePreviews(field.name).length) {
-      return null;
-    }
-
-    const value = this.getControl(field.name)?.value;
-
-    return typeof value === 'string' && value !== '' ? value : null;
   }
 
 
