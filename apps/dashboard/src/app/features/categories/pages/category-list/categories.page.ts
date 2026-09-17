@@ -53,8 +53,30 @@ export class CategoriesPage implements OnInit, AfterViewInit {
   readonly deleting = signal(false);
   readonly categoryToDelete = signal<CategoryModel | null>(null);
 
-  readonly columns = signal<TableColumn<CategoryModel>[]>([]);
-  readonly actions = signal<TableAction<CategoryModel>[]>([]);
+  // The table translates headers and action labels itself, so these are keys.
+  readonly columns = signal<TableColumn<CategoryModel>[]>([
+    { key: 'title', header: 'DASHBOARD.CATEGORIES.NAME' },
+    {
+      key: '_count',
+      header: 'DASHBOARD.CATEGORIES.PRODUCTS',
+      getValue: (row: CategoryModel) => row._count?.products ?? 0,
+    },
+  ]);
+
+  readonly actions = signal<TableAction<CategoryModel>[]>([
+    {
+      label: 'DASHBOARD.COMMON.EDIT',
+      icon: Pencil,
+      variant: 'edit',
+      action: (category) => this.editCategory(category),
+    },
+    {
+      label: 'DASHBOARD.COMMON.DELETE',
+      icon: Trash,
+      variant: 'delete',
+      action: (category) => this.askToDelete(category),
+    },
+  ]);
 
   private queryParams: CategoryQueryParams = {
     page: 1,
@@ -62,49 +84,10 @@ export class CategoriesPage implements OnInit, AfterViewInit {
   };
 
   ngOnInit(): void {
-    this.buildTableConfig();
-
-    // Headers and action labels are translated eagerly, so they have to be
-    // rebuilt whenever the user switches language.
-    this._translateService.onLangChange
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => this.buildTableConfig());
-
     this.loadCategories(false);
   }
 
   ngAfterViewInit(): void {
-    this.attachProductsTemplate();
-  }
-
-  private buildTableConfig(): void {
-    this.columns.set([
-      {
-        key: 'title',
-        header: this._translateService.instant('DASHBOARD.CATEGORIES.NAME'),
-      },
-      {
-        key: '_count',
-        header: this._translateService.instant('DASHBOARD.CATEGORIES.PRODUCTS'),
-        getValue: (row: CategoryModel) => row._count?.products ?? 0,
-      },
-    ]);
-
-    this.actions.set([
-      {
-        label: this._translateService.instant('DASHBOARD.COMMON.EDIT'),
-        icon: Pencil,
-        variant: 'edit',
-        action: (category) => this.editCategory(category),
-      },
-      {
-        label: this._translateService.instant('DASHBOARD.COMMON.DELETE'),
-        icon: Trash,
-        variant: 'delete',
-        action: (category) => this.askToDelete(category),
-      },
-    ]);
-
     this.attachProductsTemplate();
   }
 
