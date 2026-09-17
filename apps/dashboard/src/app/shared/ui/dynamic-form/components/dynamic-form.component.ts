@@ -5,6 +5,9 @@ import { LucideAngularModule, Upload } from 'lucide-angular';
 import {ButtonComponent,ReusableInputComponent,SelectInputComponent,ValidationErrorsComponent,} from '@org/ui';
 import {DynamicFormField,DynamicFormFieldType,DynamicFormInputType,} from '../models/dynamic-form-field.model';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -12,7 +15,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     ReactiveFormsModule,ButtonComponent,ReusableInputComponent,
     SelectInputComponent,ValidationErrorsComponent ,CommonModule,
-    LucideAngularModule
+    LucideAngularModule ,TranslatePipe
   ],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss',
@@ -22,13 +25,18 @@ export class DynamicFormComponent {
     readonly Upload =Upload;
   form = new FormGroup({});
   fields = input<DynamicFormField[]>([]);
-  submitLabel = input('Submit');
+  submitLabel = input('COMMON.SUBMIT');
+  initialValues = input<Record<string, unknown>>({});
   submitted = output<Record<string, unknown>>();
 
   // Initialization & Cleanup
   constructor() {
     effect(() => {
+     this.fields();
+     this.initialValues();
+
      this.form = this.createForm();
+     this.setupCalculatedFields();
     });
 
     this.destroyRef.onDestroy(() => {
@@ -41,7 +49,7 @@ export class DynamicFormComponent {
 
   for (const field of this.fields()) {
     controls[field.name] = new FormControl( {
-        value: '',
+        value: this.initialValues()[field.name] ?? '',
         disabled: field.disabled ?? false,
       } ,this.getValidators(field));
   }
@@ -212,6 +220,47 @@ export class DynamicFormComponent {
       URL.revokeObjectURL(previewUrl);
     });
   });
+  }
+
+  // CalculatedFields
+  private setupCalculatedFields(): void {
+    for (const field of this.fields()) {
+    if (!field.calculated) {
+      continue;
+    }
+
+    const controls = field.calculated.dependsOn
+      .map((fieldName) => this.form.get(fieldName))
+      .filter((control) => control !== null);
+
+    if (!controls.length) {
+      continue;
+    }
+     merge(
+      ...controls.map((control) => control!.valueChanges)
+    )
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.updateCalculatedField(field);
+      }); 
+
+       // Calculate initial value
+    this.updateCalculatedField(field);
+   }
+
+  }
+
+  private updateCalculatedField(field: DynamicFormField): void {
+  const values = this.form.getRawValue();
+
+  const calculatedValue = field.calculated?.calculate(values);
+
+  const control = this.form.get(field.name);
+
+   control?.setValue(calculatedValue, {
+  emitEvent: false,
+   });
+
   }
   
 }

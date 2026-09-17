@@ -5,7 +5,7 @@
   <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA]  hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
      bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer" [disabled]="page() === 1"
     (click)="fisrt()">
-    <lucide-icon [img]="ChevronsLeft"class="w-4 h-4"></lucide-icon>
+    <lucide-icon [img]="ChevronsLeft"class="w-4 h-4 rtl:rotate-180"></lucide-icon>
 
   </button>
 
@@ -13,7 +13,7 @@
   <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
      bg-white dark:bg-[#262626] dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer" [disabled]="page() === 1"
     (click)="prev()">
-    <lucide-icon [img]="ChevronLeft" class="w-4 h-4"></lucide-icon>
+    <lucide-icon [img]="ChevronLeft" class="w-4 h-4 rtl:rotate-180"></lucide-icon>
 
   </button>
 
@@ -40,14 +40,14 @@
   <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
      bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer"
     [disabled]="page() === totalPages()" (click)="next()">
-    <lucide-icon [img]="ChevronRight" class="w-4 h-4"></lucide-icon>
+    <lucide-icon [img]="ChevronRight" class="w-4 h-4 rtl:rotate-180"></lucide-icon>
 
   </button>
   <!-- Last Page -->
   <button type="button" class="w-8 h-8 p-[10px] rounded-[8px] border border-[#FAFAFA] font-inter text-[13px] font-semibold leading-none tracking-normal text-black dark:text-[#FAFAFA] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed
     bg-white dark:bg-[#262626]  dark:border-[#52525B]  dark:hover:bg-[#3F3F46] cursor-pointer"
     [disabled]="page() === totalPages()" (click)="last()">
-    <lucide-icon [img]="ChevronsRight" class="w-4 h-4"></lucide-icon>
+    <lucide-icon [img]="ChevronsRight" class="w-4 h-4 rtl:rotate-180"></lucide-icon>
 
   </button>
 </nav>

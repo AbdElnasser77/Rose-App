@@ -1,0 +1,25 @@
+.image-preview-dialog {
+	animation: image-preview-scale-in 160ms ease-out;
+}
+
+swiper-container {
+	--swiper-navigation-color: #ffffff;
+}
+
+@keyframes image-preview-scale-in {
+	from {
+		opacity: 0;
+		transform: scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.image-preview-dialog {
+		animation: none;
+	}
+}
