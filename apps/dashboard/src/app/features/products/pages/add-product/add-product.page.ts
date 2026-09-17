@@ -1,9 +1,10 @@
 import { Component, computed, inject, OnInit, signal} from '@angular/core';
 import { DynamicFormField, DynamicFormOption } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
 import { ProductsService } from '../../services/products.service';
 import { CreateProductRequest } from '../../models/create-product-request.model';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { Router } from '@angular/router';
 import { UploadService } from '../../../../shared/services/upload.service';
@@ -12,7 +13,7 @@ import { forkJoin, map, Observable, switchMap } from 'rxjs';
 @Component({
   selector: 'app-add-product-page',
   standalone: true,
-  imports: [DynamicFormComponent , TranslatePipe],
+  imports: [DynamicFormComponent, FormPageLayoutComponent],
   templateUrl: './add-product.page.html',
   styleUrl: './add-product.page.scss',
 })

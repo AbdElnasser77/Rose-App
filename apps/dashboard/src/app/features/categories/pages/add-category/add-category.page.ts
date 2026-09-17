@@ -1,10 +1,11 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { UploadApiService } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
 import { switchMap } from 'rxjs';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
 import { DynamicFormField } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
 import { CategoriesService } from '../../services/categories.service';
@@ -12,8 +13,7 @@ import { CategoriesService } from '../../services/categories.service';
 @Component({
   selector: 'app-add-category-page',
   standalone: true,
-  imports: [DynamicFormComponent, TranslatePipe],
-  host: { class: 'flex flex-1 flex-col min-h-0' },
+  imports: [DynamicFormComponent, FormPageLayoutComponent],
   templateUrl: './add-category.page.html',
 })
 export class AddCategoryPage {
@@ -26,19 +26,18 @@ export class AddCategoryPage {
 
   readonly saving = signal(false);
 
+  // Keys only - the form translates labels and placeholders itself.
   readonly fields: DynamicFormField[] = [
     {
       name: 'title',
-      label: this._translateService.instant('DASHBOARD.CATEGORIES.NAME'),
+      label: 'DASHBOARD.CATEGORIES.NAME',
       type: 'text',
-      placeholder: this._translateService.instant(
-        'DASHBOARD.CATEGORIES.NAME_PLACEHOLDER'
-      ),
+      placeholder: 'DASHBOARD.CATEGORIES.NAME_PLACEHOLDER',
       required: true,
     },
     {
       name: 'image',
-      label: this._translateService.instant('DASHBOARD.CATEGORIES.IMAGE'),
+      label: 'DASHBOARD.CATEGORIES.IMAGE',
       type: 'file',
       accept: 'image/*',
       required: true,
