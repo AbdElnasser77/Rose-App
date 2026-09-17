@@ -17,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-products-page',
   standalone: true,
   imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent, DeleteConfirmationModalComponent],
+  host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
 })

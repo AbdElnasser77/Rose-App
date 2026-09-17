@@ -1,8 +1,8 @@
-<div class="flex min-h-screen bg-[#F9FAFB] font-sans dark:bg-zinc-950">
+<div class="flex h-dvh overflow-hidden bg-[#F9FAFB] font-sans dark:bg-zinc-950">
   <app-sidebar class="shrink-0" />
-  <main class="flex-1 min-w-0">
+  <main class="flex-1 min-w-0 flex flex-col min-h-0">
     <app-breadcrumb />
-    <div class="px-0 py-0 md:px-4 md:py-5  mx-auto">
+    <div class="flex flex-1 flex-col min-h-0 overflow-hidden w-full px-0 py-0 md:px-4 md:py-5  mx-auto">
       <router-outlet />
     </div>
   </main>

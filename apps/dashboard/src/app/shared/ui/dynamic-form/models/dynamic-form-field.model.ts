@@ -26,6 +26,8 @@ export interface DynamicFormField<T = string> {
   row?: string;
 
   // Basic
+  /** Initial control value, e.g. when editing an existing record. */
+  value?: string | number | null;
   placeholder?: string;
   required?: boolean;
   readonly?: boolean;
@@ -48,6 +50,12 @@ export interface DynamicFormField<T = string> {
 
   // File
   accept?: string;
+  /**
+   * Optional link rendered under a file field - used to point at the file the
+   * record already has, which a fresh upload would replace.
+   */
+  hintLabel?: string;
+  hintHref?: string;
   maxFileSize?: number;
   multiple?: boolean;
 }

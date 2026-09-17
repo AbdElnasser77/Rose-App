@@ -1,6 +1,6 @@
 import { Component, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { LucideAngularModule, Upload } from 'lucide-angular';
+import { Image, LucideAngularModule, Upload } from 'lucide-angular';
 
 import {ButtonComponent,ReusableInputComponent,SelectInputComponent,ValidationErrorsComponent,} from '@org/ui';
 import {DynamicFormField,DynamicFormFieldType,DynamicFormInputType,} from '../models/dynamic-form-field.model';
@@ -23,6 +23,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class DynamicFormComponent {
     private readonly destroyRef = inject(DestroyRef);
     readonly Upload =Upload;
+    readonly Image = Image;
   form = new FormGroup({});
   fields = input<DynamicFormField[]>([]);
   submitLabel = input('COMMON.SUBMIT');
@@ -49,7 +50,10 @@ export class DynamicFormComponent {
 
   for (const field of this.fields()) {
     controls[field.name] = new FormControl( {
-        value: this.initialValues()[field.name] ?? '',
+        // Two ways to seed a control: the [initialValues] input (product forms)
+        // and a value on the field itself (category forms). The input wins so a
+        // caller can override a field's own default.
+        value: this.initialValues()[field.name] ?? field.value ?? '',
         disabled: field.disabled ?? false,
       } ,this.getValidators(field));
   }

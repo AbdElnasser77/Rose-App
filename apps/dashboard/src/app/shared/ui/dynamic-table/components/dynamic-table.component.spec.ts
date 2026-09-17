@@ -53,18 +53,74 @@ describe('DynamicTableComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should emit searchChange event when onSearch is called', () => {
-        const  searchSpy  = vi.spyOn(component.searchChange, 'emit');
-
+    /** Builds the `input` event `onSearch` reads its value from. */
+    const typeInto = (value: string): Event => {
         const input = document.createElement('input');
-        input.value = 'Rose';
+        input.value = value;
 
         const event = new Event('input');
         Object.defineProperty(event, 'target', { value: input, writable: false });
-        
-        component.onSearch(event);
 
-        expect( searchSpy ).toHaveBeenCalledWith('Rose');
+        return event;
+    };
+
+    it('should emit searchChange once the typing pause has elapsed', () => {
+        vi.useFakeTimers();
+
+        try {
+            const searchSpy = vi.spyOn(component.searchChange, 'emit');
+
+            component.onSearch(typeInto('Rose'));
+
+            // Nothing goes out while the user is still typing.
+            expect(searchSpy).not.toHaveBeenCalled();
+
+            vi.advanceTimersByTime(DynamicTableComponent.SEARCH_DEBOUNCE_MS);
+
+            expect(searchSpy).toHaveBeenCalledWith('Rose');
+        } finally {
+            vi.useRealTimers();
+        }
+    });
+
+    it('should collapse a burst of keystrokes into a single search', () => {
+        vi.useFakeTimers();
+
+        try {
+            const searchSpy = vi.spyOn(component.searchChange, 'emit');
+
+            for (const term of ['R', 'Ro', 'Ros', 'Rose']) {
+                component.onSearch(typeInto(term));
+                vi.advanceTimersByTime(50);
+            }
+
+            vi.advanceTimersByTime(DynamicTableComponent.SEARCH_DEBOUNCE_MS);
+
+            // Four keystrokes, one request.
+            expect(searchSpy).toHaveBeenCalledTimes(1);
+            expect(searchSpy).toHaveBeenCalledWith('Rose');
+        } finally {
+            vi.useRealTimers();
+        }
+    });
+
+    it('should not re-search when the term is unchanged', () => {
+        vi.useFakeTimers();
+
+        try {
+            const searchSpy = vi.spyOn(component.searchChange, 'emit');
+
+            component.onSearch(typeInto('Rose'));
+            vi.advanceTimersByTime(DynamicTableComponent.SEARCH_DEBOUNCE_MS);
+
+            // e.g. typing a character then deleting it again.
+            component.onSearch(typeInto('Rose'));
+            vi.advanceTimersByTime(DynamicTableComponent.SEARCH_DEBOUNCE_MS);
+
+            expect(searchSpy).toHaveBeenCalledTimes(1);
+        } finally {
+            vi.useRealTimers();
+        }
     });
 
 

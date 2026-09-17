@@ -55,7 +55,7 @@ export class Breadcrumb {
     if (breadcrumbs.length === 0) {
       breadcrumbs.push({
         label: this.translate.instant('NAV.DASHBOARD'),
-        url: '/dashboard' 
+        url: '/dashboard/overview' 
       });
     }
 
@@ -132,6 +132,6 @@ export class Breadcrumb {
   
      goToAccount(): void {
       this.activeMenuId.set(null);
-      this.router.navigate(['/account/profile']);
+      this.router.navigate(['/dashboard/account/profile']);
     }
 }
