@@ -8,7 +8,17 @@
      placeholder:font-[Inter] placeholder:text-[14px] placeholder:font-normal placeholder:text-[#A1A1AA] dark:border-[#3A3A3A] dark:bg-[#262626] dark:text-white dark:placeholder:text-[#A1A1AA]" />
   </div>
   <div class="w-full flex-1 min-h-0 overflow-y-auto overflow-x-auto custom-scrollbar">
-  <table class="w-full table-fixed ">
+  <table class="w-full  min-w-[550px] ">
+
+    <colgroup>
+       @for (column of columns(); track column.key) {
+           <col style="width: 16.6667%" />
+       }
+
+       @if (actions().length) {
+        <col style="width: 16.6667%" />
+      }
+    </colgroup>
     <thead>
       <tr
         class="w-full min-h-[40px]  border-y border-[#00000014] dark:border-[#FFFFFF14] bg-[#FAFAFA] dark:bg-[#262626]">
@@ -44,13 +54,13 @@
       border-y border-[#00000014] dark:border-[#FFFFFF14]  hover:bg-[#FBEAEA]
       dark:hover:bg-[#3A2929]">
         @for (column of columns(); track column.key){
-        <td class="py-4 px-2   align-middle max-w-[200px]">
+        <td class="py-1 md:py-4 px-2   align-middle ">
           @if(column.template) {
           <ng-container [ngTemplateOutlet]="column.template"
             [ngTemplateOutletContext]="{ $implicit: getCellValue(row, column), row: row }">
           </ng-container>
           } @else {
-            <span class="block truncate" [title]="getCellValue(row, column)">
+            <span class="block max-h-[40px] line-clamp-2 break-words overflow-hidden leading-snug" [title]="getCellValue(row, column)">
               {{ getCellValue(row, column) }}
             </span>
           
@@ -60,7 +70,7 @@
 
         @if(actions().length) {
         <!-- Desktop Actions -->
-        <td class="hidden md:table-cell py-4 px-2  max-w-0 align-middle">
+        <td class="hidden md:table-cell py-1 md:py-4 px-2  max-w-0 align-middle">
           <div class="flex items-center justify-center gap-2">
             @for (action of actions();track action.label){
             <!-- Call the action handler and pass the current row   -->
