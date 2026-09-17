@@ -6,10 +6,11 @@ import { ToastService } from '@org/shared-util-notification';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LucideAngularModule, Image } from 'lucide-angular';
 import { OccasionsService } from '../../services/occasions.service';
+import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-modal/image-preview-modal.component';
 
 @Component({
   selector: 'app-update-occasions',
-  imports: [DynamicFormComponent, TranslatePipe ,LucideAngularModule],
+  imports: [DynamicFormComponent, TranslatePipe, LucideAngularModule, ImagePreviewModalComponent],
   templateUrl: './update-occasions.component.html'
 })
 export class UpdateOccasionsComponent implements OnInit  {
@@ -23,6 +24,12 @@ export class UpdateOccasionsComponent implements OnInit  {
   readonly initialValues = signal<Record<string, unknown>>({});
 
   readonly occasionImage = signal<string | null>(null);
+  readonly showImagePreview = signal(false);
+
+  readonly occasionImages = computed(() => {
+    const image = this.occasionImage();
+    return image ? [image] : [];
+  });
 
   ngOnInit(): void {
     const occasionId = this.occasionId;
@@ -63,6 +70,14 @@ export class UpdateOccasionsComponent implements OnInit  {
       }
       
     });
+  }
+
+  openImagePreview(): void {
+    this.showImagePreview.set(true);
+  }
+
+  closeImagePreview(): void {
+    this.showImagePreview.set(false);
   }
 
   private loadOccasions(id: string): void {

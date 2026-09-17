@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
-import { DynamicFormComponent } from 'apps/dashboard/src/app/shared/ui/dynamic-form/components/dynamic-form.component';
-import { Component, computed, inject, OnInit, signal} from '@angular/core';
+import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
+import { Component, computed, inject,  signal} from '@angular/core';
 import { DynamicFormField, DynamicFormOption } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
-import { UploadService } from 'apps/dashboard/src/app/shared/services/upload.service';
+import { UploadService } from '../../../../shared/services/upload.service';
 import { OccasionsService } from '../../services/occasions.service';
 import { OccasionsModel } from '../../models/occasions.model';
 
@@ -65,6 +65,9 @@ export class AddOccasionsComponent {
         'success'
       );
       this._router.navigate(['/dashboard/occasions']);
+      },error:() =>  {
+        //temp for demo
+           this._router.navigate(['/dashboard/occasions']);
       }
     });
   }

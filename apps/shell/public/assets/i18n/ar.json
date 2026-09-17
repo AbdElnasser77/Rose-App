@@ -644,7 +644,15 @@
       "ENTER_TITLE": "أدخل اسم المناسبة",
       "IMAGE": "الصورة المناسبه",
       "UPDATE_OCCASION": "تعديل المناسبه",
-      "VIEW_OCCASION": "عرض صوره المناسبه"
+      "VIEW_OCCASION": "عرض صوره المناسبه",
+      "ACTIONS": {
+        "EDIT": "تعديل",
+        "DELETE": "حذف"
+      },
+      "TABLE": {
+        "NAME": "الاسم",
+        "PRODUCTS": "المنتجات"
+      }
     },
    "TABLE": {
     "SEARCH": "بحث...",

@@ -8,7 +8,7 @@
      placeholder:font-[Inter] placeholder:text-[14px] placeholder:font-normal placeholder:text-[#A1A1AA] dark:border-[#3A3A3A] dark:bg-[#262626] dark:text-white dark:placeholder:text-[#A1A1AA]" />
   </div>
   <div class="w-full overflow-x-auto custom-scrollbar ">
-  <table class="w-full  min-w-[550px] ">
+  <table class="w-full  " [style.min-width]="minWidth()">
 
     <colgroup>
        @for (column of columns(); track column.key) {
@@ -71,7 +71,7 @@
         @if(actions().length) {
         <!-- Desktop Actions -->
         <td class="hidden md:table-cell py-1 md:py-4 px-2  max-w-0 align-middle">
-          <div class="flex items-center justify-center gap-2">
+          <div class="flex items-center justify-end gap-2">
             @for (action of actions();track action.label){
             <!-- Call the action handler and pass the current row   -->
             <button type="button" (click)="action.action(row)"
@@ -92,9 +92,11 @@
 
         <!-- Mobile Actions Dropdown -->
         <td class="md:hidden py-4 px-2">
-          <button type="button" (click)="openMobileMenu($event, menu, row)">
+          <div class="flex items-center justify-end  ">
+          <button type="button" (click)="openMobileMenu($event, menu, row)" class="border border-[#D9D9D9] dark:border-[#3A3A3A] rounded-[6px] text-zinc-400">
             <lucide-icon [img]="EllipsisVertical" [size]="20" />
           </button>
+          </div>
         </td>
         }
       </tr>

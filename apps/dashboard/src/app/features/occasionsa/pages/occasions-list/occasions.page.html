@@ -25,4 +25,9 @@
   (pageChange)="onPageChange($event)"
   >
 </app-dynamic-table>
+<app-delete-confirmation-modal
+  [isOpen]="occasionToDelete() !== null"
+  (closed)="closeDeleteModal()"
+  (confirmed)="confirmDelete()"
+/> 
 </div>
