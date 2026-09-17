@@ -22,8 +22,8 @@ import { ToastService } from '@org/shared-util-notification';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
 import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
-import { AuthFacade } from 'libs/auth/src/lib/auth-facade';
-import { AuthStore } from 'libs/auth/src/lib/store/auth.store';
+import { AuthFacade } from '../../../../auth-facade';
+import { AuthStore } from '../../../../store/auth.store';
 
 @Component({
   selector: 'lib-change-email-modal',

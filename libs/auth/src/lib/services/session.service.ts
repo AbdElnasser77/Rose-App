@@ -5,6 +5,7 @@ import { TokenService } from './token.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Buffer } from 'buffer';
 import { AuthFacade } from '../auth-facade';
+import { Role } from '../types';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,6 +36,21 @@ export class SessionService {
     isAuthenticated():boolean{
           const token=this._tokenService.getToken();
           return !!token && !this.isTokenExpired(token);
+    }
+
+    /** Role carried by the current token, or null when signed out. */
+    role(): Role | null {
+      const token = this._tokenService.getToken();
+
+      if (!token || this.isTokenExpired(token)) {
+        return null;
+      }
+
+      return this.decodeToken(token)?.role ?? null;
+    }
+
+    isAdmin(): boolean {
+      return this.role() === 'ADMIN';
     }
 
     clearSession(): void {
