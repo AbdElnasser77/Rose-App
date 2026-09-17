@@ -1,9 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OccasionsQueryParams } from '../models/occasions-query.model';
 import { OccasionsResponseModel } from '../models/occasions-response.model';
 import { BASE_URL_CONFIG } from '@org/auth';
+import { SKIP_LOADER } from '@org/shared-util-loader';
 import { OccasionsModel } from '../models/occasions.model';
 
 
@@ -12,7 +13,10 @@ export class OccasionsService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _baseUrlConfig = inject(BASE_URL_CONFIG);
 
-  getOccasions(queryParams: OccasionsQueryParams): Observable<OccasionsResponseModel> {
+  getOccasions(
+    queryParams: OccasionsQueryParams,
+    skipLoader = false
+  ): Observable<OccasionsResponseModel> {
     let params = new HttpParams();
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
@@ -21,7 +25,13 @@ export class OccasionsService {
         }
       });
     }
-    return this._httpClient.get<OccasionsResponseModel>(`${this._baseUrlConfig.apiUrl}/occasions`, { params });
+    return this._httpClient.get<OccasionsResponseModel>(
+      `${this._baseUrlConfig.apiUrl}/occasions`,
+      {
+        params,
+        context: new HttpContext().set(SKIP_LOADER, skipLoader),
+      }
+    );
   }
 
   deleteOccasions(id: string): Observable<void> {

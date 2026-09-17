@@ -618,6 +618,8 @@
       "SLIDE": "الصورة {{current}}"
     },
     "PRODUCTS": {
+    "DELETE_TITLE": "حذف المنتج",
+    "DELETE_WARNING": "لا يمكن التراجع عن حذف “{{name}}”.",
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
     "CREATE_SUCCESS": "تم إنشاء المنتج بنجاح",
     "UPDATE_SUCCESS" :"تم تحديث المنتج بنجاح",

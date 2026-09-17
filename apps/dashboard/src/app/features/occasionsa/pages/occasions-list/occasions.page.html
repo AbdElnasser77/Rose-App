@@ -25,9 +25,13 @@
   (pageChange)="onPageChange($event)"
   >
 </app-dynamic-table>
-<app-delete-confirmation-modal
-  [isOpen]="occasionToDelete() !== null"
-  (closed)="closeDeleteModal()"
-  (confirmed)="confirmDelete()"
-/> 
+@if (occasionToDelete(); as occasion) {
+  <app-confirm-dialog
+    [visible]="true"
+    titleKey="DASHBOARD.OCCASIONS.DELETE_TITLE"
+    messageKey="DASHBOARD.OCCASIONS.DELETE_WARNING"
+    [messageParams]="{ name: occasion.title }"
+    (confirmed)="confirmDelete()"
+    (cancelled)="closeDeleteModal()" />
+}
 </div>

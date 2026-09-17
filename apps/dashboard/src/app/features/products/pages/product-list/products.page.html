@@ -1,4 +1,4 @@
-<div class="flex flex-1 flex-col min-h-0 gap-4 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[104px] md:pb-6">
+<div class="flex flex-1 flex-col  gap-4 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[104px] md:pb-6">
 <div class="flex  items-center justify-between">
   
 <h1
@@ -37,9 +37,15 @@
     {{ stock }}
   </span>
 </ng-template>
-<app-delete-confirmation-modal
-  [isOpen]="productToDelete() !== null"
-  (closed)="closeDeleteModal()"
-  (confirmed)="confirmDelete()"
-/> 
+@if (productToDelete(); as product) {
+  <app-confirm-dialog
+    [visible]="true"
+    titleKey="DASHBOARD.PRODUCTS.DELETE_TITLE"
+    messageKey="DASHBOARD.PRODUCTS.DELETE_WARNING"
+    [messageParams]="{ name: product.title }"
+    [loading]="deleting()"
+    (confirmed)="confirmDelete()"
+    (cancelled)="cancelDelete()"
+  />
+}
 </div>

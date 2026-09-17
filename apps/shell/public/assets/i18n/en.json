@@ -615,6 +615,8 @@
       "SLIDE": "Image {{current}}"
     },
     "PRODUCTS": {
+    "DELETE_TITLE": "Delete product",
+    "DELETE_WARNING": "Deleting “{{name}}” cannot be undone.",
     "DELETE_SUCCESS": "Product deleted successfully",
     "CREATE_SUCCESS": "Product created successfully",
     "UPDATE_SUCCESS" :"Product updated successfully",

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { DynamicTableComponent } from '../../../../shared/ui/dynamic-table/components/dynamic-table.component';
 import { TableColumn } from '../../../../shared/ui/dynamic-table/models/table-column.model';
 import { TableAction } from '../../../../shared/ui/dynamic-table/models/table-action.model';
@@ -7,14 +7,14 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonComponent } from '@org/ui';
-import { DeleteConfirmationModalComponent } from '../../../../shared/ui/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ConfirmDialogComponent } from '../../../../shared/ui/confirm-dialog/components/confirm-dialog.component';
 import { OccasionsService } from '../../services/occasions.service';
 import { OccasionsModel } from '../../models/occasions.model';
 import { OccasionsQueryParams } from '../../models/occasions-query.model';
 @Component({
   selector: 'app-occasions-page',
   standalone: true,
-  imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent, DeleteConfirmationModalComponent],
+  imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent, ConfirmDialogComponent],
   templateUrl: './occasions.page.html',
   styleUrl: './occasions.page.scss',
 })
@@ -37,7 +37,6 @@ export class OccasionsPage implements OnInit {
   };
   columns: TableColumn<OccasionsModel>[] = [
     {key: 'title',header: 'DASHBOARD.OCCASIONS.TABLE.NAME',},
-    {key: 'title',header: 'DASHBOARD.OCCASIONS.TABLE.PRODUCTS',getValue: () => 10,},
     ];
 
   actions :TableAction<OccasionsModel>[] = [
@@ -46,11 +45,11 @@ export class OccasionsPage implements OnInit {
   ];
 
   ngOnInit(): void {
-  this.loadOccasions();
+  this.loadOccasions(false);
   }
 
-  loadOccasions(): void {
-  this._occasionsService.getOccasions(this.queryParams).subscribe({
+  loadOccasions(skipLoader = true): void {
+  this._occasionsService.getOccasions(this.queryParams, skipLoader).subscribe({
     next: (response) => {
       this.occasions.set(response.payload.data) ;
       this.totalPages.set(response.payload.metadata.totalPages);
