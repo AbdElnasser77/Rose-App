@@ -589,6 +589,23 @@
       "DELETE": "Delete",
       "CANCEL": "Cancel"
     },
+    "ERRORS": {
+      "NOT_FOUND": {
+        "BREADCRUMB": "Not Found",
+        "TITLE": "This page does not exist.",
+        "MESSAGE": "We couldn't find the page you are looking for, please make sure you are in the right path."
+      },
+      "SERVER": {
+        "BREADCRUMB": "Error",
+        "TITLE": "Oops, something went wrong!",
+        "MESSAGE": "Something unexpected happened, please refresh the page or try again shortly."
+      },
+      "UNAUTHORIZED": {
+        "TITLE": "You are not authorized to access this page.",
+        "MESSAGE": "If you think this is wrong, please contact the support.",
+        "ACTION": "Go to Homepage"
+      }
+    },
     "IMAGE_PREVIEW": {
       "CLOSE": "Close image preview",
       "PREVIOUS": "Previous image",

@@ -1,0 +1,26 @@
+<section class="flex flex-col items-center justify-center gap-4 px-6 py-12 text-center">
+  <!-- Decorative: the heading below already carries the meaning. -->
+  <img
+    [src]="image() | assetUrl"
+    alt=""
+    aria-hidden="true"
+    class="w-full max-w-md"
+  />
+
+  <h1 class="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
+    {{ titleKey() | translate }}
+  </h1>
+
+  <p class="max-w-md text-sm text-zinc-500 dark:text-zinc-400">
+    {{ messageKey() | translate }}
+  </p>
+
+  @if (actionKey() && actionLink()) {
+    <a
+      [routerLink]="actionLink()"
+      class="mt-2 rounded-lg border border-zinc-300 px-5 py-2 text-sm text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-800"
+    >
+      {{ actionKey() | translate }}
+    </a>
+  }
+</section>
