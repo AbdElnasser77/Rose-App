@@ -29,5 +29,8 @@ export interface CategoryMutationResponse {
 export interface CategoryResponse {
   status: boolean;
   code: number;
-  payload: CategoryModel;
+  /** The single-category read nests the record, unlike the list endpoint. */
+  payload: {
+    category: CategoryModel;
+  };
 }

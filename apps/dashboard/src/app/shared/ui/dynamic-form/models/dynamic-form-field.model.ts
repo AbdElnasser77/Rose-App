@@ -50,12 +50,6 @@ export interface DynamicFormField<T = string> {
 
   // File
   accept?: string;
-  /**
-   * Optional link rendered under a file field - used to point at the file the
-   * record already has, which a fresh upload would replace.
-   */
-  hintLabel?: string;
-  hintHref?: string;
   maxFileSize?: number;
   multiple?: boolean;
 }
