@@ -6,7 +6,7 @@ export interface CategorySubCategory {
 export interface CategoryModel {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   image: string;
   immutable: boolean;
   createdAt: string;

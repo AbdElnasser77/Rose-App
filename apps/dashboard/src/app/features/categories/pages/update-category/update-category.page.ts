@@ -1,11 +1,14 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { UploadApiService } from '@org/auth';
 import { ToastService } from '@org/shared-util-notification';
 import { Observable, of, switchMap } from 'rxjs';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
+import { ViewImageButtonComponent } from '../../../../shared/ui/view-image-button/components/view-image-button.component';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
+import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-modal/image-preview-modal.component';
 import { DynamicFormField } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
 import { UpdateCategoryRequest } from '../../models/category-request.model';
 import { CategoryModel } from '../../models/category.model';
@@ -14,8 +17,13 @@ import { CategoriesService } from '../../services/categories.service';
 @Component({
   selector: 'app-update-category-page',
   standalone: true,
-  imports: [DynamicFormComponent, TranslatePipe],
-  host: { class: 'flex flex-1 flex-col min-h-0' },
+  imports: [
+    DynamicFormComponent,
+    TranslatePipe,
+    FormPageLayoutComponent,
+    ViewImageButtonComponent,
+    ImagePreviewModalComponent,
+  ],
   templateUrl: './update-category.page.html',
 })
 export class UpdateCategoryPage implements OnInit {
@@ -30,6 +38,15 @@ export class UpdateCategoryPage implements OnInit {
   readonly category = signal<CategoryModel | null>(null);
   readonly fields = signal<DynamicFormField[]>([]);
   readonly saving = signal(false);
+
+  readonly showImage = signal(false);
+
+  /** The preview modal takes a list, and a category has exactly one image. */
+  readonly previewImages = computed(() => {
+    const image = this.category()?.image;
+
+    return image ? [this._uploadApiService.toAbsoluteUrl(image)] : [];
+  });
 
   private categoryId = '';
 
@@ -46,32 +63,29 @@ export class UpdateCategoryPage implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (response) => {
-          this.category.set(response.payload);
-          this.buildFields(response.payload);
+          this.category.set(response.payload.category);
+          this.buildFields(response.payload.category);
         },
       });
   }
 
   private buildFields(category: CategoryModel): void {
+    // Keys only - the form translates labels and placeholders itself.
     this.fields.set([
       {
         name: 'title',
-        label: this._translateService.instant('DASHBOARD.CATEGORIES.NAME'),
+        label: 'DASHBOARD.CATEGORIES.NAME',
         type: 'text',
+        placeholder: 'DASHBOARD.CATEGORIES.NAME_PLACEHOLDER',
         value: category.title,
         required: true,
       },
       {
         // Optional on edit: leaving it untouched keeps the current image.
         name: 'image',
-        label: this._translateService.instant('DASHBOARD.CATEGORIES.IMAGE'),
+        label: 'DASHBOARD.CATEGORIES.IMAGE',
         type: 'file',
         accept: 'image/*',
-        value: this._uploadApiService.toAbsoluteUrl(category.image),
-        hintLabel: this._translateService.instant(
-          'DASHBOARD.CATEGORIES.VIEW_IMAGE'
-        ),
-        hintHref: this._uploadApiService.toAbsoluteUrl(category.image),
       },
     ]);
   }
@@ -86,8 +100,8 @@ export class UpdateCategoryPage implements OnInit {
 
     this.saving.set(true);
 
-    // A File means the admin picked a replacement; anything else is the
-    // existing image URL the form was seeded with, so the image is left alone.
+    // Only a File means a replacement was picked; an untouched field leaves
+    // the category's current image alone.
     const imagePath$: Observable<string | null> =
       image instanceof File
         ? this._uploadApiService.uploadImage(image)
@@ -119,5 +133,13 @@ export class UpdateCategoryPage implements OnInit {
         },
         error: () => this.saving.set(false),
       });
+  }
+
+  openImagePreview(): void {
+    this.showImage.set(true);
+  }
+
+  closeImagePreview(): void {
+    this.showImage.set(false);
   }
 }

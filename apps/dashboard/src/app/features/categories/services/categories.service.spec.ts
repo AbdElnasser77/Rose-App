@@ -11,6 +11,7 @@ import {
   CategoryListResponse,
   CategoryMutationResponse,
 } from '../models/category-response.model';
+import { CategoryModel } from '../models/category.model';
 
 describe('CategoriesService', () => {
   let service: CategoriesService;
@@ -121,6 +122,26 @@ describe('CategoriesService', () => {
     expect(request.request.body).toEqual({ title: 'Gift Flowers' });
 
     request.flush(mockMutationResponse);
+  });
+
+  it('reads a single category from the nested payload', () => {
+    let received: CategoryModel | undefined;
+
+    service
+      .getCategory('c1')
+      .subscribe((response) => (received = response.payload.category));
+
+    const request = httpTestingController.expectOne(`${url}/c1`);
+    expect(request.request.method).toBe('GET');
+
+    // The single read wraps the record in `payload.category`, unlike the list.
+    request.flush({
+      status: true,
+      code: 200,
+      payload: { category: mockListResponse.payload.data[0] },
+    });
+
+    expect(received?.title).toBe('Flowers');
   });
 
   it('deletes by id', () => {
