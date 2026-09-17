@@ -48,6 +48,13 @@ export const remoteRoutes: Route[] = [
           import('../features/products/products.routes').then(
             (m) => m.ProductsRoutes,
           ),
+      },      
+      {
+        path: 'occasions',
+        loadChildren: () =>
+          import('../features/occasionsa/occasions.routes').then(
+            (m) => m.OccasionsRoutes,
+          ),
       },
       {
         path: 'account',

@@ -93,7 +93,7 @@
 
 
 
-<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-2 z-50 dark:bg-zinc-800 dark:!text-zinc-100">
+<div class="md:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-gray-100 px-4 py-2 z-50 dark:bg-zinc-800 dark:!text-zinc-100">
   <div class="absolute -top-7 left-1/2 -translate-x-1/2">
     <button
       class="w-14 h-14 rounded-full bg-[#A6262D] border-4 border-[#A6262D] flex items-center justify-center text-white shadow-lg focus:outline-none">
@@ -106,7 +106,7 @@
     </button>
   </div>
 
-  <div class="flex items-center justify-between max-w-sm mx-auto pt-1">
+  <div class="grid grid-cols-5 items-center w-full pt-1">
     @for (item of navItems(); track item.route; let index = $index) {
     @if (index === 2) {
     <div class="w-8"></div>

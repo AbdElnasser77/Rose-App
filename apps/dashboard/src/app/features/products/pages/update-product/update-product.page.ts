@@ -230,6 +230,7 @@ private loadProduct(id: string): void {
         occasion: product.occasions[0]?.occasionId
       });
       
+
     },
     });
   }

@@ -1,0 +1,35 @@
+<div class="w-full p-6 pb-[121px] md:pb-0">
+    <h1 class="font-inter text-[24px] font-semibold leading-none tracking-normal mb-3 text-[#27272A] dark:text-white">
+        {{ 'DASHBOARD.OCCASIONS.UPDATE_OCCASION' | translate }}
+    </h1>
+    <div class="w-full p-5 bg-white dark:bg-[#1C1C1E] rounded-2xl flex flex-col gap-[18px]">
+        <app-dynamic-form [fields]="fields()" 
+        [initialValues]="initialValues()"
+        submitLabel="DASHBOARD.OCCASIONS.UPDATE_OCCASION"
+        (submitted)="onOccasionUpdate($event)" >
+
+         <!-- Extra content -->
+        <div class=" flex w-full flex-wrap justify-end gap-3">
+       
+        <button type="button" [disabled]="!occasionImages().length" (click)="openImagePreview()" 
+        class="flex h-[38px] w-fit items-center gap-[6px]
+         rounded-[10px] border border-[#00000014]
+         bg-white dark:bg-[#262626] px-[10px]
+         font-inter text-[14px] font-normal leading-none text-[#155DFC] dark:text-[#60A5FA]
+         transition hover:opacity-90">
+                <lucide-icon [img]="Image" class="h-[18px] w-[18px]" />
+
+                <span>{{ 'DASHBOARD.OCCASIONS.VIEW_OCCASION' | translate }}</span>
+            </button>
+        
+        </div>
+        </app-dynamic-form>
+    </div>
+    
+
+    <app-image-preview-modal
+        [images]="occasionImages()"
+        [isOpen]="showImagePreview()"
+        [title]="'DASHBOARD.OCCASIONS.VIEW_OCCASION' | translate"
+        (closed)="closeImagePreview()" />
+</div>

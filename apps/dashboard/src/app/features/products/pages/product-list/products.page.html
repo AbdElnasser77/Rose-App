@@ -27,6 +27,7 @@
   [page]="page()"
   [totalPages]="totalPages()"
   (pageChange)="onPageChange($event)"
+   [minWidth]="'600px'"
   >
 </app-dynamic-table>
 <ng-template #stockTemplate let-stock let-product="row">

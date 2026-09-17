@@ -31,6 +31,7 @@ export class DynamicTableComponent<T> {
   columns = input<TableColumn<T>[]>([]);
   data = input<T[]>([]);
   actions = input<TableAction<T>[]>([]);
+  minWidth = input<string>();
 
   activeMenuItems = signal<MenuItem[]>([]);
 
