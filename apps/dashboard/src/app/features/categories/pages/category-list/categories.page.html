@@ -1,0 +1,47 @@
+<div class="flex flex-1 flex-col min-h-0 gap-4 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[104px] md:pb-6">
+  <div class="flex items-center justify-between">
+    <h1
+      class="font-inter text-[24px] font-semibold leading-none tracking-normal text-[#27272A] dark:text-white">
+      {{ 'DASHBOARD.CATEGORIES.TITLE' | translate }}
+    </h1>
+
+    <!-- Icon-only below md: size="icon" gives a true 42x42 box and skips the
+         label gap that pushed the glyph off centre. -->
+    <lib-button class="md:hidden" size="icon" shape="square" (clicked)="onAddClicked()">
+      <lucide-icon leftIcon [img]="Plus" [size]="20"></lucide-icon>
+    </lib-button>
+
+    <lib-button class="hidden md:block text-white dark:text-zinc-800 cursor-pointer"
+      size="auto" (clicked)="onAddClicked()">
+      <lucide-icon leftIcon [img]="Plus"></lucide-icon>
+      {{ 'DASHBOARD.CATEGORIES.ADD_NEW' | translate }}
+    </lib-button>
+  </div>
+
+  <app-dynamic-table
+    [columns]="columns()"
+    [data]="categories()"
+    [actions]="actions()"
+    (searchChange)="onSearch($event)"
+    [page]="page()"
+    [totalPages]="totalPages()"
+    (pageChange)="onPageChange($event)">
+  </app-dynamic-table>
+</div>
+
+<ng-template #productsTemplate let-count>
+  <span class="block line-clamp-2 break-words overflow-hidden leading-snug">
+    {{ 'DASHBOARD.CATEGORIES.PRODUCTS_COUNT' | translate: { count: count } }}
+  </span>
+</ng-template>
+
+@if (categoryToDelete(); as category) {
+<app-confirm-dialog
+  [visible]="true"
+  titleKey="DASHBOARD.CATEGORIES.DELETE_TITLE"
+  messageKey="DASHBOARD.CATEGORIES.DELETE_WARNING"
+  [messageParams]="{ name: category.title }"
+  [loading]="deleting()"
+  (confirmed)="confirmDelete()"
+  (cancelled)="cancelDelete()" />
+}

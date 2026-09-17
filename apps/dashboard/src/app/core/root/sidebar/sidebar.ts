@@ -31,7 +31,7 @@ export class Sidebar {
   readonly navItems = signal<NavItem[]>([
     {
       label: 'nav.overview',
-      route: '/dashboard',
+      route: '/dashboard/overview',
       type: 'custom',
       customPaths: [
         'M9.375 3.125H4.16667C3.59137 3.125 3.125 3.59137 3.125 4.16667V11.4583C3.125 12.0336 3.59137 12.5 4.16667 12.5H9.375C9.9503 12.5 10.4167 12.0336 10.4167 11.4583V4.16667C10.4167 3.59137 9.9503 3.125 9.375 3.125Z',

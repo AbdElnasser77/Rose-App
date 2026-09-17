@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex w-full flex-col gap-5">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex w-full flex-1 flex-col gap-5">
     @for (row of getFieldRows(); track $index) {
     <div class="grid grid-cols-1 gap-5" [ngClass]="getRowGridClass(row.length)">
 
@@ -121,6 +121,18 @@
                 }
             </div>
 
+            @if (field.hintHref && field.hintLabel) {
+            <a [href]="field.hintHref" target="_blank" rel="noopener noreferrer"
+                class="flex h-[49px] w-full items-center justify-center gap-2 rounded-[10px] border border-zinc-300
+                bg-white px-4 font-inter text-[14px] font-medium text-[#155DFC] transition
+                hover:border-zinc-400 hover:bg-zinc-50
+                md:w-auto md:self-end
+                dark:border-zinc-600 dark:bg-zinc-700 dark:text-[#FFC2D0] dark:hover:border-soft-pink-50">
+                <lucide-icon [img]="Image" class="h-5 w-5 shrink-0" />
+                {{ field.hintLabel }}
+            </a>
+            }
+
             <div class="absolute top-full start-0 z-20 mt-1">
                 <lib-validation-errors [control]="getControl(field.name)" />
             </div>
@@ -135,10 +147,14 @@
     <!-- Extra content -->
     <ng-content />
 
-    <!-- Submit -->
-    <lib-button type="submit" size="full" class="text-white dark:text-zinc-800 cursor-pointer mt-6">
-        {{ submitLabel() | translate }}
-    </lib-button>
+    <!-- Submit. mt-auto only bites when the host was given room to grow, so
+         forms that size to their content keep the button right after the
+         fields. -->
+    <div class="mt-auto pt-6">
+        <lib-button type="submit" size="full" class="text-white dark:text-zinc-800 cursor-pointer">
+            {{ submitLabel() | translate }}
+        </lib-button>
+    </div>
 
 
 </form>
