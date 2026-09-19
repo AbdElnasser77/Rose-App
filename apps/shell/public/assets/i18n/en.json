@@ -670,6 +670,8 @@
     "OCCASIONS": {
       "TITLE_FIELD": "Title",
       "TITLE": "Occasions",
+      "DELETE_TITLE": "Delete occasion",
+      "DELETE_WARNING": "Deleting “{{name}}” cannot be undone.",
       "DELETE_SUCCESS": "Occasion deleted successfully",
       "CREATE_SUCCESS": "Occasion created successfully",
       "UPDATE_SUCCESS": "Occasion updated successfully",

@@ -1,12 +1,5 @@
-<div class="flex flex-1 flex-col min-h-0 overflow-y-auto gap-6 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[104px] md:pb-6">
-  <h1
-    class="font-inter text-[24px] font-semibold leading-none tracking-normal text-[#27272A] dark:text-white">
-    {{ 'DASHBOARD.CATEGORIES.ADD_TITLE' | translate }}
-  </h1>
-
-  <app-dynamic-form
-    class="flex flex-1 flex-col min-h-0"
-    [fields]="fields"
-    [submitLabel]="'DASHBOARD.CATEGORIES.ADD_SUBMIT' | translate"
-    (submitted)="onSubmit($event)" />
-</div>
+<app-form-page-layout titleKey="DASHBOARD.CATEGORIES.ADD_TITLE">
+    <app-dynamic-form class="flex flex-1 flex-col" [fields]="fields"
+        submitLabel="DASHBOARD.CATEGORIES.ADD_SUBMIT"
+        (submitted)="onSubmit($event)" />
+</app-form-page-layout>

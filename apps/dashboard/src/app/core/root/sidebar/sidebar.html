@@ -93,28 +93,21 @@
 
 
 
-<div class="md:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-gray-100 px-4 py-2 z-50 dark:bg-zinc-800 dark:!text-zinc-100">
+<div class="md:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-gray-100 dark:border-zinc-700 px-4 py-2 z-50 dark:bg-zinc-800 dark:!text-zinc-100">
   <div class="absolute -top-7 left-1/2 -translate-x-1/2">
     <button
-      class="w-14 h-14 rounded-full bg-[#A6262D] border-4 border-[#A6262D] flex items-center justify-center text-white shadow-lg focus:outline-none">
-      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M18.75 15C18.75 17.0711 17.0711 18.75 15 18.75M18.75 15C18.75 12.9289 17.0711 11.25 15 11.25M15 9.375C15 8.26248 15.3299 7.17495 15.948 6.24992C16.5661 5.32489 17.4446 4.60392 18.4724 4.17818C19.5002 3.75244 20.6312 3.64104 21.7224 3.85809C22.8135 4.07513 23.8158 4.61086 24.6025 5.39753C25.3891 6.1842 25.9249 7.18648 26.1419 8.27762C26.359 9.36876 26.2476 10.4998 25.8218 11.5276C25.3961 12.5554 24.6751 13.4339 23.7501 14.052C22.8251 14.6701 21.7375 15 20.625 15H18.75M15 18.75C12.9289 18.75 11.25 17.0711 11.25 15M15 18.75V20.625M11.25 15C11.25 12.9289 12.9289 11.25 15 11.25M11.25 15H9.375M9.375 15C8.26248 15 7.17495 14.6701 6.24992 14.052C5.32489 13.4339 4.60392 12.5554 4.17818 11.5276C3.75244 10.4998 3.64104 9.36876 3.85809 8.27762C4.07513 7.18648 4.61086 6.1842 5.39753 5.39753C6.1842 4.61086 7.18648 4.07513 8.27762 3.85809C9.36876 3.64104 10.4998 3.75244 11.5276 4.17818C12.5554 4.60392 13.4339 5.32489 14.052 6.24992C14.6701 7.17495 15 8.26248 15 9.375V11.25M15 20.625C15 21.7375 14.6701 22.8251 14.052 23.7501C13.4339 24.6751 12.5554 25.3961 11.5276 25.8218C10.4998 26.2476 9.36876 26.359 8.27762 26.1419C7.18648 25.9249 6.1842 25.3891 5.39753 24.6025C4.61086 23.8158 4.07513 22.8135 3.85809 21.7224C3.64104 20.6312 3.75244 19.5002 4.17818 18.4724C4.60392 17.4446 5.32489 16.5661 6.24992 15.948C7.17495 15.3299 8.26248 15 9.375 15M15 20.625C15 21.7375 15.3299 22.8251 15.948 23.7501C16.5661 24.6751 17.4446 25.3961 18.4724 25.8218C19.5002 26.2476 20.6312 26.359 21.7224 26.1419C22.8135 25.9249 23.8158 25.3891 24.6025 24.6025C25.3891 23.8158 25.9249 22.8135 26.1419 21.7224C26.359 20.6312 26.2476 19.5002 25.8218 18.4724C25.3961 17.4446 24.6751 16.5661 23.7501 15.948C22.8251 15.3299 21.7375 15 20.625 15M10 10L12.35 12.35M17.65 12.35L20 10M10 20L12.35 17.65M17.65 17.65L20 20"
-          stroke="white" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-
+      class="w-12 h-12 rounded-full bg-[#A6252A] dark:bg-[#FFA3B9]  flex items-center justify-center text-white dark:text-[#27272A] shadow-lg focus:outline-none">
+      <lucide-icon [img]="Flower" class="w-7 h-7"></lucide-icon>
     </button>
   </div>
 
-  <div class="grid grid-cols-5 items-center w-full pt-1">
+  <div class="grid grid-cols-4 items-center w-full pt-1">
     @for (item of navItems(); track item.route; let index = $index) {
-    @if (index === 2) {
-    <div class="w-8"></div>
-    }
+    
 
-    <a [routerLink]="item.route" routerLinkActive="text-[#A6262D] bg-[#FDF2F2] rounded-2xl"
+    <a [routerLink]="item.route" routerLinkActive="text-[#A6262D] dark:text-[#FF8F9B] bg-[#FDF2F2] dark:bg-zinc-700 rounded-2xl"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="flex flex-col items-center gap-1 text-gray-700 px-3 py-1.5 transition-all">
+      class="flex flex-col items-center gap-1 text-gray-700 dark:text-zinc-100 px-3 py-1.5 transition-all">
 
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 25 25">
         @for (path of item.customPaths; track path) {

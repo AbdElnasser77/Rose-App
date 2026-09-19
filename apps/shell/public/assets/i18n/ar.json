@@ -665,6 +665,8 @@
     },
     "OCCASIONS": {
       "TITLE": "المناسبات",
+      "DELETE_TITLE": "حذف المناسبة",
+      "DELETE_WARNING": "لا يمكن التراجع عن حذف “{{name}}”.",
       "DELETE_SUCCESS": "تم حذف المناسبة بنجاح",
       "CREATE_SUCCESS": "تم إنشاء المناسبة بنجاح",
       "UPDATE_SUCCESS": "تم تعديل المناسبة بنجاح",

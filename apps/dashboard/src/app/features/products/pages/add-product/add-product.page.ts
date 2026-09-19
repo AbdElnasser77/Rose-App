@@ -1,23 +1,28 @@
 import { Component, computed, inject, OnInit, signal} from '@angular/core';
 import { DynamicFormField, DynamicFormOption } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
 import { ProductsService } from '../../services/products.service';
 import { CreateProductRequest } from '../../models/create-product-request.model';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { Router } from '@angular/router';
 import { UploadService } from '../../../../shared/services/upload.service';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { OccasionsService } from '../../../occasionsa/services/occasions.service';
+import { CategoriesService } from '../../../categories/services/categories.service';
 
 @Component({
   selector: 'app-add-product-page',
   standalone: true,
-  imports: [DynamicFormComponent , TranslatePipe],
+  imports: [DynamicFormComponent, FormPageLayoutComponent],
   templateUrl: './add-product.page.html',
   styleUrl: './add-product.page.scss',
 })
 export class AddProductPage implements OnInit{
   private readonly _productsService = inject(ProductsService);
+  private readonly _occasionsService = inject(OccasionsService);
+  private readonly _categoriesService = inject(CategoriesService);
   private readonly _toastService = inject(ToastService);
   private readonly _translateService = inject(TranslateService);
   private readonly _router = inject(Router);
@@ -172,7 +177,7 @@ onProductSubmit(data: Record<string, unknown>): void {
 }
 
 private loadCategories(): void {
-  this._productsService.getCategories().subscribe((response) => {
+  this._categoriesService.getCategories({ page: 1, limit: 100 }).subscribe((response) => {
     this.categoryOptions.set(
       response.payload.data.map((category: any) => ({
         label: category.title,
@@ -183,7 +188,7 @@ private loadCategories(): void {
 }
 
 private loadOccasions(): void {
-  this._productsService.getOccasions().subscribe((response) => {
+  this._occasionsService.getOccasions({ page: 1, limit: 100 }).subscribe((response) => {
     this.occasionOptions.set(
       response.payload.data.map((occasion: any) => ({
         label: occasion.title,

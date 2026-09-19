@@ -1,47 +1,48 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex w-full flex-1 flex-col gap-5">
-    @for (row of getFieldRows(); track $index) {
-    <div class="grid grid-cols-1 gap-5" [ngClass]="getRowGridClass(row.length)">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex w-full flex-1 flex-col justify-between md:justify-start gap-4">
+    <div class="flex flex-col gap-5">
+        @for (row of getFieldRows(); track $index) {
+        <div class="grid grid-cols-1 gap-5" [ngClass]="getRowGridClass(row.length)">
 
-        @for (field of row; track field.name) {
+            @for (field of row; track field.name) {
 
-        <!-- Input Fields -->
-        @if (isInputField(field.type)) {
+            <!-- Input Fields -->
+            @if (isInputField(field.type)) {
 
-        <lib-reusable-input [label]="field.label | translate" [type]="field.type"
-            [placeholder]="(field.placeholder | translate )?? ''" [required]="field.required ?? false"
-            [showRequiredIndicator]="field.required ?? false" [readonly]="field.readonly ?? false"
-            [formControlName]="field.name" />
+            <lib-reusable-input [label]="field.label | translate" [type]="field.type"
+                [placeholder]="(field.placeholder | translate )?? ''" [required]="field.required ?? false"
+                [showRequiredIndicator]="field.required ?? false" [readonly]="field.readonly ?? false"
+                [formControlName]="field.name" />
 
-        }
+            }
 
-        <!-- Select -->
-        @else if (field.type === 'select') {
+            <!-- Select -->
+            @else if (field.type === 'select') {
 
-        <lib-select-input [label]="field.label | translate" [placeholder]="field.placeholder
+            <lib-select-input [label]="field.label | translate" [placeholder]="field.placeholder
           ? (field.placeholder | translate)
           : ('COMMON.SELECT' | translate)" [options]="field.options ?? []" [formControlName]="field.name"
-            [showRequiredIndicator]="field.required ?? false" />
+                [showRequiredIndicator]="field.required ?? false" />
 
-        }
-        <!-- Textarea -->
-        @else if (field.type === 'textarea') {
-        <div class="relative flex w-full flex-col gap-1.5">
+            }
+            <!-- Textarea -->
+            @else if (field.type === 'textarea') {
+            <div class="relative flex w-full flex-col gap-1.5">
 
-            <label [for]="field.name" [ngClass]="
+                <label [for]="field.name" [ngClass]="
     getControl(field.name)?.invalid &&
     (getControl(field.name)?.dirty || getControl(field.name)?.touched)
       ? 'text-red-600 dark:text-red-500'
       : 'text-zinc-800 dark:text-zinc-50'" class="font-inter text-[14px] font-medium leading-none">
-                {{ field.label | translate}}
+                    {{ field.label | translate}}
 
-                @if (field.required) {
-                <span class="text-red-600">*</span>
-                }
-            </label>
+                    @if (field.required) {
+                    <span class="text-red-600">*</span>
+                    }
+                </label>
 
-            <textarea [id]="field.name" [formControlName]="field.name"
-                [placeholder]="field.placeholder ? (field.placeholder | translate) : ''"
-                [readonly]="field.readonly ?? false" [attr.rows]="field.rows ?? 4" [ngClass]="[
+                <textarea [id]="field.name" [formControlName]="field.name"
+                    [placeholder]="field.placeholder ? (field.placeholder | translate) : ''"
+                    [readonly]="field.readonly ?? false" [attr.rows]="field.rows ?? 4" [ngClass]="[
                 'min-h-[150px] max-h-[150px] w-full rounded-[10px] border px-4 py-4 text-[14px] font-inter font-normal leading-normal text-zinc-800 placeholder:text-zinc-400 outline-none resize-none dark:bg-zinc-700 dark:text-zinc-50 dark:placeholder:text-zinc-400',
                 getControl(field.name)?.invalid &&
                 (getControl(field.name)?.dirty || getControl(field.name)?.touched)
@@ -50,33 +51,33 @@
          ]">
       </textarea>
 
-            <div class="absolute top-full start-0 z-20 mt-1">
-                <lib-validation-errors [control]="form.get(field.name)" />
+                <div class="absolute top-full start-0 z-20 mt-1">
+                    <lib-validation-errors [control]="form.get(field.name)" />
+                </div>
+
             </div>
+            }
 
-        </div>
-        }
+            <!-- File Upload -->
+            @else if (field.type === 'file') {
+            <div class="relative flex w-full flex-col gap-[6px]">
 
-        <!-- File Upload -->
-        @else if (field.type === 'file') {
-        <div class="relative flex w-full flex-col gap-[6px]">
-
-            @if (field.label) {
-            <label [for]="field.name" [ngClass]="
+                @if (field.label) {
+                <label [for]="field.name" [ngClass]="
     getControl(field.name)?.invalid &&
     (getControl(field.name)?.dirty || getControl(field.name)?.touched)
       ? 'text-red-600 dark:text-red-500'
       : 'text-zinc-800 dark:text-zinc-50'
   " class="font-inter text-[14px] font-medium leading-none">
-                {{ field.label | translate }}
+                    {{ field.label | translate }}
 
-                @if (field.required) {
-                <span class="text-red-600">*</span>
+                    @if (field.required) {
+                    <span class="text-red-600">*</span>
+                    }
+                </label>
                 }
-            </label>
-            }
 
-            <div [ngClass]="[
+                <div [ngClass]="[
     'relative flex h-[49px] w-full cursor-pointer items-center rounded-[10px] border bg-white px-4 transition dark:bg-zinc-700',
 
     getControl(field.name)?.invalid &&
@@ -85,72 +86,63 @@
       : 'border-zinc-300 hover:border-zinc-400 dark:border-zinc-600 dark:hover:border-soft-pink-50'
   ]">
 
-                <input [id]="field.name" type="file" [accept]="field.accept ?? ''" [multiple]="field.multiple ?? false"
-                    class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                    (change)="onFileSelected($event, field)" />
+                    <input [id]="field.name" type="file" [accept]="field.accept ?? ''"
+                        [multiple]="field.multiple ?? false"
+                        class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                        (change)="onFileSelected($event, field)" />
 
-                @if (getFilePreviews(field.name).length) {
+                    @if (getFilePreviews(field.name).length) {
 
-                <div class="flex w-full items-center gap-2 overflow-hidden">
+                    <div class="flex w-full items-center gap-2 overflow-hidden">
 
-                    @for (
-                    preview of getFilePreviews(field.name);
-                    track preview
-                    ) {
+                        @for (
+                        preview of getFilePreviews(field.name);
+                        track preview
+                        ) {
 
-                    <div class="relative">
-                        <img [src]="preview" [alt]="field.label" class="h-8 w-8 shrink-0 rounded-md object-cover" />
+                        <div class="relative">
+                            <img [src]="preview" [alt]="field.label" class="h-8 w-8 shrink-0 rounded-md object-cover" />
+                        </div>
+
+                        }
+
+                    </div>
+
+                    } @else {
+
+                    <div
+                        class="flex items-center justify-center gap-2 ms-auto text-maroon-500 dark:text-soft-pink-200 ">
+
+                        <lucide-icon [img]="Upload" class="h-5 w-5 " />
+
+                        <span class="text-[14px] font-inter font-normal ">
+                            {{ 'COMMON.UPLOAD_FILE' | translate }}
+                        </span>
+
                     </div>
 
                     }
-
                 </div>
 
-                } @else {
 
-                <div class="flex items-center justify-center gap-2 ms-auto text-maroon-500 dark:text-soft-pink-200 ">
-
-                    <lucide-icon [img]="Upload" class="h-5 w-5 " />
-
-                    <span class="text-[14px] font-inter font-normal ">
-                        {{ 'COMMON.UPLOAD_FILE' | translate }}
-                    </span>
-
+                <div class="absolute top-full start-0 z-20 mt-1">
+                    <lib-validation-errors [control]="getControl(field.name)" />
                 </div>
 
-                }
             </div>
-
-            @if (field.hintHref && field.hintLabel) {
-            <a [href]="field.hintHref" target="_blank" rel="noopener noreferrer"
-                class="flex h-[49px] w-full items-center justify-center gap-2 rounded-[10px] border border-zinc-300
-                bg-white px-4 font-inter text-[14px] font-medium text-[#155DFC] transition
-                hover:border-zinc-400 hover:bg-zinc-50
-                md:w-auto md:self-end
-                dark:border-zinc-600 dark:bg-zinc-700 dark:text-[#FFC2D0] dark:hover:border-soft-pink-50">
-                <lucide-icon [img]="Image" class="h-5 w-5 shrink-0" />
-                {{ field.hintLabel }}
-            </a>
             }
 
-            <div class="absolute top-full start-0 z-20 mt-1">
-                <lib-validation-errors [control]="getControl(field.name)" />
-            </div>
-
+            }
         </div>
-        }
 
         }
+        <!-- Extra content -->
+        <ng-content />
     </div>
-
-    }
-    <!-- Extra content -->
-    <ng-content />
-
     <!-- Submit. mt-auto only bites when the host was given room to grow, so
          forms that size to their content keep the button right after the
          fields. -->
-    <div class="mt-auto pt-6">
+    <div class="mt-auto md:mt-6 pt-6">
         <lib-button type="submit" size="full" class="text-white dark:text-zinc-800 cursor-pointer">
             {{ submitLabel() | translate }}
         </lib-button>

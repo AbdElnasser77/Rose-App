@@ -5,6 +5,8 @@ import { AuthFacade, AuthStore } from '@org/auth';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { LucideAngularModule, Flower } from 'lucide-angular';
+
 
 export interface NavItem {
   label: string;
@@ -17,7 +19,7 @@ export interface NavItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslatePipe, MenuModule, ButtonModule],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe, MenuModule, ButtonModule,LucideAngularModule],
   templateUrl: './sidebar.html'
 })
 export class Sidebar {
@@ -27,7 +29,7 @@ export class Sidebar {
   activeMenuId = signal<string | null>(null);
   private readonly authFacade = inject(AuthFacade);
   private readonly router = inject(Router);
-
+  protected readonly Flower = Flower;
   readonly navItems = signal<NavItem[]>([
     {
       label: 'nav.overview',

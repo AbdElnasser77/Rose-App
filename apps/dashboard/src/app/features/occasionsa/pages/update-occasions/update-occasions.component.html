@@ -1,9 +1,5 @@
-<div class="w-full p-6 pb-[121px] md:pb-0">
-    <h1 class="font-inter text-[24px] font-semibold leading-none tracking-normal mb-3 text-[#27272A] dark:text-white">
-        {{ 'DASHBOARD.OCCASIONS.UPDATE_OCCASION' | translate }}
-    </h1>
-    <div class="w-full p-5 bg-white dark:bg-[#1C1C1E] rounded-2xl flex flex-col gap-[18px]">
-        <app-dynamic-form [fields]="fields()" 
+<app-form-page-layout titleKey="DASHBOARD.OCCASIONS.UPDATE_OCCASION" [titleSuffix]="occasionName()">
+    <app-dynamic-form class="flex flex-1 flex-col" [fields]="fields()"
         [initialValues]="initialValues()"
         submitLabel="DASHBOARD.OCCASIONS.UPDATE_OCCASION"
         (submitted)="onOccasionUpdate($event)" >
@@ -24,12 +20,11 @@
         
         </div>
         </app-dynamic-form>
-    </div>
-    
 
     <app-image-preview-modal
+        pageOverlays
         [images]="occasionImages()"
         [isOpen]="showImagePreview()"
         [title]="'DASHBOARD.OCCASIONS.VIEW_OCCASION' | translate"
         (closed)="closeImagePreview()" />
-</div>
+    </app-form-page-layout>

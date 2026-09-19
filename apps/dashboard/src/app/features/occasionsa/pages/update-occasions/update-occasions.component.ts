@@ -1,6 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
 import { DynamicFormField } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
 import { ToastService } from '@org/shared-util-notification';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-
 
 @Component({
   selector: 'app-update-occasions',
-  imports: [DynamicFormComponent, TranslatePipe, LucideAngularModule, ImagePreviewModalComponent],
+  imports: [DynamicFormComponent, FormPageLayoutComponent, TranslatePipe, LucideAngularModule, ImagePreviewModalComponent],
   templateUrl: './update-occasions.component.html'
 })
 export class UpdateOccasionsComponent implements OnInit  {
@@ -25,7 +26,8 @@ export class UpdateOccasionsComponent implements OnInit  {
 
   readonly occasionImage = signal<string | null>(null);
   readonly showImagePreview = signal(false);
-
+  readonly occasionName = signal<string>('');
+  
   readonly occasionImages = computed(() => {
     const image = this.occasionImage();
     return image ? [image] : [];
@@ -85,7 +87,7 @@ export class UpdateOccasionsComponent implements OnInit  {
       next: (response) => {
         const occasion = response.payload.occasion;
         this.occasionImage.set(occasion.image);
-
+         this.occasionName.set(occasion.title)
         this.initialValues.set({
           title: occasion.title
         });

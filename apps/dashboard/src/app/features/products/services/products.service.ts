@@ -74,27 +74,7 @@ export class ProductsService {
    // Temporary: Categories and Occasions API calls will be moved
    // to their dedicated services once implemented.
 
-  // Fetches all available occasions.
-   getOccasions() {
-  const params = new HttpParams()
-    .set('page', 1)
-    .set('limit', 100);
 
-  return this._httpClient.get<any>(
-    `${this._baseUrlConfig.apiUrl}/occasions`,
-    { params }
-  );
-  } 
 
-  // Fetches all available categories.
-  getCategories() {
-  const params = new HttpParams()
-    .set('page', 1)
-    .set('limit', 100);
 
-  return this._httpClient.get<any>(
-    `${this._baseUrlConfig.apiUrl}/categories`,
-    { params }
-  );
-}
 }

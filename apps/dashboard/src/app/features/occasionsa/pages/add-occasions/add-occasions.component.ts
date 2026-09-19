@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { DynamicFormComponent } from '../../../../shared/ui/dynamic-form/components/dynamic-form.component';
+import { FormPageLayoutComponent } from '../../../../shared/ui/form-page-layout/components/form-page-layout.component';
 import { Component, computed, inject,  signal} from '@angular/core';
 import { DynamicFormField, DynamicFormOption } from '../../../../shared/ui/dynamic-form/models/dynamic-form-field.model';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import {  TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { UploadService } from '../../../../shared/services/upload.service';
@@ -11,7 +12,7 @@ import { OccasionsModel } from '../../models/occasions.model';
 
 @Component({
   selector: 'app-add-occasions',
-  imports: [DynamicFormComponent , TranslatePipe],
+  imports: [DynamicFormComponent, FormPageLayoutComponent],
   templateUrl: './add-occasions.component.html'
 })
 export class AddOccasionsComponent {
