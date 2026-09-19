@@ -1,9 +1,9 @@
-<div class="w-full flex flex-col gap-6  p-6 pb-[121px] md:pb-0 rounded-[16px] ">
+<div class="w-full  min-h-[calc(100dvh-155px)] flex flex-col gap-6  p-6  rounded-[16px] ">
     <h1 class="font-inter text-[24px] truncate font-semibold leading-none tracking-normal text-[#27272A] dark:text-white py-2">
         {{ titleKey() | translate: titleParams() }}{{ titleSuffix() ? ' : ' + titleSuffix() : '' }}
     </h1>
-    <div class="w-full bg-white dark:bg-[#1C1C1E] rounded-2xl p-6  ">
-        <div class="w-full xl:w-[70%] min-h-[714px]  flex flex-col gap-[18px] pb-4">
+    <div class="w-full  flex flex-col bg-white dark:bg-[#1C1C1E] rounded-2xl p-4 pb-0 md:p-6 flex-1 min-h-0 md:flex-none ">
+        <div class="w-full xl:w-[70%] flex flex-col flex-1 gap-[18px] pb-4 pb-0 min-h-0">
             <ng-content />
         </div>
     </div>

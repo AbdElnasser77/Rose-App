@@ -1,0 +1,30 @@
+<app-form-page-layout titleKey="DASHBOARD.OCCASIONS.UPDATE_OCCASION" [titleSuffix]="occasionName()">
+    <app-dynamic-form class="flex flex-1 flex-col" [fields]="fields()"
+        [initialValues]="initialValues()"
+        submitLabel="DASHBOARD.OCCASIONS.UPDATE_OCCASION"
+        (submitted)="onOccasionUpdate($event)" >
+
+         <!-- Extra content -->
+        <div class=" flex w-full flex-wrap justify-end gap-3">
+       
+        <button type="button" [disabled]="!occasionImages().length" (click)="openImagePreview()" 
+        class="flex h-[38px] w-fit items-center gap-[6px]
+         rounded-[10px] border border-[#00000014]
+         bg-white dark:bg-[#262626] px-[10px]
+         font-inter text-[14px] font-normal leading-none text-[#155DFC] dark:text-[#60A5FA]
+         transition hover:opacity-90">
+                <lucide-icon [img]="Image" class="h-[18px] w-[18px]" />
+
+                <span>{{ 'DASHBOARD.OCCASIONS.VIEW_OCCASION' | translate }}</span>
+            </button>
+        
+        </div>
+        </app-dynamic-form>
+
+    <app-image-preview-modal
+        pageOverlays
+        [images]="occasionImages()"
+        [isOpen]="showImagePreview()"
+        [title]="'DASHBOARD.OCCASIONS.VIEW_OCCASION' | translate"
+        (closed)="closeImagePreview()" />
+    </app-form-page-layout>

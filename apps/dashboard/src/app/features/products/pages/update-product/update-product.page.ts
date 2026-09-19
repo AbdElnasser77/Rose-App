@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UploadService } from '../../../../shared/services/upload.service';
 import { UpdateProductRequest } from '../../models/update-product-request.model';
 import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-modal/image-preview-modal.component';
+import { OccasionsService } from '../../../occasionsa/services/occasions.service';
+import { CategoriesService } from '../../../categories/services/categories.service';
 
 
 @Component({
@@ -27,6 +29,8 @@ import { ImagePreviewModalComponent } from '../../../../shared/ui/image-preview-
 })
 export class UpdateProductPage implements OnInit  {
   private readonly _productsService = inject(ProductsService);
+  private readonly _occasionsService = inject(OccasionsService);
+  private readonly _categoriesService = inject(CategoriesService);
   private readonly _toastService = inject(ToastService);
   private readonly _translateService = inject(TranslateService);
   private readonly _router = inject(Router);
@@ -194,7 +198,7 @@ export class UpdateProductPage implements OnInit  {
   }
 
   private loadCategories(): void {
-  this._productsService.getCategories().subscribe((response) => {
+  this._categoriesService.getCategories({ page: 1, limit: 100 }).subscribe((response) => {
     this.categoryOptions.set(
       response.payload.data.map((category: any) => ({
         label: category.title,
@@ -205,7 +209,7 @@ export class UpdateProductPage implements OnInit  {
 }
 
 private loadOccasions(): void {
-  this._productsService.getOccasions().subscribe((response) => {
+  this._occasionsService.getOccasions({ page: 1, limit: 100 }).subscribe((response) => {
     this.occasionOptions.set(
       response.payload.data.map((occasion: any) => ({
         label: occasion.title,
@@ -236,6 +240,7 @@ private loadProduct(id: string): void {
         occasion: product.occasions[0]?.occasionId
       });
       
+
     },
     });
   }

@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-4 bg-white dark:bg-[#1C1C1E] p-4 md:p-6 pb-[71px]">
+<div class="flex  items-center justify-between">
+  
+<h1
+  class="font-inter text-[24px] font-semibold leading-none tracking-normal text-[#27272A] dark:text-white">
+  {{ 'DASHBOARD.OCCASIONS.TITLE' | translate }}
+</h1>
+ <lib-button   class="text-white dark:text-zinc-800 cursor-pointer" (clicked)="onAddClicked()">
+  <lucide-icon leftIcon [img]="Plus"></lucide-icon>
+  <span class="hidden md:block">
+    {{ 'DASHBOARD.OCCASIONS.ADD_NEW_OCCASION' | translate }}
+  </span>
+  
+</lib-button>
+        
+</div>
+
+<app-dynamic-table
+  [columns]="columns"
+  [data]="occasions()"
+  [actions]="actions"
+  (searchChange)="onSearch($event)"
+  [page]="page()"
+  [totalPages]="totalPages()"
+  (pageChange)="onPageChange($event)"
+  >
+</app-dynamic-table>
+@if (occasionToDelete(); as occasion) {
+  <app-confirm-dialog
+    [visible]="true"
+    titleKey="DASHBOARD.OCCASIONS.DELETE_TITLE"
+    messageKey="DASHBOARD.OCCASIONS.DELETE_WARNING"
+    [messageParams]="{ name: occasion.title }"
+    (confirmed)="confirmDelete()"
+    (cancelled)="closeDeleteModal()" />
+}
+</div>

@@ -10,13 +10,13 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ToastService } from '@org/shared-util-notification';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonComponent } from '@org/ui';
-import { DeleteConfirmationModalComponent } from '../../../../shared/ui/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ConfirmDialogComponent } from '../../../../shared/ui/confirm-dialog/components/confirm-dialog.component';
 import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent, DeleteConfirmationModalComponent],
+  imports: [DynamicTableComponent ,LucideAngularModule ,TranslatePipe ,ButtonComponent, ConfirmDialogComponent],
   host: { class: 'flex flex-1 flex-col min-h-0' },
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
@@ -38,6 +38,7 @@ export class ProductsPage implements OnInit , AfterViewInit{
   products = signal<ProductModel[]>([]);
   page = signal(1);
   totalPages = signal(1);
+  readonly deleting = signal(false);
   readonly productToDelete = signal<ProductModel | null>(null);
 
   queryParams: ProductQueryParams = {
@@ -54,15 +55,15 @@ export class ProductsPage implements OnInit , AfterViewInit{
 
   actions :TableAction<ProductModel>[] = [
   { label: 'DASHBOARD.PRODUCTS.ACTIONS.EDIT',icon :Pencil, action: (product) => this.editProduct(product),},
-  { label: 'DASHBOARD.PRODUCTS.ACTIONS.DELETE',icon:Trash, action: (product) => this.deleteProduct(product),},
+  { label: 'DASHBOARD.PRODUCTS.ACTIONS.DELETE',icon:Trash, action: (product) => this.askToDelete(product),},
   ];
    ngOnInit(): void {
-    this.loadProducts();
+    this.loadProducts(false);
     this.setupSearch();
    }
 
-  loadProducts(): void {
-  this._productsService.getProducts(this.queryParams).subscribe({
+  loadProducts(skipLoader= true): void {
+  this._productsService.getProducts(this.queryParams, skipLoader).subscribe({
     next: (response) => {
       this.products.set(response.payload.data) ;
        this.totalPages.set(response.payload.metadata.totalPages);
@@ -86,8 +87,16 @@ export class ProductsPage implements OnInit , AfterViewInit{
   );
   }
 
-  deleteProduct(product: ProductModel): void {
+  askToDelete(product: ProductModel): void {
     this.productToDelete.set(product);
+  }
+
+  cancelDelete(): void {
+    if (this.deleting()) {
+      return;
+    }
+
+    this.productToDelete.set(null);
   }
 
   confirmDelete(): void {
@@ -97,20 +106,23 @@ export class ProductsPage implements OnInit , AfterViewInit{
       return;
     }
 
-    this._productsService.deleteProduct(product.id).subscribe({
-    next: () => {
-      this._toastService.show(
-      this._translateService.instant('DASHBOARD.PRODUCTS.DELETE_SUCCESS'),
-      'success'
-    );
-      this.loadProducts();
-      this.productToDelete.set(null);
-    },
-  });
-  }
+    this.deleting.set(true);
 
-  closeDeleteModal(): void {
-    this.productToDelete.set(null);
+    this._productsService.deleteProduct(product.id).subscribe({
+      next: () => {
+        this.deleting.set(false);
+        this.productToDelete.set(null);
+        this._toastService.show(
+          this._translateService.instant('DASHBOARD.PRODUCTS.DELETE_SUCCESS'),
+          'success'
+        );
+        this.loadProducts();
+      },
+      error: () => {
+        this.deleting.set(false);
+        this.productToDelete.set(null);
+      },
+    });
   }
   private setupSearch(): void {
   this._searchSubject
@@ -126,7 +138,7 @@ export class ProductsPage implements OnInit , AfterViewInit{
 
         this.page.set(1);
 
-        return this._productsService.getProducts(this.queryParams);
+        return this._productsService.getProducts(this.queryParams, true);
       }),
       takeUntilDestroyed(this._destroyRef)
     )

@@ -1,0 +1,6 @@
+<app-form-page-layout titleKey="DASHBOARD.OCCASIONS.ADD_NEW_OCCASION">
+  <app-dynamic-form class="flex flex-1 flex-col"
+    [fields]="fields()"
+    submitLabel="DASHBOARD.OCCASIONS.ADD_OCCASION"
+    (submitted)="onOccasionsSubmit($event)" />
+</app-form-page-layout>

@@ -618,6 +618,8 @@
       "SLIDE": "الصورة {{current}}"
     },
     "PRODUCTS": {
+    "DELETE_TITLE": "حذف المنتج",
+    "DELETE_WARNING": "لا يمكن التراجع عن حذف “{{name}}”.",
     "DELETE_SUCCESS": "تم حذف المنتج بنجاح",
     "CREATE_SUCCESS": "تم إنشاء المنتج بنجاح",
     "UPDATE_SUCCESS" :"تم تحديث المنتج بنجاح",
@@ -661,7 +663,28 @@
     }
 
     },
-  
+    "OCCASIONS": {
+      "TITLE": "المناسبات",
+      "DELETE_TITLE": "حذف المناسبة",
+      "DELETE_WARNING": "لا يمكن التراجع عن حذف “{{name}}”.",
+      "DELETE_SUCCESS": "تم حذف المناسبة بنجاح",
+      "CREATE_SUCCESS": "تم إنشاء المناسبة بنجاح",
+      "UPDATE_SUCCESS": "تم تعديل المناسبة بنجاح",
+      "ADD_NEW_OCCASION": "إضافة مناسبة جديدة",
+      "ADD_OCCASION": "إضافة مناسبه",
+      "ENTER_TITLE": "أدخل اسم المناسبة",
+      "IMAGE": "الصورة المناسبه",
+      "UPDATE_OCCASION": "تعديل المناسبه",
+      "VIEW_OCCASION": "عرض صوره المناسبه",
+      "ACTIONS": {
+        "EDIT": "تعديل",
+        "DELETE": "حذف"
+      },
+      "TABLE": {
+        "NAME": "الاسم",
+        "PRODUCTS": "المنتجات"
+      }
+    },
    "TABLE": {
     "SEARCH": "بحث...",
     "NO_DATA": "لا توجد بيانات",
