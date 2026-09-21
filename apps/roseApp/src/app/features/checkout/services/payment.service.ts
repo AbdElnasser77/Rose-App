@@ -25,7 +25,7 @@ export class PaymentService {
         `${this._baseUrlConfig.apiUrl}/payments/checkout-session`,
         {
           params : {
-            sessionId: sessionId
+            session_id: sessionId
           } 
         }
         );

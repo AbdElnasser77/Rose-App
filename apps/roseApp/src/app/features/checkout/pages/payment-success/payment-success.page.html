@@ -19,10 +19,11 @@
       <p class="font-sarabun text-sm text-[#71717A] dark:text-[#A1A1AA]">
         {{ 'PAYMENT.SUCCESS.AMOUNT_PAID' | translate }}
       </p>
-
+      @if(amountTotal()){
       <p class="mt-1 font-sarabun text-2xl font-bold text-[#27272A] dark:text-white">
-        {{ amountTotal }} {{ 'COMMON.EGP' | translate }}
+        {{ amountTotal() }} {{ 'COMMON.EGP' | translate }}
       </p>
+      }
     </div>
 
     <div class="mt-8 flex w-full flex-col gap-3 sm:flex-row">

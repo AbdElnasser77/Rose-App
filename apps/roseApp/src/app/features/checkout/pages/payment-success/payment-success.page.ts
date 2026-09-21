@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CircleCheck, LucideAngularModule } from 'lucide-angular';
@@ -17,7 +17,7 @@ export class PaymentSuccessPage  implements OnInit{
   private readonly destroyRef = inject(DestroyRef);
   private readonly _route = inject(ActivatedRoute);
   readonly CircleCheck = CircleCheck ;
-  amountTotal!: number;
+  amountTotal=signal<number | null>(null);
   
   
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class PaymentSuccessPage  implements OnInit{
   }
 
   viewOrders(): void {
-    this.router.navigate(['/order']);
+    this.router.navigate(['/orders']);
   }
    
 
@@ -54,7 +54,7 @@ export class PaymentSuccessPage  implements OnInit{
           return;
         }
 
-        this.amountTotal = response.payload.amountTotal;
+        this.amountTotal.set(response.payload.amountTotal);
       },
       error: () => {
         this.router.navigate(['/checkout/cancel']);

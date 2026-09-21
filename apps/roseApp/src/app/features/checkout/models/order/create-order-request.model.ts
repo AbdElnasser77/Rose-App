@@ -5,4 +5,5 @@ export interface CreateOrderRequestModel {
   paymentMethod: PaymentMethodType;
   couponCode?: string;
   notes?: string;
+  successUrl?: string;
 }

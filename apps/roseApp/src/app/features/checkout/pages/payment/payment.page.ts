@@ -224,8 +224,16 @@ export class PaymentPage implements OnInit{
     // Stripe payment
     private startStripePayment(body: CreateOrderRequestModel){
       this.isProcessingPayment.set(true);
+      
+      //  Build the success URL dynamically.
+      const orderBody: CreateOrderRequestModel = {
 
-      this._orderService.createOrder(body).pipe(
+      ...body,
+
+      successUrl:
+        `${window.location.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
+    };
+      this._orderService.createOrder(orderBody).pipe(
        switchMap(response =>{
         const orderId = response.payload.order.id;
         return this._paymentService.createCheckoutSession(orderId);

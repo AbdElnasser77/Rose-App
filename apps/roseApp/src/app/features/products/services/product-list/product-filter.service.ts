@@ -19,59 +19,7 @@ export class ProductFilterService {
 
 
  
- // Computed state.
 
- readonly filteredProducts = computed(()=>{
-  let products=this.allProducts();
-
-  const selectedCategories = this.selectedCategoryIds();
-  const selectedOccasions = this.selectedOccasionIds();
-  const rating = this.rating();
-  const from = this.priceFrom();
-  const to = this.priceTo();
-
-  if(selectedCategories.length > 0){ 
-    products = products.filter(product =>
-      selectedCategories.includes(product.categoryId)
-    );
-  }
-   
-  if(selectedOccasions.length >0){  
-    products = products.filter(product=>
-      product.occasions.some(occasion=>
-        selectedOccasions.includes(occasion.id)
-      )
-    );
-  }
-
-  
-  if( rating>0){   
-    products = products.filter(product =>
-      product.rating >= rating
-    );
-  }
- 
-  
-
-   if (from !== null || to !== null) {
-  products = products.filter(product => {
-    const price = getCurrentPrice(product);
-
-    if (from !== null && price < from) {
-      return false;
-    }
-
-    if (to !== null && price > to) {
-      return false;
-    }
-
-    return true;
-  });
-  }
-
-
-  return products;
- });
 
 
 

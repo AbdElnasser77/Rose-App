@@ -15,7 +15,7 @@
   <div class="fixed inset-0 z-50 lg:hidden">
     <app-products-filter
       [isDrawer]="true"
-      (close)="isMobileFilterOpen.set(false)">
+      (applyFilter)="isMobileFilterOpen.set(false)">
     </app-products-filter>
   </div>
 }
@@ -27,7 +27,7 @@
 
     <section class="flex-1 mt-[68px] ">
       <app-products-grid 
-        [products]="_productFilterService.filteredProducts()"
+        [products]="products()"
         [loading]="loading()"
         [wishlistedIds]="wishlistedIds()"
         (cardDetails)="onDetails($event)"

@@ -179,7 +179,7 @@ export class RelatedProductsSectionComponent implements OnInit {
     const rtl=this.isRtl();
     return{
        slidesPerView: 'auto',
-      spaceBetween: 16,
+      spaceBetween: 11,
     watchSlidesProgress: true,
     navigation: {
       nextEl: rtl ? '.related-products-prev' : '.related-products-next',
