@@ -39,7 +39,7 @@ export class ProductsFilterComponent  {
   protected readonly _productFilterService = inject(ProductFilterService);
   
   readonly isDrawer = input(false);
-  readonly close = output<void>();
+  readonly applyFilter = output<void>();
 
   // Icons
   readonly X = X;

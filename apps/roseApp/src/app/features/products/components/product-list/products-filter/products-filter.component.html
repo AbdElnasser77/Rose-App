@@ -21,7 +21,7 @@
       </span>
       <button 
         type="button"
-        (click)="close.emit()" 
+        (click)="applyFilter.emit()" 
         class="text-zinc-550 dark:text-zinc-400 p-1 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
       >
         <lucide-icon [img]="X" class="w-6 h-6" />
@@ -89,7 +89,7 @@
 
       <div class="flex-1">
       <lib-button  size="full" class="text-white"
-        (click)="close.emit()"
+        (clicked)="applyFilter.emit()"
       >
        {{ 'FILTER.APPLY' | translate }}
       </lib-button>

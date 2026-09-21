@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnInit, signal, untracked } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
 import { ProductsService } from '../../../../core/services/products.service';
 import { ProductsGridComponent } from '../../components/product-list/products-grid/products-grid.component';
@@ -13,6 +13,7 @@ import { LucideAngularModule ,SlidersHorizontal} from 'lucide-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CartStore } from '../../../cart/store/cart.store';
 import { PaginationComponent } from '@org/ui';
+import { ProductQueryParams } from '../../../../shared/models/products-list-response.model';
 
 
 @Component({
@@ -44,18 +45,56 @@ export class ProductsPage implements OnInit {
   page = signal<number>(1);
   totalPages = signal<number>(1);
   wishlistedIds =  this._wishlistStore.wishlistedIds;
-
+  private isFirstFilterEffect = true;
+  
   ngOnInit(): void {
-    this.loadProducts();
+  this.loadProducts(false);
+}
+
+  readonly filterEffect =effect(() => {
+    this._productFilterService.selectedCategoryIds();
+    this._productFilterService.selectedOccasionIds();
+    this._productFilterService.rating();
+    this._productFilterService.priceFrom();
+    this._productFilterService.priceTo();
+
+      if (this.isFirstFilterEffect) {
+        this.isFirstFilterEffect = false;
+        return;
+      }  
+
+    this.page.set(1);
+    untracked(() => {
+    this.loadProducts(true);
+  });
+  });
+  
+
+  // Build the request params for fetching products based on the current filter state.
+  private getProductQueryParams(): ProductQueryParams {
+  const filter = this._productFilterService;
+
+  return {
+    page: this.page(),
+    limit: this.limit,
+
+    categoryId: filter.selectedCategoryIds()[0],
+    occasionId: filter.selectedOccasionIds()[0],
+
+    minPrice: filter.priceFrom() ?? undefined,
+    maxPrice: filter.priceTo() ?? undefined,
+
+    minRating: filter.rating() || undefined,
+  };
   }
 
-  loadProducts(): void {
+  loadProducts(skipLoader = false): void {
     this.loading.set(true);
     
-    this.productsService.getProducts({ page: this.page(), limit: this.limit }) .pipe(takeUntilDestroyed(this.destroyRef))
+    this.productsService.getProducts(this.getProductQueryParams(),{skipLoader}) .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe({
       next: (res) => {
-        this._productFilterService.setProducts(res.payload.data);
+        this.products.set(res.payload.data);
         this.page.set(res.payload.metadata.page);
         this.totalPages.set(res.payload.metadata.totalPages);
         this.loading.set(false);
@@ -68,7 +107,7 @@ export class ProductsPage implements OnInit {
 
   onPageChange(page: number): void {
     this.page.set(page);
-    this.loadProducts();
+    this.loadProducts(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
